@@ -1,10 +1,10 @@
 export const efficiencyServices = [
-  { id: 1, title: 'High-Efficiency AC Units', desc: 'SEER2 16–26 systems that cut cooling costs by 30–50% compared to older units.', icon: '🌬️' },
-  { id: 2, title: 'Heat Pump Systems', desc: 'All-electric heat pumps for year-round efficiency — heating and cooling in one system.', icon: '🔄' },
-  { id: 3, title: 'Smart Thermostats', desc: 'AI-powered thermostats that learn your schedule and optimize energy use automatically.', icon: '📱' },
-  { id: 4, title: 'Duct Sealing & Optimization', desc: 'Seal leaky ducts that waste up to 30% of conditioned air. Pressure testing included.', icon: '🔗' },
-  { id: 5, title: 'Air Sealing & Insulation', desc: 'Reduce thermal load with strategic air sealing and attic insulation upgrades.', icon: '🏠' },
-  { id: 6, title: 'Eco Maintenance Plans', desc: 'Quarterly tune-ups optimized for peak efficiency — clean coils, proper charge, airflow check.', icon: '📋' },
+  { id: 1, title: 'High-Efficiency AC Units', desc: 'SEER2 16–26 systems that cut cooling costs by 30–50% compared to older units.', icon: 'wind' },
+  { id: 2, title: 'Heat Pump Systems', desc: 'All-electric heat pumps for year-round efficiency — heating and cooling in one system.', icon: 'sync' },
+  { id: 3, title: 'Smart Thermostats', desc: 'AI-powered thermostats that learn your schedule and optimize energy use automatically.', icon: 'smartphone' },
+  { id: 4, title: 'Duct Sealing & Optimization', desc: 'Seal leaky ducts that waste up to 30% of conditioned air. Pressure testing included.', icon: 'duct' },
+  { id: 5, title: 'Air Sealing & Insulation', desc: 'Reduce thermal load with strategic air sealing and attic insulation upgrades.', icon: 'home' },
+  { id: 6, title: 'Eco Maintenance Plans', desc: 'Quarterly tune-ups optimized for peak efficiency — clean coils, proper charge, airflow check.', icon: 'clipboard' },
 ];
 
 export const upgradeSteps = [

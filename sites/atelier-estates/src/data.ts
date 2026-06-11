@@ -66,10 +66,10 @@ export const featuredListings: Listing[] = [
 ];
 
 export const advisoryServices: AdvisoryService[] = [
-  { title: 'Private Acquisitions', description: 'Discreet purchasing of elite properties before they reach public listing. Our network of off-market opportunities spans six continents.', icon: '🏛️' },
-  { title: 'Portfolio Sales', description: 'Strategic marketing of high-value estates through curated, invitation-only showcases to qualified buyers worldwide.', icon: '📜' },
-  { title: 'Off-Market Access', description: 'A database of premium properties that never appear on public platforms — available exclusively through our private network.', icon: '🔑' },
-  { title: 'Relocation Concierge', description: 'White-glove transition services for UHNW individuals and families, from visa coordination to household staffing.', icon: '✈️' },
+  { title: 'Private Acquisitions', description: 'Discreet purchasing of elite properties before they reach public listing. Our network of off-market opportunities spans six continents.', icon: 'building' },
+  { title: 'Portfolio Sales', description: 'Strategic marketing of high-value estates through curated, invitation-only showcases to qualified buyers worldwide.', icon: 'home' },
+  { title: 'Off-Market Access', description: 'A database of premium properties that never appear on public platforms — available exclusively through our private network.', icon: 'star' },
+  { title: 'Relocation Concierge', description: 'White-glove transition services for UHNW individuals and families, from visa coordination to household staffing.', icon: 'location' },
 ];
 
 export const neighborhoods: Neighborhood[] = [
@@ -80,10 +80,10 @@ export const neighborhoods: Neighborhood[] = [
 ];
 
 export const sellingServices: AdvisoryService[] = [
-  { title: 'Curated Staging', description: 'Award-winning interior design preparation that positions your property to command the highest possible offer.', icon: '🎨' },
-  { title: 'Strategic Pricing', description: 'Data-driven valuation leveraging proprietary market intelligence, comparable sales, and future appreciation modeling.', icon: '📊' },
-  { title: 'Private Marketing', description: 'Targeted outreach to a curated database of qualified buyers through confidential channels — no public listing required.', icon: '📋' },
-  { title: 'Elite Negotiation', description: 'Decades of experience structuring complex, multi-party transactions with absolute discretion and precision.', icon: '🤝' },
+  { title: 'Curated Staging', description: 'Award-winning interior design preparation that positions your property to command the highest possible offer.', icon: 'chart' },
+  { title: 'Strategic Pricing', description: 'Data-driven valuation leveraging proprietary market intelligence, comparable sales, and future appreciation modeling.', icon: 'chart' },
+  { title: 'Private Marketing', description: 'Targeted outreach to a curated database of qualified buyers through confidential channels — no public listing required.', icon: 'check' },
+  { title: 'Elite Negotiation', description: 'Decades of experience structuring complex, multi-party transactions with absolute discretion and precision.', icon: 'phone' },
 ];
 
 export const marketStats: MarketStat[] = [

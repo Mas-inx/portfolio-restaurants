@@ -51,7 +51,14 @@ function Nav() {
 function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <div className="absolute inset-0 bg-gradient-to-br from-warm-white via-warm-white to-sage-green/10" />
+      <div className="absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1559416523-140ddc3d238c?w=1600&q=85"
+          alt=""
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-warm-white/80" />
+      </div>
       <div className="absolute inset-0 opacity-[0.03]"
         style={{ backgroundImage: 'radial-gradient(circle at 30% 60%, #7BA88F 0%, transparent 50%), radial-gradient(circle at 70% 40%, #89B8D4 0%, transparent 50%)' }}
       />
@@ -121,6 +128,9 @@ function CareServicesSection() {
             custom={i}
             className="care-card p-6 md:p-8"
           >
+            <div className="aspect-[16/10] rounded-xl overflow-hidden mb-4">
+              <img src={s.image} alt={s.name} className="w-full h-full object-cover" loading="lazy" />
+            </div>
             <div className="w-10 h-10 rounded-full bg-sage-green/10 flex items-center justify-center mb-4">
               <svg className="w-5 h-5 text-sage-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />

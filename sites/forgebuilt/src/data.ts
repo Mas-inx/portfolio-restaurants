@@ -45,37 +45,37 @@ export const services: Service[] = [
     title: 'Commercial Fit-Outs',
     description:
       'Full interior build-outs for offices, retail, restaurants, and mixed-use commercial spaces. We manage every trade from framing to finish.',
-    icon: '🏗️',
+    icon: 'building',
   },
   {
     title: 'Residential Construction',
     description:
       'Custom homes and luxury residences built from foundation to roof. Structural integrity paired with precise architectural execution.',
-    icon: '🏠',
+    icon: 'home',
   },
   {
     title: 'Renovations & Retrofits',
     description:
       'Structural renovations, adaptive reuse, and seismic retrofits. We bring older buildings up to modern standards without losing their character.',
-    icon: '🔄',
+    icon: 'hammer-wrench',
   },
   {
     title: 'Structural Works',
     description:
       'Steel erection, concrete superstructures, foundation systems, and load-bearing modifications. Engineered for safety and longevity.',
-    icon: '🔩',
+    icon: 'helmet',
   },
   {
     title: 'Project Management',
     description:
       'End-to-end construction management: scheduling, budgeting, subcontractor coordination, and owner representation from permit to punch list.',
-    icon: '📋',
+    icon: 'clipboard',
   },
   {
     title: 'Permitting & Code',
     description:
       'Navigating municipal permitting, zoning approvals, and building code compliance. We handle the paperwork so your project stays on track.',
-    icon: '✅',
+    icon: 'checkmark',
   },
 ]
 
@@ -190,25 +190,25 @@ export const siteManagementPillars = [
     title: 'Safety First',
     description:
       'Every job site follows OSHA-compliant safety protocols with daily hazard assessments, weekly safety meetings, and a zero-incident culture.',
-    icon: '🛡️',
+    icon: 'shield',
   },
   {
     title: 'Schedule Control',
     description:
       'We use critical-path scheduling with weekly look-ahead updates. Subcontractors are held to binding milestone dates.',
-    icon: '📅',
+    icon: 'calendar',
   },
   {
     title: 'Crew Coordination',
     description:
       'Dedicated site superintendents manage trade sequencing, material deliveries, and daily crew assignments to eliminate downtime.',
-    icon: '👷',
+    icon: 'helmet',
   },
   {
     title: 'Material Tracking',
     description:
       'Every material is logged from order to installation. We prevent delays with proactive reordering and on-site inventory management.',
-    icon: '📦',
+    icon: 'clipboard',
   },
 ]
 
@@ -216,25 +216,25 @@ export const trustPoints = [
   {
     title: 'Fully Licensed & Bonded',
     description: 'Licensed in Illinois, Indiana, and Wisconsin. $10M aggregate liability coverage.',
-    icon: '📜',
+    icon: 'shield',
   },
   {
     title: 'Documented & Transparent',
     description:
       'Daily progress photos, weekly reports, and a shared project dashboard that owners and architects can access anytime.',
-    icon: '📸',
+    icon: 'checkmark',
   },
   {
     title: 'Subcontractor Vetted',
     description:
       'Every trade partner carries their own insurance and bonding. We pre-qualify all subcontractors before bid award.',
-    icon: '✓',
+    icon: 'checkmark',
   },
   {
     title: 'Warranty Backed',
     description:
       'All work carries a minimum 2-year workmanship warranty. Structural work carries extended coverage terms.',
-    icon: '🔒',
+    icon: 'shield',
   },
 ]
 

@@ -10,6 +10,108 @@ import {
   type Listing,
 } from './data';
 
+/* ── SVG Icons ── */
+function IconStar({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+    </svg>
+  );
+}
+function IconPhone({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  );
+}
+function IconMail({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+      <polyline points="22,6 12,13 2,6" />
+    </svg>
+  );
+}
+function IconLocation({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}
+function IconCheck({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  );
+}
+function IconArrowDown({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="12" y1="5" x2="12" y2="19" />
+      <polyline points="19 12 12 19 5 12" />
+    </svg>
+  );
+}
+function IconQuote({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
+      <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" />
+    </svg>
+  );
+}
+function IconBuilding({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="2" width="16" height="20" rx="2" ry="2" />
+      <line x1="9" y1="6" x2="9" y2="6.01" />
+      <line x1="15" y1="6" x2="15" y2="6.01" />
+      <line x1="9" y1="10" x2="9" y2="10.01" />
+      <line x1="15" y1="10" x2="15" y2="10.01" />
+      <line x1="9" y1="14" x2="9" y2="14.01" />
+      <line x1="15" y1="14" x2="15" y2="14.01" />
+      <line x1="9" y1="18" x2="15" y2="18" />
+    </svg>
+  );
+}
+function IconHome({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      <polyline points="9 22 9 12 15 12 15 22" />
+    </svg>
+  );
+}
+function IconChart({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="18" y1="20" x2="18" y2="10" />
+      <line x1="12" y1="20" x2="12" y2="4" />
+      <line x1="6" y1="20" x2="6" y2="14" />
+    </svg>
+  );
+}
+
+function getIcon(name: string, className = 'w-7 h-7'): React.ReactNode {
+  switch (name) {
+    case 'star': return <IconStar className={className} />;
+    case 'phone': return <IconPhone className={className} />;
+    case 'mail': return <IconMail className={className} />;
+    case 'location': return <IconLocation className={className} />;
+    case 'check': return <IconCheck className={className} />;
+    case 'arrow': return <IconArrowDown className={className} />;
+    case 'quote': return <IconQuote className={className} />;
+    case 'building': return <IconBuilding className={className} />;
+    case 'home': return <IconHome className={className} />;
+    case 'chart': return <IconChart className={className} />;
+    default: return <IconStar className={className} />;
+  }
+}
+
 /* ── Reusable Section Wrapper ── */
 function Section({
   children,
@@ -226,7 +328,7 @@ function Hero() {
           transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
           className="text-white/40 text-2xl"
         >
-          ↓
+          <IconArrowDown className="w-6 h-6" />
         </motion.div>
       </div>
     </section>
@@ -272,7 +374,7 @@ function ServiceCard({
 }) {
   return (
     <FadeIn delay={index * 0.1} className="group border border-warm-gray-300/40 p-8 hover:border-champagne transition-colors duration-300">
-      <span className="text-3xl">{service.icon}</span>
+      <span className="text-3xl">{getIcon(service.icon)}</span>
       <h3 className="font-serif-display text-xl mt-4 text-jet-black">{service.title}</h3>
       <p className="text-warm-gray-500 text-sm mt-3 leading-relaxed">{service.description}</p>
     </FadeIn>
@@ -338,7 +440,7 @@ function TestimonialCard({
   return (
     <FadeIn delay={index * 0.15}>
       <div className="p-8 md:p-10 border border-warm-gray-300/40">
-        <span className="font-serif-display text-6xl leading-none text-champagne">"</span>
+        <IconQuote className="w-8 h-8 text-champagne" />
         <p className="font-serif-display text-lg md:text-xl text-jet-black mt-2 leading-relaxed italic">
           {item.quote}
         </p>

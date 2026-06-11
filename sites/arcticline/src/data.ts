@@ -33,5 +33,7 @@ export const serviceAreas = [
   'Westminster', 'Thornton', 'Centennial', 'Highlands Ranch', 'Littleton',
 ];
 
+export const heroImage = 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=1600&q=85';
+
 const data = { services, maintenancePlans, replacementSteps, whyChooseUs, serviceAreas };
 export default data;

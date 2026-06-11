@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { conditions, recoveryStages, programs, therapists, journeySteps, progressMetrics } from './data';
+import { conditions, recoveryStages, programs, therapists, journeySteps, galleryImages, progressMetrics } from './data';
 
 const easeOut = [0.25, 0.1, 0.25, 1] as [number, number, number, number];
 
@@ -71,7 +71,14 @@ function Nav() {
 function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <div className="absolute inset-0 bg-gradient-to-br from-off-white via-off-white to-off-white" />
+      <div className="absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1600&q=85"
+          alt=""
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-off-white/80" />
+      </div>
       <div className="absolute inset-0 opacity-[0.03]"
         style={{ backgroundImage: 'radial-gradient(circle at 25% 50%, #1E88E5 0%, transparent 50%), radial-gradient(circle at 75% 50%, #1E88E5 0%, transparent 50%)' }}
       />
@@ -359,6 +366,31 @@ function PatientJourney() {
   );
 }
 
+function GallerySection() {
+  return (
+    <section className="py-24 md:py-32 px-6 bg-white">
+      <div className="max-w-6xl mx-auto">
+        <SectionHeader label="Our Facility" title="Where recovery happens." subtitle="State-of-the-art equipment and a welcoming environment designed for healing." />
+        <div className="grid md:grid-cols-2 gap-6">
+          {galleryImages.map((img, i) => (
+            <motion.div
+              key={img.src}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              custom={i}
+              className="rounded-2xl overflow-hidden shadow-md"
+            >
+              <img src={img.src} alt={img.alt} className="w-full h-72 md:h-96 object-cover" loading="lazy" />
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Footer() {
   return (
     <footer id="contact" className="py-12 px-6 bg-charcoal text-off-white">
@@ -397,6 +429,7 @@ export default function App() {
       <ProgressTracking />
       <TherapistsSection />
       <PatientJourney />
+      <GallerySection />
       <Footer />
     </>
   );

@@ -14,6 +14,161 @@ import {
   type PatientExperienceItem,
 } from './data'
 
+/* ─── SVG Icon Components ─── */
+function IconStethoscope({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 8a6 6 0 016-6 6 6 0 016 6" />
+      <path d="M16 8v2a4 4 0 01-8 0V8" />
+      <path d="M8 19a5 5 0 0010 0" />
+      <circle cx="19" cy="16" r="2" />
+    </svg>
+  );
+}
+function IconShield({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    </svg>
+  );
+}
+function IconClipboard({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" />
+      <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+    </svg>
+  );
+}
+function IconBaby({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="9" r="5" />
+      <path d="M12 14c-4 0-6 2-8 4" />
+      <path d="M9 7a1 1 0 012 0v1a1 1 0 01-2 0V7z" />
+      <path d="M14 8a1 1 0 00-2 0v1a1 1 0 002 0V8z" />
+    </svg>
+  );
+}
+function IconFlower({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 1v4" />
+      <path d="M12 19v4" />
+      <path d="M4.22 4.22l2.83 2.83" />
+      <path d="M16.95 16.95l2.83 2.83" />
+      <path d="M1 12h4" />
+      <path d="M19 12h4" />
+      <path d="M4.22 19.78l2.83-2.83" />
+      <path d="M16.95 7.05l2.83-2.83" />
+    </svg>
+  );
+}
+function IconMicroscope({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6 18h8" />
+      <path d="M3 22h18" />
+      <path d="M14 22a7 7 0 100-14h-1" />
+      <path d="M9 14h2" />
+      <path d="M9 12h2" />
+      <path d="M7 2h6a2 2 0 012 2v2a2 2 0 01-2 2H7a2 2 0 01-2-2V4a2 2 0 012-2z" />
+    </svg>
+  );
+}
+function IconPhone({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+      <path d="M12 18h.01" />
+    </svg>
+  );
+}
+function IconBell({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
+      <path d="M13.73 21a2 2 0 01-3.46 0" />
+    </svg>
+  );
+}
+function IconChat({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+    </svg>
+  );
+}
+function IconLock({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+      <path d="M7 11V7a5 5 0 0110 0v4" />
+    </svg>
+  );
+}
+function IconMapPin({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}
+function IconMail({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+      <polyline points="22,6 12,13 2,6" />
+    </svg>
+  );
+}
+function IconPhoneCall({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+    </svg>
+  );
+}
+function IconParty({ className = "w-8 h-8" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+      <path d="M9 9h.01" />
+      <path d="M15 9h.01" />
+    </svg>
+  );
+}
+function IconHeart({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+    </svg>
+  );
+}
+/* ─── Emoji to SVG mapper ─── */
+function iconFromId(id: string, _className = "w-7 h-7"): React.ReactNode {
+  const cls = "w-7 h-7 text-[#2D7D6A]";
+  switch (id) {
+    case "stethoscope": return <IconStethoscope className={cls} />;
+    case "shield": return <IconShield className={cls} />;
+    case "clipboard": return <IconClipboard className={cls} />;
+    case "baby": return <IconBaby className={cls} />;
+    case "flower": return <IconFlower className={cls} />;
+    case "microscope": return <IconMicroscope className={cls} />;
+    case "phone": return <IconPhone className={cls} />;
+    case "bell": return <IconBell className={cls} />;
+    case "chat": return <IconChat className={cls} />;
+    case "lock": return <IconLock className={cls} />;
+    case "map-pin": return <IconMapPin className="w-6 h-6 text-[#2D7D6A]" />;
+    default: return <IconHeart className={cls} />;
+  }
+}
+
+
+
 /* ------------------------------------------------------------------ */
 /*  Animation variants                                                */
 /* ------------------------------------------------------------------ */
@@ -284,7 +439,7 @@ function Services() {
             whileHover={{ y: -4 }}
             className="group rounded-2xl border border-[#E5E7EB] bg-white p-6 transition-all hover:border-[#2D7D6A]/30 hover:shadow-lg"
           >
-            <span className="text-3xl">{s.icon}</span>
+            <span className="block text-center">{iconFromId(s.icon)}</span>
             <h3 className="mt-4 text-lg font-semibold text-[#2D2D2D]">{s.title}</h3>
             <p className="mt-2 text-sm leading-relaxed text-[#6B7280]">{s.description}</p>
           </motion.div>
@@ -464,7 +619,7 @@ function PatientExperience() {
             custom={i}
             className="rounded-2xl border border-[#E5E7EB] bg-white p-6 transition-all hover:border-[#2D7D6A]/20 hover:shadow-md"
           >
-            <span className="text-3xl">{item.icon}</span>
+            <span className="block text-center">{iconFromId(item.icon)}</span>
             <h3 className="mt-4 text-base font-semibold text-[#2D2D2D]">{item.title}</h3>
             <p className="mt-2 text-sm leading-relaxed text-[#6B7280]">{item.description}</p>
           </motion.div>
@@ -494,7 +649,7 @@ function LocationHours() {
         >
           <div className="flex h-full items-center justify-center">
             <div className="text-center">
-              <span className="text-4xl">📍</span>
+              <IconMapPin className="w-8 h-8 text-[#2D7D6A] mx-auto mb-2" />
               <p className="mt-3 text-sm font-medium text-[#2D2D2D]">{siteInfo.address}</p>
               <p className="mt-1 text-xs text-[#6B7280]">Free parking available behind the building</p>
             </div>
@@ -515,8 +670,14 @@ function LocationHours() {
             </div>
           ))}
           <div className="mt-4">
-            <p className="text-sm font-medium text-[#2D7D6A]">✉ {siteInfo.email}</p>
-            <p className="mt-1 text-sm font-medium text-[#2D7D6A]">📞 {siteInfo.phone}</p>
+            <p className="text-sm font-medium text-[#2D7D6A]">
+              <IconMail className="w-4 h-4 inline-block mr-1" />
+              {siteInfo.email}
+            </p>
+            <p className="mt-1 text-sm font-medium text-[#2D7D6A]">
+              <IconPhoneCall className="w-4 h-4 inline-block mr-1" />
+              {siteInfo.phone}
+            </p>
           </div>
         </motion.div>
       </div>
@@ -550,7 +711,7 @@ function CTAForm() {
       >
         {submitted ? (
           <div className="rounded-2xl bg-white/10 p-10 text-center backdrop-blur-sm">
-            <span className="text-5xl">🎉</span>
+            <IconParty className="w-12 h-12 text-white/90 mx-auto mb-4" />
             <p className="mt-4 text-xl font-semibold text-white">Request received!</p>
             <p className="mt-2 text-white/80">
               We'll confirm your appointment within 2 hours. Keep an eye on your phone.

@@ -9,7 +9,177 @@ import {
   leasingSteps,
 } from './data';
 
-/* ── Reusable Section Wrapper ── */
+/* ── SVG Icons ── */
+
+function BuildingIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="2" width="16" height="20" rx="1" />
+      <path d="M9 22v-4h6v4" />
+      <path d="M8 6h2M14 6h2M8 10h2M14 10h2M8 14h2M14 14h2" />
+    </svg>
+  );
+}
+
+function ElevatorIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="2" width="18" height="20" rx="1" />
+      <path d="M9 22v-5M15 22v-5" />
+      <path d="M7 10l5-4 5 4M7 14l5 4 5-4" />
+    </svg>
+  );
+}
+
+function DumbbellIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6.5 6.5h11M6.5 17.5h11" />
+      <rect x="2" y="8" width="4" height="8" rx="1" />
+      <rect x="18" y="8" width="4" height="8" rx="1" />
+      <path d="M6.5 8v8M17.5 8v8" />
+    </svg>
+  );
+}
+
+function WifiIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M5 12.55a11 11 0 0114.08 0" />
+      <path d="M1.42 9a16 16 0 0121.16 0" />
+      <path d="M8.53 16.11a6 6 0 016.95 0" />
+      <circle cx="12" cy="20" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function CarIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M5 17h14M5 17a2 2 0 01-2-2V9l3-5h12l3 5v6a2 2 0 01-2 2" />
+      <circle cx="7" cy="15" r="2" fill="currentColor" stroke="none" />
+      <circle cx="17" cy="15" r="2" fill="currentColor" stroke="none" />
+      <path d="M5 17v2a1 1 0 001 1h2a1 1 0 001-1v-2M19 17v2a1 1 0 01-1 1h-2a1 1 0 01-1-1v-2" />
+    </svg>
+  );
+}
+
+function PawIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="5" cy="8" r="2.5" />
+      <circle cx="19" cy="8" r="2.5" />
+      <circle cx="10" cy="5" r="2" />
+      <circle cx="14" cy="5" r="2" />
+      <path d="M7 16c0-2 2-4 5-4s5 2 5 4c0 2-2 4-5 4s-5-2-5-4z" />
+    </svg>
+  );
+}
+
+function PackageIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 4h4a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h4" />
+      <polyline points="16 8 12 12 8 8" />
+      <line x1="12" y1="12" x2="12" y2="17" />
+    </svg>
+  );
+}
+
+function MapIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}
+
+function TrainIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="18" height="12" rx="2" />
+      <path d="M3 12h18" />
+      <path d="M8 15v4M16 15v4" />
+      <circle cx="8" cy="8" r="1" fill="currentColor" stroke="none" />
+      <circle cx="16" cy="8" r="1" fill="currentColor" stroke="none" />
+      <path d="M12 15l-3 4M12 15l3 4" />
+    </svg>
+  );
+}
+
+function CoffeeIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M18 8h1a4 4 0 010 8h-1" />
+      <path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z" />
+      <line x1="6" y1="1" x2="6" y2="4" />
+      <line x1="10" y1="1" x2="10" y2="4" />
+      <line x1="14" y1="1" x2="14" y2="4" />
+    </svg>
+  );
+}
+
+function StarIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+    </svg>
+  );
+}
+
+function PhoneIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+    </svg>
+  );
+}
+
+function MailIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="4" width="20" height="16" rx="2" />
+      <path d="M22 4L12 13 2 4" />
+    </svg>
+  );
+}
+
+function CheckIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="4 12 9 17 20 6" />
+    </svg>
+  );
+}
+
+/* ── Icon resolver ── */
+
+const iconMap: Record<string, React.FC<{ className?: string }>> = {
+  building: BuildingIcon,
+  elevator: ElevatorIcon,
+  dumbbell: DumbbellIcon,
+  wifi: WifiIcon,
+  car: CarIcon,
+  paw: PawIcon,
+  package: PackageIcon,
+  map: MapIcon,
+  train: TrainIcon,
+  coffee: CoffeeIcon,
+  star: StarIcon,
+  phone: PhoneIcon,
+  mail: MailIcon,
+  check: CheckIcon,
+};
+
+function SvgIcon({ name, className = '' }: { name: string; className?: string }) {
+  const Icon = iconMap[name];
+  if (!Icon) return <span className={className} />;
+  return <Icon className={className} />;
+}
+
+/* ── Section wrapper ── */
+
 function Section({
   children,
   className = '',
@@ -91,6 +261,7 @@ function FadeIn({
 }
 
 /* ── Navbar ── */
+
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -138,11 +309,19 @@ function Navbar() {
           </a>
         </div>
         <button
-          className="md:hidden text-jet-black text-2xl"
+          className="md:hidden text-jet-black"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Menu"
         >
-          {menuOpen ? '✕' : '☰'}
+          {menuOpen ? (
+            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          )}
         </button>
       </div>
       {menuOpen && (
@@ -170,13 +349,14 @@ function Navbar() {
 }
 
 /* ── Hero ── */
+
 function Hero() {
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-jet-black">
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=85"
-          alt="City skyline"
+          src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1600&q=85"
+          alt="City skyline at dusk"
           className="w-full h-full object-cover opacity-60"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
@@ -240,6 +420,7 @@ function Hero() {
 }
 
 /* ── Available Units ── */
+
 function AvailableUnits() {
   return (
     <Section id="units" className="bg-off-white">
@@ -291,6 +472,7 @@ function AvailableUnits() {
 }
 
 /* ── Amenities ── */
+
 function AmenitiesGrid() {
   return (
     <Section id="amenities" className="bg-jet-black !py-24">
@@ -303,7 +485,7 @@ function AmenitiesGrid() {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {amenities.map((a, i) => (
           <FadeIn key={a.title} delay={i * 0.06} className="bg-white/5 border border-white/10 p-6 text-center hover:bg-white/10 hover:border-cobalt/40 transition-all">
-            <span className="text-3xl block">{a.icon}</span>
+            <SvgIcon name={a.icon} className="w-8 h-8 text-cobalt-light mx-auto" />
             <h3 className="text-white font-bold text-sm mt-3">{a.title}</h3>
             <p className="text-white/40 text-xs mt-2 leading-relaxed">{a.description}</p>
           </FadeIn>
@@ -314,6 +496,7 @@ function AmenitiesGrid() {
 }
 
 /* ── Floor Plans (Tabs) ── */
+
 function FloorPlansSection() {
   const [active, setActive] = useState<number>(floorPlans[0].id);
   const current = floorPlans.find((fp) => fp.id === active) ?? floorPlans[0];
@@ -394,6 +577,7 @@ function FloorPlansSection() {
 }
 
 /* ── Neighborhood ── */
+
 function NeighborhoodSection() {
   return (
     <Section id="neighborhood" className="bg-off-white">
@@ -405,7 +589,7 @@ function NeighborhoodSection() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {neighborhood.map((n, i) => (
           <FadeIn key={n.title} delay={i * 0.1} className="bg-white border border-slate-300/30 p-8 text-center hover:shadow-sm transition-shadow">
-            <span className="text-4xl block">{n.icon}</span>
+            <SvgIcon name={n.icon} className="w-10 h-10 text-cobalt mx-auto" />
             <h3 className="text-lg font-bold text-jet-black mt-4">{n.title}</h3>
             <p className="text-slate-500 text-sm mt-2 leading-relaxed">{n.description}</p>
           </FadeIn>
@@ -416,6 +600,7 @@ function NeighborhoodSection() {
 }
 
 /* ── Gallery ── */
+
 function GallerySection() {
   return (
     <Section id="gallery">
@@ -443,6 +628,7 @@ function GallerySection() {
 }
 
 /* ── Leasing Process ── */
+
 function LeasingProcess() {
   return (
     <Section className="bg-cobalt !py-24">
@@ -455,8 +641,8 @@ function LeasingProcess() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {leasingSteps.map((step, i) => (
           <FadeIn key={step.title} delay={i * 0.08} className="text-center">
-            <div className="w-16 h-16 mx-auto rounded-full bg-white/10 flex items-center justify-center text-2xl border border-white/20">
-              {step.icon}
+            <div className="w-16 h-16 mx-auto rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+              <SvgIcon name={step.icon} className="w-7 h-7 text-cobalt-light" />
             </div>
             <span className="text-white/50 text-xs font-semibold uppercase tracking-wider mt-3 block">
               Step {i + 1}
@@ -471,6 +657,7 @@ function LeasingProcess() {
 }
 
 /* ── Tour Booking Form ── */
+
 function TourForm() {
   const [submitted, setSubmitted] = useState(false);
   const handleSubmit = useCallback((e: FormEvent) => {
@@ -492,7 +679,7 @@ function TourForm() {
             animate={{ opacity: 1, scale: 1 }}
             className="bg-cobalt/5 p-10 border-2 border-cobalt/20"
           >
-            <div className="text-4xl mb-3">✅</div>
+            <CheckIcon className="w-12 h-12 text-green-500 mx-auto mb-3" />
             <p className="text-2xl font-black text-jet-black">Tour Requested!</p>
             <p className="text-slate-500 mt-2">
               Our leasing team will confirm your appointment within 2 hours.
@@ -575,6 +762,7 @@ function TourForm() {
 }
 
 /* ── Footer ── */
+
 function Footer() {
   return (
     <footer className="bg-jet-black px-6 md:px-12 lg:px-20 py-12">
@@ -600,10 +788,10 @@ function Footer() {
           <div>
             <h4 className="text-white/50 text-xs uppercase tracking-wider font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-sm text-slate-500">
-              <li>420 Urban Avenue, Downtown</li>
-              <li>leasing@urbangrid.com</li>
-              <li>(555) 987-6543</li>
-              <li>Office open 9am–7pm daily</li>
+              <li className="flex items-center gap-2"><MapIcon className="w-4 h-4 text-cobalt" /> 420 Urban Avenue, Downtown</li>
+              <li className="flex items-center gap-2"><MailIcon className="w-4 h-4 text-cobalt" /> leasing@urbangrid.com</li>
+              <li className="flex items-center gap-2"><PhoneIcon className="w-4 h-4 text-cobalt" /> (555) 987-6543</li>
+              <li className="flex items-center gap-2"><StarIcon className="w-4 h-4 text-cobalt" /> Office open 9am–7pm daily</li>
             </ul>
           </div>
         </div>
@@ -616,6 +804,7 @@ function Footer() {
 }
 
 /* ── App ── */
+
 export default function App() {
   return (
     <>

@@ -4,6 +4,7 @@ export interface SiteInfo {
   description: string;
   location: string;
   founded: number;
+  heroImage: string;
 }
 
 export interface ServiceItem {
@@ -27,6 +28,7 @@ export interface ProjectItem {
   location: string;
   description: string;
   accentColor: string;
+  image: string;
 }
 
 export interface PalettePlant {
@@ -40,6 +42,7 @@ export interface Testimonial {
   quote: string;
   name: string;
   location: string;
+  avatar: string;
 }
 
 export const siteInfo: SiteInfo = {
@@ -49,6 +52,7 @@ export const siteInfo: SiteInfo = {
     'An atelier of landscape architects devoted to sculpting land into living art. We work exclusively on estate-scale properties where every plant, stone, and shadow is deliberate.',
   location: 'Santa Barbara, California',
   founded: 2011,
+  heroImage: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=1600&q=85',
 };
 
 export const services: ServiceItem[] = [
@@ -57,7 +61,7 @@ export const services: ServiceItem[] = [
     title: 'Landscape Design',
     description:
       'Full-property master plans that orchestrate topography, circulation, views, and microclimate into a unified spatial experience. Every line drawn is a decision about how a space will feel at dawn, midday, and dusk.',
-    icon: 'pencil',
+    icon: 'leaf',
   },
   {
     id: 'courtyard',
@@ -102,14 +106,14 @@ export const processSteps: ProcessStep[] = [
     title: 'Site Visit & Analysis',
     description:
       'We walk the property at three different times of day. We map solar exposure, drainage patterns, wind corridors, existing mature trees, and the views you want to keep or conceal. Soil is tested on-site and sent for lab analysis.',
-    duration: '1–2 days',
+    duration: '1\u20132 days',
   },
   {
     step: 2,
     title: 'Concept & Narrative',
     description:
       'From the site analysis emerges a spatial narrative. We present hand-drawn sketches, reference boards, and a written ethos for the landscape — not renderings yet, but the ideas that will guide every decision that follows.',
-    duration: '2–3 weeks',
+    duration: '2\u20133 weeks',
   },
   {
     step: 3,
@@ -123,7 +127,7 @@ export const processSteps: ProcessStep[] = [
     title: 'Execution & Installation',
     description:
       'Our installation crews are led by the designer who drew the plan. Grading, drainage, hardscape, planting, irrigation, and lighting are sequenced so that each trade leaves the site better than they found it.',
-    duration: '4–12 weeks',
+    duration: '4\u201312 weeks',
   },
   {
     step: 5,
@@ -143,6 +147,7 @@ export const projects: ProjectItem[] = [
     description:
       'A five-acre hillside property where the landscape descends in terraced garden rooms. Native oaks preserved as anchors; a reflecting pool that mirrors the Pacific at sunset.',
     accentColor: '#2d5a3d',
+    image: 'https://images.unsplash.com/photo-1598902108854-10e335adac99?w=800&q=85',
   },
   {
     id: 'bluff-house',
@@ -152,6 +157,7 @@ export const projects: ProjectItem[] = [
     description:
       'Wind-pruned hedges and sculptural agaves on a bluff-top property. The planting palette was chosen entirely from species that thrive in salt spray and maritime fog.',
     accentColor: '#4a7c59',
+    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=85',
   },
   {
     id: 'rancho-vista',
@@ -161,6 +167,7 @@ export const projects: ProjectItem[] = [
     description:
       'A hacienda-style compound with seven interconnected courtyards. Each room has a distinct microclimate — one for morning light, one for stargazing, one for dining under oaks.',
     accentColor: '#8b5e3c',
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=85',
   },
   {
     id: 'olive-grove',
@@ -170,6 +177,7 @@ export const projects: ProjectItem[] = [
     description:
       'A restored olive grove interwoven with gravel paths, stone terraces, and a outdoor kitchen perched among century-old trees. Drip irrigation hidden beneath decomposed granite.',
     accentColor: '#6b8e4e',
+    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=85',
   },
   {
     id: 'cliffside',
@@ -179,6 +187,7 @@ export const projects: ProjectItem[] = [
     description:
       'A vanishing-edge pool that appears to merge with the ocean beyond. The surrounding plantings — lavender, sage, manzanita — are selected for fragrance, texture, and drought tolerance.',
     accentColor: '#3b6973',
+    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=85',
   },
   {
     id: 'meadow-hill',
@@ -188,6 +197,7 @@ export const projects: ProjectItem[] = [
     description:
       'A former turf lawn transformed into a meadow of native grasses and wildflowers. Swales and rain gardens manage stormwater while creating habitat corridors for pollinators.',
     accentColor: '#7a9b5a',
+    image: 'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800&q=85',
   },
 ];
 
@@ -248,18 +258,21 @@ export const testimonials: Testimonial[] = [
       'Verdant Studio did not design a garden for our home — they composed a sequence of experiences. Every turn reveals something new, and yet the whole feels inevitable, as if the land always meant to be this way.',
     name: 'Eleanor Whitfield',
     location: 'Montecito Estate',
+    avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&q=85',
   },
   {
     quote:
       'The precision of their planting plans is extraordinary. Three years in, the landscape has filled in exactly as they predicted. Our maintenance team follows their care guide like a score.',
     name: 'James Covington',
     location: 'Hope Ranch Residence',
+    avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=85',
   },
   {
     quote:
       'We interviewed five firms. Only Verdant Studio walked the property at dusk, sat in silence for ten minutes, and then described the place back to us in a way we had never seen. That was the moment we knew.',
     name: 'Sarah & David Tran',
     location: 'Santa Ynez Compound',
+    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=85',
   },
 ];
 

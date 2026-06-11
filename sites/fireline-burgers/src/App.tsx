@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
-import { menuItems, comboDeals, reviews, locations, type MenuItem } from './data';
+import { menuItems, comboDeals, reviews, locations, heroImage, galleryImages, type MenuItem } from './data';
 
 // ─── Types ───────────────────────────────────────────────
 type SectionId = 'home' | 'menu' | 'combos' | 'process' | 'gallery' | 'reviews' | 'locations' | 'order';
 
-// ─── Utility Components ─────────────────────────────────
+// ─── SVG Icons ───────────────────────────────────────────
 function FlameIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -31,6 +31,109 @@ function StarIcon({ className }: { className?: string }) {
   );
 }
 
+function FriesIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 2l-2 6h4l-2 6h4l-3 8H7L4 14h4L6 8h4L8 2z"/>
+      <circle cx="12" cy="15" r="1" fill="currentColor"/>
+    </svg>
+  );
+}
+
+function ChickenIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 8h-3l-2-3H9L7 8H4v2l3 2v8h10v-8l3-2V8z"/>
+    </svg>
+  );
+}
+
+function ShakeIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M8 2L6 7h12l-2-5H8z"/>
+      <path d="M7 7L6 20a2 2 0 002 2h8a2 2 0 002-2L17 7"/>
+    </svg>
+  );
+}
+
+function LightningIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+    </svg>
+  );
+}
+
+function MoonIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+    </svg>
+  );
+}
+
+function SmashIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 6v6l4 2"/>
+      <path d="M8 3l-2 3M16 3l2 3"/>
+    </svg>
+  );
+}
+
+function CheeseIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 17l2-12h12l2 12"/>
+      <path d="M4 17c0 1.5 1 2 4 2s4-.5 4-2 2-2 4-2 4 .5 4 2"/>
+      <circle cx="9" cy="10" r="1" fill="currentColor"/>
+      <circle cx="15" cy="10" r="1" fill="currentColor"/>
+    </svg>
+  );
+}
+
+function TruckIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M5 17h14M5 17a2 2 0 01-2-2V9l3-5h12l3 5v6a2 2 0 01-2 2M5 17v2a1 1 0 001 1h2a1 1 0 001-1v-2M19 17v2a1 1 0 01-1 1h-2a1 1 0 01-1-1v-2"/>
+      <circle cx="7" cy="12" r="1.5" fill="currentColor"/><circle cx="17" cy="12" r="1.5" fill="currentColor"/>
+    </svg>
+  );
+}
+
+function MotorcycleIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="5" cy="16" r="3"/><circle cx="19" cy="16" r="3"/>
+      <path d="M12 16V8l4 2 2-4M9 13h6"/>
+    </svg>
+  );
+}
+
+/* ─── Icon Lookup ─── */
+const iconMap: Record<string, React.FC<{ className?: string }>> = {
+  flame: FlameIcon,
+  burger: BurgerIcon,
+  star: StarIcon,
+  fries: FriesIcon,
+  chicken: ChickenIcon,
+  shake: ShakeIcon,
+  lightning: LightningIcon,
+  moon: MoonIcon,
+  smash: SmashIcon,
+  cheese: CheeseIcon,
+  truck: TruckIcon,
+  motorcycle: MotorcycleIcon,
+};
+
+function SvgIcon({ name, className = '' }: { name: string; className?: string }) {
+  const Icon = iconMap[name];
+  if (!Icon) return null;
+  return <Icon className={className} />;
+}
+
 // ─── Spice Level Indicator ──────────────────────────────
 function SpiceLevel({ level }: { level: number }) {
   return (
@@ -42,19 +145,25 @@ function SpiceLevel({ level }: { level: number }) {
   );
 }
 
+// ─── Ticker Item ────────────────────────────────────────
+interface TickerEntry {
+  text: string;
+  icon?: string;
+}
+
 // ─── Marquee Ticker ─────────────────────────────────────
 function MenuTicker() {
-  const tickerItems = [
-    '🔥 OPEN TILL 2AM EVERY DAY',
-    '🍔 NEW: CHILI CRUNCH BURGER',
-    '⚡ FREE DELIVERY OVER $25',
-    '🌙 LATE NIGHT SPECIALS 11PM-2AM',
-    '🍟 TRUFFLE FRIES BACK IN STOCK',
-    '🔥 OPEN TILL 2AM EVERY DAY',
-    '🍔 NEW: CHILI CRUNCH BURGER',
-    '⚡ FREE DELIVERY OVER $25',
-    '🌙 LATE NIGHT SPECIALS 11PM-2AM',
-    '🍟 TRUFFLE FRIES BACK IN STOCK',
+  const tickerItems: TickerEntry[] = [
+    { icon: 'flame', text: 'OPEN TILL 2AM EVERY DAY' },
+    { icon: 'burger', text: 'NEW: CHILI CRUNCH BURGER' },
+    { icon: 'lightning', text: 'FREE DELIVERY OVER $25' },
+    { icon: 'moon', text: 'LATE NIGHT SPECIALS 11PM-2AM' },
+    { icon: 'fries', text: 'TRUFFLE FRIES BACK IN STOCK' },
+    { icon: 'flame', text: 'OPEN TILL 2AM EVERY DAY' },
+    { icon: 'burger', text: 'NEW: CHILI CRUNCH BURGER' },
+    { icon: 'lightning', text: 'FREE DELIVERY OVER $25' },
+    { icon: 'moon', text: 'LATE NIGHT SPECIALS 11PM-2AM' },
+    { icon: 'fries', text: 'TRUFFLE FRIES BACK IN STOCK' },
   ];
 
   return (
@@ -65,8 +174,9 @@ function MenuTicker() {
         transition={{ repeat: Infinity, duration: 30, ease: 'linear' }}
       >
         {[...tickerItems, ...tickerItems].map((item, i) => (
-          <span key={i} className="inline-block px-8 text-charcoal-900 font-bold text-sm tracking-widest uppercase">
-            {item}
+          <span key={i} className="inline-flex items-center gap-1.5 px-8 text-charcoal-900 font-bold text-sm tracking-widest uppercase">
+            {item.icon && <SvgIcon name={item.icon} className="w-4 h-4" />}
+            {item.text}
           </span>
         ))}
       </motion.div>
@@ -101,9 +211,10 @@ function SectionHeader({ title, subtitle, flame = false }: { title: string; subt
 }
 
 // ─── Sticker Label ──────────────────────────────────────
-function StickerLabel({ text, className = '' }: { text: string; className?: string }) {
+function StickerLabel({ text, icon, className = '' }: { text: string; icon?: string; className?: string }) {
   return (
-    <span className={`inline-block px-3 py-1 bg-flame-500 text-charcoal-900 font-bold text-xs tracking-widest uppercase rotate-[-2deg] ${className}`}>
+    <span className={`inline-flex items-center gap-1.5 px-3 py-1 bg-flame-500 text-charcoal-900 font-bold text-xs tracking-widest uppercase rotate-[-2deg] ${className}`}>
+      {icon && <SvgIcon name={icon} className="w-3.5 h-3.5" />}
       {text}
     </span>
   );
@@ -182,9 +293,7 @@ function Nav({ activeSection }: { activeSection: SectionId }) {
           >
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               {mobileOpen ? (
-                <>
-                  <path d="M6 18L18 6M6 6l12 12" />
-                </>
+                <path d="M6 18L18 6M6 6l12 12" />
               ) : (
                 <>
                   <path d="M4 6h16M4 12h16M4 18h16" />
@@ -355,49 +464,14 @@ function Hero() {
             <div className="relative w-96 h-96">
               {/* Outer glow */}
               <div className="absolute inset-0 rounded-full bg-flame-500/20 blur-3xl animate-pulse" />
-
-              {/* Burger stack visual */}
-              <div className="relative z-10 w-full h-full flex flex-col items-center justify-center gap-1">
-                {/* Top bun */}
-                <motion.div
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-                  className="w-60 h-16 bg-amber-400 rounded-[50%_50%_40%_40%] shadow-lg"
-                />
-                {/* Lettuce */}
-                <div className="w-64 h-4 bg-green-500 rounded-full -mt-1" />
-                {/* Tomato */}
-                <div className="w-56 h-3 bg-red-500 rounded-full -mt-1" />
-                {/* Cheese */}
-                <div className="w-64 h-3 bg-yellow-400 rounded-sm -mt-1" />
-                {/* Patty 1 */}
-                <motion.div
-                  animate={{ y: [0, 3, 0] }}
-                  transition={{ repeat: Infinity, duration: 2, delay: 0.3, ease: 'easeInOut' }}
-                  className="w-56 h-8 bg-amber-800 rounded-lg -mt-1"
-                />
-                {/* Patty 2 */}
-                <motion.div
-                  animate={{ y: [0, 3, 0] }}
-                  transition={{ repeat: Infinity, duration: 2, delay: 0.6, ease: 'easeInOut' }}
-                  className="w-56 h-8 bg-amber-900 rounded-lg -mt-1"
-                />
-                {/* Bottom bun */}
-                <div className="w-60 h-12 bg-amber-400 rounded-[40%_40%_50%_50%] -mt-1 shadow-lg" />
-
-                {/* Flame accents */}
-                <motion.div
-                  animate={{ scale: [1, 1.1, 1], opacity: [0.6, 1, 0.6] }}
-                  transition={{ repeat: Infinity, duration: 2 }}
-                  className="absolute -bottom-4 w-full flex justify-center"
-                >
-                  <div className="flex gap-1">
-                    <div className="w-3 h-8 bg-flame-500 rounded-full blur-sm" />
-                    <div className="w-3 h-10 bg-flame-400 rounded-full blur-sm" />
-                    <div className="w-3 h-8 bg-flame-500 rounded-full blur-sm" />
-                  </div>
-                </motion.div>
-              </div>
+              <motion.img
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, type: 'spring' }}
+                src={heroImage}
+                alt="Fireline Smash Burger"
+                className="relative z-10 w-full h-full object-cover rounded-full shadow-2xl shadow-flame-500/30"
+              />
 
               {/* Floating labels */}
               <motion.div
@@ -405,21 +479,21 @@ function Hero() {
                 transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
                 className="absolute -top-4 -right-4"
               >
-                <StickerLabel text="🔥 SMASHED" />
+                <StickerLabel text="SMASHED" icon="smash" />
               </motion.div>
               <motion.div
                 animate={{ rotate: [0, -5, 0], x: [0, -5, 0] }}
                 transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut', delay: 1 }}
                 className="absolute -bottom-2 -left-6"
               >
-                <StickerLabel text="⚡ FLAME-GRILLED" />
+                <StickerLabel text="FLAME-GRILLED" icon="flame" />
               </motion.div>
               <motion.div
                 animate={{ rotate: [0, 3, 0], y: [0, -5, 0] }}
                 transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut', delay: 2 }}
                 className="absolute top-20 -left-10"
               >
-                <StickerLabel text="🍔 DOUBLE" />
+                <StickerLabel text="DOUBLE" icon="burger" />
               </motion.div>
             </div>
           </motion.div>
@@ -519,7 +593,7 @@ function MenuHighlight({ item, index }: { item: MenuItem; index: number }) {
         </motion.span>
         {item.featured && (
           <span className="text-[10px] font-bold uppercase tracking-widest text-gold/70">
-            ★ Featured
+            <StarIcon className="w-3 h-3 inline-block mr-0.5" /> Featured
           </span>
         )}
       </div>
@@ -529,10 +603,10 @@ function MenuHighlight({ item, index }: { item: MenuItem; index: number }) {
 
 function MenuSection() {
   const categories = [
-    { key: 'burgers', label: 'Burgers', icon: '🍔' },
-    { key: 'fries', label: 'Fries', icon: '🍟' },
-    { key: 'wings', label: 'Wings', icon: '🍗' },
-    { key: 'shakes', label: 'Shakes', icon: '🥤' },
+    { key: 'burgers', label: 'Burgers', icon: 'burger' },
+    { key: 'fries', label: 'Fries', icon: 'fries' },
+    { key: 'wings', label: 'Wings', icon: 'chicken' },
+    { key: 'shakes', label: 'Shakes', icon: 'shake' },
   ] as const;
 
   const [activeCategory, setActiveCategory] = useState<string>('burgers');
@@ -554,7 +628,7 @@ function MenuSection() {
                 : 'bg-charcoal-700/50 text-offwhite/60 hover:bg-charcoal-700 hover:text-offwhite border border-charcoal-600/30'
             }`}
           >
-            <span className="mr-1.5">{cat.icon}</span>
+            <SvgIcon name={cat.icon} className="w-4 h-4 inline-block mr-1.5" />
             {cat.label}
           </button>
         ))}
@@ -644,25 +718,25 @@ function CombosSection() {
 // ─── Section 4: How We Do It ────────────────────────────
 const processSteps = [
   {
-    icon: '🔥',
+    icon: 'flame',
     title: 'Flame',
     description: 'Our grills hit 800°F. That\'s where the flavor starts. Every patty hits screaming-hot flame for that signature char.',
     color: 'from-flame-500/20 to-flame-500/5 border-flame-500/30',
   },
   {
-    icon: '💥',
+    icon: 'smash',
     title: 'Smash',
     description: 'We smash each patty thin on the flat-top — maximum crust, maximum juice, maximum crunch in every bite.',
     color: 'from-neon-orange/20 to-neon-orange/5 border-neon-orange/30',
   },
   {
-    icon: '🧀',
+    icon: 'cheese',
     title: 'Stack',
     description: 'Double cheese. Crispy bacon. Fresh toppings. We stack it like it matters — because it does.',
     color: 'from-gold/20 to-gold/5 border-gold/30',
   },
   {
-    icon: '🔥',
+    icon: 'flame',
     title: 'Serve',
     description: 'Hot, fast, and loud. Your order hits the window in under 6 minutes or it\'s on us.',
     color: 'from-flame-500/20 to-flame-500/5 border-flame-500/30',
@@ -691,7 +765,7 @@ function ProcessSection() {
                 {i + 1}
               </div>
 
-              <span className="text-4xl block mb-3 group-hover:scale-110 transition-transform">{step.icon}</span>
+              <SvgIcon name={step.icon} className="w-10 h-10 text-flame-500 mx-auto mb-3 group-hover:scale-110 transition-transform" />
               <h3 className="font-['Anton'] text-2xl uppercase text-offwhite mb-2">{step.title}</h3>
               <p className="text-offwhite/60 text-sm font-medium leading-relaxed">{step.description}</p>
 
@@ -716,16 +790,6 @@ function ProcessSection() {
 }
 
 // ─── Section 5: Street Gallery ──────────────────────────
-const galleryImages = [
-  { emoji: '🍔', label: 'Smash Perfection', color: 'bg-flame-500/10 border-flame-500/20', rotate: -2 },
-  { emoji: '🔥', label: 'Flame Grill Action', color: 'bg-neon-orange/10 border-neon-orange/20', rotate: 3 },
-  { emoji: '🍟', label: 'Truffle Fries Drop', color: 'bg-gold/10 border-gold/20', rotate: -1 },
-  { emoji: '🥤', label: 'Midnight Shakes', color: 'bg-charcoal-700/50 border-charcoal-600/30', rotate: 2 },
-  { emoji: '🍗', label: 'Fire Wings', color: 'bg-neon-red/10 border-neon-red/20', rotate: -3 },
-  { emoji: '📸', label: 'Neon Sign Wall', color: 'bg-flame-500/10 border-flame-500/20', rotate: 1 },
-  { emoji: '🌃', label: 'Late Night Vibes', color: 'bg-charcoal-700/50 border-charcoal-600/30', rotate: -2 },
-  { emoji: '⚡', label: 'Order Up!', color: 'bg-gold/10 border-gold/20', rotate: 4 },
-];
 
 function StreetGallery() {
   const ref = useRef(null);
@@ -738,15 +802,21 @@ function StreetGallery() {
         {galleryImages.map((img, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, scale: 0.8, rotate: img.rotate }}
-            animate={isInView ? { opacity: 1, scale: 1, rotate: img.rotate } : {}}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.4, delay: i * 0.06 }}
-            whileHover={{ scale: 1.03, rotate: 0, zIndex: 10 }}
-            className={`relative break-inside-avoid rounded-2xl border ${img.color} p-5 sm:p-6 text-center cursor-pointer transition-shadow hover:shadow-xl hover:shadow-flame-500/10`}
+            whileHover={{ scale: 1.03, zIndex: 10 }}
+            className="relative break-inside-avoid rounded-2xl overflow-hidden border border-charcoal-600/30 cursor-pointer group"
             style={{ marginBottom: '0.75rem' }}
           >
-            <span className="text-5xl sm:text-6xl block mb-3">{img.emoji}</span>
-            <StickerLabel text={img.label} className="text-[10px] text-xs" />
+            <img
+              src={img.src}
+              alt={img.label}
+              className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+              <StickerLabel text={img.label} className="text-[10px]" />
+            </div>
           </motion.div>
         ))}
       </div>
@@ -772,7 +842,7 @@ function ReviewsSection() {
             className="relative bg-gradient-to-b from-charcoal-700/50 to-charcoal-800/50 rounded-2xl border border-charcoal-600/30 p-6 group hover:border-flame-500/20 transition-colors"
           >
             {/* Quote mark */}
-            <div className="absolute -top-2 -left-2 text-5xl text-flame-500/20 font-['Anton'] leading-none">"</div>
+            <div className="absolute -top-2 -left-2 text-5xl text-flame-500/20 font-['Anton'] leading-none">&quot;</div>
 
             <p className="text-offwhite/80 text-sm font-medium leading-relaxed mb-4 relative z-10">
               {review.text}
@@ -784,7 +854,10 @@ function ReviewsSection() {
               </div>
               <div>
                 <span className="block text-offwhite text-xs font-bold uppercase tracking-wider">{review.initials}</span>
-                <span className="text-offwhite/40 text-[10px] font-medium">{review.tag}</span>
+                <span className="text-offwhite/40 text-[10px] font-medium">
+                  <StarIcon className="w-3 h-3 inline-block mr-0.5 text-gold" />
+                  {review.tag.replace('✪', '').trim()}
+                </span>
               </div>
             </div>
 
@@ -875,9 +948,9 @@ function OrderCTA() {
   const isInView = useInView(ref, { once: true });
 
   const platforms = [
-    { name: 'Uber Eats', icon: '🚗', color: 'bg-green-600/20 border-green-600/40 text-green-400' },
-    { name: 'DoorDash', icon: '🛵', color: 'bg-red-600/20 border-red-600/40 text-red-400' },
-    { name: 'Grubhub', icon: '📦', color: 'bg-blue-600/20 border-blue-600/40 text-blue-400' },
+    { name: 'Uber Eats', icon: 'car', color: 'bg-green-600/20 border-green-600/40 text-green-400' },
+    { name: 'DoorDash', icon: 'motorcycle', color: 'bg-red-600/20 border-red-600/40 text-red-400' },
+    { name: 'Grubhub', icon: 'package', color: 'bg-blue-600/20 border-blue-600/40 text-blue-400' },
   ];
 
   return (
@@ -923,7 +996,11 @@ function OrderCTA() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             {platforms.map((p) => (
               <span key={p.name} className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg border text-xs font-bold uppercase tracking-wider ${p.color}`}>
-                <span>{p.icon}</span>
+                {p.icon === 'car' && <TruckIcon className="w-4 h-4" />}
+                {p.icon === 'motorcycle' && <MotorcycleIcon className="w-4 h-4" />}
+                {p.icon === 'package' && (
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 4h4a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h4"/><polyline points="16 8 12 12 8 8"/><line x1="12" y1="12" x2="12" y2="17"/></svg>
+                )}
                 {p.name}
               </span>
             ))}
@@ -981,9 +1058,16 @@ function FooterSection() {
           <div>
             <h4 className="font-['Anton'] text-sm uppercase tracking-widest text-offwhite mb-4">Follow</h4>
             <div className="flex gap-3">
-              {['📷', '🐦', '💬', '🎵'].map((icon, i) => (
-                <a key={i} href="#" className="w-9 h-9 rounded-full bg-charcoal-700/50 border border-charcoal-600/30 flex items-center justify-center text-sm hover:bg-flame-500/20 hover:border-flame-500/30 transition-all">
-                  {icon}
+              {[
+                { name: 'Instagram', path: 'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z' },
+                { name: 'X/Twitter', path: 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z' },
+                { name: 'Message', path: 'M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z' },
+                { name: 'Music', path: 'M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z' },
+              ].map((social, i) => (
+                <a key={i} href="#" className="w-9 h-9 rounded-full bg-charcoal-700/50 border border-charcoal-600/30 flex items-center justify-center hover:bg-flame-500/20 hover:border-flame-500/30 transition-all group" aria-label={social.name}>
+                  <svg className="w-4 h-4 text-offwhite/50 group-hover:text-flame-400 transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                    <path d={social.path} />
+                  </svg>
                 </a>
               ))}
             </div>
@@ -995,7 +1079,7 @@ function FooterSection() {
 
         <div className="pt-6 border-t border-charcoal-700/30 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-offwhite/30 text-xs font-medium">
-            © 2026 Fireline Burgers. All rights reserved.
+            &copy; 2026 Fireline Burgers. All rights reserved.
           </p>
           <div className="flex gap-4 text-offwhite/30 text-xs font-medium">
             <a href="#" className="hover:text-offwhite/50 transition-colors">Privacy</a>

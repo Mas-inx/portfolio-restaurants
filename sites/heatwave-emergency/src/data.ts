@@ -38,6 +38,8 @@ export const pricing = {
   note: 'Diagnostic fee is waived if you choose us for the repair. After-hours fee applies to calls between 8pm and 7am.',
 };
 
+export const heroImage = 'https://images.unsplash.com/photo-1595508064774-1cb225a0a72e?w=1600&q=85';
+
 export const coverageCities = [
   'Denver', 'Aurora', 'Lakewood', 'Englewood', 'Littleton',
   'Centennial', 'Highlands Ranch', 'Parker', 'Castle Rock', 'Thornton',

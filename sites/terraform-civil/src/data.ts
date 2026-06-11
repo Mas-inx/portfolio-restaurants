@@ -46,37 +46,37 @@ export const capabilities: Capability[] = [
     title: 'Excavation & Earthwork',
     description:
       'Mass excavation, site cut-and-fill, trenching for utilities, and precision grading. We move earth efficiently without disturbing adjacent properties.',
-    icon: '⛰️',
+    icon: 'helmet',
   },
   {
     title: 'Mass Grading & Site Prep',
     description:
       'Large-scale grading for residential subdivisions, commercial pads, and industrial yards. Engineered to spec with compaction testing at every lift.',
-    icon: '📐',
+    icon: 'ruler',
   },
   {
     title: 'Drainage & Stormwater',
     description:
       'Storm sewer systems, retention ponds, culverts, swales, and subsurface drainage. Designed to manage runoff and meet municipal stormwater requirements.',
-    icon: '🌊',
+    icon: 'water',
   },
   {
     title: 'Utility Installation',
     description:
       'Water mains, sanitary sewers, gas lines, electrical conduit, and telecommunications. Coordinated with utility companies for timely connections.',
-    icon: '⚡',
+    icon: 'zap',
   },
   {
     title: 'Paving Preparation',
     description:
       'Subgrade preparation, aggregate base courses, and binder courses for asphalt and concrete paving. Proper compaction ensures pavement longevity.',
-    icon: '🛣️',
+    icon: 'road',
   },
   {
     title: 'Retaining Structures',
     description:
       'Segmental retaining walls, MSE walls, soldier pile walls, and reinforced slopes. Engineered for soil retention and long-term stability.',
-    icon: '🧱',
+    icon: 'building',
   },
 ]
 
@@ -102,12 +102,12 @@ export const processPhases: ProcessPhase[] = [
 ]
 
 export const equipment: Equipment[] = [
-  { name: 'Caterpillar D6 Dozer', category: 'Dozers', description: 'Medium dozer for mass grading, backfilling, and site clearing. 6-way blade for precise grade control.', icon: '🚜', specs: '185 HP · 40,000 lbs' },
-  { name: 'Caterpillar 320 Excavator', category: 'Excavators', description: 'Next-gen hydraulic excavator with GPS grade control. Trenching, mass excavation, and utility work.', icon: '🦾', specs: '157 HP · 49,000 lbs' },
-  { name: 'Caterpillar 950 Loader', category: 'Loaders', description: 'Wheel loader for material handling, truck loading, and site cleanup. Quick-couple attachment system.', icon: '🔄', specs: '205 HP · 43,000 lbs' },
-  { name: 'Caterpillar CS56 Compactor', category: 'Compactors', description: 'Vibratory smooth-drum compactor for soil and asphalt. Padfoot shell kit available for cohesive soils.', icon: '⚙️', specs: '124 HP · 21,000 lbs' },
-  { name: 'Volvo A40G Dump Truck', category: 'Trucks', description: 'Articulated haul truck for off-road material transport. Heated body, diff lock, and load-sensing hydraulics.', icon: '🚛', specs: '445 HP · 44 ton payload' },
-  { name: 'Caterpillar 140 Motor Grader', category: 'Graders', description: 'Heavy-duty grader for fine grading, road shaping, and ditch cutting. Grade control ready.', icon: '⚡', specs: '185 HP · 32,000 lbs' },
+  { name: 'Caterpillar D6 Dozer', category: 'Dozers', description: 'Medium dozer for mass grading, backfilling, and site clearing. 6-way blade for precise grade control.', icon: 'truck', specs: '185 HP · 40,000 lbs' },
+  { name: 'Caterpillar 320 Excavator', category: 'Excavators', description: 'Next-gen hydraulic excavator with GPS grade control. Trenching, mass excavation, and utility work.', icon: 'helmet', specs: '157 HP · 49,000 lbs' },
+  { name: 'Caterpillar 950 Loader', category: 'Loaders', description: 'Wheel loader for material handling, truck loading, and site cleanup. Quick-couple attachment system.', icon: 'truck', specs: '205 HP · 43,000 lbs' },
+  { name: 'Caterpillar CS56 Compactor', category: 'Compactors', description: 'Vibratory smooth-drum compactor for soil and asphalt. Padfoot shell kit available for cohesive soils.', icon: 'zap', specs: '124 HP · 21,000 lbs' },
+  { name: 'Volvo A40G Dump Truck', category: 'Trucks', description: 'Articulated haul truck for off-road material transport. Heated body, diff lock, and load-sensing hydraulics.', icon: 'truck', specs: '445 HP · 44 ton payload' },
+  { name: 'Caterpillar 140 Motor Grader', category: 'Graders', description: 'Heavy-duty grader for fine grading, road shaping, and ditch cutting. Grade control ready.', icon: 'ruler', specs: '185 HP · 32,000 lbs' },
 ]
 
 export const projectTypes: ProjectType[] = [

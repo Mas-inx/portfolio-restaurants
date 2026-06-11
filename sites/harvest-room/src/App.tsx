@@ -2,6 +2,91 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { menuItems, farms, events, reviews, type MenuCategory } from './data';
 
+/* ─── SVG Icon Components ─── */
+function IconBaby({ className = "w-8 h-8" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="9" r="5" />
+      <path d="M12 14c-4 0-6 2-8 4" />
+      <path d="M9 7a1 1 0 012 0v1a1 1 0 01-2 0V7z" />
+      <path d="M14 8a1 1 0 00-2 0v1a1 1 0 002 0V8z" />
+    </svg>
+  );
+}
+function IconSunrise({ className = "w-8 h-8" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 18a5 5 0 00-10 0" />
+      <path d="M12 2v7" />
+      <path d="M4.22 10.22l1.42 1.42" />
+      <path d="M1 18h22" />
+      <path d="M8 6l4-4 4 4" />
+    </svg>
+  );
+}
+function IconFamily({ className = "w-8 h-8" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M23 21v-2a4 4 0 00-3-3.87" />
+      <path d="M16 3.13a4 4 0 010 7.75" />
+    </svg>
+  );
+}
+function IconHome({ className = "w-8 h-8" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+      <polyline points="9 22 9 12 15 12 15 22" />
+    </svg>
+  );
+}
+function IconSprout({ className = "w-8 h-8" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22V8" />
+      <path d="M12 8c-3-3-6-4-8-4 0 3 1 6 4 8" />
+      <path d="M12 8c3-3 6-4 8-4 0 3-1 6-4 8" />
+    </svg>
+  );
+}
+function IconKnife({ className = "w-8 h-8" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6.5 3.5l-3 3a2 2 0 000 2.83L14 20l4-4L7.33 6.5a2 2 0 00-2.83 0z" />
+      <path d="M19 14l-4 4" />
+    </svg>
+  );
+}
+function IconFire({ className = "w-8 h-8" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z" />
+    </svg>
+  );
+}
+function IconPlate({ className = "w-8 h-8" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M8 12h8" />
+      <path d="M12 8v8" />
+      <path d="M2 12h4" />
+      <path d="M18 12h4" />
+    </svg>
+  );
+}
+function IconHandsPray({ className = "w-8 h-8" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 21c-2-3-5-5-8-5v-4c2 0 4.5 1 6 2.5V3a1 1 0 012 0v11.5C13.5 13 16 12 18 12v4c-3 0-6 2-8 5z" />
+      <path d="M6 12V3a1 1 0 012 0v9" />
+      <path d="M18 12V3a1 1 0 00-2 0v9" />
+    </svg>
+  );
+}
+
 /* ─── Types ─── */
 type Tab = MenuCategory;
 
@@ -247,7 +332,7 @@ function Hero() {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage:
-              'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 800 600\'%3E%3Crect fill=\'%232d4a38\' width=\'800\' height=\'600\'/%3E%3Ccircle cx=\'200\' cy=\'400\' r=\'180\' fill=\'%233d6650\' opacity=\'0.3\'/%3E%3Ccircle cx=\'600\' cy=\'200\' r=\'220\' fill=\'%231e3326\' opacity=\'0.4\'/%3E%3Cpath d=\'M0 450 Q 200 380 400 430 T 800 400 L 800 600 L 0 600 Z\' fill=\'%231e3326\' opacity=\'0.5\'/%3E%3C/svg%3E")',
+              `url("https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600&q=85")`,
           }}
         />
       </motion.div>
@@ -432,15 +517,14 @@ function LocalFarms() {
             custom={i}
             className="bg-deep-green-light/30 backdrop-blur-sm border border-warm-white/10 rounded-2xl p-6 hover:bg-deep-green-light/40 transition-colors"
           >
-            {/* Farm illustration placeholder */}
-            <div className="w-full h-32 bg-deep-green-dark/50 rounded-xl mb-4 flex items-center justify-center border border-wheat/10">
-              <svg className="w-12 h-12 text-wheat/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M3 21v-4a4 4 0 014-4h2a4 4 0 014 4v4" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M21 21v-8a2 2 0 00-2-2h-1" />
-                <path d="M15 21v-6a2 2 0 012-2h1a2 2 0 012 2v6" />
-                <circle cx="17" cy="5" r="2" />
-              </svg>
+            {/* Farm image */}
+            <div className="w-full h-32 rounded-xl mb-4 overflow-hidden">
+              <img
+                src={farm.image}
+                alt={farm.name}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
 
             <div className="flex items-center justify-between mb-2">
@@ -474,25 +558,25 @@ function FamilyDining() {
       title: 'Kids Menu',
       description:
         'Thoughtful portions for little appetites. Think house-made mac & cheese with aged cheddar, grilled chicken strips with honey dip, and mini veggie boards. Every kids meal comes with a seasonal fruit pop.',
-      icon: '👶',
+      icon: <IconBaby className="w-8 h-8 text-wheat-dark" />,
     },
     {
       title: 'Weekend Brunch',
       description:
         'Saturday and Sunday from 10 AM to 2 PM. Farm-fresh eggs any style, buttermilk pancakes with local maple syrup, and our famous hash brown basket. Kids eat half-price with every adult entree.',
-      icon: '🌅',
+      icon: <IconSunrise className="w-8 h-8 text-wheat-dark" />,
     },
     {
       title: 'Group Tables',
       description:
         'Our private dining room seats up to 24 guests. Perfect for birthday dinners, family celebrations, or team gatherings. We create a custom family-style menu so everyone shares the meal together.',
-      icon: '👨‍👩‍👧‍👦',
+      icon: <IconFamily className="w-8 h-8 text-wheat-dark" />,
     },
     {
       title: 'Family Dinner Night',
       description:
         'Tuesday evenings are family night. Shareable platters, discounted kids meals, and a complimentary loaf of our farmhouse bread. It\'s the meal we wish every family could have together.',
-      icon: '🏡',
+      icon: <IconHome className="w-8 h-8 text-wheat-dark" />,
     },
   ];
 
@@ -538,12 +622,14 @@ function Events() {
             custom={i}
             className="bg-white rounded-2xl overflow-hidden border border-cream shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row"
           >
-            {/* Event image placeholder */}
-            <div className="md:w-40 h-32 md:h-auto bg-deep-green/10 flex items-center justify-center shrink-0">
-              <svg className="w-12 h-12 text-wheat/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                <path d="M16 2v4M8 2v4M3 10h18" />
-              </svg>
+            {/* Event image */}
+            <div className="md:w-40 h-32 md:h-auto shrink-0 overflow-hidden">
+              <img
+                src={event.image}
+                alt={event.title}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
             <div className="p-5 flex flex-col justify-between flex-1">
               <div>
@@ -574,25 +660,25 @@ function Process() {
       title: 'Source',
       description:
         'We start every dish by visiting our network of local farms. We walk the fields, check the ripeness, and pick what\'s at its peak. No middlemen, no warehouses — just farmers, us, and the land.',
-      icon: '🌱',
+      icon: <IconSprout className="w-7 h-7" />,
     },
     {
       title: 'Prep',
       description:
         'Ingredients arrive at our kitchen within hours of harvest. Our team washes, chops, and portions everything by hand. We pickle, ferment, and preserve the surplus so nothing goes to waste.',
-      icon: '🔪',
+      icon: <IconKnife className="w-7 h-7" />,
     },
     {
       title: 'Cook',
       description:
         'Chef Marcus and our team build each plate with precision and heart. We use traditional techniques — wood-fire grilling, slow braising, hand-rolling pasta — to let the ingredients speak for themselves.',
-      icon: '🔥',
+      icon: <IconFire className="w-7 h-7" />,
     },
     {
       title: 'Serve',
       description:
         'Your server knows exactly where every item on your plate came from. We bring the farm to your table — telling the stories behind the food, answering your questions, and making sure every bite is enjoyed.',
-      icon: '🍽️',
+      icon: <IconPlate className="w-7 h-7" />,
     },
   ];
 
@@ -835,7 +921,7 @@ function VisitReserve() {
               animate={{ opacity: 1, scale: 1 }}
               className="text-center py-10"
             >
-              <div className="text-4xl mb-4">🙏</div>
+              <IconHandsPray className="w-10 h-10 text-wheat-dark mx-auto mb-4" />
               <h3 className="font-serif text-2xl text-deep-green mb-2">Thank You!</h3>
               <p className="text-stone text-sm mb-4">
                 We&apos;ve received your reservation request. We&apos;ll confirm within 24 hours.

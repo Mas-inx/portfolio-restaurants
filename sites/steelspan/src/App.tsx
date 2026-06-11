@@ -11,6 +11,106 @@ import {
   navLinks,
 } from './data'
 
+/* ── SVG Icon Library ── */
+
+const IconHelmet = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M12 3a7 7 0 00-7 7v2h14v-2a7 7 0 00-7-7z"/><path d="M5 12v3a4 4 0 004 4h6a4 4 0 004-4v-3"/><path d="M9 19v-2a3 3 0 013-3v0a3 3 0 013 3v2"/>
+  </svg>
+)
+
+const IconBuilding = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect x="4" y="2" width="16" height="20" rx="1"/><path d="M9 6h2"/><path d="M13 6h2"/><path d="M9 10h2"/><path d="M13 10h2"/><path d="M9 14h2"/><path d="M13 14h2"/><path d="M9 18h2"/><path d="M13 18h2"/>
+  </svg>
+)
+
+const IconWrench = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+  </svg>
+)
+
+const IconStore = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M3 3h18v4H3z"/><path d="M4 7v11a2 2 0 002 2h12a2 2 0 002-2V7"/><path d="M10 21v-7h4v7"/>
+  </svg>
+)
+
+const IconTruck = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect x="1" y="3" width="15" height="13"/><rect x="16" y="5" width="7" height="11" rx="1"/><path d="M16 16h-3"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+  </svg>
+)
+
+const IconBlueprint = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M4 3h16a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M8 7h8"/><path d="M8 11h8"/><path d="M8 15h5"/><path d="M16 15h.01"/>
+  </svg>
+)
+
+const IconCalendar = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/><path d="M8 2v4"/><path d="M16 2v4"/><path d="M12 14h.01"/>
+  </svg>
+)
+
+const IconLocation = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+  </svg>
+)
+
+const IconPhone = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+  </svg>
+)
+
+const IconMail = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/>
+  </svg>
+)
+
+const IconCheckmark = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+)
+
+const IconShield = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>
+  </svg>
+)
+
+const IconArrowRight = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+  </svg>
+)
+
+const IconStar = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+  </svg>
+)
+
+/* ── Icon Resolver ── */
+const icons: Record<string, React.FC<{className?:string}>> = {
+  'helmet': IconHelmet, 'building': IconBuilding, 'wrench': IconWrench,
+  'store': IconStore, 'truck': IconTruck, 'blueprint': IconBlueprint,
+  'calendar': IconCalendar, 'location': IconLocation, 'phone': IconPhone,
+  'mail': IconMail, 'checkmark': IconCheckmark, 'shield': IconShield,
+  'arrow-right': IconArrowRight, 'star': IconStar,
+}
+
+function Icon({ name, className = 'w-6 h-6' }: { name: string; className?: string }) {
+  const C = icons[name] || IconBuilding
+  return <C className={className} />
+}
+
 /* ── Scroll Reveal ── */
 function ScrollReveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef(null)
@@ -81,7 +181,7 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-20">
         <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-3">
           <div className="w-10 h-10 bg-[#1a1f2e] rounded flex items-center justify-center">
-            <span className="text-yellow-400 font-heading text-lg leading-none">S</span>
+            <Icon name="helmet" className="w-5 h-5 text-yellow-400" />
           </div>
           <div className="hidden sm:block text-left">
             <span className="text-lg font-heading tracking-tight text-[#1a1f2e] block leading-none">SteelSpan</span>
@@ -153,11 +253,7 @@ function Hero() {
 
       <motion.div style={{ opacity }} className="relative z-20 max-w-7xl mx-auto px-6 md:px-12 w-full">
         <div className="max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }}>
             <span className="text-yellow-400 text-sm font-bold tracking-[0.25em] uppercase">
               {siteInfo.shortTagline}
             </span>
@@ -263,7 +359,7 @@ function Capabilities() {
             <ScrollReveal key={c.title} delay={i * 0.08}>
               <div className="group border border-[#3b4a6b]/20 p-6 hover:border-yellow-400 hover:bg-[#1a1f2e] transition-all duration-300 rounded-sm">
                 <div className="flex items-start justify-between mb-3">
-                  <span className="text-3xl group-hover:scale-110 transition-transform">{c.icon}</span>
+                  <Icon name={c.icon} className="w-7 h-7 text-[#1a1f2e] group-hover:text-yellow-400 group-hover:scale-110 transition-all" />
                   <span className="text-xs font-mono font-bold text-yellow-500 bg-yellow-50 group-hover:bg-yellow-500/20 px-2 py-1 rounded-sm">{c.stat}</span>
                 </div>
                 <h3 className="text-lg font-heading text-[#1a1f2e] group-hover:text-white transition-colors">{c.title}</h3>
@@ -385,6 +481,7 @@ function Safety() {
           {safetyPoints.map((s, i) => (
             <ScrollReveal key={s.title} delay={i * 0.1}>
               <div className="border border-[#3b4a6b]/15 p-6 hover:border-yellow-400/40 transition-colors rounded-sm">
+                <Icon name="shield" className="w-6 h-6 text-yellow-500 mb-3" />
                 <h3 className="text-lg font-heading text-[#1a1f2e]">{s.title}</h3>
                 <p className="text-[#3b4a6b]/60 text-sm mt-2 leading-relaxed">{s.description}</p>
               </div>
@@ -542,15 +639,21 @@ function Contact() {
           <ScrollReveal>
             <div className="space-y-5">
               <div className="flex items-center gap-4">
-                <div className="w-11 h-11 rounded-sm bg-white/10 flex items-center justify-center text-yellow-400 font-heading">📞</div>
+                <div className="w-11 h-11 rounded-sm bg-white/10 flex items-center justify-center text-yellow-400">
+                  <Icon name="phone" className="w-5 h-5" />
+                </div>
                 <div><div className="text-white font-semibold text-sm">Phone</div><div className="text-[#9ea8c0] text-sm">{siteInfo.phone}</div></div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="w-11 h-11 rounded-sm bg-white/10 flex items-center justify-center text-yellow-400 font-heading">✉️</div>
+                <div className="w-11 h-11 rounded-sm bg-white/10 flex items-center justify-center text-yellow-400">
+                  <Icon name="mail" className="w-5 h-5" />
+                </div>
                 <div><div className="text-white font-semibold text-sm">Email</div><div className="text-[#9ea8c0] text-sm">{siteInfo.email}</div></div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="w-11 h-11 rounded-sm bg-white/10 flex items-center justify-center text-yellow-400 font-heading">📍</div>
+                <div className="w-11 h-11 rounded-sm bg-white/10 flex items-center justify-center text-yellow-400">
+                  <Icon name="location" className="w-5 h-5" />
+                </div>
                 <div><div className="text-white font-semibold text-sm">Office</div><div className="text-[#9ea8c0] text-sm">{siteInfo.address}</div></div>
               </div>
               <div className="border-t border-white/10 pt-5 mt-5">
@@ -586,7 +689,7 @@ function Contact() {
                 type="submit"
                 className="w-full bg-yellow-400 hover:bg-yellow-300 text-[#1a1f2e] py-4 font-bold text-sm tracking-wide uppercase transition-colors rounded-sm"
               >
-                {submitted ? '✓ RFP Submitted' : 'Submit RFP'}
+                {submitted ? <span className="flex items-center justify-center gap-2"><Icon name="checkmark" className="w-4 h-4" /> RFP Submitted</span> : 'Submit RFP'}
               </motion.button>
             </form>
           </ScrollReveal>
@@ -603,7 +706,7 @@ function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-yellow-400 rounded flex items-center justify-center">
-            <span className="text-[#1a1f2e] font-heading text-sm">S</span>
+            <Icon name="helmet" className="w-4 h-4 text-[#1a1f2e]" />
           </div>
           <span className="text-white font-heading text-sm">SteelSpan</span>
         </div>

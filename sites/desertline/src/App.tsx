@@ -13,6 +13,114 @@ import {
   type CaseStudy,
 } from './data';
 
+/* ── SVG Icons ── */
+
+const LeafIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.78 10-10 10Z" />
+    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+  </svg>
+);
+
+const SunIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="5" />
+    <line x1="12" y1="1" x2="12" y2="3" />
+    <line x1="12" y1="21" x2="12" y2="23" />
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+    <line x1="1" y1="12" x2="3" y2="12" />
+    <line x1="21" y1="12" x2="23" y2="12" />
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+  </svg>
+);
+
+const DollarIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="12" y1="1" x2="12" y2="23" />
+    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+  </svg>
+);
+
+const ClockIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="10" />
+    <polyline points="12 6 12 12 16 14" />
+  </svg>
+);
+
+const WaterIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M12 2a8 8 0 0 0-8 8c0 5.33 3.56 12 8 12s8-6.67 8-12a8 8 0 0 0-8-8z" />
+    <path d="M12 10v4" />
+    <path d="M10 12h4" />
+  </svg>
+);
+
+const ArrowDownIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="12" y1="5" x2="12" y2="19" />
+    <polyline points="19 12 12 19 5 12" />
+  </svg>
+);
+
+const MenuIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="3" y1="6" x2="21" y2="6" />
+    <line x1="3" y1="12" x2="21" y2="12" />
+    <line x1="3" y1="18" x2="21" y2="18" />
+  </svg>
+);
+
+const CloseIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="18" y1="6" x2="6" y2="18" />
+    <line x1="6" y1="6" x2="18" y2="18" />
+  </svg>
+);
+
+const PhoneIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+  </svg>
+);
+
+const EmailIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+    <polyline points="22,6 12,13 2,6" />
+  </svg>
+);
+
+const HomeIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+    <polyline points="9 22 9 12 15 12 15 22" />
+  </svg>
+);
+
+const SproutIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M7 20h10" />
+    <path d="M10 20c0-4 2-8 2-8s2 4 2 8" />
+    <path d="M12 4C9 4 5 6 5 10c0 3 2 5 7 5s7-2 7-5c0-4-4-6-7-6z" />
+  </svg>
+);
+
+const DropIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+  </svg>
+);
+
+const benefitIcons: Record<string, FC<{ className?: string }>> = {
+  dollar: DollarIcon,
+  clock: ClockIcon,
+  leaf: LeafIcon,
+  sun: SunIcon,
+};
+
 /* ── Water Savings Calculator ── */
 
 interface CalcState {
@@ -110,7 +218,7 @@ const NavBar: FC = () => {
     >
       <div className="max-w-7xl mx-auto px-5 flex items-center justify-between h-16 md:h-20">
         <a href="#" className="font-heading text-xl text-olive-600 tracking-tight flex items-center gap-2">
-          <span className="text-2xl">\uD83C\uDF35</span>
+          <SproutIcon className="w-6 h-6" />
           {siteInfo.name}
         </a>
         <nav className="hidden md:flex items-center gap-6">
@@ -132,10 +240,10 @@ const NavBar: FC = () => {
         </nav>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-olive-700 text-2xl"
+          className="md:hidden text-olive-700"
           aria-label="Menu"
         >
-          {mobileOpen ? '\u2715' : '\u2630'}
+          {mobileOpen ? <CloseIcon className="w-5 h-5" /> : <MenuIcon className="w-5 h-5" />}
         </button>
       </div>
       <AnimatePresence>
@@ -176,8 +284,14 @@ const NavBar: FC = () => {
 
 const HeroSection: FC = () => (
   <section className="relative min-h-screen flex items-center overflow-hidden">
-    <div className="absolute inset-0 bg-gradient-to-br from-sand-100 via-sand-50 to-olive-50" />
-    <div className="absolute inset-0 opacity-30 bg-topo" />
+    <div className="absolute inset-0">
+      <img
+        src={siteInfo.heroImage}
+        alt="Desert xeriscape landscape"
+        className="w-full h-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-br from-sand-100/80 via-sand-50/70 to-olive-50/60" />
+    </div>
     <motion.div
       className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-olive-500/5 to-transparent"
       animate={{ opacity: [0.3, 0.6, 0.3] }}
@@ -191,7 +305,7 @@ const HeroSection: FC = () => (
           transition={{ delay: 0.2 }}
           className="inline-flex items-center gap-2 bg-olive-100 text-olive-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-5"
         >
-          <span className="w-2 h-2 rounded-full bg-olive-500" />
+          <DropIcon className="w-3.5 h-3.5" />
           Save up to 70% on outdoor water use
         </motion.span>
         <motion.h1
@@ -240,9 +354,9 @@ const HeroSection: FC = () => (
       <motion.div
         animate={{ y: [0, 5, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
-        className="text-sand-400 text-xl"
+        className="text-sand-400"
       >
-        \u2193
+        <ArrowDownIcon className="w-5 h-5" />
       </motion.div>
     </motion.div>
   </section>
@@ -260,20 +374,23 @@ const BenefitsSection: FC = () => (
         </p>
       </motion.div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {benefits.map((b, i) => (
-          <motion.div
-            key={b.title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
-            className="bg-white rounded-xl p-6 border border-sand-200 hover:border-olive-300 transition-colors"
-          >
-            <span className="text-3xl block mb-3">{b.icon}</span>
-            <h3 className="font-heading text-lg text-gray-800 mb-2">{b.title}</h3>
-            <p className="text-sand-500 text-sm leading-relaxed">{b.description}</p>
-          </motion.div>
-        ))}
+        {benefits.map((b, i) => {
+          const IconComp = benefitIcons[b.icon] || LeafIcon;
+          return (
+            <motion.div
+              key={b.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="bg-white rounded-xl p-6 border border-sand-200 hover:border-olive-300 transition-colors"
+            >
+              <IconComp className="w-8 h-8 text-olive-500 block mb-3" />
+              <h3 className="font-heading text-lg text-gray-800 mb-2">{b.title}</h3>
+              <p className="text-sand-500 text-sm leading-relaxed">{b.description}</p>
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   </section>
@@ -302,7 +419,10 @@ const ServicesSection: FC = () => (
             className="bg-white rounded-xl p-6 border border-sand-200 hover:border-olive-300 transition-all group"
           >
             <div className="flex items-start justify-between mb-3">
-              <h3 className="font-heading text-lg text-gray-800 group-hover:text-olive-600 transition-colors">{s.title}</h3>
+              <div className="flex items-center gap-2">
+                <WaterIcon className="w-5 h-5 text-olive-500" />
+                <h3 className="font-heading text-lg text-gray-800 group-hover:text-olive-600 transition-colors">{s.title}</h3>
+              </div>
               {s.waterSave !== 'N/A' && (
                 <span className="bg-olive-50 text-olive-600 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider whitespace-nowrap">
                   Save {s.waterSave}
@@ -383,7 +503,10 @@ const PlantLibrarySection: FC = () => {
               className="bg-white rounded-xl p-5 border border-sand-200 hover:border-olive-300 transition-all"
             >
               <div className="flex items-start justify-between mb-2">
-                <h3 className="font-heading text-lg text-gray-800">{p.name}</h3>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: p.color }} />
+                  <h3 className="font-heading text-lg text-gray-800">{p.name}</h3>
+                </div>
                 <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider ${
                   p.droughtTolerance === 'High' ? 'bg-olive-50 text-olive-600' : 'bg-sand-100 text-sand-500'
                 }`}>
@@ -393,8 +516,8 @@ const PlantLibrarySection: FC = () => {
               <p className="text-sand-400 text-xs italic mb-2">{p.scientific}</p>
               <p className="text-sand-500 text-sm leading-relaxed">{p.description}</p>
               <div className="mt-3 flex items-center gap-2">
+                <SunIcon className="w-3.5 h-3.5 text-sand-400" />
                 <span className="text-xs text-sand-400">{p.sun}</span>
-                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: p.color }} />
               </div>
             </motion.div>
           ))}
@@ -426,18 +549,19 @@ const CaseStudiesSection: FC = () => (
             transition={{ delay: i * 0.12 }}
             className="bg-white rounded-2xl border border-sand-200 overflow-hidden hover:shadow-md transition-shadow"
           >
-            <div
-              className="aspect-[16/7] flex items-center justify-center"
-              style={{ backgroundColor: cs.color + '20' }}
-            >
-              <div className="text-center">
-                <span className="text-2xl block">\uD83C\uDF3F</span>
-                <span className="text-xs text-sand-400 mt-1 block">{cs.location}</span>
-              </div>
+            <div className="aspect-[16/7] overflow-hidden">
+              <img
+                src={cs.image}
+                alt={cs.title}
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="p-5">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="font-heading text-lg text-gray-800">{cs.title}</h3>
+                <div>
+                  <h3 className="font-heading text-lg text-gray-800">{cs.title}</h3>
+                  <p className="text-xs text-sand-400">{cs.location}</p>
+                </div>
                 <span className="bg-olive-50 text-olive-600 text-xs font-bold px-2.5 py-1 rounded-full whitespace-nowrap">
                   {cs.waterSaved}
                 </span>
@@ -526,13 +650,13 @@ const ContactSection: FC = () => {
             </p>
             <div className="mt-6 space-y-3 text-sm text-sand-500">
               <p className="flex items-center gap-2">
-                <span className="text-olive-500">\u260E</span> {contactInfo.phone}
+                <PhoneIcon className="w-4 h-4 text-olive-500" /> {contactInfo.phone}
               </p>
               <p className="flex items-center gap-2">
-                <span className="text-olive-500">\u2709</span> {contactInfo.email}
+                <EmailIcon className="w-4 h-4 text-olive-500" /> {contactInfo.email}
               </p>
               <p className="flex items-center gap-2">
-                <span className="text-olive-500">\u2302</span> {contactInfo.address}
+                <HomeIcon className="w-4 h-4 text-olive-500" /> {contactInfo.address}
               </p>
             </div>
           </motion.div>
@@ -543,7 +667,7 @@ const ContactSection: FC = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 className="bg-olive-50 rounded-2xl p-8 border border-olive-100"
               >
-                <span className="text-4xl block mb-3">\uD83C\uDF3F</span>
+                <SproutIcon className="w-12 h-12 text-olive-500 block mb-3" />
                 <h3 className="font-heading text-xl text-gray-800 mb-2">Consultation Request Received</h3>
                 <p className="text-sand-500 text-sm">We will contact you within 48 hours to schedule your free property assessment and water-use analysis.</p>
               </motion.div>
@@ -589,7 +713,7 @@ const Footer: FC = () => (
       <div className="grid md:grid-cols-4 gap-8 mb-10">
         <div className="md:col-span-2">
           <h4 className="font-heading text-xl text-white mb-3 flex items-center gap-2">
-            <span>\uD83C\uDF35</span> {siteInfo.name}
+            <SproutIcon className="w-5 h-5 text-olive-400" /> {siteInfo.name}
           </h4>
           <p className="text-sand-500 text-sm leading-relaxed max-w-sm">{siteInfo.description}</p>
         </div>

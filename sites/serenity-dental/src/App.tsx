@@ -52,7 +52,14 @@ function Nav() {
 function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <div className="absolute inset-0 bg-gradient-to-br from-cream-white via-cream-white to-champagne-light/30" />
+      <div className="absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=1600&q=85"
+          alt=""
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-cream-white/80" />
+      </div>
       <div className="absolute inset-0 opacity-[0.04]"
         style={{ backgroundImage: 'radial-gradient(circle at 30% 40%, #E8D5B7 0%, transparent 50%), radial-gradient(circle at 70% 60%, #E8D5B7 0%, transparent 50%)' }}
       />
@@ -232,17 +239,27 @@ function BeforeAfter() {
                 onMouseMove={(e) => handleMove(e.clientX)}
                 onTouchMove={(e) => handleMove(e.touches[0].clientX)}
               >
-                <div className="absolute inset-0 flex items-center justify-center bg-champagne-light">
-                  <div className="text-center px-4">
-                    <p className="text-xs uppercase tracking-wider text-warm-stone mb-2">Before</p>
-                    <p className="text-deep-charcoal font-serif text-sm">{pair.before}</p>
+                <img
+                  src={pair.beforeImage}
+                  alt="Before treatment"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center px-4 bg-black/40 rounded-lg py-2">
+                    <p className="text-xs uppercase tracking-wider text-white mb-1">Before</p>
+                    <p className="text-white font-serif text-sm">{pair.before}</p>
                   </div>
                 </div>
                 <div className="after-image" style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` } as React.CSSProperties}>
-                  <div className="h-full flex items-center justify-center bg-soft-champagne/20">
-                    <div className="text-center px-4">
-                      <p className="text-xs uppercase tracking-wider text-warm-stone mb-2">After</p>
-                      <p className="text-deep-charcoal font-serif text-sm">{pair.after}</p>
+                  <img
+                    src={pair.afterImage}
+                    alt="After treatment"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-0 left-0 right-0 flex items-center justify-center" style={{ paddingTop: '2rem' }}>
+                    <div className="text-center px-4 bg-black/40 rounded-lg py-2">
+                      <p className="text-xs uppercase tracking-wider text-white mb-1">After</p>
+                      <p className="text-white font-serif text-sm">{pair.after}</p>
                     </div>
                   </div>
                 </div>

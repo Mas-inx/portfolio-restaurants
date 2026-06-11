@@ -74,12 +74,12 @@ export const availableUnits: Unit[] = [
 ];
 
 export const amenities: Amenity[] = [
-  { title: 'Rooftop Lounge', description: 'Panoramic city views with fire pits, grills, and lounge seating — open late.', icon: '🌇' },
-  { title: 'Fitness Center', description: '24/7 gym with Peloton bikes, free weights, yoga studio, and on-demand classes.', icon: '💪' },
-  { title: 'Co-Working Lounge', description: 'Private phone booths, high-speed WiFi, conference rooms, and coffee bar.', icon: '💻' },
-  { title: 'Parking Garage', description: 'Reserved spaces with EV charging stations and 24-hour security.', icon: '🚗' },
-  { title: 'Pet Friendly', description: 'Pet spa, rooftop dog run, and no breed restrictions — all pets welcome.', icon: '🐾' },
-  { title: 'Package Lockers', description: 'Climate-controlled, secure package room with SMS delivery alerts.', icon: '📦' },
+  { title: 'Rooftop Lounge', description: 'Panoramic city views with fire pits, grills, and lounge seating — open late.', icon: 'building' },
+  { title: 'Fitness Center', description: '24/7 gym with Peloton bikes, free weights, yoga studio, and on-demand classes.', icon: 'dumbbell' },
+  { title: 'Co-Working Lounge', description: 'Private phone booths, high-speed WiFi, conference rooms, and coffee bar.', icon: 'wifi' },
+  { title: 'Parking Garage', description: 'Reserved spaces with EV charging stations and 24-hour security.', icon: 'car' },
+  { title: 'Pet Friendly', description: 'Pet spa, rooftop dog run, and no breed restrictions — all pets welcome.', icon: 'paw' },
+  { title: 'Package Lockers', description: 'Climate-controlled, secure package room with SMS delivery alerts.', icon: 'package' },
 ];
 
 export const floorPlans: FloorPlan[] = [
@@ -90,10 +90,10 @@ export const floorPlans: FloorPlan[] = [
 ];
 
 export const neighborhood: NeighborhoodItem[] = [
-  { title: 'Walk Score 95', description: 'Groceries, coffee, gym, and nightlife all within a 10-minute walk from the lobby.', icon: '🚶' },
-  { title: 'Transit Hub', description: '3 subway lines, 2 bus routes, and a Citi Bike station at your doorstep.', icon: '🚇' },
-  { title: 'Café & Dining', description: '24 restaurants, 8 coffee shops, and a Michelin-starred tasting menu within 3 blocks.', icon: '🍽️' },
-  { title: 'Nightlife', description: 'Rooftop bars, live music venues, and speakeasies — the neighborhood never sleeps.', icon: '🎵' },
+  { title: 'Walk Score 95', description: 'Groceries, coffee, gym, and nightlife all within a 10-minute walk from the lobby.', icon: 'map' },
+  { title: 'Transit Hub', description: '3 subway lines, 2 bus routes, and a Citi Bike station at your doorstep.', icon: 'train' },
+  { title: 'Café & Dining', description: '24 restaurants, 8 coffee shops, and a Michelin-starred tasting menu within 3 blocks.', icon: 'coffee' },
+  { title: 'Nightlife', description: 'Rooftop bars, live music venues, and speakeasies — the neighborhood never sleeps.', icon: 'star' },
 ];
 
 export const gallery: GalleryItem[] = [
@@ -106,8 +106,8 @@ export const gallery: GalleryItem[] = [
 ];
 
 export const leasingSteps: LeasingStep[] = [
-  { title: 'Book a Tour', description: 'Schedule an in-person or virtual tour that fits your schedule. We\'re open 7 days a week.', icon: '📅' },
-  { title: 'Apply Online', description: 'Simple 10-minute application. $50 fee, instant credit check, 24-hour approval turnaround.', icon: '📝' },
-  { title: 'Review & Sign', description: 'Digital lease with clear terms, no hidden fees. We explain every clause before you sign.', icon: '✓' },
-  { title: 'Move In', description: 'Welcome package, smart lock codes ready, and our concierge team helps you settle in.', icon: '🔑' },
+  { title: 'Book a Tour', description: "Schedule an in-person or virtual tour that fits your schedule. We're open 7 days a week.", icon: 'phone' },
+  { title: 'Apply Online', description: 'Simple 10-minute application. $50 fee, instant credit check, 24-hour approval turnaround.', icon: 'mail' },
+  { title: 'Review & Sign', description: 'Digital lease with clear terms, no hidden fees. We explain every clause before you sign.', icon: 'check' },
+  { title: 'Move In', description: 'Welcome package, smart lock codes ready, and our concierge team helps you settle in.', icon: 'elevator' },
 ];

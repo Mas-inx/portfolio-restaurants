@@ -16,17 +16,120 @@ import {
   type Testimonial,
 } from './data';
 
+/* ── SVG Icons ── */
+
+const LeafIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.78 10-10 10Z" />
+    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+  </svg>
+);
+
+const GridIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect x="3" y="3" width="7" height="7" rx="1" />
+    <rect x="14" y="3" width="7" height="7" rx="1" />
+    <rect x="3" y="14" width="7" height="7" rx="1" />
+    <rect x="14" y="14" width="7" height="7" rx="1" />
+  </svg>
+);
+
+const DropletIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+  </svg>
+);
+
+const SunIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="5" />
+    <line x1="12" y1="1" x2="12" y2="3" />
+    <line x1="12" y1="21" x2="12" y2="23" />
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+    <line x1="1" y1="12" x2="3" y2="12" />
+    <line x1="21" y1="12" x2="23" y2="12" />
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+  </svg>
+);
+
+const WaterIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M12 2a8 8 0 0 0-8 8c0 5.33 3.56 12 8 12s8-6.67 8-12a8 8 0 0 0-8-8z" />
+    <path d="M12 10v4" />
+    <path d="M10 12h4" />
+  </svg>
+);
+
+const CheckIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <polyline points="20 6 9 17 4 12" />
+  </svg>
+);
+
+const QuoteIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" className={className}>
+    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151C7.563 6.068 6 8.789 6 11h4v10H0z" />
+  </svg>
+);
+
+const ArrowDownIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="12" y1="5" x2="12" y2="19" />
+    <polyline points="19 12 12 19 5 12" />
+  </svg>
+);
+
+const MenuIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="3" y1="6" x2="21" y2="6" />
+    <line x1="3" y1="12" x2="21" y2="12" />
+    <line x1="3" y1="18" x2="21" y2="18" />
+  </svg>
+);
+
+const CloseIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="18" y1="6" x2="6" y2="18" />
+    <line x1="6" y1="6" x2="18" y2="18" />
+  </svg>
+);
+
+const LocationIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+    <circle cx="12" cy="10" r="3" />
+  </svg>
+);
+
+const PhoneIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+  </svg>
+);
+
+const EmailIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+    <polyline points="22,6 12,13 2,6" />
+  </svg>
+);
+
+/* ── Icon map ── */
+
+const serviceIcons: Record<string, FC<{ className?: string }>> = {
+  leaf: LeafIcon,
+  grid: GridIcon,
+  droplet: DropletIcon,
+  sun: SunIcon,
+  water: WaterIcon,
+};
+
 /* ── Sub-components ── */
 
 const ServiceCard: FC<{ item: ServiceItem; index: number }> = ({ item, index }) => {
-  const icons: Record<string, string> = {
-    pencil: '\u270E',
-    grid: '\u25A6',
-    droplet: '\u273D',
-    sun: '\u2609',
-    water: '\u2248',
-    leaf: '\u2618',
-  };
+  const IconComp = serviceIcons[item.icon] || LeafIcon;
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -36,7 +139,7 @@ const ServiceCard: FC<{ item: ServiceItem; index: number }> = ({ item, index }) 
       className="group border-b border-cream-300 pb-8 mb-8 last:border-0 last:pb-0 last:mb-0 cursor-default"
     >
       <div className="flex items-start gap-5">
-        <span className="text-2xl text-forest-400 mt-1 w-8 text-center font-body">{icons[item.icon] || '\u2730'}</span>
+        <IconComp className="w-7 h-7 text-forest-400 mt-1 flex-shrink-0" />
         <div className="flex-1">
           <h3 className="font-heading text-xl text-forest-600 mb-2 group-hover:text-forest-500 transition-colors">{item.title}</h3>
           <p className="text-stone-600 leading-relaxed text-sm font-body">{item.description}</p>
@@ -54,28 +157,26 @@ const ProjectCard: FC<{ project: ProjectItem; index: number }> = ({ project, ind
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="relative group cursor-pointer overflow-hidden"
+      className="relative group cursor-pointer overflow-hidden rounded-sm"
     >
-      <div
-        className="aspect-[4/3] w-full rounded-sm flex items-end p-6 relative"
-        style={{ backgroundColor: project.accentColor + '18' }}
-      >
-        <div
-          className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-700"
-          style={{
-            background: `radial-gradient(circle at ${index % 2 === 0 ? '30%' : '70%'} 40%, ${project.accentColor}44 0%, transparent 70%)`,
-          }}
+      <div className="aspect-[4/3] w-full rounded-sm flex items-end p-6 relative overflow-hidden">
+        <img
+          src={project.image}
+          alt={project.title}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         <div className="relative z-10">
           <span
-            className="inline-block text-xs tracking-[0.2em] uppercase font-body font-medium mb-2"
-            style={{ color: project.accentColor }}
+            className="inline-block text-xs tracking-[0.2em] uppercase font-body font-medium mb-2 text-white/80"
           >
             {project.category}
           </span>
-          <h3 className="font-heading text-2xl text-stone-800 mb-1">{project.title}</h3>
-          <p className="text-stone-500 text-xs font-body">{project.location}</p>
-          <p className="text-stone-600 text-sm leading-relaxed mt-3 max-w-md font-body opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+          <h3 className="font-heading text-2xl text-white mb-1">{project.title}</h3>
+          <p className="text-white/60 text-xs font-body flex items-center gap-1">
+            <LocationIcon className="w-3 h-3" /> {project.location}
+          </p>
+          <p className="text-white/80 text-sm leading-relaxed mt-3 max-w-md font-body opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
             {project.description}
           </p>
         </div>
@@ -140,11 +241,14 @@ const TestimonialCard: FC<{ t: Testimonial; index: number }> = ({ t, index }) =>
     transition={{ duration: 0.6, delay: index * 0.15 }}
     className="border border-cream-200 p-8 md:p-10 rounded-sm bg-cream-100/50"
   >
-    <span className="text-5xl font-heading text-forest-200 leading-none block mb-4">&ldquo;</span>
-    <p className="text-stone-700 leading-relaxed text-sm md:text-base font-body italic mb-6">&ldquo;{t.quote}&rdquo;</p>
-    <div>
-      <p className="font-heading text-forest-600">{t.name}</p>
-      <p className="text-stone-400 text-xs font-body">{t.location}</p>
+    <QuoteIcon className="w-10 h-10 text-forest-200 mb-4" />
+    <p className="text-stone-700 leading-relaxed text-sm md:text-base font-body italic mb-6">{t.quote}</p>
+    <div className="flex items-center gap-3">
+      <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+      <div>
+        <p className="font-heading text-forest-600">{t.name}</p>
+        <p className="text-stone-400 text-xs font-body">{t.location}</p>
+      </div>
     </div>
   </motion.div>
 );
@@ -169,7 +273,8 @@ const NavBar: FC = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-16 md:h-20">
-        <a href="#" className="font-heading text-lg md:text-xl text-forest-600 tracking-tight">
+        <a href="#" className="font-heading text-lg md:text-xl text-forest-600 tracking-tight flex items-center gap-2">
+          <LeafIcon className="w-5 h-5" />
           {siteInfo.name}
         </a>
         <nav className="hidden md:flex items-center gap-8">
@@ -185,10 +290,10 @@ const NavBar: FC = () => {
         </nav>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-stone-700 text-2xl font-body"
+          className="md:hidden text-stone-700"
           aria-label="Menu"
         >
-          {mobileOpen ? '\u2715' : '\u2630'}
+          {mobileOpen ? <CloseIcon className="w-5 h-5" /> : <MenuIcon className="w-5 h-5" />}
         </button>
       </div>
       <AnimatePresence>
@@ -223,14 +328,22 @@ const Footer: FC = () => (
     <div className="max-w-7xl mx-auto">
       <div className="grid md:grid-cols-3 gap-10 mb-10">
         <div>
-          <h4 className="font-heading text-xl text-cream-200 mb-3">{siteInfo.name}</h4>
+          <h4 className="font-heading text-xl text-cream-200 mb-3 flex items-center gap-2">
+            <LeafIcon className="w-5 h-5 text-forest-400" /> {siteInfo.name}
+          </h4>
           <p className="text-stone-400 text-sm leading-relaxed font-body">{siteInfo.description}</p>
         </div>
         <div>
           <h4 className="font-heading text-lg text-cream-200 mb-3">Contact</h4>
-          <p className="text-stone-400 text-sm font-body">{contactInfo.email}</p>
-          <p className="text-stone-400 text-sm font-body">{contactInfo.phone}</p>
-          <p className="text-stone-400 text-sm font-body">{contactInfo.address}</p>
+          <p className="text-stone-400 text-sm font-body flex items-center gap-2">
+            <EmailIcon className="w-4 h-4" /> {contactInfo.email}
+          </p>
+          <p className="text-stone-400 text-sm font-body flex items-center gap-2 mt-1">
+            <PhoneIcon className="w-4 h-4" /> {contactInfo.phone}
+          </p>
+          <p className="text-stone-400 text-sm font-body flex items-center gap-2 mt-1">
+            <LocationIcon className="w-4 h-4" /> {contactInfo.address}
+          </p>
         </div>
         <div>
           <h4 className="font-heading text-lg text-cream-200 mb-3">Follow</h4>
@@ -259,7 +372,7 @@ const ConsultationForm: FC = () => {
           animate={{ opacity: 1, scale: 1 }}
           className="text-center py-12"
         >
-          <span className="text-4xl block mb-4 font-body">\u2714</span>
+          <CheckIcon className="w-12 h-12 text-forest-500 mx-auto mb-4" />
           <h3 className="font-heading text-2xl text-forest-600 mb-2">Thank You</h3>
           <p className="text-stone-500 text-sm font-body">We will be in touch within 24 hours to schedule your consultation.</p>
         </motion.div>
@@ -330,17 +443,12 @@ const HeroSection: FC = () => {
         className="absolute inset-0"
       >
         <div
-          className="w-full h-full"
+          className="w-full h-full bg-cover bg-center"
           style={{
-            background: 'linear-gradient(135deg, #1a2e1f 0%, #2d5a3d 30%, #4a7c59 60%, #7aa56e 100%)',
+            backgroundImage: `url('${siteInfo.heroImage}')`,
           }}
         />
-        <div className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: 'radial-gradient(circle at 25% 50%, white 0.5px, transparent 0.5px)',
-            backgroundSize: '40px 40px',
-          }}
-        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
       </motion.div>
       <div className="relative z-10 text-center px-6 max-w-3xl">
         <motion.span
@@ -349,6 +457,7 @@ const HeroSection: FC = () => {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="text-cream-200/70 text-xs md:text-sm tracking-[0.3em] uppercase block mb-6 font-body"
         >
+          <LocationIcon className="w-3.5 h-3.5 inline-block mr-1.5 -mt-0.5" />
           {siteInfo.location}
         </motion.span>
         <motion.h1
@@ -390,9 +499,9 @@ const HeroSection: FC = () => {
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="text-cream-200/40 text-lg font-body"
+          className="text-cream-200/40"
         >
-          \u2193
+          <ArrowDownIcon className="w-5 h-5" />
         </motion.div>
       </motion.div>
     </section>
@@ -409,16 +518,12 @@ const PhilosophySection: FC = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
           <motion.div style={{ x }} className="relative">
-            <div className="aspect-[3/4] bg-forest-100 rounded-sm overflow-hidden relative">
-              <div
-                className="absolute inset-0"
-                style={{
-                  background: 'linear-gradient(160deg, #d3e2ce 0%, #a9c6a0 40%, #7aa56e 100%)',
-                }}
+            <div className="aspect-[3/4] rounded-sm overflow-hidden relative">
+              <img
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=85"
+                alt="Luxury botanical garden pathway"
+                className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-cream-50/30 text-[12rem] font-heading leading-none">VS</span>
-              </div>
             </div>
             <div className="absolute -bottom-4 -right-4 w-24 h-24 border border-forest-200 rounded-sm hidden md:block" />
           </motion.div>
@@ -586,12 +691,18 @@ const ContactSection: FC = () => (
         <div className="md:col-span-2 space-y-6">
           <div>
             <h4 className="font-heading text-lg text-forest-600 mb-1">Studio</h4>
-            <p className="text-stone-500 text-sm font-body">{contactInfo.address}</p>
+            <p className="text-stone-500 text-sm font-body flex items-center gap-2">
+              <LocationIcon className="w-4 h-4 text-forest-400" /> {contactInfo.address}
+            </p>
           </div>
           <div>
             <h4 className="font-heading text-lg text-forest-600 mb-1">Contact</h4>
-            <p className="text-stone-500 text-sm font-body">{contactInfo.email}</p>
-            <p className="text-stone-500 text-sm font-body">{contactInfo.phone}</p>
+            <p className="text-stone-500 text-sm font-body flex items-center gap-2">
+              <EmailIcon className="w-4 h-4 text-forest-400" /> {contactInfo.email}
+            </p>
+            <p className="text-stone-500 text-sm font-body flex items-center gap-2 mt-1">
+              <PhoneIcon className="w-4 h-4 text-forest-400" /> {contactInfo.phone}
+            </p>
           </div>
           <div className="border-t border-cream-200 pt-6">
             <p className="text-stone-400 text-xs font-body">

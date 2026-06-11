@@ -48,6 +48,7 @@ export const siteInfo = {
   contractsManaged: 380,
   responseTimeAvg: '2.4 hours',
   emergencyAvailable: true,
+  heroImage: 'https://images.unsplash.com/photo-1631545806607-f4acbf48f12f?w=1600&q=85',
 }
 
 export const services: Service[] = [

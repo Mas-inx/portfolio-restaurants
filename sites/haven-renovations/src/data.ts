@@ -49,42 +49,42 @@ export const renovationTypes: RenovationType[] = [
     title: 'Kitchen Renovations',
     description:
       'Full kitchen remodels from studs to finishes. Custom cabinetry, stone countertops, island layouts, and appliance integration designed for how you actually cook.',
-    icon: '🍳',
+    icon: 'utensils',
     image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80',
   },
   {
     title: 'Bathroom Renovations',
     description:
       'Spa-quality primary baths, powder rooms, and guest bathrooms. Heated floors, custom tile work, floating vanities, and rain showers that turn a utility room into a retreat.',
-    icon: '🛁',
+    icon: 'bath',
     image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80',
   },
   {
     title: 'Basement Finishing',
     description:
       'Transform below-grade space into livable square footage. Home theaters, wine cellars, guest suites, home gyms — with proper moisture control and egress compliance.',
-    icon: '⬇️',
+    icon: 'down',
     image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80',
   },
   {
     title: 'Full-Home Renovations',
     description:
       'Whole-house transformations that rework floor plans, update all systems, and unify the design language across every room. Live elsewhere during construction.',
-    icon: '🏡',
+    icon: 'home',
     image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
   },
   {
     title: 'Home Additions',
     description:
       'Second-story additions, rear bump-outs, dormer expansions, and in-law suites. Designed to match existing architecture while adding meaningful square footage.',
-    icon: '➕',
+    icon: 'plus',
     image: 'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800&q=80',
   },
   {
     title: 'Room Transformations',
     description:
       'Single-room makeovers: living rooms, dining rooms, home offices, and mudrooms. Focused scope with high-design finishes and faster turnaround.',
-    icon: '🪑',
+    icon: 'sofa',
     image: 'https://images.unsplash.com/photo-1618220179428-22790b461013?w=800&q=80',
   },
 ]
@@ -124,32 +124,32 @@ export const materialCategories: MaterialCategory[] = [
   {
     title: 'Cabinetry & Millwork',
     items: ['Custom inset cabinetry', 'White oak, walnut, maple', 'Full-overlay & flush inset', 'Soft-close hardware', 'Custom pantry systems', 'Built-in shelving & banquettes'],
-    icon: '🪚',
+    icon: 'hammer',
   },
   {
     title: 'Stone & Surfacing',
     items: ['Marble (Carrara, Calacatta)', 'Quartzite & granite', 'Engineered quartz', 'Porcelain slabs', 'Terrazzo', 'Solid surface (Corian, Dekton)'],
-    icon: '🪨',
+    icon: 'stone',
   },
   {
     title: 'Lighting & Fixtures',
     items: ['Recessed & track lighting', 'Pendant & chandelier', 'Under-cabinet lighting', 'Wall sconces', 'Matte black, brass, chrome', 'Smart dimming systems'],
-    icon: '💡',
+    icon: 'light',
   },
   {
     title: 'Flooring',
     items: ['Engineered hardwood', 'Luxury vinyl plank', 'Natural stone tile', 'Porcelain tile (large format)', 'Heated floor systems', 'Wide-plank oak'],
-    icon: '🪵',
+    icon: 'ruler',
   },
   {
     title: 'Tile & Mosaic',
     items: ['Zellige & handmade tile', 'Large-format porcelain', 'Hexagon & subway patterns', 'Marble & stone mosaic', 'Glass tile accents', 'Outdoor-rated porcelain'],
-    icon: '🧩',
+    icon: 'grid',
   },
   {
     title: 'Fixtures & Hardware',
     items: ['Waterworks & Brizo', 'Rohl & Newport Brass', 'Kohler & Toto fixtures', 'Custom cabinetry pulls', 'Smart toilets & faucets', 'Commercial-grade faucets'],
-    icon: '🔧',
+    icon: 'wrench',
   },
 ]
 
@@ -190,32 +190,32 @@ export const clientBenefits: ClientBenefit[] = [
   {
     title: 'Dust Control',
     description: 'We seal off work zones with zip walls, use HEPA-filtered air scrubbers, and clean the job site daily. Your unrenovated rooms stay livable.',
-    icon: '🧹',
+    icon: 'shield',
   },
   {
     title: 'Schedule Transparency',
     description: 'You get a weekly schedule update every Friday — what was completed, what\'s next, and any adjustments. No surprises.',
-    icon: '📅',
+    icon: 'calendar',
   },
   {
     title: 'Budget Visibility',
     description: 'Every expense is tracked in a shared dashboard. Change orders are proposed with full cost breakdowns before any work proceeds.',
-    icon: '💰',
+    icon: 'checkmark',
   },
   {
     title: 'Design Partnership',
     description: 'You work directly with a designer and a project manager. One point of contact for decisions, one for execution. No runaround.',
-    icon: '🤝',
+    icon: 'handshake',
   },
   {
     title: 'Material Vetting',
     description: 'We help source, compare, and order all materials — often at trade pricing. You get better products without the retail markup.',
-    icon: '🎯',
+    icon: 'star',
   },
   {
     title: 'Post-Project Support',
     description: 'We don\'t disappear after the final walkthrough. A 2-year workmanship warranty and a direct line to your project manager.',
-    icon: '🔄',
+    icon: 'shield',
   },
 ]
 

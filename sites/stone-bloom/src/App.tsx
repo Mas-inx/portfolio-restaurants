@@ -18,6 +18,148 @@ import {
   type TrustItem,
 } from './data';
 
+/* ── SVG Icons ── */
+
+const GridIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect x="3" y="3" width="7" height="7" rx="1" />
+    <rect x="14" y="3" width="7" height="7" rx="1" />
+    <rect x="3" y="14" width="7" height="7" rx="1" />
+    <rect x="14" y="14" width="7" height="7" rx="1" />
+  </svg>
+);
+
+const FireIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
+  </svg>
+);
+
+const LayersIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+    <polyline points="2 17 12 22 22 17" />
+    <polyline points="2 12 12 17 22 12" />
+  </svg>
+);
+
+const SunIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="5" />
+    <line x1="12" y1="1" x2="12" y2="3" />
+    <line x1="12" y1="21" x2="12" y2="23" />
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+    <line x1="1" y1="12" x2="3" y2="12" />
+    <line x1="21" y1="12" x2="23" y2="12" />
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+  </svg>
+);
+
+const ArrowRightIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="5" y1="12" x2="19" y2="12" />
+    <polyline points="12 5 19 12 12 19" />
+  </svg>
+);
+
+const ArrowDownIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="12" y1="5" x2="12" y2="19" />
+    <polyline points="19 12 12 19 5 12" />
+  </svg>
+);
+
+const CheckIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <polyline points="20 6 9 17 4 12" />
+  </svg>
+);
+
+const MenuIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="3" y1="6" x2="21" y2="6" />
+    <line x1="3" y1="12" x2="21" y2="12" />
+    <line x1="3" y1="18" x2="21" y2="18" />
+  </svg>
+);
+
+const CloseIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="18" y1="6" x2="6" y2="18" />
+    <line x1="6" y1="6" x2="18" y2="18" />
+  </svg>
+);
+
+const ShieldIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+  </svg>
+);
+
+const ClipboardIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+    <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+  </svg>
+);
+
+const ClockIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="10" />
+    <polyline points="12 6 12 12 16 14" />
+  </svg>
+);
+
+const CameraIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+    <circle cx="12" cy="13" r="4" />
+  </svg>
+);
+
+const PhoneIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+  </svg>
+);
+
+const EmailIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+    <polyline points="22,6 12,13 2,6" />
+  </svg>
+);
+
+const HomeIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+    <polyline points="9 22 9 12 15 12 15 22" />
+  </svg>
+);
+
+const StarIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+  </svg>
+);
+
+const trustIcons: Record<string, FC<{ className?: string }>> = {
+  shield: ShieldIcon,
+  clipboard: ClipboardIcon,
+  clock: ClockIcon,
+  camera: CameraIcon,
+};
+
+const serviceIcons: Record<string, FC<{ className?: string }>> = {
+  grid: GridIcon,
+  fire: FireIcon,
+  layers: LayersIcon,
+  sun: SunIcon,
+  'arrow-right': ArrowRightIcon,
+};
+
 /* ── Navigation ── */
 
 const NavBar: FC = () => {
@@ -40,7 +182,8 @@ const NavBar: FC = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-5 flex items-center justify-between h-16 md:h-20">
-        <a href="#" className="font-heading text-xl md:text-2xl text-charcoal-800 tracking-tight">
+        <a href="#" className="font-heading text-xl md:text-2xl text-charcoal-800 tracking-tight flex items-center gap-2">
+          <GridIcon className="w-5 h-5 text-copper-500" />
           Stone<span className="text-copper-500">&amp;</span>Bloom
         </a>
         <nav className="hidden md:flex items-center gap-6">
@@ -62,10 +205,10 @@ const NavBar: FC = () => {
         </nav>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-charcoal-700 text-2xl"
+          className="md:hidden text-charcoal-700"
           aria-label="Menu"
         >
-          {mobileOpen ? '\u2715' : '\u2630'}
+          {mobileOpen ? <CloseIcon className="w-5 h-5" /> : <MenuIcon className="w-5 h-5" />}
         </button>
       </div>
       <AnimatePresence>
@@ -78,20 +221,11 @@ const NavBar: FC = () => {
           >
             <div className="px-5 py-5 flex flex-col gap-3">
               {navLinks.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="text-sm text-charcoal-600 py-1"
-                >
+                <a key={l.href} href={l.href} onClick={() => setMobileOpen(false)} className="text-sm text-charcoal-600 py-1">
                   {l.label}
                 </a>
               ))}
-              <a
-                href="#contact"
-                onClick={() => setMobileOpen(false)}
-                className="bg-charcoal-800 text-white text-center px-5 py-2.5 rounded-md text-sm font-semibold"
-              >
+              <a href="#contact" onClick={() => setMobileOpen(false)} className="bg-charcoal-800 text-white text-center px-5 py-2.5 rounded-md text-sm font-semibold">
                 Start a Project
               </a>
             </div>
@@ -110,15 +244,15 @@ const HeroSection: FC = () => {
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
 
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden bg-charcoal-900">
+    <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden">
       <motion.div style={{ y }} className="absolute inset-0">
-        <div className="w-full h-full bg-gradient-to-br from-charcoal-800 via-charcoal-900 to-copper-900/40" />
-        <div className="absolute inset-0 opacity-[0.07]"
+        <div
+          className="w-full h-full bg-cover bg-center"
           style={{
-            backgroundImage: 'radial-gradient(circle at 50% 30%, rgba(255,255,255,0.3) 0.5px, transparent 0.5px)',
-            backgroundSize: '30px 30px',
+            backgroundImage: `url('${siteInfo.heroImage}')`,
           }}
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-charcoal-900/70 via-charcoal-900/50 to-copper-900/60" />
       </motion.div>
       <div className="relative z-10 max-w-7xl mx-auto px-5 w-full">
         <div className="max-w-3xl">
@@ -176,9 +310,9 @@ const HeroSection: FC = () => {
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="text-limestone-500 text-xl"
+          className="text-limestone-500"
         >
-          \u2193
+          <ArrowDownIcon className="w-5 h-5" />
         </motion.div>
       </motion.div>
     </section>
@@ -198,21 +332,24 @@ const ServicesSection: FC = () => (
         </p>
       </motion.div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {services.map((s: ServiceItem, i: number) => (
-          <motion.div
-            key={s.id}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.5, delay: i * 0.08 }}
-            className="group bg-limestone-50 rounded-xl p-6 border border-limestone-200 hover:border-copper-300 hover:shadow-lg transition-all duration-300"
-          >
-            <span className="text-3xl text-copper-400 block mb-3">{s.icon}</span>
-            <h3 className="font-heading text-xl text-charcoal-800 mb-2 group-hover:text-copper-600 transition-colors">{s.title}</h3>
-            <p className="text-charcoal-400 text-sm leading-relaxed mb-3">{s.description}</p>
-            <span className="text-xs text-copper-500 font-semibold uppercase tracking-wider">{s.highlight}</span>
-          </motion.div>
-        ))}
+        {services.map((s: ServiceItem, i: number) => {
+          const IconComp = serviceIcons[s.icon] || GridIcon;
+          return (
+            <motion.div
+              key={s.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className="group bg-limestone-50 rounded-xl p-6 border border-limestone-200 hover:border-copper-300 hover:shadow-lg transition-all duration-300"
+            >
+              <IconComp className="w-8 h-8 text-copper-400 block mb-3" />
+              <h3 className="font-heading text-xl text-charcoal-800 mb-2 group-hover:text-copper-600 transition-colors">{s.title}</h3>
+              <p className="text-charcoal-400 text-sm leading-relaxed mb-3">{s.description}</p>
+              <span className="text-xs text-copper-500 font-semibold uppercase tracking-wider">{s.highlight}</span>
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   </section>
@@ -246,20 +383,20 @@ const TransformationShowcase: FC = () => {
               whileHover={{ scale: 1.02 }}
               className="w-[350px] md:w-[450px] flex-shrink-0 bg-white rounded-2xl border border-limestone-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
             >
-              <div
-                className="aspect-[4/3] flex items-center justify-center relative"
-                style={{ backgroundColor: item.color + '18' }}
-              >
+              <div className="aspect-[4/3] relative overflow-hidden">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover"
+                />
                 <div className="absolute inset-0 flex">
-                  <div className="w-1/2 h-full flex items-center justify-center" style={{ backgroundColor: item.color + '20' }}>
-                    <span className="text-3xl opacity-30">\uD83C\uDFE0</span>
+                  <div className="w-1/2 h-full bg-gradient-to-r from-black/30 to-transparent flex items-center justify-center">
+                    <span className="text-white/70 text-xs font-semibold uppercase tracking-wider">Before</span>
                   </div>
-                  <div className="w-1/2 h-full flex items-center justify-center">
-                    <span className="text-3xl">\u2728</span>
+                  <div className="w-1/2 h-full flex items-center justify-end pr-3">
+                    <span className="bg-copper-500 text-white text-xs font-semibold px-2 py-0.5 rounded uppercase tracking-wider">After</span>
                   </div>
                 </div>
-                <div className="absolute top-2 left-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded">Before</div>
-                <div className="absolute top-2 right-2 bg-copper-500 text-white text-[10px] px-2 py-0.5 rounded">After</div>
               </div>
               <div className="p-5">
                 <h3 className="font-heading text-lg text-charcoal-800">{item.title}</h3>
@@ -398,7 +535,7 @@ const BudgetGuideSection: FC = () => (
             <ul className="space-y-2">
               {bg.includes.map((inc) => (
                 <li key={inc} className="flex items-start gap-2 text-sm text-charcoal-600">
-                  <span className="text-copper-500 mt-0.5">\u2713</span>
+                  <CheckIcon className="w-4 h-4 text-copper-500 mt-0.5 flex-shrink-0" />
                   {inc}
                 </li>
               ))}
@@ -429,20 +566,23 @@ const TrustSection: FC = () => (
         </p>
       </motion.div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {trustItems.map((t: TrustItem, i: number) => (
-          <motion.div
-            key={t.title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
-            className="bg-white/5 rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-colors"
-          >
-            <span className="text-3xl block mb-3">{t.icon}</span>
-            <h3 className="font-heading text-lg mb-2">{t.title}</h3>
-            <p className="text-limestone-400 text-sm leading-relaxed">{t.description}</p>
-          </motion.div>
-        ))}
+        {trustItems.map((t: TrustItem, i: number) => {
+          const IconComp = trustIcons[t.icon] || ShieldIcon;
+          return (
+            <motion.div
+              key={t.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="bg-white/5 rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-colors"
+            >
+              <IconComp className="w-8 h-8 text-copper-400 block mb-3" />
+              <h3 className="font-heading text-lg mb-2">{t.title}</h3>
+              <p className="text-limestone-400 text-sm leading-relaxed">{t.description}</p>
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   </section>
@@ -473,15 +613,15 @@ const ContactSection: FC = () => {
             </p>
             <div className="mt-8 space-y-4">
               <div className="flex items-center gap-3 text-sm text-charcoal-500">
-                <span className="text-copper-500 text-lg">\u260E</span>
+                <PhoneIcon className="w-5 h-5 text-copper-500" />
                 {contactInfo.phone}
               </div>
               <div className="flex items-center gap-3 text-sm text-charcoal-500">
-                <span className="text-copper-500 text-lg">\u2709</span>
+                <EmailIcon className="w-5 h-5 text-copper-500" />
                 {contactInfo.email}
               </div>
               <div className="flex items-center gap-3 text-sm text-charcoal-500">
-                <span className="text-copper-500 text-lg">\u2302</span>
+                <HomeIcon className="w-5 h-5 text-copper-500" />
                 {contactInfo.address}
               </div>
             </div>
@@ -493,28 +633,20 @@ const ContactSection: FC = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 className="bg-limestone-50 rounded-2xl p-8 border border-limestone-200"
               >
-                <span className="text-4xl block mb-3">\uD83D\uDE80</span>
+                <StarIcon className="w-12 h-12 text-copper-500 block mb-3" />
                 <h3 className="font-heading text-xl text-charcoal-800 mb-2">Project Inquiry Received</h3>
                 <p className="text-charcoal-400 text-sm">We will review your project details and reach out within 1 business day to schedule your free on-site consultation.</p>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-xs uppercase tracking-wider text-charcoal-400 mb-1 font-semibold">Name</label>
-                    <input required type="text" className="w-full border border-limestone-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-copper-400" placeholder="Your name" />
-                  </div>
-                  <div>
-                    <label className="block text-xs uppercase tracking-wider text-charcoal-400 mb-1 font-semibold">Email</label>
-                    <input required type="email" className="w-full border border-limestone-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-copper-400" placeholder="your@email.com" />
-                  </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <input required type="text" placeholder="Full name" className="w-full border border-limestone-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-copper-400" />
+                  <input required type="email" placeholder="Email address" className="w-full border border-limestone-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-copper-400" />
                 </div>
+                <input required type="tel" placeholder="Phone number" className="w-full border border-limestone-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-copper-400" />
+                <input type="text" placeholder="Property address" className="w-full border border-limestone-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-copper-400" />
                 <div>
-                  <label className="block text-xs uppercase tracking-wider text-charcoal-400 mb-1 font-semibold">Phone</label>
-                  <input required type="tel" className="w-full border border-limestone-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-copper-400" placeholder="(512) 555-0000" />
-                </div>
-                <div>
-                  <label className="block text-xs uppercase tracking-wider text-charcoal-400 mb-1 font-semibold">Project Type</label>
+                  <label className="block text-xs uppercase tracking-wider text-charcoal-400 mb-2 font-semibold">Project Type</label>
                   <div className="flex flex-wrap gap-2">
                     {projectTypes.map((pt) => (
                       <button
@@ -522,9 +654,7 @@ const ContactSection: FC = () => {
                         type="button"
                         onClick={() => setProjectType(pt === projectType ? '' : pt)}
                         className={`px-3 py-1.5 rounded-md text-xs font-medium border transition-colors ${
-                          projectType === pt
-                            ? 'bg-copper-500 text-white border-copper-500'
-                            : 'bg-white text-charcoal-500 border-limestone-200 hover:border-copper-300'
+                          projectType === pt ? 'bg-copper-500 text-white border-copper-500' : 'bg-white text-charcoal-500 border-limestone-200 hover:border-copper-300'
                         }`}
                       >
                         {pt}
@@ -532,17 +662,14 @@ const ContactSection: FC = () => {
                     ))}
                   </div>
                 </div>
-                <div>
-                  <label className="block text-xs uppercase tracking-wider text-charcoal-400 mb-1 font-semibold">Project Details</label>
-                  <textarea rows={3} className="w-full border border-limestone-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-copper-400 resize-none" placeholder="Tell us about your space and vision..." />
-                </div>
+                <textarea rows={3} placeholder="Tell us about your project..." className="w-full border border-limestone-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-copper-400 resize-none" />
                 <motion.button
                   whileHover={{ scale: 1.01 }}
                   whileTap={{ scale: 0.99 }}
                   type="submit"
                   className="w-full bg-copper-500 text-white py-3 rounded-lg text-sm font-semibold hover:bg-copper-600 transition-colors"
                 >
-                  Submit Project Inquiry
+                  Submit Inquiry
                 </motion.button>
               </form>
             )}
@@ -560,10 +687,10 @@ const Footer: FC = () => (
     <div className="max-w-7xl mx-auto">
       <div className="grid md:grid-cols-4 gap-8 mb-10">
         <div className="md:col-span-2">
-          <h4 className="font-heading text-xl text-white mb-3">
-            Stone<span className="text-copper-400">&amp;</span>Bloom
+          <h4 className="font-heading text-xl text-white mb-3 flex items-center gap-2">
+            <GridIcon className="w-5 h-5 text-copper-500" /> Stone &amp; Bloom
           </h4>
-          <p className="text-limestone-400 text-sm leading-relaxed max-w-sm">{siteInfo.description}</p>
+          <p className="text-limestone-500 text-sm leading-relaxed max-w-sm">{siteInfo.description}</p>
         </div>
         <div>
           <h4 className="font-heading text-white mb-3">Services</h4>
@@ -575,12 +702,12 @@ const Footer: FC = () => (
         </div>
         <div>
           <h4 className="font-heading text-white mb-3">Contact</h4>
-          <p className="text-sm">{contactInfo.phone}</p>
+          <p className="text-sm flex items-center gap-1"><PhoneIcon className="w-3.5 h-3.5" /> {contactInfo.phone}</p>
           <p className="text-sm">{contactInfo.email}</p>
         </div>
       </div>
       <div className="border-t border-charcoal-700 pt-6 text-center text-xs text-limestone-500">
-        &copy; {new Date().getFullYear()} Stone &amp; Bloom Outdoor Living. All rights reserved.
+        &copy; {new Date().getFullYear()} Stone &amp; Bloom. All rights reserved.
       </div>
     </div>
   </footer>
@@ -589,7 +716,7 @@ const Footer: FC = () => (
 /* ── Main App ── */
 
 const App: FC = () => (
-  <div className="font-body text-charcoal-700 antialiased">
+  <div className="font-body text-charcoal-800 antialiased">
     <NavBar />
     <main>
       <HeroSection />

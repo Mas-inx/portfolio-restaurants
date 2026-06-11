@@ -3,6 +3,7 @@ export interface SiteInfo {
   tagline: string;
   description: string;
   location: string;
+  heroImage: string;
 }
 
 export interface ServiceItem {
@@ -18,6 +19,7 @@ export interface TransformationItem {
   title: string;
   description: string;
   color: string;
+  image: string;
 }
 
 export interface MaterialItem {
@@ -54,6 +56,7 @@ export const siteInfo: SiteInfo = {
   description:
     'We design and build outdoor living spaces that extend your home square footage into the open air. Patios, pergolas, fire pits, outdoor kitchens — spaces engineered for gathering, cooking, and relaxing.',
   location: 'Austin, Texas',
+  heroImage: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1600&q=85',
 };
 
 export const services: ServiceItem[] = [
@@ -61,42 +64,42 @@ export const services: ServiceItem[] = [
     id: 'patios',
     title: 'Custom Patios',
     description: 'Poured concrete, flagstone, travertine, or paver patios tailored to your architecture and site grade. We handle drainage and base prep with engineering precision.',
-    icon: '\u25A3',
+    icon: 'grid',
     highlight: '30+ patterns available',
   },
   {
     id: 'fire-pits',
     title: 'Fire Pits & Fireplaces',
     description: 'Gas or wood-burning fire features built with refractory materials, custom stone surrounds, and integrated seating. From simple bowls to full outdoor hearths.',
-    icon: '\u25B3',
+    icon: 'fire',
     highlight: 'Gas line included',
   },
   {
     id: 'pergolas',
     title: 'Pergolas & Covers',
     description: 'Freestanding or attached structures in cedar, steel, or aluminum. Adjustable louver roofs, retractable shades, and integrated lighting available.',
-    icon: '\u25A8',
+    icon: 'grid',
     highlight: 'Motorized options',
   },
   {
     id: 'walls',
     title: 'Retaining Walls',
     description: 'Engineered segmental retaining walls, stone veneer, and natural boulder walls. Built to manage grade changes with drainage and geogrid reinforcement.',
-    icon: '\u25AD',
+    icon: 'layers',
     highlight: 'Up to 8 ft height',
   },
   {
     id: 'kitchens',
     title: 'Outdoor Kitchens',
     description: 'Full outdoor cooking centers with built-in grills, refrigerators, sinks, storage, and countertops in granite, soapstone, or poured concrete.',
-    icon: '\u2600',
+    icon: 'sun',
     highlight: 'Built-in appliances',
   },
   {
     id: 'walkways',
     title: 'Walkways & Pathways',
     description: 'Stepping stone, flagstone, brick, or decomposed granite paths that connect your outdoor rooms. Lit options available.',
-    icon: '\u2194',
+    icon: 'arrow-right',
     highlight: 'LED step lighting',
   },
 ];
@@ -107,30 +110,35 @@ export const transformationItems: TransformationItem[] = [
     title: 'Sloped Yard to Terraced Patio',
     description: 'A steep backyard slope transformed into three-tiered paver patio with a gas fire pit and built-in bench seating. Retaining walls doubled as garden planters.',
     color: '#8b5e3c',
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=85',
   },
   {
     id: 't2',
     title: 'Empty Corner to Outdoor Kitchen',
     description: 'An unused side yard became a fully equipped outdoor kitchen with a 36" grill, sink, mini-fridge, and a cedar pergola over a stained concrete floor.',
     color: '#6b4e3a',
+    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=85',
   },
   {
     id: 't3',
     title: 'Plain Lawn to Entertainment Hub',
     description: 'A flat turf lawn replaced with a flagstone patio, sunken fire pit seating, a gravel pathway, and perimeter landscape lighting for evening use.',
     color: '#5a6b4a',
+    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=85',
   },
   {
     id: 't4',
     title: 'Cracked Concrete to Paver Paradise',
     description: 'A deteriorated concrete patio demolished and replaced with herringbone-laid travertine pavers, a copper fire bowl, and an integrated sound system.',
     color: '#7a6b4e',
+    image: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&q=85',
   },
   {
     id: 't5',
     title: 'Basic Backyard to Resort Retreat',
     description: 'Complete backyard overhaul with a freeform pool, travertine deck, outdoor kitchen, and a louvered aluminum pergola covering the dining area.',
     color: '#4a6b7a',
+    image: 'https://images.unsplash.com/photo-1598902108854-10e335adac99?w=800&q=85',
   },
 ];
 
@@ -233,22 +241,22 @@ export const budgetGuides: BudgetGuide[] = [
 
 export const trustItems: TrustItem[] = [
   {
-    icon: '\uD83D\uDEE1\uFE0F',
+    icon: 'shield',
     title: '5-Year Workmanship Warranty',
     description: 'Every project we build is backed by our 5-year warranty against settling, cracking, and material defects.',
   },
   {
-    icon: '\uD83D\uDCCB',
+    icon: 'clipboard',
     title: 'Fully Licensed & Insured',
     description: 'We carry general liability, workers compensation, and builder\'s risk insurance. Proof available on request.',
   },
   {
-    icon: '\u23F0',
+    icon: 'clock',
     title: 'On-Time Completion',
     description: '90% of our projects finish on or before the agreed timeline. We schedule buffer days for weather.',
   },
   {
-    icon: '\uD83D\uDCF8',
+    icon: 'camera',
     title: 'Daily Photo Updates',
     description: 'Your project dashboard receives daily photos and a brief progress note so you never wonder what is happening.',
   },

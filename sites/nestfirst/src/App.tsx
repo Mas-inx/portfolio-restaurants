@@ -10,6 +10,169 @@ import {
   type FeaturedHome,
 } from './data';
 
+/* SVG Icon Components */
+function IconWallet({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
+      <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
+      <path d="M18 12a2 2 0 0 0 0 4h4v-4z" />
+    </svg>
+  );
+}
+function IconSearch({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </svg>
+  );
+}
+function IconHomeSearch({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      <polyline points="9 22 9 12 15 12 15 22" />
+      <circle cx="18" cy="8" r="3" />
+      <line x1="20.5" y1="10.5" x2="22" y2="12" />
+    </svg>
+  );
+}
+function IconContract({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="9" y1="15" x2="15" y2="15" />
+      <line x1="12" y1="12" x2="12" y2="18" />
+    </svg>
+  );
+}
+function IconTools({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+    </svg>
+  );
+}
+function IconChart({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="18" y1="20" x2="18" y2="10" />
+      <line x1="12" y1="20" x2="12" y2="4" />
+      <line x1="6" y1="20" x2="6" y2="14" />
+    </svg>
+  );
+}
+function IconCamera({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+      <circle cx="12" cy="13" r="4" />
+    </svg>
+  );
+}
+function IconDoor({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 3v18h18V3H3z" />
+      <path d="M15 3v18" />
+      <circle cx="12" cy="12" r="1" />
+      <line x1="3" y1="9" x2="15" y2="9" />
+      <line x1="3" y1="15" x2="15" y2="15" />
+    </svg>
+  );
+}
+function IconHandshake({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z" />
+    </svg>
+  );
+}
+function IconCalculator({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="2" width="16" height="20" rx="2" />
+      <line x1="8" y1="6" x2="16" y2="6" />
+      <line x1="8" y1="10" x2="8" y2="10.01" />
+      <line x1="12" y1="10" x2="12" y2="10.01" />
+      <line x1="16" y1="10" x2="16" y2="10.01" />
+      <line x1="8" y1="14" x2="8" y2="14.01" />
+      <line x1="12" y1="14" x2="12" y2="14.01" />
+      <line x1="16" y1="14" x2="16" y2="14.01" />
+      <line x1="8" y1="18" x2="16" y2="18" />
+    </svg>
+  );
+}
+function IconClipboard({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+      <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+      <line x1="9" y1="12" x2="15" y2="12" />
+      <line x1="9" y1="16" x2="13" y2="16" />
+    </svg>
+  );
+}
+function IconBell({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+    </svg>
+  );
+}
+function IconSchool({ className = 'w-4 h-4' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+      <path d="M6 12v5c0 1.1 2.2 2 6 2s6-.9 6-2v-5" />
+    </svg>
+  );
+}
+function IconYard({ className = 'w-4 h-4' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22s8-4 8-10c0-4-3.5-6-8-6s-8 2-8 6c0 6 8 10 8 10z" />
+      <path d="M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+    </svg>
+  );
+}
+function IconCommute({ className = 'w-4 h-4' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="1" y="3" width="15" height="13" rx="2" />
+      <polyline points="16 8 20 8 23 11 23 16 16 16 16 8" />
+      <circle cx="5.5" cy="18.5" r="2.5" />
+      <circle cx="18.5" cy="18.5" r="2.5" />
+    </svg>
+  );
+}
+function IconParty({ className = 'w-8 h-8' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="8 12 10 14 16 9" />
+      <path d="M8 17a15 15 0 0 1 8 0" />
+    </svg>
+  );
+}
+const iconMap: Record<string, React.FC<{ className?: string }>> = {
+  wallet: IconWallet,
+  search: IconSearch,
+  home_search: IconHomeSearch,
+  contract: IconContract,
+  tools: IconTools,
+  chart: IconChart,
+  camera: IconCamera,
+  door: IconDoor,
+  handshake: IconHandshake,
+  calculator: IconCalculator,
+  clipboard: IconClipboard,
+  bell: IconBell,
+};
+
 /* ── Reusable Section Wrapper ── */
 function Section({
   children,
@@ -139,11 +302,17 @@ function Navbar() {
           </a>
         </div>
         <button
-          className="md:hidden text-navy text-2xl"
+          className="md:hidden text-navy"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Menu"
         >
-          {menuOpen ? '✕' : '☰'}
+          <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            {menuOpen ? (
+              <><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></>
+            ) : (
+              <><line x1="4" y1="6" x2="20" y2="6" /><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="18" x2="20" y2="18" /></>
+            )}
+          </svg>
         </button>
       </div>
       {menuOpen && (
@@ -176,8 +345,8 @@ function Hero() {
     <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-cream">
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1600&q=85"
-          alt="Family home"
+          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&q=85"
+          alt="Beautiful family home"
           className="w-full h-full object-cover opacity-30"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-cream via-cream/90 to-transparent" />
@@ -246,18 +415,21 @@ function BuyerJourney() {
       <div className="relative">
         <div className="hidden md:block absolute top-24 left-[30px] bottom-24 w-0.5 bg-warm-beige/60" />
         <div className="space-y-10">
-          {buyerJourney.map((step, i) => (
-            <FadeIn key={step.title} delay={i * 0.12} className="flex gap-6 items-start">
-              <div className="relative z-10 flex-shrink-0 w-14 h-14 rounded-full bg-coral text-white flex items-center justify-center text-2xl shadow-md">
-                {step.icon}
-              </div>
-              <div className="pt-2">
-                <span className="text-xs text-coral font-medium uppercase tracking-wider">Step {i + 1}</span>
-                <h3 className="text-xl font-bold text-navy mt-1">{step.title}</h3>
-                <p className="text-navy-light/70 mt-2 leading-relaxed">{step.description}</p>
-              </div>
-            </FadeIn>
-          ))}
+          {buyerJourney.map((step, i) => {
+            const IconComponent = iconMap[step.icon];
+            return (
+              <FadeIn key={step.title} delay={i * 0.12} className="flex gap-6 items-start">
+                <div className="relative z-10 flex-shrink-0 w-14 h-14 rounded-full bg-coral text-white flex items-center justify-center shadow-md">
+                  {IconComponent ? <IconComponent className="w-6 h-6" /> : null}
+                </div>
+                <div className="pt-2">
+                  <span className="text-xs text-coral font-medium uppercase tracking-wider">Step {i + 1}</span>
+                  <h3 className="text-xl font-bold text-navy mt-1">{step.title}</h3>
+                  <p className="text-navy-light/70 mt-2 leading-relaxed">{step.description}</p>
+                </div>
+              </FadeIn>
+            );
+          })}
         </div>
       </div>
     </Section>
@@ -289,15 +461,15 @@ function HomeCard({ home, index }: { home: FeaturedHome; index: number }) {
         </div>
         <div className="mt-4 pt-4 border-t border-warm-beige/40 space-y-1.5 text-sm text-navy-light/70">
           <div className="flex items-center gap-2">
-            <span className="text-coral">🏫</span>
+            <IconSchool className="w-4 h-4 text-coral" />
             <span>{home.school}</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-coral">🌳</span>
+            <IconYard className="w-4 h-4 text-coral" />
             <span>{home.yard}</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-coral">🚗</span>
+            <IconCommute className="w-4 h-4 text-coral" />
             <span>{home.commute}</span>
           </div>
         </div>
@@ -317,14 +489,19 @@ function SellingSection() {
         light
       />
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-        {sellingSteps.map((step, i) => (
-          <FadeIn key={step.title} delay={i * 0.08} className="bg-white/5 rounded-xl p-6 text-center hover:bg-white/10 transition-colors">
-            <div className="text-3xl mb-3">{step.icon}</div>
-            <span className="text-coral text-xs font-medium uppercase tracking-wider">Step {i + 1}</span>
-            <h3 className="text-white font-bold mt-2">{step.title}</h3>
-            <p className="text-white/50 text-sm mt-2 leading-relaxed">{step.description}</p>
-          </FadeIn>
-        ))}
+        {sellingSteps.map((step, i) => {
+          const IconComponent = iconMap[step.icon];
+          return (
+            <FadeIn key={step.title} delay={i * 0.08} className="bg-white/5 rounded-xl p-6 text-center hover:bg-white/10 transition-colors">
+              <div className="text-coral mb-3 flex justify-center">
+                {IconComponent ? <IconComponent className="w-8 h-8" /> : null}
+              </div>
+              <span className="text-coral text-xs font-medium uppercase tracking-wider">Step {i + 1}</span>
+              <h3 className="text-white font-bold mt-2">{step.title}</h3>
+              <p className="text-white/50 text-sm mt-2 leading-relaxed">{step.description}</p>
+            </FadeIn>
+          );
+        })}
       </div>
     </Section>
   );
@@ -374,16 +551,21 @@ function ToolsSection() {
         subtitle="Practical resources to help you make confident decisions at every stage."
       />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {tools.map((tool, i) => (
-          <FadeIn key={tool.title} delay={i * 0.1} className="bg-white rounded-2xl p-8 shadow-sm border border-warm-beige/30">
-            <span className="text-3xl">{tool.icon}</span>
-            <h3 className="text-lg font-bold text-navy mt-4">{tool.title}</h3>
-            <p className="text-navy-light/70 text-sm mt-2 leading-relaxed">{tool.description}</p>
-            <button className="mt-4 text-coral font-medium text-sm hover:text-coral-dark transition-colors">
-              {tool.linkText} →
-            </button>
-          </FadeIn>
-        ))}
+        {tools.map((tool, i) => {
+          const IconComponent = iconMap[tool.icon];
+          return (
+            <FadeIn key={tool.title} delay={i * 0.1} className="bg-white rounded-2xl p-8 shadow-sm border border-warm-beige/30">
+              <div className="text-coral">
+                {IconComponent ? <IconComponent className="w-10 h-10" /> : null}
+              </div>
+              <h3 className="text-lg font-bold text-navy mt-4">{tool.title}</h3>
+              <p className="text-navy-light/70 text-sm mt-2 leading-relaxed">{tool.description}</p>
+              <button className="mt-4 text-coral font-medium text-sm hover:text-coral-dark transition-colors">
+                {tool.linkText} →
+              </button>
+            </FadeIn>
+          );
+        })}
       </div>
     </Section>
   );
@@ -455,7 +637,9 @@ function ContactForm() {
             animate={{ opacity: 1, scale: 1 }}
             className="bg-white rounded-2xl p-10 shadow-sm"
           >
-            <div className="text-4xl mb-4">🎉</div>
+            <div className="flex justify-center mb-4">
+              <IconParty className="w-12 h-12 text-coral" />
+            </div>
             <p className="text-xl font-bold text-navy">Thanks for reaching out!</p>
             <p className="text-navy-light/70 mt-2">We'll be in touch within 24 hours to help with your home journey.</p>
           </motion.div>

@@ -59,42 +59,42 @@ export const treatments: Treatment[] = [
   {
     title: 'Flu & Fever',
     description: 'Rapid flu testing, fever management, and antiviral prescriptions for patients of all ages.',
-    icon: '🤒',
+    icon: 'fever',
   },
   {
     title: 'Sprains & Strains',
     description: 'Same-day evaluation for ankle, wrist, and knee injuries. Splinting, wrapping, and crutch fitting included.',
-    icon: '🦵',
+    icon: 'injury',
   },
   {
     title: 'Cuts & Minor Lacerations',
     description: 'Professional wound cleaning, butterfly strips, sutures, and tetanus shot updates.',
-    icon: '🩹',
+    icon: 'wound',
   },
   {
     title: 'Minor Burns',
     description: 'Assessment and treatment for first- and second-degree burns with aftercare instructions.',
-    icon: '🔥',
+    icon: 'burn',
   },
   {
     title: 'Ear & Sinus Infections',
     description: 'Diagnosis and treatment for earaches, sinus pressure, sore throats, and strep testing.',
-    icon: '👂',
+    icon: 'ear',
   },
   {
     title: 'Urinary Tract Infections',
     description: 'Fast UTI testing and antibiotic treatment. Results in minutes, not days.',
-    icon: '🫧',
+    icon: 'uti',
   },
   {
     title: 'COVID-19 & Strep Testing',
     description: 'Rapid antigen and PCR tests for COVID-19, plus strep and flu panels. Results while you wait.',
-    icon: '🧪',
+    icon: 'test',
   },
   {
     title: 'Skin Rashes & Allergies',
     description: 'Evaluation of hives, poison ivy, bug bites, and allergic reactions with same-day relief.',
-    icon: '🌿',
+    icon: 'allergy',
   },
 ]
 
@@ -124,22 +124,22 @@ export const howItWorksSteps: HowItWorksStep[] = [
   {
     step: 'Check In',
     description: 'Walk in or check in online to reserve your place. We\'ll show you the current wait time before you decide.',
-    icon: '📱',
+    icon: 'phone',
   },
   {
     step: 'Arrive & Get Triaged',
     description: 'A registered nurse will assess your symptoms quickly and prioritize based on urgency.',
-    icon: '🏥',
+    icon: 'hospital',
   },
   {
     step: 'See a Provider',
     description: 'You\'ll be seen by one of our experienced providers — typically within minutes, not hours.',
-    icon: '👨‍⚕️',
+    icon: 'doctor',
   },
   {
     step: 'Treatment & Follow-Up',
     description: 'Get your prescription, care instructions, and any referrals before you leave. We follow up the next day.',
-    icon: '✅',
+    icon: 'check',
   },
 ]
 

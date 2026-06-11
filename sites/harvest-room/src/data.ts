@@ -180,7 +180,7 @@ export const farms: Farm[] = [
     produce: ['Pasture-raised chicken', 'Heritage turkeys', 'Farm eggs'],
     distance: '22 km',
     story: 'The Miller family has been farming this land for four generations. Their chickens roam freely on rolling pastures, and every bird is processed by hand on-site.',
-    image: '',
+    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=300&fit=crop',
   },
   {
     id: 'f2',
@@ -188,7 +188,7 @@ export const farms: Farm[] = [
     produce: ['Winter squash', 'Root vegetables', 'Greens', 'Herbs'],
     distance: '18 km',
     story: 'Maria and Tom Chen grow over forty varieties of vegetables on twenty acres of certified organic fields. Their weekly harvest dictates our seasonal menu.',
-    image: '',
+    image: 'https://images.unsplash.com/photo-1471193945509-9ad0617afabf?w=600&h=300&fit=crop',
   },
   {
     id: 'f3',
@@ -196,7 +196,7 @@ export const farms: Farm[] = [
     produce: ['Grass-fed beef', 'Lamb', 'Cream', 'Cheese'],
     distance: '35 km',
     story: 'A family-run ranch practicing regenerative grazing. Their Angus cattle rotate through paddocks daily, building soil health while producing exceptional beef.',
-    image: '',
+    image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=600&h=300&fit=crop',
   },
   {
     id: 'f4',
@@ -204,15 +204,15 @@ export const farms: Farm[] = [
     produce: ['Lake trout', 'Whitefish', 'Pickerel'],
     distance: '65 km',
     story: 'Third-generation fishermen working the cold waters of Lake Ontario. Their catch comes in within hours of leaving the lake, delivered straight to our kitchen.',
-    image: '',
+    image: 'https://images.unsplash.com/photo-1535591273668-578e31182c4f?w=600&h=300&fit=crop',
   },
   {
     id: 'f5',
     name: 'Orchard Hill Farm',
     produce: ['Apples', 'Pears', 'Plums', 'Honey'],
     distance: '15 km',
-    story: 'A hundred-year-old orchard with heirloom apple varieties you won\'t find anywhere else. Their bees pollinate the blossoms and produce the most fragrant wildflower honey.',
-    image: '',
+    story: "A hundred-year-old orchard with heirloom apple varieties you won't find anywhere else. Their bees pollinate the blossoms and produce the most fragrant wildflower honey.",
+    image: 'https://images.unsplash.com/photo-1528825871115-3581a538791c?w=600&h=300&fit=crop',
   },
   {
     id: 'f6',
@@ -220,7 +220,7 @@ export const farms: Farm[] = [
     produce: ['Microgreens', 'Edible flowers', 'Specialty greens', 'Seasonal vegetables'],
     distance: '12 km',
     story: 'A small-batch urban farm on the edge of town. They grow using organic, no-till methods and deliver freshly harvested produce within hours of picking.',
-    image: '',
+    image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600&h=300&fit=crop',
   },
 ];
 
@@ -232,7 +232,7 @@ export const events: EventItem[] = [
     time: '6:30 PM – 9:30 PM',
     description: 'A five-course tasting menu celebrating the autumn harvest. Each course is paired with a wine from a local Ontario vineyard. Limited to 40 guests.',
     price: '95 per person',
-    image: '',
+    image: 'https://images.unsplash.com/photo-1550966871-3ed3cdb51f3a?w=600&h=300&fit=crop',
   },
   {
     id: 'e2',
@@ -241,16 +241,16 @@ export const events: EventItem[] = [
     time: '10:00 AM – 2:00 PM',
     description: 'Our weekly family-style brunch featuring seasonal dishes, fresh bakery goods, and bottomless coffee. Kids eat half-price all day.',
     price: 'A la carte menu',
-    image: '',
+    image: 'https://images.unsplash.com/photo-1551218808-4e3e5ea3b1e5?w=600&h=300&fit=crop',
   },
   {
     id: 'e3',
-    title: 'Chef\'s Table: Winter Roots',
+    title: "Chef's Table: Winter Roots",
     date: 'Friday, November 14',
     time: '7:00 PM – 10:00 PM',
     description: 'An intimate evening with Chef Marcus as he prepares a six-course exploration of winter root vegetables. Includes a tour of our kitchen and root cellar.',
     price: '120 per person',
-    image: '',
+    image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=300&fit=crop',
   },
   {
     id: 'e4',
@@ -259,7 +259,7 @@ export const events: EventItem[] = [
     time: '2:00 PM – 8:00 PM',
     description: 'A traditional three-course Thanksgiving dinner with all the classics. Take-home leftovers included. Reserve your family table by October 5.',
     price: '55 per adult, 22 per child',
-    image: '',
+    image: 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&h=300&fit=crop',
   },
 ];
 

@@ -113,7 +113,8 @@ function FadeInUp({ children, delay = 0 }: { children: React.ReactNode; delay?: 
 function Hero() {
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-air" />
+      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${siteInfo.heroImage})` }} />
+      <div className="absolute inset-0 bg-gradient-to-br from-white/70 via-white/60 to-sky-50/70" />
       <div className="absolute inset-0 opacity-[0.05]">
         <div className="absolute top-1/4 left-1/3 w-80 h-80 bg-sky-300/20 rounded-full blur-3xl" />
         <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-sky-200/20 rounded-full blur-3xl" />

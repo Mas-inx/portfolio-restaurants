@@ -23,9 +23,9 @@ export const comfortFeatures = [
 ];
 
 export const beforeAfterPairs = [
-  { label: 'Full Smile Makeover', before: 'Stained, uneven teeth with gaps', after: 'Porcelain veneers and whitening' },
-  { label: 'Implant Restoration', before: 'Missing tooth #19', after: 'Single implant with custom crown' },
-  { label: 'Orthodontic Alignment', before: 'Crowded lower arch', after: 'Clear aligner treatment complete' },
+  { label: 'Full Smile Makeover', before: 'Stained, uneven teeth with gaps', after: 'Porcelain veneers and whitening', beforeImage: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&q=85', afterImage: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&q=85' },
+  { label: 'Implant Restoration', before: 'Missing tooth #19', after: 'Single implant with custom crown', beforeImage: 'https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=800&q=85', afterImage: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&q=85' },
+  { label: 'Orthodontic Alignment', before: 'Crowded lower arch', after: 'Clear aligner treatment complete', beforeImage: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=800&q=85', afterImage: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=85' },
 ];
 
 export const dentists = [

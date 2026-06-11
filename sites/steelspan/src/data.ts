@@ -43,37 +43,37 @@ export const capabilities: Capability[] = [
   {
     title: 'Ground-Up Construction',
     description: 'Full-scope new builds from site prep through certificate of occupancy. Steel frame, concrete tilt-up, and hybrid structural systems.',
-    icon: '🏗️',
+    icon: 'helmet',
     stat: '120+ buildings',
   },
   {
     title: 'Tenant Improvements',
     description: 'Interior build-outs for office, retail, medical, and industrial tenants. Fast-track schedules with minimal disruption to existing operations.',
-    icon: '🏢',
+    icon: 'building',
     stat: '3–16 week avg',
   },
   {
     title: 'Industrial Facilities',
     description: 'Warehouses, distribution centers, and light manufacturing facilities. High-bay clearances, heavy floor loads, and dock-leveling systems.',
-    icon: '🔧',
+    icon: 'wrench',
     stat: '500K+ sq ft',
   },
   {
     title: 'Retail Build-Outs',
     description: 'Shell-to-finish retail construction for national brands and local operators. Storefronts, interiors, MEP, and brand-standard finishes.',
-    icon: '🛍️',
+    icon: 'store',
     stat: '80+ locations',
   },
   {
     title: 'Warehousing & Logistics',
     description: 'Distribution centers, cold storage, and fulfillment hubs. Designed for throughput with optimized dock counts, aisle widths, and ceiling heights.',
-    icon: '📦',
+    icon: 'truck',
     stat: '2.1M+ sq ft',
   },
   {
     title: 'Pre-Construction Services',
     description: 'Budgeting, value engineering, phasing, and constructability reviews before breaking ground. We find savings in the design phase.',
-    icon: '📐',
+    icon: 'blueprint',
     stat: '12–18% saved',
   },
 ]

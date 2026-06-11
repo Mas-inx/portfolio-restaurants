@@ -10,6 +10,119 @@ import {
   navLinks,
 } from './data'
 
+const emergencyTel = 'tel:+13125550999'
+
+/* ── SVG Icon Library ── */
+
+const IconAlert = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+  </svg>
+)
+
+const IconHome = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M3 9.5L12 3l9 6.5"/><path d="M5 8.5V20a1 1 0 001 1h4v-7h4v7h4a1 1 0 001-1V8.5"/>
+  </svg>
+)
+
+const IconBuilding = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect x="4" y="2" width="16" height="20" rx="1"/><path d="M9 6h2"/><path d="M13 6h2"/>
+  </svg>
+)
+
+const IconDown = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
+  </svg>
+)
+
+const IconWind = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M9.59 4.59A2 2 0 1111 8H2m10.59 11.41A2 2 0 1014 16H2m15.73-8.27A2.5 2.5 0 1119.5 12H2"/>
+  </svg>
+)
+
+const IconSearch = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+  </svg>
+)
+
+const IconPhone = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+  </svg>
+)
+
+const IconMail = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/>
+  </svg>
+)
+
+const IconLocation = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+  </svg>
+)
+
+const IconCheckmark = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+)
+
+const IconStar = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+  </svg>
+)
+
+const IconShield = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>
+  </svg>
+)
+
+const IconClock = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+  </svg>
+)
+
+const IconHammer = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M12 3v4"/><path d="M8 7h8l-1 4H9L8 7z"/><path d="M12 11v10"/>
+  </svg>
+)
+
+const IconClipboard = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/>
+  </svg>
+)
+
+const IconArrowRight = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+  </svg>
+)
+
+const icons: Record<string, React.FC<{className?:string}>> = {
+  'alert': IconAlert, 'home': IconHome, 'building': IconBuilding, 'down': IconDown,
+  'wind': IconWind, 'search': IconSearch, 'phone': IconPhone, 'mail': IconMail,
+  'location': IconLocation, 'checkmark': IconCheckmark, 'star': IconStar,
+  'shield': IconShield, 'clock': IconClock, 'hammer': IconHammer, 'clipboard': IconClipboard,
+  'arrow-right': IconArrowRight,
+}
+
+function Icon({ name, className = 'w-6 h-6' }: { name: string; className?: string }) {
+  const C = icons[name] || IconHome
+  return <C className={className} />
+}
+
 /* ── Scroll Reveal ── */
 function ScrollReveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef(null)
@@ -47,8 +160,8 @@ function EmergencyBanner() {
       transition={{ delay: 2, duration: 0.5 }}
       className="fixed bottom-0 left-0 right-0 z-40 bg-red-600 text-white md:hidden"
     >
-      <a href="tel:+13125550999" className="flex items-center justify-center gap-2 px-4 py-3 font-bold text-sm tracking-wide">
-        <span className="animate-pulse text-lg">🚨</span>
+      <a href={emergencyTel} className="flex items-center justify-center gap-2 px-4 py-3 font-bold text-sm tracking-wide">
+        <Icon name="alert" className="w-5 h-5 animate-pulse" />
         <span>Emergency? Call (312) 555-0999</span>
       </a>
     </motion.div>
@@ -83,7 +196,7 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-20">
         <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-3">
           <div className="w-10 h-10 bg-[#1a365d] rounded flex items-center justify-center">
-            <span className="text-white font-heading text-lg leading-none">R</span>
+            <Icon name="home" className="w-5 h-5 text-white" />
           </div>
           <div className="hidden sm:block text-left">
             <span className="text-lg font-heading tracking-tight text-[#1a365d] block leading-none">RapidRoof</span>
@@ -97,8 +210,8 @@ function Navbar() {
               {l.label}
             </button>
           ))}
-          <a href="tel:+13125550999" className="bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 text-sm font-bold tracking-wide transition-colors rounded-sm flex items-center gap-2">
-            <span className="animate-pulse">🚨</span> Emergency: (312) 555-0999
+          <a href={emergencyTel} className="bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 text-sm font-bold tracking-wide transition-colors rounded-sm flex items-center gap-2">
+            <Icon name="alert" className="w-4 h-4 animate-pulse" /> Emergency: (312) 555-0999
           </a>
           <button onClick={() => scrollTo('#contact')} className="bg-[#1a365d] text-white px-5 py-2.5 text-sm font-bold tracking-wide hover:bg-[#0f2440] transition-colors rounded-sm">
             Free Inspection
@@ -126,7 +239,9 @@ function Navbar() {
                   {l.label}
                 </button>
               ))}
-              <a href="tel:+13125550999" className="bg-red-600 text-white px-5 py-3 text-sm font-bold tracking-wide text-center rounded-sm">🚨 Call Emergency Line</a>
+              <a href={emergencyTel} className="bg-red-600 text-white px-5 py-3 text-sm font-bold tracking-wide text-center rounded-sm flex items-center justify-center gap-2">
+                <Icon name="alert" className="w-4 h-4" /> Call Emergency Line
+              </a>
               <button onClick={() => scrollTo('#contact')} className="bg-[#1a365d] text-white px-5 py-3 text-sm font-bold tracking-wide text-center rounded-sm">
                 Free Inspection
               </button>
@@ -186,8 +301,8 @@ function Hero() {
             transition={{ duration: 0.8, delay: 0.9 }}
             className="flex flex-wrap gap-4 mt-8"
           >
-            <a href="tel:+13125550999" className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 font-bold text-sm uppercase tracking-wide transition-colors rounded-sm flex items-center gap-2">
-              <span>🚨</span> Emergency? Call Now
+            <a href={emergencyTel} className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 font-bold text-sm uppercase tracking-wide transition-colors rounded-sm flex items-center gap-2">
+              <Icon name="alert" className="w-5 h-5" /> Emergency? Call Now
             </a>
             <a href="#contact" className="bg-white text-[#1a365d] px-8 py-4 font-bold text-sm uppercase tracking-wide hover:bg-gray-100 transition-colors rounded-sm">
               Free Inspection
@@ -240,7 +355,7 @@ function Services() {
                   : 'bg-white border-[#1a365d]/10 hover:border-[#1a365d]/30 hover:shadow-md'
               }`}>
                 <div className="flex items-start justify-between mb-2">
-                  <span className="text-2xl">{s.icon}</span>
+                  <Icon name={s.icon} className={`w-6 h-6 ${s.urgent ? 'text-red-600' : 'text-[#1a365d]'}`} />
                   {s.urgent && <span className="text-[10px] font-bold uppercase tracking-wider text-red-600 bg-red-100 px-2 py-0.5 rounded-sm">24/7</span>}
                 </div>
                 <h3 className="text-lg font-heading text-[#1a365d]">{s.title}</h3>
@@ -274,7 +389,7 @@ function InspectionFlow() {
                 <div className="w-12 h-12 bg-[#1a365d] text-white rounded-full flex items-center justify-center font-heading text-lg mx-auto mb-3">
                   {step.step}
                 </div>
-                <span className="text-2xl block mb-2">{step.icon}</span>
+                <Icon name={step.icon} className="w-6 h-6 text-[#1a365d] mx-auto mb-2" />
                 <h3 className="text-base font-heading text-[#1a365d]">{step.title}</h3>
                 <p className="text-[#1a365d]/60 text-xs mt-2 leading-relaxed">{step.description}</p>
               </motion.div>
@@ -291,7 +406,7 @@ function StormDamageSupport() {
   return (
     <section className="relative px-6 md:px-12 lg:px-24 py-20 bg-[#1a365d]">
       <div className="max-w-4xl mx-auto text-center">
-        <span className="text-5xl block mb-4">🌪️</span>
+        <Icon name="wind" className="w-12 h-12 text-red-400 mx-auto mb-4" />
         <h2 className="text-3xl md:text-4xl font-heading text-white leading-tight">
           Storm damage? We'll document everything for your insurance claim
         </h2>
@@ -303,7 +418,7 @@ function StormDamageSupport() {
           <a href="#contact" className="bg-white text-[#1a365d] px-8 py-4 font-bold text-sm uppercase tracking-wide hover:bg-gray-100 transition-colors rounded-sm">
             Schedule Storm Inspection
           </a>
-          <a href="tel:+13125550999" className="border-2 border-white/30 hover:border-white/60 text-white px-8 py-4 font-bold text-sm uppercase tracking-wide transition-colors rounded-sm">
+          <a href={emergencyTel} className="border-2 border-white/30 hover:border-white/60 text-white px-8 py-4 font-bold text-sm uppercase tracking-wide transition-colors rounded-sm">
             Emergency: (312) 555-0999
           </a>
         </div>
@@ -427,7 +542,7 @@ function Trust() {
           {trustPoints.map((t, i) => (
             <ScrollReveal key={t.title} delay={i * 0.08}>
               <div className="flex gap-4 p-5 border border-[#1a365d]/10 rounded-sm hover:border-[#1a365d]/30 hover:shadow-sm transition-all">
-                <span className="text-2xl shrink-0">{t.icon}</span>
+                <Icon name={t.icon} className="w-6 h-6 text-[#1a365d] shrink-0 mt-0.5" />
                 <div>
                   <h3 className="font-heading text-[#1a365d] text-sm">{t.title}</h3>
                   <p className="text-[#1a365d]/60 text-xs mt-1 leading-relaxed">{t.description}</p>
@@ -467,20 +582,28 @@ function Contact() {
         <div className="grid md:grid-cols-5 gap-8 max-w-4xl mx-auto">
           <div className="md:col-span-2 space-y-4">
             <div className="bg-white/10 border border-white/20 p-4 rounded-sm">
-              <div className="text-red-400 font-bold text-sm flex items-center gap-2">🚨 Emergency Line</div>
-              <a href="tel:+13125550999" className="text-white font-heading text-lg block mt-1">(312) 555-0999</a>
+              <div className="text-red-400 font-bold text-sm flex items-center gap-2">
+                <Icon name="alert" className="w-4 h-4" /> Emergency Line
+              </div>
+              <a href={emergencyTel} className="text-white font-heading text-lg block mt-1">(312) 555-0999</a>
               <div className="text-white/40 text-xs mt-1">Available 24/7 · Live dispatcher</div>
             </div>
             <div className="bg-white/10 border border-white/20 p-4 rounded-sm">
-              <div className="text-white/70 font-semibold text-sm">📞 Office Line</div>
+              <div className="text-white/70 font-semibold text-sm flex items-center gap-2">
+                <Icon name="phone" className="w-4 h-4" /> Office Line
+              </div>
               <div className="text-white text-base">{siteInfo.phone}</div>
             </div>
             <div className="bg-white/10 border border-white/20 p-4 rounded-sm">
-              <div className="text-white/70 font-semibold text-sm">✉️ Email</div>
+              <div className="text-white/70 font-semibold text-sm flex items-center gap-2">
+                <Icon name="mail" className="w-4 h-4" /> Email
+              </div>
               <div className="text-white text-sm">{siteInfo.email}</div>
             </div>
             <div className="bg-white/10 border border-white/20 p-4 rounded-sm">
-              <div className="text-white/70 font-semibold text-sm">📍 Location</div>
+              <div className="text-white/70 font-semibold text-sm flex items-center gap-2">
+                <Icon name="location" className="w-4 h-4" /> Location
+              </div>
               <div className="text-white text-sm">{siteInfo.address}</div>
             </div>
           </div>
@@ -510,7 +633,7 @@ function Contact() {
                   type="submit"
                   className="w-full bg-red-600 hover:bg-red-700 text-white py-4 font-bold text-sm tracking-wide uppercase transition-colors rounded-sm"
                 >
-                  {submitted ? '✓ Inspection Requested' : 'Schedule Free Inspection'}
+                  {submitted ? <span className="flex items-center justify-center gap-2"><Icon name="checkmark" className="w-4 h-4" /> Inspection Requested</span> : 'Schedule Free Inspection'}
                 </motion.button>
               </form>
             </ScrollReveal>
@@ -528,7 +651,7 @@ function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-red-600 rounded flex items-center justify-center">
-            <span className="text-white font-heading text-sm">R</span>
+            <Icon name="home" className="w-4 h-4 text-white" />
           </div>
           <span className="text-white font-heading text-sm">RapidRoof & Exteriors</span>
         </div>

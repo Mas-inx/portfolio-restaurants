@@ -1,5 +1,60 @@
 import { motion } from 'framer-motion';
-import { menuCourses, pricePerPerson, winePairingPrice, signaturePlates, privateDiningOptions, hours } from './data';
+import { menuCourses, pricePerPerson, winePairingPrice, signaturePlates, privateDiningOptions, hours, heroImage, mapImage } from './data';
+
+/* ── SVG Icons ── */
+function IconStar({ className = 'w-5 h-5' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+    </svg>
+  );
+}
+function IconPhone({ className = 'w-5 h-5' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  );
+}
+function IconMail({ className = 'w-5 h-5' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+      <polyline points="22,6 12,13 2,6" />
+    </svg>
+  );
+}
+function IconLocation({ className = 'w-5 h-5' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}
+function IconCheck({ className = 'w-5 h-5' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  );
+}
+function IconArrowDown({ className = 'w-5 h-5' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="12" y1="5" x2="12" y2="19" />
+      <polyline points="19 12 12 19 5 12" />
+    </svg>
+  );
+}
+function IconQuote({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
+      <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" />
+    </svg>
+  );
+}
 
 const easeOutCubic = [0.25, 0.1, 0.25, 1] as [number, number, number, number];
 
@@ -64,7 +119,7 @@ function Hero() {
       <div
         className="absolute inset-0 opacity-40"
         style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80)',
+          backgroundImage: `url(${heroImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -118,11 +173,7 @@ function Hero() {
         transition={{ delay: 2 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-px h-12 bg-brass/40"
-        />
+          <IconArrowDown className="w-4 h-4 text-brass/60" />
       </motion.div>
     </section>
   );
@@ -168,6 +219,7 @@ function Philosophy() {
         variants={fadeUp}
         className="mt-16 md:mt-24 border-l-2 border-brass/30 pl-6 md:pl-10"
       >
+        <IconQuote className="w-8 h-8 text-brass/50 mb-2" />
         <p className="font-serif text-2xl md:text-3xl text-ivory/90 italic leading-relaxed max-w-3xl">
           "The best ingredient is patience. A meal cooked in haste has already failed before it reaches the table."
         </p>
@@ -238,7 +290,10 @@ function SignaturePlates() {
         variants={fadeUp}
         className="text-center mb-16"
       >
-        <p className="text-brass uppercase tracking-[0.3em] text-xs mb-4">Signature Plates</p>
+        <p className="text-brass uppercase tracking-[0.3em] text-xs mb-4">
+          <IconStar className="w-3 h-3 inline-block -mt-0.5 mr-1.5 text-brass" />
+          Signature Plates
+        </p>
         <SectionHeading>Dishes that define us</SectionHeading>
       </motion.div>
 
@@ -264,7 +319,7 @@ function SignaturePlates() {
             <div
               className="absolute inset-0 opacity-10 group-hover:opacity-25 transition-opacity duration-700"
               style={{
-                backgroundImage: `url(https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80)`,
+                backgroundImage: `url(${plate.image})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
               }}
@@ -344,10 +399,10 @@ function ReservationExperience() {
 
       <div className="grid md:grid-cols-2 gap-8 md:gap-12">
         {[
-          { title: "Dress Code", desc: "Smart casual to formal. Jackets recommended but not required. No athletic wear." },
-          { title: "Timing", desc: "Reservations are held for 15 minutes past the booked time. We recommend arriving 10 minutes early for a pre-dinner drink." },
-          { title: "Cancellation", desc: "Please notify us at least 24 hours in advance. Late cancellations may incur a fee of $75 per person." },
-          { title: "Parking & Valet", desc: "Complimentary valet parking is available. We also recommend ride-hailing for evening reservations." },
+          { title: "Dress Code", desc: "Smart casual to formal. Jackets recommended but not required. No athletic wear.", icon: "star" },
+          { title: "Timing", desc: "Reservations are held for 15 minutes past the booked time. We recommend arriving 10 minutes early for a pre-dinner drink.", icon: "check" },
+          { title: "Cancellation", desc: "Please notify us at least 24 hours in advance. Late cancellations may incur a fee of $75 per person.", icon: "phone" },
+          { title: "Parking & Valet", desc: "Complimentary valet parking is available. We also recommend ride-hailing for evening reservations.", icon: "location" },
         ].map((item, i) => (
           <motion.div
             key={item.title}
@@ -357,7 +412,15 @@ function ReservationExperience() {
             variants={fadeUp}
             custom={i}
           >
-            <h3 className="text-xs uppercase tracking-[0.25em] text-brass mb-3">{item.title}</h3>
+            <h3 className="text-xs uppercase tracking-[0.25em] text-brass mb-3">
+              <span className="inline-block w-4 h-4 mr-2 align-middle text-brass/70">
+                {item.icon === 'star' ? <IconStar className="w-full h-full" /> :
+                 item.icon === 'check' ? <IconCheck className="w-full h-full" /> :
+                 item.icon === 'phone' ? <IconPhone className="w-full h-full" /> :
+                 item.icon === 'location' ? <IconLocation className="w-full h-full" /> : null}
+              </span>
+              {item.title}
+            </h3>
             <p className="text-warm-gray font-light leading-relaxed">{item.desc}</p>
           </motion.div>
         ))}
@@ -389,14 +452,12 @@ function LocationHours() {
             viewport={{ once: true }}
             variants={fadeUp}
           >
-            <div className="bg-charcoal/50 h-64 md:h-80 flex items-center justify-center border border-charcoal">
-              <div className="text-center">
-                <svg className="w-8 h-8 mx-auto mb-3 text-brass/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <p className="text-warm-gray text-sm">47 Thames Street<br />London, EC4N 1SJ</p>
-              </div>
+            <div className="h-64 md:h-80 overflow-hidden border border-charcoal">
+              <img
+                src={mapImage}
+                alt="Map showing Nocturne Table location at 47 Thames Street, London"
+                className="w-full h-full object-cover"
+              />
             </div>
             <p className="mt-4 text-warm-gray text-sm font-light text-center">
               Enter through the unmarked black door beside the bookshop.
@@ -496,7 +557,18 @@ function Footer() {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="text-center md:text-left">
           <p className="font-serif text-lg text-ivory">Nocturne Table</p>
-          <p className="text-warm-gray text-xs mt-1">47 Thames Street, London</p>
+          <p className="text-warm-gray text-xs mt-1 flex items-center justify-center md:justify-start gap-1.5">
+            <IconLocation className="w-3 h-3 text-brass/60" />
+            47 Thames Street, London
+          </p>
+          <p className="text-warm-gray text-xs mt-1 flex items-center justify-center md:justify-start gap-1.5">
+            <IconPhone className="w-3 h-3 text-brass/60" />
+            +44 20 7946 0958
+          </p>
+          <p className="text-warm-gray text-xs mt-1 flex items-center justify-center md:justify-start gap-1.5">
+            <IconMail className="w-3 h-3 text-brass/60" />
+            reserve@nocturnetable.com
+          </p>
         </div>
         <div className="flex items-center gap-8 text-xs text-warm-gray uppercase tracking-[0.2em]">
           <a href="#" className="hover:text-ivory transition-colors">Instagram</a>

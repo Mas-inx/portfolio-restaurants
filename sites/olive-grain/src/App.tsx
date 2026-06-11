@@ -10,6 +10,64 @@ import {
 } from "./data";
 
 /* ------------------------------------------------------------------ */
+/*  SVG Icon Components                                                */
+/* ------------------------------------------------------------------ */
+function IconClock({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="12 6 12 12 16 14" />
+    </svg>
+  );
+}
+function IconMapPin({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}
+function IconParking({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <text x="12" y="16" textAnchor="middle" fontSize="13" fontWeight="bold" fill="currentColor">P</text>
+    </svg>
+  );
+}
+function IconChair({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2" />
+      <path d="M6 12h.01M18 12h.01" />
+      <rect x="4" y="5" width="16" height="7" rx="2" />
+    </svg>
+  );
+}
+function IconWifi({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M5 12.55a11 11 0 0114.08 0" />
+      <path d="M1.42 9a16 16 0 0121.16 0" />
+      <path d="M8.53 16.11a6 6 0 016.95 0" />
+      <circle cx="12" cy="20" r="1" />
+    </svg>
+  );
+}
+function IconPaw({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="6" cy="9" r="2.5" />
+      <circle cx="18" cy="9" r="2.5" />
+      <circle cx="9" cy="18" r="2" />
+      <circle cx="15" cy="18" r="2" />
+      <path d="M12 12c-1.5 0-3-1-3-2.5" />
+    </svg>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Scroll-reveal wrapper                                              */
 /* ------------------------------------------------------------------ */
 function Reveal({
@@ -621,9 +679,21 @@ function CafeMoments() {
 /*  Visit Us                                                           */
 /* ------------------------------------------------------------------ */
 function VisitUs() {
+  const renderIcon = (emoji: string) => {
+    switch (emoji) {
+      case "clock": return <IconClock className="w-6 h-6 text-terracotta" />;
+      case "pin": return <IconMapPin className="w-6 h-6 text-terracotta" />;
+      case "parking": return <IconParking className="w-6 h-6 text-terracotta" />;
+      case "chair": return <IconChair className="w-6 h-6 text-terracotta" />;
+      case "wifi": return <IconWifi className="w-6 h-6 text-terracotta" />;
+      case "paw": return <IconPaw className="w-6 h-6 text-terracotta" />;
+      default: return null;
+    }
+  };
+
   const details = [
     {
-      icon: "🕐",
+      icon: "clock",
       label: "Hours",
       content: (
         <>
@@ -633,27 +703,27 @@ function VisitUs() {
       ),
     },
     {
-      icon: "📍",
+      icon: "pin",
       label: "Address",
       content: <p>{cafeInfo.address}</p>,
     },
     {
-      icon: "🅿️",
+      icon: "parking",
       label: "Parking",
       content: <p>{cafeInfo.parking}</p>,
     },
     {
-      icon: "🪑",
+      icon: "chair",
       label: "Seating",
       content: <p>{cafeInfo.seating}</p>,
     },
     {
-      icon: "📶",
+      icon: "wifi",
       label: "Wi-Fi",
       content: <p>{cafeInfo.wifi}</p>,
     },
     {
-      icon: "🐾",
+      icon: "paw",
       label: "Pets",
       content: <p>{cafeInfo.petFriendly}</p>,
     },
@@ -684,7 +754,7 @@ function VisitUs() {
                     key={d.label}
                     className="bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow"
                   >
-                    <span className="text-xl mb-1 block">{d.icon}</span>
+                    <span className="text-xl mb-1 block">{renderIcon(d.icon)}</span>
                     <h4 className="font-semibold text-sm text-olive-dark mb-1">
                       {d.label}
                     </h4>
@@ -701,7 +771,7 @@ function VisitUs() {
           <Reveal delay={0.15}>
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm h-80 md:h-96 flex items-center justify-center">
               <div className="text-center p-6">
-                <div className="text-4xl mb-3">📍</div>
+                <IconMapPin className="w-8 h-8 text-terracotta mx-auto mb-3" />
                 <p className="font-serif text-lg text-olive-dark mb-2">
                   Olive &amp; Grain
                 </p>

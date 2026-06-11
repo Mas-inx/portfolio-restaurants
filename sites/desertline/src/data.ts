@@ -3,6 +3,7 @@ export interface SiteInfo {
   tagline: string;
   description: string;
   location: string;
+  heroImage: string;
 }
 
 export interface ServiceItem {
@@ -36,6 +37,7 @@ export interface CaseStudy {
   waterSaved: string;
   beforeDescription: string;
   color: string;
+  image: string;
 }
 
 export const siteInfo: SiteInfo = {
@@ -44,6 +46,7 @@ export const siteInfo: SiteInfo = {
   description:
     'We specialize in low-water landscape design for the arid Southwest. Xeriscaping, native plants, and smart irrigation systems that save thousands of gallons per year without sacrificing beauty.',
   location: 'Phoenix, Arizona',
+  heroImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1600&q=85',
 };
 
 export const services: ServiceItem[] = [
@@ -87,22 +90,22 @@ export const services: ServiceItem[] = [
 
 export const benefits: BenefitItem[] = [
   {
-    icon: '\uD83D\uDCB0',
+    icon: 'dollar',
     title: 'Lower Water Bills',
     description: 'Typical clients save $400-$1,200 per year on water costs after converting to a low-water landscape. In many cases, the savings pay for the installation within 2-3 years.',
   },
   {
-    icon: '\u23F3',
+    icon: 'clock',
     title: 'Less Maintenance',
     description: 'Xeriscape gardens require 60-80% less maintenance than traditional turf lawns. No weekly mowing, no constant watering — just seasonal pruning and occasional mulch refresh.',
   },
   {
-    icon: '\uD83C\uDF3F',
+    icon: 'leaf',
     title: 'Climate Resilience',
     description: 'Native and adapted plants thrive through drought, heat waves, and water restrictions. Your landscape stays vibrant even when water allocations are cut.',
   },
   {
-    icon: '\uD83D\uDC1D',
+    icon: 'sun',
     title: 'Habitat & Biodiversity',
     description: 'Native plants support local pollinators, birds, and beneficial insects. A low-water garden is a living ecosystem, not a monoculture.',
   },
@@ -228,6 +231,7 @@ export const caseStudies: CaseStudy[] = [
     waterSaved: '85,000 gallons/year',
     beforeDescription: 'Standard Kentucky bluegrass lawn, pop-up spray irrigation, 4x/week watering schedule.',
     color: '#7a8a5a',
+    image: 'https://images.unsplash.com/photo-1472396961693-142e6e269027?w=800&q=85',
   },
   {
     id: 'cs2',
@@ -237,6 +241,7 @@ export const caseStudies: CaseStudy[] = [
     waterSaved: '320,000 gallons/year',
     beforeDescription: 'Ornamental turf, mixed shrubs on spray irrigation, high water usage.',
     color: '#8a7a5a',
+    image: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&q=85',
   },
   {
     id: 'cs3',
@@ -246,6 +251,7 @@ export const caseStudies: CaseStudy[] = [
     waterSaved: '145,000 gallons/year',
     beforeDescription: 'Annual flower beds with spray irrigation, 2000 sq ft of ornamental turf.',
     color: '#5a8a7a',
+    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=85',
   },
 ];
 

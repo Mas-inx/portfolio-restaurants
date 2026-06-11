@@ -45,10 +45,10 @@ export interface Review {
 }
 
 export const buyerJourney: JourneyStep[] = [
-  { title: 'Set Your Budget', description: 'We help you understand your true buying power, from pre-approval to down-payment planning.', icon: '💰' },
-  { title: 'Search & Discover', description: 'Curated home tours based on your family\'s wish list — schools, commute, yard space, and neighborhood feel.', icon: '🔍' },
-  { title: 'Tour Together', description: 'We walk through every home with you, pointing out what matters for raising a family and spotting potential issues.', icon: '🏡' },
-  { title: 'Offer & Close', description: 'Clear guidance through offers, inspections, and closing so you feel confident every step of the way.', icon: '✍️' },
+  { title: 'Set Your Budget', description: 'We help you understand your true buying power, from pre-approval to down-payment planning.', icon: 'wallet' },
+  { title: 'Search & Discover', description: 'Curated home tours based on your family\'s wish list — schools, commute, yard space, and neighborhood feel.', icon: 'search' },
+  { title: 'Tour Together', description: 'We walk through every home with you, pointing out what matters for raising a family and spotting potential issues.', icon: 'home_search' },
+  { title: 'Offer & Close', description: 'Clear guidance through offers, inspections, and closing so you feel confident every step of the way.', icon: 'contract' },
 ];
 
 export const featuredHomes: FeaturedHome[] = [
@@ -94,11 +94,11 @@ export const featuredHomes: FeaturedHome[] = [
 ];
 
 export const sellingSteps: SellingStep[] = [
-  { title: 'Home Preparation', description: 'We guide you on cost-effective improvements that maximize your sale price — no over-improving.', icon: '🔨' },
-  { title: 'Strategic Pricing', description: 'Data-backed pricing that attracts the right buyers while protecting your equity.', icon: '📊' },
-  { title: 'Professional Photography', description: 'Bright, warm photography and virtual tours that show off your home\'s best family features.', icon: '📸' },
-  { title: 'Targeted Showings', description: 'We pre-qualify every buyer and schedule showings around your family\'s routine.', icon: '🚪' },
-  { title: 'Offer Management', description: 'We negotiate on your behalf and help you evaluate every offer with your family\'s future in mind.', icon: '🤝' },
+  { title: 'Home Preparation', description: 'We guide you on cost-effective improvements that maximize your sale price — no over-improving.', icon: 'tools' },
+  { title: 'Strategic Pricing', description: 'Data-backed pricing that attracts the right buyers while protecting your equity.', icon: 'chart' },
+  { title: 'Professional Photography', description: 'Bright, warm photography and virtual tours that show off your home\'s best family features.', icon: 'camera' },
+  { title: 'Targeted Showings', description: 'We pre-qualify every buyer and schedule showings around your family\'s routine.', icon: 'door' },
+  { title: 'Offer Management', description: 'We negotiate on your behalf and help you evaluate every offer with your family\'s future in mind.', icon: 'handshake' },
 ];
 
 export const neighborhoods: Neighborhood[] = [
@@ -109,9 +109,9 @@ export const neighborhoods: Neighborhood[] = [
 ];
 
 export const tools: Tool[] = [
-  { title: 'Mortgage Estimator', description: 'See estimated monthly payments based on price, down payment, and current rates. Get a realistic picture before you start touring.', linkText: 'Calculate your payment', icon: '🧮' },
-  { title: 'Moving Checklist', description: 'A 12-week timeline covering everything from school transfers to utility setup. We email it to you for free.', linkText: 'Get the checklist', icon: '📋' },
-  { title: 'Saved Search Alerts', description: 'Set your criteria and we\'ll notify you the moment a home that fits your family hits the market.', linkText: 'Set up alerts', icon: '🔔' },
+  { title: 'Mortgage Estimator', description: 'See estimated monthly payments based on price, down payment, and current rates. Get a realistic picture before you start touring.', linkText: 'Calculate your payment', icon: 'calculator' },
+  { title: 'Moving Checklist', description: 'A 12-week timeline covering everything from school transfers to utility setup. We email it to you for free.', linkText: 'Get the checklist', icon: 'clipboard' },
+  { title: 'Saved Search Alerts', description: 'Set your criteria and we\'ll notify you the moment a home that fits your family hits the market.', linkText: 'Set up alerts', icon: 'bell' },
 ];
 
 export const reviews: Review[] = [

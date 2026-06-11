@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { services, maintenancePlans, replacementSteps, whyChooseUs, serviceAreas } from './data';
+import { services, maintenancePlans, replacementSteps, whyChooseUs, serviceAreas, heroImage } from './data';
 
 function App() {
   const [navOpen, setNavOpen] = useState(false);
@@ -40,7 +40,8 @@ function App() {
 
       {/* Hero */}
       <section className="relative bg-navy-900 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-700" />
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${heroImage})` }} />
+        <div className="absolute inset-0 bg-gradient-to-br from-navy-900/90 via-navy-800/80 to-navy-700/90" />
         <div className="absolute top-20 right-0 w-96 h-96 bg-fire/10 rounded-full blur-3xl" />
         <div className="absolute bottom-10 left-10 w-64 h-64 bg-ice-300/5 rounded-full blur-3xl" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 lg:py-40">

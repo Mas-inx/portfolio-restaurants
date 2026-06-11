@@ -1,10 +1,10 @@
 export const careServices = [
-  { name: 'Skilled Nursing', description: 'Registered nurses providing wound care, medication management, IV therapy, and chronic disease monitoring in the comfort of home.', icon: 'nursing' },
-  { name: 'Personal Care', description: 'Compassionate assistance with bathing, dressing, grooming, toileting, and mobility — preserving dignity at every step.', icon: 'personal' },
-  { name: 'Medication Management', description: 'Organizing, reminding, and administering medications with clear schedules and family-accessible tracking.', icon: 'medication' },
-  { name: 'Post-Surgery Care', description: 'Recovery support after hospital discharge including incision care, pain management, and rehabilitation monitoring.', icon: 'surgery' },
-  { name: 'Senior Companionship', description: 'Meaningful social engagement, light activity, meal companionship, and cognitive stimulation for older adults.', icon: 'companion' },
-  { name: 'Chronic Care', description: 'Ongoing management of diabetes, heart disease, COPD, and other chronic conditions with coordinated care plans.', icon: 'chronic' },
+  { name: 'Skilled Nursing', description: 'Registered nurses providing wound care, medication management, IV therapy, and chronic disease monitoring in the comfort of home.', icon: 'nursing', image: 'https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=600&q=85' },
+  { name: 'Personal Care', description: 'Compassionate assistance with bathing, dressing, grooming, toileting, and mobility — preserving dignity at every step.', icon: 'personal', image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=85' },
+  { name: 'Medication Management', description: 'Organizing, reminding, and administering medications with clear schedules and family-accessible tracking.', icon: 'medication', image: 'https://images.unsplash.com/photo-1638202993928-7267aad84c31?w=600&q=85' },
+  { name: 'Post-Surgery Care', description: 'Recovery support after hospital discharge including incision care, pain management, and rehabilitation monitoring.', icon: 'surgery', image: 'https://images.unsplash.com/photo-1559416523-140ddc3d238c?w=600&q=85' },
+  { name: 'Senior Companionship', description: 'Meaningful social engagement, light activity, meal companionship, and cognitive stimulation for older adults.', icon: 'companion', image: 'https://images.unsplash.com/photo-1516303389659-d5e7c67255e7?w=600&q=85' },
+  { name: 'Chronic Care', description: 'Ongoing management of diabetes, heart disease, COPD, and other chronic conditions with coordinated care plans.', icon: 'chronic', image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&q=85' },
 ];
 
 export const whoWeHelp = [

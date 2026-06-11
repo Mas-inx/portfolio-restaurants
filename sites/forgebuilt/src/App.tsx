@@ -11,6 +11,157 @@ import {
   navLinks,
 } from './data'
 
+/* ── SVG Icon Library ── */
+
+const IconHelmet = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M12 3a7 7 0 00-7 7v2h14v-2a7 7 0 00-7-7z"/><path d="M5 12v3a4 4 0 004 4h6a4 4 0 004-4v-3"/><path d="M9 19v-2a3 3 0 013-3v0a3 3 0 013 3v2"/>
+  </svg>
+)
+
+const IconBuilding = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect x="4" y="2" width="16" height="20" rx="1"/><path d="M9 6h2"/><path d="M13 6h2"/><path d="M9 10h2"/><path d="M13 10h2"/><path d="M9 14h2"/><path d="M13 14h2"/><path d="M9 18h2"/><path d="M13 18h2"/>
+  </svg>
+)
+
+const IconHome = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M3 9.5L12 3l9 6.5"/><path d="M5 8.5V20a1 1 0 001 1h4v-7h4v7h4a1 1 0 001-1V8.5"/>
+  </svg>
+)
+
+const IconHammerWrench = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+  </svg>
+)
+
+const IconWrench = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+  </svg>
+)
+
+const IconHammer = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M12 3v4"/><path d="M8 7h8l-1 4H9L8 7z"/><path d="M12 11v10"/>
+  </svg>
+)
+
+const IconRuler = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M2 6h20v12H2z"/><path d="M6 6v12"/><path d="M10 6v12"/><path d="M14 6v12"/><path d="M18 6v12"/>
+  </svg>
+)
+
+const IconTruck = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect x="1" y="3" width="15" height="13"/><rect x="16" y="5" width="7" height="11" rx="1"/><path d="M16 16h-3"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+  </svg>
+)
+
+const IconCalendar = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/><path d="M8 2v4"/><path d="M16 2v4"/><path d="M12 14h.01"/><path d="M12 18h.01"/>
+  </svg>
+)
+
+const IconClock = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+  </svg>
+)
+
+const IconLocation = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+  </svg>
+)
+
+const IconPhone = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+  </svg>
+)
+
+const IconMail = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/>
+  </svg>
+)
+
+const IconCheckmark = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+)
+
+const IconStar = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+  </svg>
+)
+
+const IconQuote = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/>
+  </svg>
+)
+
+const IconArrowRight = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+  </svg>
+)
+
+const IconShield = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>
+  </svg>
+)
+
+const IconBlueprint = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M4 3h16a1 1 0 011 1v16a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M8 7h8"/><path d="M8 11h8"/><path d="M8 15h5"/><path d="M16 15h.01"/>
+  </svg>
+)
+
+const IconClipboard = ({className}:{className?:string}) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 14l2 2 4-4"/>
+  </svg>
+)
+
+/* ── Icon Resolver ── */
+const icons: Record<string, React.FC<{className?:string}>> = {
+  'helmet': IconHelmet,
+  'building': IconBuilding,
+  'home': IconHome,
+  'hammer-wrench': IconHammerWrench,
+  'wrench': IconWrench,
+  'hammer': IconHammer,
+  'ruler': IconRuler,
+  'truck': IconTruck,
+  'calendar': IconCalendar,
+  'clock': IconClock,
+  'location': IconLocation,
+  'phone': IconPhone,
+  'mail': IconMail,
+  'checkmark': IconCheckmark,
+  'star': IconStar,
+  'quote': IconQuote,
+  'arrow-right': IconArrowRight,
+  'shield': IconShield,
+  'blueprint': IconBlueprint,
+  'clipboard': IconClipboard,
+}
+
+function Icon({ name, className = 'w-6 h-6' }: { name: string; className?: string }) {
+  const C = icons[name] || IconHelmet
+  return <C className={className} />
+}
+
 /* ── Animated Blueprint Lines ── */
 function BlueprintLines() {
   return (
@@ -112,7 +263,7 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-20">
         <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-3">
           <div className="w-10 h-10 bg-gray-900 rounded flex items-center justify-center">
-            <span className="text-orange-500 font-heading text-xl leading-none">F</span>
+            <Icon name="helmet" className="w-5 h-5 text-orange-500" />
           </div>
           <div className="hidden sm:block">
             <span className="text-lg font-heading tracking-tight text-gray-900 block leading-none">ForgeBuilt</span>
@@ -276,7 +427,7 @@ function Services() {
         {services.map((s, i) => (
           <ScrollReveal key={s.title} delay={i * 0.08}>
             <div className="group bg-gray-50 border border-gray-200 p-8 hover:bg-gray-900 hover:border-gray-900 transition-all duration-500 rounded-sm">
-              <span className="text-3xl block mb-4 group-hover:scale-110 transition-transform duration-500">{s.icon}</span>
+              <Icon name={s.icon} className="w-8 h-8 text-gray-700 group-hover:text-orange-400 group-hover:scale-110 transition-all duration-500 mb-4" />
               <h3 className="text-lg font-heading text-gray-900 group-hover:text-white transition-colors duration-500">{s.title}</h3>
               <p className="text-gray-500 group-hover:text-gray-300 mt-3 text-sm leading-relaxed transition-colors duration-500">{s.description}</p>
             </div>
@@ -322,9 +473,9 @@ function Portfolio() {
                 <h3 className="text-2xl md:text-3xl font-heading text-gray-900 mt-2">{p.title}</h3>
                 <p className="text-gray-500 mt-4 leading-relaxed">{p.description}</p>
                 <div className="flex flex-wrap gap-4 mt-6 text-sm text-gray-600">
-                  <span className="flex items-center gap-1">📍 {p.location}</span>
-                  <span className="flex items-center gap-1">📐 {p.scope}</span>
-                  <span className="flex items-center gap-1">⏱ {p.duration}</span>
+                  <span className="flex items-center gap-1.5"><Icon name="location" className="w-4 h-4 text-orange-500" /> {p.location}</span>
+                  <span className="flex items-center gap-1.5"><Icon name="ruler" className="w-4 h-4 text-orange-500" /> {p.scope}</span>
+                  <span className="flex items-center gap-1.5"><Icon name="clock" className="w-4 h-4 text-orange-500" /> {p.duration}</span>
                 </div>
               </div>
             </div>
@@ -396,7 +547,7 @@ function Management() {
           {siteManagementPillars.map((p, i) => (
             <ScrollReveal key={p.title} delay={i * 0.1}>
               <div className="border border-gray-700 p-8 hover:bg-gray-800 transition-colors duration-300 rounded-sm">
-                <span className="text-3xl block mb-4">{p.icon}</span>
+                <Icon name={p.icon} className="w-8 h-8 text-orange-400 mb-4" />
                 <h3 className="text-lg font-heading text-white">{p.title}</h3>
                 <p className="text-gray-400 text-sm mt-3 leading-relaxed">{p.description}</p>
               </div>
@@ -426,7 +577,7 @@ function Trust() {
           {trustPoints.map((t, i) => (
             <ScrollReveal key={t.title} delay={i * 0.1}>
               <div className="text-center p-8">
-                <span className="text-4xl block mb-4">{t.icon}</span>
+                <Icon name={t.icon} className="w-10 h-10 text-orange-500 mx-auto mb-4" />
                 <h3 className="text-lg font-heading text-gray-900">{t.title}</h3>
                 <p className="text-gray-500 text-sm mt-3 leading-relaxed">{t.description}</p>
               </div>
@@ -478,7 +629,7 @@ function FAQ() {
                     transition={{ duration: 0.2 }}
                     className="text-orange-500 shrink-0"
                   >
-                    ↓
+                    <Icon name="arrow-right" className="w-4 h-4" />
                   </motion.span>
                 </button>
                 <AnimatePresence>
@@ -527,15 +678,15 @@ function Contact() {
             </p>
             <div className="mt-8 space-y-4">
               <div className="flex items-center gap-3 text-gray-600">
-                <span className="text-orange-500">📞</span>
+                <Icon name="phone" className="w-5 h-5 text-orange-500" />
                 <span className="text-sm">{siteInfo.phone}</span>
               </div>
               <div className="flex items-center gap-3 text-gray-600">
-                <span className="text-orange-500">✉️</span>
+                <Icon name="mail" className="w-5 h-5 text-orange-500" />
                 <span className="text-sm">{siteInfo.email}</span>
               </div>
               <div className="flex items-center gap-3 text-gray-600">
-                <span className="text-orange-500">📍</span>
+                <Icon name="location" className="w-5 h-5 text-orange-500" />
                 <span className="text-sm">{siteInfo.address}</span>
               </div>
             </div>
@@ -577,7 +728,7 @@ function Contact() {
                 type="submit"
                 className="mt-6 w-full bg-gray-900 hover:bg-gray-800 text-white py-4 font-bold text-sm tracking-wide uppercase transition-colors rounded-sm"
               >
-                {submitted ? '✓ Estimate Requested' : 'Submit Estimate Request'}
+                {submitted ? <span className="flex items-center justify-center gap-2"><Icon name="checkmark" className="w-4 h-4" /> Estimate Requested</span> : 'Submit Estimate Request'}
               </motion.button>
             </form>
           </ScrollReveal>
@@ -594,7 +745,7 @@ function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-orange-500 rounded flex items-center justify-center">
-            <span className="text-gray-900 font-heading text-sm">F</span>
+            <Icon name="helmet" className="w-4 h-4 text-gray-900" />
           </div>
           <div>
             <span className="text-white font-heading block leading-none">ForgeBuilt</span>

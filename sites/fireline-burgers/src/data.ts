@@ -179,12 +179,12 @@ export const comboDeals: ComboDeal[] = [
 ];
 
 export const reviews: Review[] = [
-  { initials: 'TK', text: 'Best smash in town. The Fireline sauce is addictive.', tag: '🔥 Regular' },
-  { initials: 'MJ', text: 'Their Chili Crunch Burger ruined all other burgers for me. Not mad about it.', tag: '🌶️ Spice Seeker' },
-  { initials: 'AL', text: 'Open till 2AM and actually good? Unreal. Late night fries hit different.', tag: '🌙 Night Owl' },
-  { initials: 'RD', text: 'Double Flame is pure chaos in the best way. Bacon jam is insane.', tag: '🍔 Meat Lover' },
-  { initials: 'SP', text: 'Truffle fries are dangerously good. Might order 3 next time.', tag: '🍟 Fry Connoisseur' },
-  { initials: 'CM', text: 'Strawberry Blaze shake is a whole vibe. Get it with the Fire Wings.', tag: '🔥 Sweet & Spicy' },
+  { initials: 'TK', text: 'Best smash in town. The Fireline sauce is addictive.', tag: '✪ Regular' },
+  { initials: 'MJ', text: 'Their Chili Crunch Burger ruined all other burgers for me. Not mad about it.', tag: 'Spice Seeker' },
+  { initials: 'AL', text: 'Open till 2AM and actually good? Unreal. Late night fries hit different.', tag: 'Night Owl' },
+  { initials: 'RD', text: 'Double Flame is pure chaos in the best way. Bacon jam is insane.', tag: 'Meat Lover' },
+  { initials: 'SP', text: 'Truffle fries are dangerously good. Might order 3 next time.', tag: 'Fry Connoisseur' },
+  { initials: 'CM', text: 'Strawberry Blaze shake is a whole vibe. Get it with the Fire Wings.', tag: 'Sweet & Spicy' },
 ];
 
 export const locations: Location[] = [
@@ -209,4 +209,16 @@ export const locations: Location[] = [
     deliveryRadius: '3 km',
     status: 'Closing soon',
   },
+];
+
+export const heroImage = 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&q=85';
+export const galleryImages = [
+  { src: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=85', label: 'Smash Perfection' },
+  { src: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=400&q=85', label: 'Flame Grill Action' },
+  { src: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=400&q=85', label: 'Truffle Fries Drop' },
+  { src: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&q=85', label: 'Midnight Shakes' },
+  { src: 'https://images.unsplash.com/photo-1608039829572-9b9d91f4e4f0?w=400&q=85', label: 'Fire Wings' },
+  { src: 'https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=400&q=85', label: 'Neon Sign Wall' },
+  { src: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=400&q=85', label: 'Late Night Vibes' },
+  { src: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&q=85', label: 'Order Up!' },
 ];

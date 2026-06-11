@@ -35,6 +35,11 @@ export const journeySteps = [
   { phase: 'Discharge & Beyond', description: 'Graduation to an independent maintenance program with optional check-ins and ongoing support.', duration: 'Ongoing' },
 ];
 
+export const galleryImages = [
+  { src: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&q=85', alt: 'Physical therapy session with patient and therapist' },
+  { src: 'https://images.unsplash.com/photo-1638202993928-7267aad84c31?w=800&q=85', alt: 'Movement and mobility training' },
+];
+
 export const progressMetrics = [
   { label: 'Pain Level', current: 2, previous: 7, unit: '/10', improvement: true },
   { label: 'Range of Motion', current: 85, previous: 45, unit: '%', improvement: true },

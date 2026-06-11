@@ -14,6 +14,120 @@ import {
   type PricingTier,
 } from './data';
 
+/* ── SVG Icons ── */
+
+const CheckIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <polyline points="20 6 9 17 4 12" />
+  </svg>
+);
+
+const ArrowDownIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="12" y1="5" x2="12" y2="19" />
+    <polyline points="19 12 12 19 5 12" />
+  </svg>
+);
+
+const ArrowRightIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="5" y1="12" x2="19" y2="12" />
+    <polyline points="12 5 19 12 12 19" />
+  </svg>
+);
+
+const ArrowLeftIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="19" y1="12" x2="5" y2="12" />
+    <polyline points="12 19 5 12 12 5" />
+  </svg>
+);
+
+const MenuIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="3" y1="6" x2="21" y2="6" />
+    <line x1="3" y1="12" x2="21" y2="12" />
+    <line x1="3" y1="18" x2="21" y2="18" />
+  </svg>
+);
+
+const CloseIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="18" y1="6" x2="6" y2="18" />
+    <line x1="6" y1="6" x2="18" y2="18" />
+  </svg>
+);
+
+const LeafIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.78 10-10 10Z" />
+    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+  </svg>
+);
+
+const ClockIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="10" />
+    <polyline points="12 6 12 12 16 14" />
+  </svg>
+);
+
+const CameraIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+    <circle cx="12" cy="13" r="4" />
+  </svg>
+);
+
+const PhoneIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+  </svg>
+);
+
+const RefreshIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <polyline points="23 4 23 10 17 10" />
+    <polyline points="1 20 1 14 7 14" />
+    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+  </svg>
+);
+
+const MowerIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="17" cy="18" r="3" />
+    <circle cx="7" cy="18" r="3" />
+    <line x1="9" y1="18" x2="14" y2="18" />
+    <path d="M3 12h5l2 4h5l3-6h3" />
+  </svg>
+);
+
+const StarIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" className={className}>
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+  </svg>
+);
+
+const ShieldIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+  </svg>
+);
+
+const MapPinIcon: FC<{ className?: string }> = ({ className }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+    <circle cx="12" cy="10" r="3" />
+  </svg>
+);
+
+const reasonIcons: Record<string, FC<{ className?: string }>> = {
+  clock: ClockIcon,
+  camera: CameraIcon,
+  phone: PhoneIcon,
+  refresh: RefreshIcon,
+};
+
 /* ── Utility components ── */
 
 const CountUp: FC<{ end: number; suffix?: string }> = ({ end, suffix = '' }) => {
@@ -57,7 +171,7 @@ const NavBar: FC = () => {
     >
       <div className="max-w-6xl mx-auto px-5 flex items-center justify-between h-16">
         <a href="#" className="font-heading text-xl text-green-600 flex items-center gap-2">
-          <span className="text-2xl">\uD83C\uDF3F</span>
+          <LeafIcon className="w-6 h-6" />
           {siteInfo.name}
         </a>
         <nav className="hidden md:flex items-center gap-6">
@@ -79,10 +193,10 @@ const NavBar: FC = () => {
         </nav>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-charcoal-700 text-2xl"
+          className="md:hidden text-charcoal-700"
           aria-label="Menu"
         >
-          {mobileOpen ? '\u2715' : '\u2630'}
+          {mobileOpen ? <CloseIcon className="w-5 h-5" /> : <MenuIcon className="w-5 h-5" />}
         </button>
       </div>
       <AnimatePresence>
@@ -124,10 +238,14 @@ const NavBar: FC = () => {
 const HeroSection: FC = () => {
   const [zip, setZip] = useState('');
   return (
-    <section className="relative min-h-screen flex items-center bg-gradient-to-br from-green-50 via-white to-green-100 pt-16">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-green-200/30 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full bg-mint-200/30 blur-3xl" />
+    <section className="relative min-h-screen flex items-center pt-16 overflow-hidden">
+      <div className="absolute inset-0">
+        <img
+          src={siteInfo.heroImage}
+          alt="Beautiful lawn"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/60 to-transparent" />
       </div>
       <div className="relative z-10 max-w-6xl mx-auto px-5 w-full">
         <div className="max-w-2xl">
@@ -137,6 +255,7 @@ const HeroSection: FC = () => {
             transition={{ delay: 0.2 }}
             className="inline-block bg-green-100 text-green-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-5"
           >
+            <ShieldIcon className="w-3 h-3 inline-block mr-1 -mt-0.5" />
             No contracts. Cancel anytime.
           </motion.span>
           <motion.h1
@@ -173,7 +292,7 @@ const HeroSection: FC = () => {
                 href={zip.length === 5 ? '#quote' : undefined}
                 className="bg-green-500 text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-green-600 transition-colors whitespace-nowrap inline-flex items-center gap-2"
               >
-                Check Availability \u2192
+                Check Availability <ArrowRightIcon className="w-4 h-4" />
               </a>
             </div>
           </motion.div>
@@ -184,13 +303,13 @@ const HeroSection: FC = () => {
             className="mt-8 flex items-center gap-6 text-sm text-charcoal-400"
           >
             <span className="flex items-center gap-1.5">
-              <span className="text-green-500">\u2713</span> Insured
+              <CheckIcon className="w-4 h-4 text-green-500" /> Insured
             </span>
             <span className="flex items-center gap-1.5">
-              <span className="text-green-500">\u2713</span> 5-star rated
+              <StarIcon className="w-4 h-4 text-green-500" /> 5-star rated
             </span>
             <span className="flex items-center gap-1.5">
-              <span className="text-green-500">\u2713</span> 30K+ visits
+              <CheckIcon className="w-4 h-4 text-green-500" /> 30K+ visits
             </span>
           </motion.div>
         </div>
@@ -204,9 +323,9 @@ const HeroSection: FC = () => {
         <motion.div
           animate={{ y: [0, 5, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="text-charcoal-300 text-xl"
+          className="text-charcoal-300"
         >
-          \u2193
+          <ArrowDownIcon className="w-5 h-5" />
         </motion.div>
       </motion.div>
     </section>
@@ -237,7 +356,10 @@ const ServicesSection: FC = () => {
               className="bg-white border border-charcoal-100 rounded-xl p-5 cursor-pointer hover:border-green-300 hover:shadow-sm transition-all"
             >
               <div className="flex items-start justify-between mb-3">
-                <h3 className="font-heading text-lg text-charcoal-800">{s.title}</h3>
+                <div className="flex items-center gap-2">
+                  <MowerIcon className="w-5 h-5 text-green-500" />
+                  <h3 className="font-heading text-lg text-charcoal-800">{s.title}</h3>
+                </div>
                 <span className="text-green-600 font-bold text-lg">${s.priceFrom}+</span>
               </div>
               <p className="text-charcoal-400 text-sm leading-relaxed">{s.description}</p>
@@ -245,9 +367,9 @@ const ServicesSection: FC = () => {
                 <span className="text-xs text-charcoal-300 bg-charcoal-50 px-2.5 py-1 rounded-full">{s.frequency}</span>
                 <motion.span
                   animate={{ rotate: expanded === s.id ? 180 : 0 }}
-                  className="text-green-500 text-lg"
+                  className="text-green-500"
                 >
-                  \u2193
+                  <ArrowDownIcon className="w-4 h-4" />
                 </motion.span>
               </div>
               <AnimatePresence>
@@ -260,15 +382,17 @@ const ServicesSection: FC = () => {
                   >
                     <div className="pt-3 mt-3 border-t border-charcoal-50 text-xs text-charcoal-400">
                       <div className="flex items-center gap-2">
-                        <span className="text-green-500">\u2713</span> Starting at ${s.priceFrom}
+                        <CheckIcon className="w-3.5 h-3.5 text-green-500" /> Starting at ${s.priceFrom}
                       </div>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-green-500">\u2713</span> {s.frequency}
+                        <CheckIcon className="w-3.5 h-3.5 text-green-500" /> {s.frequency}
                       </div>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-green-500">\u2713</span> Add to any plan
+                        <CheckIcon className="w-3.5 h-3.5 text-green-500" /> Add to any plan
                       </div>
-                      <button className="mt-3 text-green-600 text-sm font-semibold">Add to Quote \u2192</button>
+                      <button className="mt-3 text-green-600 text-sm font-semibold flex items-center gap-1">
+                        Add to Quote <ArrowRightIcon className="w-3.5 h-3.5" />
+                      </button>
                     </div>
                   </motion.div>
                 )}
@@ -345,7 +469,7 @@ const InstantQuoteSection: FC = () => {
                         : 'border-charcoal-200 text-charcoal-300'
                     }`}
                   >
-                    {i < step ? '\u2713' : qs.step}
+                    {i < step ? <CheckIcon className="w-3 h-3" /> : qs.step}
                   </span>
                   {qs.title}
                 </div>
@@ -388,7 +512,9 @@ const InstantQuoteSection: FC = () => {
                       }`}
                     >
                       <div className="text-lg mb-1">
-                        {ys.value === 'small' ? '\uD83C\uDF3F' : ys.value === 'medium' ? '\uD83C\uDF31' : '\uD83C\uDF33'}
+                        {ys.value === 'small' ? <LeafIcon className="w-6 h-6 mx-auto text-green-500" /> : 
+                         ys.value === 'medium' ? <LeafIcon className="w-7 h-7 mx-auto text-green-600" /> : 
+                         <LeafIcon className="w-8 h-8 mx-auto text-green-700" />}
                       </div>
                       <div className="font-semibold text-sm text-charcoal-800">{ys.label}</div>
                       <div className="text-xs text-charcoal-400">{ys.desc}</div>
@@ -420,16 +546,16 @@ const InstantQuoteSection: FC = () => {
                 <button
                   onClick={handleBack}
                   disabled={step === 0}
-                  className="text-sm text-charcoal-400 disabled:opacity-30 hover:text-charcoal-600 transition-colors"
+                  className="text-sm text-charcoal-400 disabled:opacity-30 hover:text-charcoal-600 transition-colors flex items-center gap-1"
                 >
-                  \u2190 Back
+                  <ArrowLeftIcon className="w-3.5 h-3.5" /> Back
                 </button>
                 <button
                   onClick={handleNext}
                   disabled={!canProceed()}
-                  className="bg-green-500 text-white px-6 py-2.5 rounded-lg text-sm font-semibold disabled:opacity-40 hover:bg-green-600 transition-colors"
+                  className="bg-green-500 text-white px-6 py-2.5 rounded-lg text-sm font-semibold disabled:opacity-40 hover:bg-green-600 transition-colors flex items-center gap-1"
                 >
-                  {step < 2 ? 'Next \u2192' : 'Get My Price \u2192'}
+                  {step < 2 ? <>Next <ArrowRightIcon className="w-3.5 h-3.5" /></> : <>Get My Price <ArrowRightIcon className="w-3.5 h-3.5" /></>}
                 </button>
               </div>
 
@@ -484,7 +610,7 @@ const PricingSection: FC = () => (
             <ul className="space-y-2 mb-6">
               {tier.features.map((f: string) => (
                 <li key={f} className="flex items-start gap-2 text-sm text-charcoal-600">
-                  <span className="text-green-500 mt-0.5">\u2713</span>
+                  <CheckIcon className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
                   {f}
                 </li>
               ))}
@@ -540,20 +666,23 @@ const WhyUsSection: FC = () => {
           ))}
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {reasons.map((r, i) => (
-            <motion.div
-              key={r.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="bg-white/5 rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-colors"
-            >
-              <span className="text-3xl block mb-3">{r.icon}</span>
-              <h3 className="font-heading text-lg mb-2">{r.title}</h3>
-              <p className="text-charcoal-300 text-sm leading-relaxed">{r.description}</p>
-            </motion.div>
-          ))}
+          {reasons.map((r, i) => {
+            const IconComp = reasonIcons[r.icon] || LeafIcon;
+            return (
+              <motion.div
+                key={r.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-white/5 rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-colors"
+              >
+                <IconComp className="w-8 h-8 text-green-400 mb-3" />
+                <h3 className="font-heading text-lg mb-2">{r.title}</h3>
+                <p className="text-charcoal-300 text-sm leading-relaxed">{r.description}</p>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -570,10 +699,14 @@ const ServiceAreasSection: FC = () => (
         </p>
       </motion.div>
       <div className="max-w-xl mx-auto">
-        <div className="aspect-[16/9] bg-green-50 rounded-2xl border border-green-100 flex items-center justify-center mb-8">
-          <div className="text-center">
-            <span className="text-4xl">\uD83D\uDDFA\uFE0F</span>
-            <p className="text-charcoal-400 text-sm mt-2">San Diego Metro Coverage</p>
+        <div className="aspect-[16/9] rounded-2xl overflow-hidden mb-8 relative">
+          <img
+            src="https://images.unsplash.com/photo-1569336415962-a4bd9f609cd2?w=800&q=85"
+            alt="Map of San Diego metro coverage"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-green-500/10 flex items-center justify-center">
+            <MapPinIcon className="w-12 h-12 text-green-600 opacity-60" />
           </div>
         </div>
         <div className="flex flex-wrap justify-center gap-2">
@@ -608,25 +741,20 @@ const BeforeAfterSection: FC = () => {
         </motion.div>
         <div className="max-w-2xl mx-auto">
           <div className="relative overflow-hidden rounded-2xl bg-white border border-charcoal-100">
-            <div className="aspect-[16/9] relative flex items-center justify-center" style={{ backgroundColor: beforeAfterItems[activeIndex].color + '15' }}>
-              <span className="text-6xl opacity-30">\uD83C\uDF3F</span>
+            <div className="aspect-[16/9] relative overflow-hidden">
+              <img
+                src={beforeAfterItems[activeIndex].image}
+                alt={beforeAfterItems[activeIndex].title}
+                className="w-full h-full object-cover"
+              />
               <div className="absolute inset-0 flex">
-                <div
-                  className="w-1/2 h-full"
-                  style={{ backgroundColor: beforeAfterItems[activeIndex].color + '25' }}
-                >
-                  <div className="flex items-center justify-center h-full">
-                    <span className="text-4xl opacity-20">\uD83C\uDF3F</span>
-                  </div>
+                <div className="w-1/2 h-full bg-gradient-to-r from-black/40 to-transparent flex items-center justify-center">
+                  <span className="text-white/60 text-xs font-semibold uppercase tracking-wider">Before</span>
                 </div>
-                <div className="w-1/2 h-full">
-                  <div className="flex items-center justify-center h-full">
-                    <span className="text-4xl">\u2705</span>
-                  </div>
+                <div className="w-1/2 h-full bg-gradient-to-l from-black/20 to-transparent flex items-center justify-end pr-4">
+                  <span className="text-white text-xs font-semibold uppercase tracking-wider bg-green-600 px-2 py-1 rounded">After</span>
                 </div>
               </div>
-              <div className="absolute top-3 left-3 bg-black/60 text-white text-xs px-2.5 py-1 rounded-md">Before</div>
-              <div className="absolute top-3 right-3 bg-green-600 text-white text-xs px-2.5 py-1 rounded-md">After</div>
             </div>
           </div>
           <div className="flex justify-center gap-2 mt-4">
@@ -684,7 +812,7 @@ const CtaSection: FC = () => {
               animate={{ opacity: 1, scale: 1 }}
               className="bg-green-50 rounded-2xl p-8 border border-green-100"
             >
-              <span className="text-4xl block mb-3">\uD83C\uDF3F</span>
+              <LeafIcon className="w-12 h-12 text-green-500 mx-auto mb-3" />
               <h3 className="font-heading text-xl text-charcoal-800 mb-2">You are In!</h3>
               <p className="text-charcoal-400 text-sm">We will text you within the hour to confirm your first visit.</p>
             </motion.div>
@@ -737,14 +865,16 @@ const Footer: FC = () => (
       <div className="grid md:grid-cols-3 gap-8 mb-8">
         <div>
           <h4 className="text-white font-heading text-lg mb-2 flex items-center gap-2">
-            <span className="text-green-400">\uD83C\uDF3F</span> {siteInfo.name}
+            <LeafIcon className="w-5 h-5 text-green-400" /> {siteInfo.name}
           </h4>
           <p className="text-charcoal-400 text-sm leading-relaxed">{siteInfo.description}</p>
         </div>
         <div>
           <h4 className="text-white font-heading mb-3">Contact</h4>
-          <p className="text-charcoal-400 text-sm">{contactInfo.phone}</p>
-          <p className="text-charcoal-400 text-sm">{contactInfo.email}</p>
+          <p className="text-charcoal-400 text-sm flex items-center gap-1">
+            <PhoneIcon className="w-3.5 h-3.5" /> {contactInfo.phone}
+          </p>
+          <p className="text-charcoal-400 text-sm flex items-center gap-1 mt-1">{contactInfo.email}</p>
         </div>
         <div>
           <h4 className="text-white font-heading mb-3">Quick Links</h4>

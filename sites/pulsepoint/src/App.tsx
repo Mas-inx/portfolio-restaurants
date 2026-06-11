@@ -15,6 +15,134 @@ import {
   type Review,
 } from './data'
 
+/* SVG Icon Components */
+function IconFever({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" />
+      <circle cx="12" cy="18.5" r="2.5" />
+    </svg>
+  );
+}
+function IconInjury({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14" />
+      <path d="M2 20h20" />
+      <path d="M12 10v4" />
+      <path d="M10 12h4" />
+    </svg>
+  );
+}
+function IconWound({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M8 8l8 8" />
+      <path d="M16 8l-8 8" />
+    </svg>
+  );
+}
+function IconBurn({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2c0 4 4 6 4 10a4 4 0 0 1-8 0c0-4 4-6 4-10z" />
+      <path d="M12 22a4 4 0 0 0 0-8 4 4 0 0 0 0 8z" />
+    </svg>
+  );
+}
+function IconEar({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2a6 6 0 0 0-6 6c0 3 2 5 2 5v2a4 4 0 0 0 8 0v-2s2-2 2-5a6 6 0 0 0-6-6z" />
+      <line x1="12" y1="18" x2="12" y2="20" />
+    </svg>
+  );
+}
+function IconUti({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22a5 5 0 0 1-5-5V7a5 5 0 0 1 10 0v10a5 5 0 0 1-5 5z" />
+      <line x1="10" y1="12" x2="14" y2="12" />
+      <line x1="12" y1="10" x2="12" y2="14" />
+    </svg>
+  );
+}
+function IconTest({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="9" y1="15" x2="15" y2="15" />
+      <circle cx="12" cy="12" r="1" />
+    </svg>
+  );
+}
+function IconAllergy({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7 21h10" />
+      <path d="M12 21V9" />
+      <path d="M12 9a4 4 0 0 0 4-4" />
+      <path d="M8 5a4 4 0 0 0 4 4" />
+      <circle cx="6" cy="5" r="1" />
+      <circle cx="18" cy="5" r="1" />
+      <circle cx="12" cy="3" r="1" />
+    </svg>
+  );
+}
+function IconPhone({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  );
+}
+function IconHospital({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 21h18" />
+      <path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16" />
+      <path d="M10 9h4" />
+      <path d="M12 7v4" />
+      <line x1="9" y1="15" x2="15" y2="15" />
+    </svg>
+  );
+}
+function IconDoctor({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="7" r="4" />
+      <path d="M5.5 21a8.5 8.5 0 0 1 13 0" />
+      <circle cx="12" cy="19" r="1" />
+      <path d="M18 16c0-3-2.5-5-6-5s-6 2-6 5" />
+    </svg>
+  );
+}
+function IconCheckCircle({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+      <polyline points="22 4 12 14.01 9 11.01" />
+    </svg>
+  );
+}
+
+const iconMap: Record<string, React.FC<{ className?: string }>> = {
+  fever: IconFever,
+  injury: IconInjury,
+  wound: IconWound,
+  burn: IconBurn,
+  ear: IconEar,
+  uti: IconUti,
+  test: IconTest,
+  allergy: IconAllergy,
+  phone: IconPhone,
+  hospital: IconHospital,
+  doctor: IconDoctor,
+  check: IconCheckCircle,
+};
+
 /* ------------------------------------------------------------------ */
 /*  Animation variants                                                */
 /* ------------------------------------------------------------------ */
@@ -193,6 +321,14 @@ function Hero() {
 
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden bg-[#0F172A] px-6 pt-24">
+      {/* Unsplash background */}
+      <div className="pointer-events-none absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1600&q=85"
+          alt="Medical clinic"
+          className="w-full h-full object-cover opacity-15"
+        />
+      </div>
       {/* subtle background pattern */}
       <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 25px 25px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
 
@@ -287,19 +423,24 @@ function TreatmentsSection() {
         variants={stagger}
         className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
       >
-        {treatments.map((t: Treatment, i: number) => (
-          <motion.div
-            key={t.title}
-            variants={fadeUp}
-            custom={i}
-            whileHover={{ y: -3 }}
-            className="rounded-2xl border border-[#E2E8F0] bg-white p-5 transition-all hover:border-[#EF4444]/20 hover:shadow-md"
-          >
-            <span className="text-2xl">{t.icon}</span>
-            <h3 className="mt-3 text-sm font-semibold text-[#1E293B]">{t.title}</h3>
-            <p className="mt-1.5 text-xs leading-relaxed text-[#64748B]">{t.description}</p>
-          </motion.div>
-        ))}
+        {treatments.map((t: Treatment, i: number) => {
+          const IconComponent = iconMap[t.icon];
+          return (
+            <motion.div
+              key={t.title}
+              variants={fadeUp}
+              custom={i}
+              whileHover={{ y: -3 }}
+              className="rounded-2xl border border-[#E2E8F0] bg-white p-5 transition-all hover:border-[#EF4444]/20 hover:shadow-md"
+            >
+              <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#EF4444]/10 text-[#EF4444]">
+                {IconComponent ? <IconComponent className="w-5 h-5" /> : null}
+              </div>
+              <h3 className="mt-3 text-sm font-semibold text-[#1E293B]">{t.title}</h3>
+              <p className="mt-1.5 text-xs leading-relaxed text-[#64748B]">{t.description}</p>
+            </motion.div>
+          );
+        })}
       </motion.div>
     </SectionWrap>
   )
@@ -365,20 +506,23 @@ function HowItWorks() {
           variants={stagger}
           className="grid gap-8 md:grid-cols-4"
         >
-          {howItWorksSteps.map((s: HowItWorksStep, i: number) => (
-            <motion.div
-              key={s.step}
-              variants={fadeUp}
-              custom={i}
-              className="flex flex-col items-center text-center"
-            >
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#EF4444]/10 text-2xl">
-                {s.icon}
-              </div>
-              <h3 className="mt-4 text-base font-semibold text-[#1E293B]">{s.step}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#64748B]">{s.description}</p>
-            </motion.div>
-          ))}
+          {howItWorksSteps.map((s: HowItWorksStep, i: number) => {
+            const IconComponent = iconMap[s.icon];
+            return (
+              <motion.div
+                key={s.step}
+                variants={fadeUp}
+                custom={i}
+                className="flex flex-col items-center text-center"
+              >
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#EF4444]/10 text-[#EF4444]">
+                  {IconComponent ? <IconComponent className="w-7 h-7" /> : null}
+                </div>
+                <h3 className="mt-4 text-base font-semibold text-[#1E293B]">{s.step}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[#64748B]">{s.description}</p>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </SectionWrap>
@@ -567,7 +711,9 @@ function CTAForm() {
       >
         {submitted ? (
           <div className="rounded-2xl border border-[#334155] bg-[#1E293B] p-10 text-center">
-            <span className="text-5xl">✅</span>
+            <div className="w-14 h-14 mx-auto rounded-full bg-[#10B981]/20 flex items-center justify-center">
+              <IconCheckCircle className="w-8 h-8 text-[#10B981]" />
+            </div>
             <p className="mt-4 text-xl font-semibold text-white">You're checked in!</p>
             <p className="mt-2 text-[#94A3B8]">
               We'll text you when we're ready. Current wait time is{' '}

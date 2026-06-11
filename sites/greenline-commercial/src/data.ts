@@ -3,6 +3,7 @@ export interface SiteInfo {
   tagline: string;
   description: string;
   location: string;
+  heroImage: string;
 }
 
 export interface IndustryItem {
@@ -46,6 +47,7 @@ export const siteInfo: SiteInfo = {
   description:
     'Full-service commercial landscape maintenance for properties that demand consistency, accountability, and professional results. We handle the grounds so you can focus on operations.',
   location: 'Denver, Colorado',
+  heroImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=85',
 };
 
 export const industries: IndustryItem[] = [
@@ -53,42 +55,42 @@ export const industries: IndustryItem[] = [
     id: 'hoa',
     title: 'Homeowner Associations',
     description: 'Common area maintenance, entry monuments, amenity landscapes, and seasonal color programs for HOAs and condominium communities.',
-    icon: '\uD83C\uDFE0',
+    icon: 'home',
     properties: 45,
   },
   {
     id: 'retail',
     title: 'Retail & Shopping Centers',
     description: 'Strip mall landscaping, parking lot islands, pedestrian walkways, and storefront plantings that stay pristine year-round.',
-    icon: '\uD83D\uDED2',
+    icon: 'shopping',
     properties: 28,
   },
   {
     id: 'offices',
     title: 'Office Parks & Campuses',
     description: 'Corporate campus grounds, entry gardens, courtyard maintenance, and irrigation management for professional office environments.',
-    icon: '\uD83C\uDFE2',
+    icon: 'building',
     properties: 34,
   },
   {
     id: 'schools',
     title: 'Schools & Universities',
     description: 'K-12 and university campus landscape maintenance with safety-first protocols and minimal disruption during school hours.',
-    icon: '\uD83C\uDFEB',
+    icon: 'school',
     properties: 19,
   },
   {
     id: 'warehouses',
     title: 'Industrial Parks & Warehouses',
     description: 'Large-scale mowing, weed control, snow removal, and erosion management for industrial and logistics properties.',
-    icon: '\uD83C\uDFED',
+    icon: 'warehouse',
     properties: 22,
   },
   {
     id: 'apartments',
     title: 'Multifamily Apartments',
     description: 'Courtyards, pool areas, dog runs, and building perimeter landscapes for apartment communities up to 500+ units.',
-    icon: '\uD83C\uDFE1',
+    icon: 'apartment',
     properties: 37,
   },
 ];
@@ -99,42 +101,42 @@ export const programs: ProgramItem[] = [
     title: 'Weekly Mowing & Edging',
     description: 'Precision mowing with zero-turn and walk-behind mowers. String trimming, edging, and blowing on every visit. Seasonal height adjustments.',
     frequency: 'Weekly',
-    icon: '\uD83C\uDF3F',
+    icon: 'leaf',
   },
   {
     id: 'irrigation',
     title: 'Irrigation System Checks',
     description: 'Weekly system inspections, head adjustments, pressure regulation, and weather-based controller programming to prevent waste.',
     frequency: 'Weekly / Biweekly',
-    icon: '\uD83D\uDCA7',
+    icon: 'water',
   },
   {
     id: 'color',
     title: 'Seasonal Color Rotation',
     description: 'Three-season annual color installations with design, procurement, planting, and removal of spent plants.',
     frequency: 'Quarterly',
-    icon: '\uD83C\uDF38',
+    icon: 'flower',
   },
   {
     id: 'storm',
     title: 'Storm Cleanup & Debris',
     description: 'Emergency response for storm damage including downed branches, leaf cleanup, silt removal, and hazard mitigation.',
     frequency: 'As Needed',
-    icon: '\u26A1',
+    icon: 'lightning',
   },
   {
     id: 'trees',
     title: 'Tree & Shrub Care',
     description: 'Pruning, fertilization, pest management, and health monitoring for ornamental trees and shrubs across your property.',
     frequency: 'Monthly / Quarterly',
-    icon: '\uD83C\uDF33',
+    icon: 'tree',
   },
   {
     id: 'snow',
     title: 'Snow & Ice Management',
     description: 'Pre-treatment, plowing, shoveling, and de-icing for parking lots, walkways, and entry zones. 24/7 dispatch during snow events.',
     frequency: 'Seasonal (Winter)',
-    icon: '\u2744\uFE0F',
+    icon: 'snowflake',
   },
 ];
 
@@ -149,22 +151,22 @@ export const dashboardMetrics: DashboardMetric[] = [
 
 export const qualityItems: QualityItem[] = [
   {
-    icon: '\uD83D\uDCCB',
+    icon: 'clipboard',
     title: 'Site Inspection Reports',
     description: 'Every property receives a detailed inspection report after each visit, documenting completed work, observed issues, and recommendations.',
   },
   {
-    icon: '\uD83D\uDCF7',
+    icon: 'camera',
     title: 'Photo Documentation',
     description: 'Time-stamped, geo-tagged photos of every property on every visit. Access your property dashboard anytime to review the latest documentation.',
   },
   {
-    icon: '\uD83D\uDC64',
+    icon: 'user',
     title: 'Dedicated Account Manager',
     description: 'Each property is assigned a single point of contact who knows your property, your preferences, and your contract inside and out.',
   },
   {
-    icon: '\uD83D\uDCCA',
+    icon: 'chart',
     title: 'Monthly Performance Reports',
     description: 'Monthly summaries with completed tasks, photos, upcoming work, budget tracking, and recommendations for the next period.',
   },

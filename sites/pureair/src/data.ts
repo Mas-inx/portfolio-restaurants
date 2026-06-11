@@ -47,6 +47,7 @@ export const siteInfo = {
   homesServiced: 4200,
   certifiedTechnicians: 18,
   satisfaction: '98%',
+  heroImage: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=1600&q=85',
 }
 
 export const problems: Problem[] = [
