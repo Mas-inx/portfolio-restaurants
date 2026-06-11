@@ -2,171 +2,245 @@ import { useRef, useState, useEffect } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { siteInfo, stats, capabilities, preConServices, safetyPoints, featuredProjects, processPhases, navLinks } from './data'
 
-/* ── Inline SVG Icons (viewBox="0 0 24 24") ── */
+/* ──────────────────────────────────────────────────────────
+   SteelSpan Commercial Builders — Corporate Precision
+   Palette: Navy #0F1B2D | Steel #475569 | White #FFFFFF | Electric Blue #2563EB
+   ────────────────────────────────────────────────────────── */
 
-function IconBuilding({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="4" y="2" width="16" height="20" rx="1" />
-      <line x1="9" y1="6" x2="9" y2="6.01" />
-      <line x1="15" y1="6" x2="15" y2="6.01" />
-      <line x1="9" y1="10" x2="9" y2="10.01" />
-      <line x1="15" y1="10" x2="15" y2="10.01" />
-      <line x1="9" y1="14" x2="9" y2="14.01" />
-      <line x1="15" y1="14" x2="15" y2="14.01" />
-      <line x1="9" y1="18" x2="15" y2="18" />
+/* ── SVG Icon System (viewBox 0 0 24 24, stroke-based) ── */
+
+const Icon = {
+  Building: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="2" width="16" height="20" rx="1" /><line x1="9" y1="6" x2="9" y2="6.01" /><line x1="15" y1="6" x2="15" y2="6.01" /><line x1="9" y1="10" x2="9" y2="10.01" /><line x1="15" y1="10" x2="15" y2="10.01" /><line x1="9" y1="14" x2="9" y2="14.01" /><line x1="15" y1="14" x2="15" y2="14.01" /><line x1="9" y1="18" x2="15" y2="18" />
     </svg>
-  )
-}
-
-function IconBlueprint({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-      <polyline points="14 2 14 8 20 8" />
-      <line x1="8" y1="13" x2="16" y2="13" />
-      <line x1="8" y1="17" x2="16" y2="17" />
-      <line x1="10" y1="9" x2="8" y2="9" />
+  ),
+  Blueprint: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="8" y1="13" x2="16" y2="13" /><line x1="8" y1="17" x2="16" y2="17" /><line x1="10" y1="9" x2="8" y2="9" />
     </svg>
-  )
-}
-
-function IconChart({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="18" y1="20" x2="18" y2="10" />
-      <line x1="12" y1="20" x2="12" y2="4" />
-      <line x1="6" y1="20" x2="6" y2="14" />
+  ),
+  Chart: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" />
     </svg>
-  )
-}
-
-function IconTarget({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10" />
-      <circle cx="12" cy="12" r="6" />
-      <circle cx="12" cy="12" r="2" />
+  ),
+  Target: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" />
     </svg>
-  )
-}
-
-function IconClock({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10" />
-      <polyline points="12 6 12 12 16 14" />
+  ),
+  Clock: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
     </svg>
-  )
-}
-
-function IconDollar({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="12" y1="1" x2="12" y2="23" />
-      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+  ),
+  Dollar: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
     </svg>
-  )
-}
-
-function IconShield({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+  ),
+  Shield: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
     </svg>
-  )
-}
-
-function IconClipboard({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-      <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+  ),
+  Clipboard: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /><rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
     </svg>
-  )
-}
-
-function IconMenu({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="3" y1="12" x2="21" y2="12" />
-      <line x1="3" y1="6" x2="21" y2="6" />
-      <line x1="3" y1="18" x2="21" y2="18" />
+  ),
+  Menu: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" />
     </svg>
-  )
-}
-
-function IconX({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="18" y1="6" x2="6" y2="18" />
-      <line x1="6" y1="6" x2="18" y2="18" />
+  ),
+  X: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
     </svg>
-  )
-}
-
-function IconArrowRight({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="5" y1="12" x2="19" y2="12" />
-      <polyline points="12 5 19 12 12 19" />
+  ),
+  ArrowRight: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
     </svg>
-  )
-}
-
-function IconCheck({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  ),
+  Check: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <polyline points="20 6 9 17 4 12" />
     </svg>
+  ),
+  Phone: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  ),
+  Mail: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" />
+    </svg>
+  ),
+  Pin: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
+    </svg>
+  ),
+  Crosshair: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" /><line x1="22" y1="12" x2="18" y2="12" /><line x1="6" y1="12" x2="2" y2="12" /><line x1="12" y1="6" x2="12" y2="2" /><line x1="12" y1="22" x2="12" y2="18" />
+    </svg>
+  ),
+  Layers: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 17 12 22 22 17" /><polyline points="2 12 12 17 22 12" />
+    </svg>
+  ),
+  Eye: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" />
+    </svg>
+  ),
+  Zap: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+    </svg>
+  ),
+  Compass: (p: { className?: string }) => (
+    <svg className={p.className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" /><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+    </svg>
+  ),
+}
+
+const capabilityIcons = [Icon.Building, Icon.Blueprint, Icon.Chart, Icon.Target, Icon.Clock, Icon.Dollar]
+const safetyIcons = [Icon.Shield, Icon.Eye, Icon.Crosshair, Icon.Clipboard]
+
+/* ── Blueprint Grid Pattern (SVG background) ── */
+
+function BlueprintGrid() {
+  return (
+    <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="bp-sm" width="20" height="20" patternUnits="userSpaceOnUse">
+          <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(37,99,235,0.08)" strokeWidth="0.5" />
+        </pattern>
+        <pattern id="bp-lg" width="100" height="100" patternUnits="userSpaceOnUse">
+          <rect width="100" height="100" fill="url(#bp-sm)" />
+          <path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(37,99,235,0.15)" strokeWidth="1" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#bp-lg)" />
+    </svg>
   )
 }
 
-const capabilityIcons = [IconBuilding, IconBlueprint, IconChart, IconTarget, IconClock, IconDollar]
+/* ── Animated Counter ── */
 
-/* ── Components ── */
+function CountUp({ value }: { value: string }) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref, { once: true })
+  const num = parseInt(value.replace(/[^\d]/g, ''))
+  const suffix = value.replace(/[\d]/g, '')
+  const [display, setDisplay] = useState(0)
+
+  useEffect(() => {
+    if (!inView) return
+    let current = 0
+    const duration = 1800
+    const steps = 50
+    const increment = num / steps
+    const interval = setInterval(() => {
+      current += increment
+      if (current >= num) {
+        setDisplay(num)
+        clearInterval(interval)
+      } else {
+        setDisplay(Math.floor(current))
+      }
+    }, duration / steps)
+    return () => clearInterval(interval)
+  }, [inView, num])
+
+  return <span ref={ref}>{display}{suffix}</span>
+}
+
+/* ── Reveal Wrapper ── */
+
+function Reveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-80px' })
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 32 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+/* ── Navigation ── */
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
+    const handler = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', handler)
+    return () => window.removeEventListener('scroll', handler)
   }, [])
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-navy/95 backdrop-blur-lg shadow-2xl shadow-black/20' : 'bg-gradient-to-b from-black/40 to-transparent'}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-[#0F1B2D]/98 backdrop-blur-md border-b border-white/5' : 'bg-transparent'}`}>
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          <a href="#" className="font-heading text-lg sm:text-xl tracking-tight text-white">
-            STEEL<span className="text-amber-500">SPAN</span>
-            {scrolled && <span className="block text-[10px] text-steel-light font-body font-normal tracking-widest uppercase -mt-0.5">Commercial Builders</span>}
+          {/* Logo */}
+          <a href="#" className="flex items-baseline gap-1.5 group">
+            <span className="font-mono text-lg tracking-tight text-white font-bold">STEELSPAN</span>
+            <span className="hidden sm:inline text-[10px] text-[#2563EB] font-mono tracking-[0.2em] uppercase border-l border-[#2563EB]/30 pl-1.5">COMMERCIAL</span>
           </a>
-          <div className="hidden lg:flex items-center gap-8">
+
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex items-center gap-7">
             {navLinks.map((l) => (
-              <a key={l.href} href={l.href} className="text-sm font-medium text-white/70 hover:text-amber-400 transition-colors tracking-wide uppercase">
+              <a key={l.href} href={l.href} className="text-[11px] text-white/60 hover:text-white font-mono uppercase tracking-[0.15em] transition-colors duration-200">
                 {l.label}
               </a>
             ))}
-            <a href="#contact" className="bg-amber-500 text-navy px-5 py-2.5 text-sm font-bold uppercase tracking-wider hover:bg-amber-400 transition-all hover:shadow-lg hover:shadow-amber-500/25">
-              Submit RFP
+            <a href="#contact" className="text-[11px] font-mono uppercase tracking-[0.15em] text-[#0F1B2D] bg-[#2563EB] px-5 py-2 hover:bg-blue-400 transition-colors">
+              Request Proposal
             </a>
           </div>
+
+          {/* Mobile Toggle */}
           <button className="lg:hidden p-2" onClick={() => setMenuOpen(!menuOpen)}>
-            {menuOpen ? <IconX className="text-white" /> : <IconMenu className="text-white" />}
+            {menuOpen ? <Icon.X className="w-5 h-5 text-white" /> : <Icon.Menu className="w-5 h-5 text-white" />}
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="lg:hidden bg-navy border-t border-white/5">
-            <div className="px-4 py-4 space-y-3">
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden bg-[#0F1B2D] border-t border-white/5"
+          >
+            <div className="px-5 py-5 space-y-3">
               {navLinks.map((l) => (
-                <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} className="block text-white/70 font-medium hover:text-amber-400 transition-colors">{l.label}</a>
+                <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} className="block text-sm text-white/70 font-mono uppercase tracking-wider hover:text-[#2563EB] transition-colors">
+                  {l.label}
+                </a>
               ))}
-              <a href="#contact" onClick={() => setMenuOpen(false)} className="block bg-amber-500 text-navy px-5 py-2.5 text-sm font-bold uppercase text-center">Submit RFP</a>
+              <a href="#contact" onClick={() => setMenuOpen(false)} className="block bg-[#2563EB] text-white text-sm font-mono uppercase tracking-wider text-center py-3 mt-4">
+                Request Proposal
+              </a>
             </div>
           </motion.div>
         )}
@@ -175,169 +249,176 @@ function Navbar() {
   )
 }
 
-function CountUp({ value, suffix }: { value: string; suffix?: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true })
-  const num = parseInt(value.replace(/[^\d]/g, ''))
-  const [display, setDisplay] = useState(0)
-
-  useEffect(() => {
-    if (!inView) return
-    let start = 0
-    const duration = 2000
-    const step = Math.max(1, Math.floor(num / 60))
-    const interval = setInterval(() => {
-      start += step
-      if (start >= num) {
-        setDisplay(num)
-        clearInterval(interval)
-      } else {
-        setDisplay(start)
-      }
-    }, duration / 60)
-    return () => clearInterval(interval)
-  }, [inView, num])
-
-  return <div ref={ref}>{display}{suffix || value.replace(/[\d]/g, '')}</div>
-}
-
-function FadeIn({ children, className, delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
-  return (
-    <motion.div ref={ref} initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay }} className={className}>
-      {children}
-    </motion.div>
-  )
-}
-
-function ScaleIn({ children, className }: { children: React.ReactNode; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true })
-  return (
-    <motion.div ref={ref} initial={{ opacity: 0, scale: 0.9 }} animate={inView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.5 }} className={className}>
-      {children}
-    </motion.div>
-  )
-}
-
-function SectionHeading({ title, subtitle, light }: { title: string; subtitle?: string; light?: boolean }) {
-  return (
-    <div className="mb-12 lg:mb-16 max-w-3xl">
-      <h2 className={`font-heading text-3xl sm:text-4xl lg:text-5xl leading-tight ${light ? 'text-white' : 'text-navy'}`}>{title}</h2>
-      {subtitle && <p className={`mt-4 text-base sm:text-lg leading-relaxed ${light ? 'text-steel-light' : 'text-steel'}`}>{subtitle}</p>}
-      <div className={`w-16 h-0.5 mt-5 ${light ? 'bg-amber-500' : 'bg-amber-500'}`} />
-    </div>
-  )
-}
-
-/* ── Hero ── */
+/* ── Hero Section ── */
 
 function Hero() {
   return (
-    <section className="relative min-h-screen flex items-end lg:items-center overflow-hidden">
-      <div className="absolute inset-0">
-        <img src="https://images.unsplash.com/photo-1504917595217?w=1600&q=85" alt="Commercial construction tower crane" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/85 to-navy/60" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
+    <section className="relative min-h-screen flex items-center bg-[#0F1B2D] overflow-hidden">
+      {/* Blueprint Grid Background */}
+      <BlueprintGrid />
+
+      {/* Gradient overlays for depth */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0F1B2D]/40 via-transparent to-[#0F1B2D]" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0F1B2D] to-transparent" />
+
+      {/* Corner technical annotations */}
+      <div className="absolute top-24 left-5 sm:left-8 font-mono text-[10px] text-[#2563EB]/40 tracking-wider hidden sm:block">
+        <div>DWG NO. SS-2024-001</div>
+        <div>SCALE: NTS</div>
+        <div>REV: 03</div>
       </div>
-      <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-0">
-        <div className="lg:grid lg:grid-cols-5 lg:gap-12 items-end lg:items-center">
-          <div className="lg:col-span-3 pb-8 lg:pb-0">
-            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <div className="inline-flex items-center gap-2 border border-amber-500/40 bg-amber-500/10 backdrop-blur-sm px-3 py-1.5 mb-6">
-                <IconCheck className="w-3.5 h-3.5 text-amber-400" />
-                <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">{siteInfo.safetyRating}</span>
-              </div>
-              <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl xl:text-8xl text-white leading-none mb-5">
-                Building<br />
-                <span className="text-amber-500">Beyond<br />Schedule</span>
-              </h1>
-              <p className="text-steel-light text-base sm:text-lg max-w-xl mb-8 leading-relaxed">
-                {siteInfo.tagline}
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <a href="#capabilities" className="group bg-amber-500 text-navy px-8 py-3.5 font-bold uppercase tracking-wider text-sm hover:bg-amber-400 transition-all inline-flex items-center gap-2 shadow-lg shadow-amber-500/20">
-                  Explore Capabilities <IconArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </a>
-                <a href="#contact" className="border border-white/20 text-white px-8 py-3.5 font-bold uppercase tracking-wider text-sm hover:bg-white/5 transition-colors">
-                  Submit Inquiry
-                </a>
-              </div>
-            </motion.div>
-          </div>
-          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }} className="lg:col-span-2">
-            <div className="grid grid-cols-3 gap-3">
-              {stats.map((s) => (
-                <div key={s.label} className="border border-white/10 bg-white/5 backdrop-blur-sm p-4 lg:p-5 text-center">
-                  <div className="font-mono text-2xl lg:text-3xl font-bold text-amber-500">
-                    <CountUp value={s.value} />
-                  </div>
-                  <div className="text-white/50 text-[10px] lg:text-xs font-medium mt-1.5 uppercase tracking-wider">{s.label}</div>
-                </div>
-              ))}
-            </div>
+      <div className="absolute top-24 right-5 sm:right-8 font-mono text-[10px] text-[#2563EB]/40 tracking-wider text-right hidden sm:block">
+        <div>PROJECT: STEELSPAN HQ</div>
+        <div>DATE: 2024.06</div>
+        <div>SHEET 1 OF 1</div>
+      </div>
+
+      {/* Content */}
+      <div className="relative w-full max-w-7xl mx-auto px-5 sm:px-8 pt-24 pb-16">
+        <div className="max-w-4xl">
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="inline-flex items-center gap-2 mb-8"
+          >
+            <div className="w-8 h-px bg-[#2563EB]" />
+            <span className="font-mono text-[11px] text-[#2563EB] uppercase tracking-[0.25em]">{siteInfo.shortTagline}</span>
+          </motion.div>
+
+          {/* Headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] text-white font-light leading-[1.05] tracking-tight mb-6"
+          >
+            Precision-built<br />
+            <span className="text-[#2563EB] font-normal">commercial</span> construction
+          </motion.h1>
+
+          {/* Tagline */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="text-base sm:text-lg text-white/50 max-w-xl leading-relaxed mb-10 font-light"
+          >
+            {siteInfo.tagline}
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            className="flex flex-wrap gap-4"
+          >
+            <a href="#capabilities" className="group inline-flex items-center gap-3 bg-[#2563EB] text-white px-7 py-3.5 font-mono text-xs uppercase tracking-[0.15em] hover:bg-blue-500 transition-colors">
+              View Capabilities
+              <Icon.ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </a>
+            <a href="#contact" className="inline-flex items-center gap-3 border border-white/20 text-white/80 px-7 py-3.5 font-mono text-xs uppercase tracking-[0.15em] hover:border-[#2563EB] hover:text-white transition-all">
+              Submit RFP
+            </a>
           </motion.div>
         </div>
+
+        {/* Stats Row */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
+          className="mt-16 lg:mt-20 grid grid-cols-3 gap-px bg-white/5 max-w-2xl"
+        >
+          {stats.map((s) => (
+            <div key={s.label} className="bg-[#0F1B2D] p-5 sm:p-6">
+              <div className="font-mono text-2xl sm:text-3xl lg:text-4xl text-white font-light">
+                <CountUp value={s.value} />
+              </div>
+              <div className="text-[10px] sm:text-[11px] text-white/40 font-mono uppercase tracking-[0.15em] mt-1.5">{s.label}</div>
+            </div>
+          ))}
+        </motion.div>
       </div>
+
+      {/* Bottom border accent */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2563EB]/30 to-transparent" />
     </section>
   )
 }
 
-/* ── Capabilities ── */
+/* ── Capabilities Section ── */
 
 function Capabilities() {
+  const [expanded, setExpanded] = useState<number | null>(null)
+
   return (
-    <section id="capabilities" className="py-20 lg:py-28 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading title="Our Capabilities" subtitle="From groundbreaking to final close-out, SteelSpan delivers commercial construction with precision, transparency, and accountability at every phase." />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+    <section id="capabilities" className="py-24 lg:py-32 bg-white relative">
+      {/* Subtle top border */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#475569]/10 to-transparent" />
+
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+        {/* Section Header */}
+        <Reveal>
+          <div className="flex items-start justify-between flex-wrap gap-4 mb-14">
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-6 h-px bg-[#2563EB]" />
+                <span className="font-mono text-[11px] text-[#2563EB] uppercase tracking-[0.2em]">01 — Services</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#0F1B2D] font-light tracking-tight">
+                Core Capabilities
+              </h2>
+            </div>
+            <p className="text-sm text-[#475569] max-w-sm leading-relaxed">
+              Integrated construction services from concept through close-out. Each discipline operates under unified project controls.
+            </p>
+          </div>
+        </Reveal>
+
+        {/* Capability Cards Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#475569]/10">
           {capabilities.map((c, i) => {
             const IconComp = capabilityIcons[i]
+            const isExpanded = expanded === i
             return (
-              <FadeIn key={c.title} delay={i * 0.08}>
-                <div className="group h-full bg-white border-l-4 border-amber-500 p-6 lg:p-8 hover:shadow-2xl hover:shadow-navy/10 transition-all duration-300 hover:-translate-y-1">
-                  <div className="w-12 h-12 bg-navy text-amber-500 flex items-center justify-center mb-5 group-hover:bg-amber-500 group-hover:text-navy transition-all duration-300">
-                    <IconComp className="w-6 h-6" />
+              <Reveal key={c.title} delay={i * 0.06}>
+                <div
+                  className={`bg-white p-7 lg:p-8 h-full cursor-pointer transition-all duration-300 group relative ${isExpanded ? 'ring-1 ring-[#2563EB]/30' : 'hover:bg-[#f8fafc]'}`}
+                  onClick={() => setExpanded(isExpanded ? null : i)}
+                >
+                  {/* Top accent line */}
+                  <div className={`absolute top-0 left-0 right-0 h-[2px] transition-all duration-300 ${isExpanded ? 'bg-[#2563EB]' : 'bg-transparent group-hover:bg-[#2563EB]/30'}`} />
+
+                  {/* Icon + Number */}
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="w-10 h-10 border border-[#475569]/20 flex items-center justify-center text-[#475569] group-hover:border-[#2563EB]/40 group-hover:text-[#2563EB] transition-colors">
+                      <IconComp className="w-5 h-5" />
+                    </div>
+                    <span className="font-mono text-[10px] text-[#475569]/40 tracking-wider">{String(i + 1).padStart(2, '0')}</span>
                   </div>
-                  <h3 className="font-heading text-lg text-navy mb-3">{c.title}</h3>
-                  <p className="text-steel text-sm leading-relaxed">{c.description}</p>
+
+                  {/* Title */}
+                  <h3 className="text-base text-[#0F1B2D] font-medium mb-3 tracking-tight">{c.title}</h3>
+
+                  {/* Description */}
+                  <p className={`text-[13px] text-[#475569] leading-relaxed transition-all duration-300 ${isExpanded ? '' : 'line-clamp-3'}`}>
+                    {c.description}
+                  </p>
+
+                  {/* Expand indicator */}
+                  <div className="mt-4 flex items-center gap-1.5">
+                    <div className={`w-3 h-px transition-colors ${isExpanded ? 'bg-[#2563EB]' : 'bg-[#475569]/30'}`} />
+                    <span className="font-mono text-[9px] text-[#475569]/50 uppercase tracking-wider">
+                      {isExpanded ? 'Collapse' : 'Details'}
+                    </span>
+                  </div>
                 </div>
-              </FadeIn>
+              </Reveal>
             )
           })}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* ── Stats Strip ── */
-
-function StatsStrip() {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true })
-
-  const items = [
-    { val: '350+', label: 'Projects Delivered', desc: 'Commercial, industrial, and institutional' },
-    { val: '28', label: 'Years Experience', desc: 'Serving the greater Chicago area since 1997' },
-    { val: '99%', label: 'On-Time Delivery', desc: 'Projects finished within contracted schedule' },
-  ]
-
-  return (
-    <section className="bg-navy relative overflow-hidden border-t border-b border-white/5">
-      <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '30px 30px' }} />
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16" ref={ref}>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-          {items.map((item, i) => (
-            <motion.div key={item.label} initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: i * 0.15 }} className="text-center">
-              <div className="font-mono text-4xl lg:text-5xl font-bold text-amber-500">
-                <CountUp value={item.val} />
-              </div>
-              <div className="text-white font-heading text-lg mt-1">{item.label}</div>
-              <div className="text-steel-light text-xs mt-1">{item.desc}</div>
-            </motion.div>
-          ))}
         </div>
       </div>
     </section>
@@ -348,38 +429,60 @@ function StatsStrip() {
 
 function FeaturedProjects() {
   return (
-    <section id="projects" className="py-20 lg:py-28 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading title="Featured Projects" subtitle="From high-rise towers to distribution hubs, every project reflects our commitment to quality, schedule, and partnership." />
-        <div className="space-y-8 lg:space-y-12">
+    <section id="projects" className="py-24 lg:py-32 bg-[#f8fafc] relative">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+        {/* Section Header */}
+        <Reveal>
+          <div className="mb-14">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-6 h-px bg-[#2563EB]" />
+              <span className="font-mono text-[11px] text-[#2563EB] uppercase tracking-[0.2em]">02 — Portfolio</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#0F1B2D] font-light tracking-tight">
+              Featured Case Studies
+            </h2>
+          </div>
+        </Reveal>
+
+        {/* Project Cards */}
+        <div className="grid lg:grid-cols-3 gap-6">
           {featuredProjects.map((p, i) => (
-            <ScaleIn key={p.title}>
-              <div className="bg-white border border-gray-200 overflow-hidden lg:flex">
-                <div className={`lg:w-2/5 relative overflow-hidden ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
-                  <img src={p.image} alt={p.title} className="w-full h-60 lg:h-full object-cover hover:scale-110 transition-transform duration-700" />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 lg:hidden">
-                    <div className="flex gap-3">
-                      {p.stats.map((s) => (
-                        <span key={s.label} className="text-amber-400 text-xs font-bold uppercase bg-black/40 px-2 py-1">{s.label}: {s.value}</span>
-                      ))}
-                    </div>
+            <Reveal key={p.title} delay={i * 0.1}>
+              <div className="group bg-white border border-[#475569]/10 overflow-hidden hover:border-[#2563EB]/20 transition-all duration-300 h-full flex flex-col">
+                {/* Image */}
+                <div className="relative h-52 overflow-hidden">
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  {/* Overlay stats */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F1B2D]/80 via-transparent to-transparent" />
+                  <div className="absolute bottom-3 left-3 right-3 flex gap-2">
+                    {p.stats.map((s) => (
+                      <div key={s.label} className="bg-[#0F1B2D]/80 backdrop-blur-sm border border-white/10 px-2.5 py-1">
+                        <div className="font-mono text-[11px] text-white font-medium">{s.value}</div>
+                        <div className="font-mono text-[8px] text-white/50 uppercase tracking-wider">{s.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                  {/* Category badge */}
+                  <div className="absolute top-3 left-3">
+                    <span className="font-mono text-[9px] text-white bg-[#2563EB] px-2 py-1 uppercase tracking-wider">{p.category}</span>
                   </div>
                 </div>
-                <div className="lg:w-3/5 p-6 lg:p-10 flex flex-col justify-center">
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="text-amber-600 text-xs font-mono font-semibold uppercase tracking-widest">{p.category}</span>
-                    <span className="hidden lg:flex gap-3">
-                      {p.stats.map((s) => (
-                        <span key={s.label} className="text-navy bg-gray-100 text-[10px] font-bold uppercase px-2 py-1">{s.label}: {s.value}</span>
-                      ))}
-                    </span>
+
+                {/* Content */}
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Icon.Pin className="w-3 h-3 text-[#475569]/50" />
+                    <span className="font-mono text-[10px] text-[#475569]/60 uppercase tracking-wider">{p.location}</span>
                   </div>
-                  <h3 className="font-heading text-2xl lg:text-3xl text-navy mb-1">{p.title}</h3>
-                  <div className="text-steel text-xs font-medium mb-4">{p.location}</div>
-                  <p className="text-steel text-sm leading-relaxed">{p.description}</p>
+                  <h3 className="text-lg text-[#0F1B2D] font-medium tracking-tight mb-3">{p.title}</h3>
+                  <p className="text-[13px] text-[#475569] leading-relaxed flex-1">{p.description}</p>
                 </div>
               </div>
-            </ScaleIn>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -387,52 +490,198 @@ function FeaturedProjects() {
   )
 }
 
-/* ── Pre-Construction ── */
+/* ── Pre-Construction Services ── */
 
 function PreConstruction() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0)
+
   return (
-    <section id="precon" className="py-20 lg:py-28 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading title="Pre-Construction Services" subtitle="We find savings in the design phase -- before a single shovel hits the ground. Our pre-construction team adds value before construction starts." />
-        <div className="grid sm:grid-cols-2 gap-6">
-          {preConServices.map((s, i) => (
-            <FadeIn key={s.title} delay={i * 0.1}>
-              <div className="flex gap-5 bg-gray-50 border border-gray-200 p-6 lg:p-8 hover:border-amber-500/30 hover:bg-amber-50/30 transition-all duration-300">
-                <div className="w-14 h-14 bg-amber-500 text-navy flex items-center justify-center shrink-0 font-heading text-xl font-bold">
-                  {String(i + 1).padStart(2, '0')}
+    <section id="precon" className="py-24 lg:py-32 bg-white relative">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+        <div className="lg:grid lg:grid-cols-12 lg:gap-16">
+          {/* Left: Header */}
+          <div className="lg:col-span-4 mb-12 lg:mb-0">
+            <Reveal>
+              <div className="lg:sticky lg:top-28">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-6 h-px bg-[#2563EB]" />
+                  <span className="font-mono text-[11px] text-[#2563EB] uppercase tracking-[0.2em]">03 — Pre-Con</span>
                 </div>
-                <div>
-                  <h3 className="font-heading text-lg text-navy mb-2">{s.title}</h3>
-                  <p className="text-steel text-sm leading-relaxed">{s.description}</p>
-                </div>
+                <h2 className="text-3xl sm:text-4xl text-[#0F1B2D] font-light tracking-tight mb-4">
+                  Pre-Construction Services
+                </h2>
+                <p className="text-sm text-[#475569] leading-relaxed">
+                  Value is created before ground breaks. Our pre-construction team identifies savings, mitigates risk, and builds the framework for on-time delivery.
+                </p>
               </div>
-            </FadeIn>
-          ))}
+            </Reveal>
+          </div>
+
+          {/* Right: Accordion Items */}
+          <div className="lg:col-span-8">
+            <div className="divide-y divide-[#475569]/10">
+              {preConServices.map((s, i) => {
+                const isOpen = openIndex === i
+                return (
+                  <Reveal key={s.title} delay={i * 0.08}>
+                    <div className="group">
+                      <button
+                        onClick={() => setOpenIndex(isOpen ? null : i)}
+                        className="w-full flex items-center gap-5 py-6 text-left"
+                      >
+                        <span className="font-mono text-xs text-[#2563EB] w-6">{String(i + 1).padStart(2, '0')}</span>
+                        <span className="flex-1 text-base text-[#0F1B2D] font-medium tracking-tight">{s.title}</span>
+                        <div className={`w-6 h-6 border border-[#475569]/20 flex items-center justify-center transition-all duration-300 ${isOpen ? 'border-[#2563EB] bg-[#2563EB] rotate-45' : 'group-hover:border-[#2563EB]/50'}`}>
+                          <svg className={`w-3 h-3 transition-colors ${isOpen ? 'text-white' : 'text-[#475569]/50'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+                          </svg>
+                        </div>
+                      </button>
+                      <AnimatePresence>
+                        {isOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="pl-11 pb-6">
+                              <p className="text-[13px] text-[#475569] leading-relaxed max-w-lg">{s.description}</p>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </Reveal>
+                )
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>
   )
 }
 
-/* ── Safety ── */
+/* ── Safety Section ── */
 
 function Safety() {
   return (
-    <section id="safety" className="py-20 lg:py-28 bg-navy relative overflow-hidden">
-      <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,.03) 40px, rgba(255,255,255,.03) 41px)' }} />
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading title="Safety Above All" subtitle="OSHA VPP Star status is not just a badge -- it is a culture. Every SteelSpan crew goes home safe, every day." light />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-          {safetyPoints.map((s, i) => (
-            <FadeIn key={s.title} delay={i * 0.1}>
-              <div className="text-center border border-white/10 bg-white/[0.03] backdrop-blur-sm p-6 lg:p-8 h-full hover:border-amber-500/30 transition-colors duration-300">
-                <div className="w-14 h-14 bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto mb-5">
-                  <IconShield className="w-7 h-7" />
-                </div>
-                <h3 className="font-heading text-white text-lg mb-3">{s.title}</h3>
-                <p className="text-steel-light text-sm leading-relaxed">{s.description}</p>
+    <section id="safety" className="py-24 lg:py-32 bg-[#0F1B2D] relative overflow-hidden">
+      {/* Subtle pattern */}
+      <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,255,255,0.5) 50px, rgba(255,255,255,0.5) 51px), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,255,255,0.5) 50px, rgba(255,255,255,0.5) 51px)' }} />
+
+      <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
+        {/* Header */}
+        <Reveal>
+          <div className="mb-14">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-6 h-px bg-[#2563EB]" />
+              <span className="font-mono text-[11px] text-[#2563EB] uppercase tracking-[0.2em]">04 — Safety</span>
+            </div>
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl text-white font-light tracking-tight">
+                Safety Standards
+              </h2>
+              <div className="inline-flex items-center gap-2 border border-[#2563EB]/30 px-4 py-2">
+                <Icon.Check className="w-3.5 h-3.5 text-[#2563EB]" />
+                <span className="font-mono text-[10px] text-[#2563EB] uppercase tracking-[0.15em]">{siteInfo.safetyRating}</span>
               </div>
-            </FadeIn>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Safety Badge Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {safetyPoints.map((s, i) => {
+            const SafetyIcon = safetyIcons[i]
+            return (
+              <Reveal key={s.title} delay={i * 0.08}>
+                <div className="border border-white/5 bg-white/[0.02] p-6 h-full hover:border-[#2563EB]/20 hover:bg-white/[0.04] transition-all duration-300 group">
+                  <div className="w-10 h-10 border border-[#2563EB]/20 flex items-center justify-center mb-5 text-[#2563EB] group-hover:bg-[#2563EB]/10 transition-colors">
+                    <SafetyIcon className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-sm text-white font-medium mb-2 tracking-tight">{s.title}</h3>
+                  <p className="text-[12px] text-white/40 leading-relaxed">{s.description}</p>
+                </div>
+              </Reveal>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ── Process Stepper ── */
+
+function Process() {
+  return (
+    <section id="process" className="py-24 lg:py-32 bg-[#f8fafc] relative">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+        {/* Header */}
+        <Reveal>
+          <div className="mb-14">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-6 h-px bg-[#2563EB]" />
+              <span className="font-mono text-[11px] text-[#2563EB] uppercase tracking-[0.2em]">05 — Process</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#0F1B2D] font-light tracking-tight">
+              Delivery Method
+            </h2>
+          </div>
+        </Reveal>
+
+        {/* Horizontal Stepper - Desktop */}
+        <div className="hidden lg:block">
+          {/* Connecting line */}
+          <div className="relative mb-8">
+            <div className="absolute top-1/2 left-[8%] right-[8%] h-px bg-[#475569]/15 -translate-y-1/2" />
+            <div className="grid grid-cols-6 gap-4 relative">
+              {processPhases.map((p, i) => (
+                <Reveal key={p.phase} delay={i * 0.1}>
+                  <div className="flex flex-col items-center text-center">
+                    {/* Node */}
+                    <div className="w-10 h-10 border border-[#2563EB]/30 bg-white flex items-center justify-center font-mono text-xs text-[#2563EB] relative z-10 group-hover:border-[#2563EB] transition-colors">
+                      {p.phase}
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+
+          {/* Phase Cards */}
+          <div className="grid grid-cols-6 gap-4">
+            {processPhases.map((p, i) => (
+              <Reveal key={p.phase} delay={i * 0.1 + 0.05}>
+                <div className="text-center group">
+                  <h3 className="text-[13px] text-[#0F1B2D] font-medium mb-2 tracking-tight">{p.title}</h3>
+                  <p className="text-[11px] text-[#475569] leading-relaxed">{p.description}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile/Tablet: Vertical list */}
+        <div className="lg:hidden space-y-0">
+          {processPhases.map((p, i) => (
+            <Reveal key={p.phase} delay={i * 0.06}>
+              <div className="flex gap-5 py-5 border-b border-[#475569]/10 last:border-0">
+                <div className="flex flex-col items-center">
+                  <div className="w-9 h-9 border border-[#2563EB]/30 flex items-center justify-center font-mono text-[11px] text-[#2563EB]">
+                    {p.phase}
+                  </div>
+                  {i < processPhases.length - 1 && <div className="w-px flex-1 bg-[#475569]/10 mt-2" />}
+                </div>
+                <div className="pb-2">
+                  <h3 className="text-sm text-[#0F1B2D] font-medium mb-1">{p.title}</h3>
+                  <p className="text-[12px] text-[#475569] leading-relaxed">{p.description}</p>
+                </div>
+              </div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -440,129 +689,74 @@ function Safety() {
   )
 }
 
-/* ── Process Timeline ── */
+/* ── CTA Section ── */
 
-function Process() {
+function CallToAction() {
   return (
-    <section id="process" className="py-20 lg:py-28 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading title="Our Delivery Process" subtitle="A proven six-phase method that keeps every project on track, on budget, and on spec from start to finish." />
-        <div className="relative">
-          <div className="hidden lg:block absolute top-12 left-[10%] right-[10%] h-0.5 bg-amber-500/20" />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-4 lg:gap-3">
-            {processPhases.map((p, i) => (
-              <FadeIn key={p.phase} delay={i * 0.08}>
-                <div className="text-center bg-white border border-gray-200 p-5 lg:p-6 h-full hover:border-amber-500 hover:shadow-lg transition-all duration-300 relative">
-                  <div className="w-10 h-10 bg-navy text-amber-500 flex items-center justify-center mx-auto mb-4 lg:mb-6 font-mono text-sm font-bold">
-                    {p.phase}
-                  </div>
-                  <h3 className="font-heading text-navy text-sm lg:text-base mb-2">{p.title}</h3>
-                  <p className="text-steel text-xs leading-relaxed">{p.description}</p>
-                </div>
-              </FadeIn>
-            ))}
+    <section id="contact" className="py-24 lg:py-32 bg-white relative">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+        <div className="bg-[#0F1B2D] p-8 sm:p-12 lg:p-16 relative overflow-hidden">
+          {/* Blueprint grid in CTA */}
+          <div className="absolute inset-0 opacity-[0.04]">
+            <BlueprintGrid />
           </div>
-        </div>
-      </div>
-    </section>
-  )
-}
 
-/* ── Contact / RFP ── */
+          <div className="relative lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+            {/* Left: Copy */}
+            <Reveal>
+              <div className="mb-10 lg:mb-0">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-6 h-px bg-[#2563EB]" />
+                  <span className="font-mono text-[11px] text-[#2563EB] uppercase tracking-[0.2em]">Start a Project</span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl text-white font-light tracking-tight mb-4">
+                  Ready to build?
+                </h2>
+                <p className="text-sm text-white/50 leading-relaxed max-w-md">
+                  Submit your project details and our pre-construction team will respond within one business day with a preliminary scope assessment.
+                </p>
+              </div>
+            </Reveal>
 
-function Contact() {
-  return (
-    <section id="contact" className="py-20 lg:py-28 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="lg:grid lg:grid-cols-5 lg:gap-12 items-start">
-          <div className="lg:col-span-2 mb-10 lg:mb-0">
-            <h2 className="font-heading text-3xl sm:text-4xl text-navy leading-tight mb-4">
-              Start Your<br />
-              <span className="text-amber-500">Next Project</span>
-            </h2>
-            <p className="text-steel text-sm leading-relaxed mb-8">
-              Tell us about your commercial construction needs. Our pre-construction team will respond within one business day with a preliminary budget and schedule assessment.
-            </p>
-            <div className="space-y-5">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-navy text-amber-500 flex items-center justify-center shrink-0">
-                  <IconBuilding className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-navy text-sm font-bold uppercase tracking-wider">Call Us</div>
-                  <a href={`tel:${siteInfo.phone}`} className="text-navy font-mono text-lg font-bold hover:text-amber-600 transition-colors">{siteInfo.phone}</a>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-navy text-amber-500 flex items-center justify-center shrink-0">
-                  <IconClipboard className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-navy text-sm font-bold uppercase tracking-wider">Email</div>
-                  <a href={`mailto:${siteInfo.email}`} className="text-navy font-medium hover:text-amber-600 transition-colors">{siteInfo.email}</a>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-navy text-amber-500 flex items-center justify-center shrink-0">
-                  <IconTarget className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-navy text-sm font-bold uppercase tracking-wider">Office</div>
-                  <p className="text-steel text-sm">{siteInfo.address}</p>
-                </div>
-              </div>
-              <div className="pt-2">
-                <div className="inline-block border border-amber-500/30 bg-amber-50 px-4 py-2">
-                  <span className="text-amber-700 text-xs font-mono font-bold">{siteInfo.license} &middot; {siteInfo.safetyRating}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="lg:col-span-3">
-            <div className="bg-navy p-6 lg:p-10">
-              <h3 className="font-heading text-white text-xl mb-2">Commercial Inquiry</h3>
-              <p className="text-steel-light text-sm mb-6">Fill out the form below and our team will reach out within 24 hours.</p>
-              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+            {/* Right: Contact Info + CTAs */}
+            <Reveal delay={0.1}>
+              <div className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-4">
+                  <a href={`tel:${siteInfo.phone}`} className="flex items-center gap-3 border border-white/10 p-4 hover:border-[#2563EB]/30 transition-colors group">
+                    <Icon.Phone className="w-4 h-4 text-[#2563EB]" />
+                    <div>
+                      <div className="font-mono text-[9px] text-white/40 uppercase tracking-wider">Direct Line</div>
+                      <div className="font-mono text-sm text-white">{siteInfo.phone}</div>
+                    </div>
+                  </a>
+                  <a href={`mailto:${siteInfo.email}`} className="flex items-center gap-3 border border-white/10 p-4 hover:border-[#2563EB]/30 transition-colors group">
+                    <Icon.Mail className="w-4 h-4 text-[#2563EB]" />
+                    <div>
+                      <div className="font-mono text-[9px] text-white/40 uppercase tracking-wider">Email</div>
+                      <div className="font-mono text-sm text-white truncate">{siteInfo.email}</div>
+                    </div>
+                  </a>
+                </div>
+
+                <div className="flex items-start gap-3 border border-white/10 p-4">
+                  <Icon.Pin className="w-4 h-4 text-[#2563EB] mt-0.5 shrink-0" />
                   <div>
-                    <label className="block text-white/60 text-xs font-bold uppercase tracking-wider mb-1.5">Full Name</label>
-                    <input type="text" placeholder="Your name" className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/20 focus:outline-none focus:border-amber-500 transition-colors" />
-                  </div>
-                  <div>
-                    <label className="block text-white/60 text-xs font-bold uppercase tracking-wider mb-1.5">Company</label>
-                    <input type="text" placeholder="Company name" className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/20 focus:outline-none focus:border-amber-500 transition-colors" />
+                    <div className="font-mono text-[9px] text-white/40 uppercase tracking-wider">Office</div>
+                    <div className="font-mono text-sm text-white">{siteInfo.address}</div>
                   </div>
                 </div>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-white/60 text-xs font-bold uppercase tracking-wider mb-1.5">Email</label>
-                    <input type="email" placeholder="you@company.com" className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/20 focus:outline-none focus:border-amber-500 transition-colors" />
-                  </div>
-                  <div>
-                    <label className="block text-white/60 text-xs font-bold uppercase tracking-wider mb-1.5">Phone</label>
-                    <input type="tel" placeholder="(312) 555-0000" className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/20 focus:outline-none focus:border-amber-500 transition-colors" />
-                  </div>
+
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <a href={`mailto:${siteInfo.email}`} className="inline-flex items-center gap-2 bg-[#2563EB] text-white px-6 py-3 font-mono text-[11px] uppercase tracking-[0.15em] hover:bg-blue-500 transition-colors">
+                    Request Proposal
+                    <Icon.ArrowRight className="w-3 h-3" />
+                  </a>
+                  <a href={`tel:${siteInfo.phone}`} className="inline-flex items-center gap-2 border border-white/20 text-white/80 px-6 py-3 font-mono text-[11px] uppercase tracking-[0.15em] hover:border-white/40 transition-colors">
+                    Call Now
+                  </a>
                 </div>
-                <div>
-                  <label className="block text-white/60 text-xs font-bold uppercase tracking-wider mb-1.5">Project Type</label>
-                  <select className="w-full bg-white/5 border border-white/10 text-white/70 px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-colors">
-                    <option>Select project type</option>
-                    <option>General Contracting</option>
-                    <option>Design-Build</option>
-                    <option>Pre-Construction</option>
-                    <option>Tenant Improvement</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-white/60 text-xs font-bold uppercase tracking-wider mb-1.5">Project Description</label>
-                  <textarea rows={4} placeholder="Tell us about your project, timeline, and budget range..." className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 text-sm placeholder:text-white/20 focus:outline-none focus:border-amber-500 transition-colors resize-none" />
-                </div>
-                <button type="submit" className="w-full bg-amber-500 text-navy px-6 py-3.5 font-bold uppercase tracking-wider text-sm hover:bg-amber-400 transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20">
-                  Submit Inquiry <IconArrowRight className="w-4 h-4" />
-                </button>
-              </form>
-            </div>
+              </div>
+            </Reveal>
           </div>
         </div>
       </div>
@@ -574,16 +768,62 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="bg-navy border-t border-white/5 py-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
-          <div className="font-heading text-lg text-white">
-            STEEL<span className="text-amber-500">SPAN</span>
-            <span className="block text-steel-light text-xs font-body font-normal">Commercial Builders</span>
+    <footer className="bg-[#0F1B2D] border-t border-white/5">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 py-12 lg:py-16">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+          {/* Brand */}
+          <div className="sm:col-span-2 lg:col-span-1">
+            <div className="font-mono text-base text-white font-bold tracking-tight mb-2">STEELSPAN</div>
+            <div className="font-mono text-[10px] text-[#2563EB] uppercase tracking-[0.2em] mb-4">Commercial Builders</div>
+            <p className="text-[12px] text-white/40 leading-relaxed max-w-xs">
+              Licensed general contractor serving the greater Chicago metropolitan area. Commercial, industrial, and institutional construction.
+            </p>
           </div>
-          <div className="text-steel-light text-sm text-center lg:text-right">
-            <p>&copy; {new Date().getFullYear()} SteelSpan Commercial Builders. All rights reserved.</p>
-            <p className="text-steel-light/60 text-xs mt-1">{siteInfo.license} &middot; {siteInfo.safetyRating} &middot; Licensed &amp; Insured</p>
+
+          {/* Navigation */}
+          <div>
+            <div className="font-mono text-[10px] text-white/30 uppercase tracking-[0.2em] mb-4">Navigation</div>
+            <div className="space-y-2.5">
+              {navLinks.map((l) => (
+                <a key={l.href} href={l.href} className="block text-[12px] text-white/50 hover:text-white transition-colors">
+                  {l.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Services */}
+          <div>
+            <div className="font-mono text-[10px] text-white/30 uppercase tracking-[0.2em] mb-4">Services</div>
+            <div className="space-y-2.5">
+              {capabilities.slice(0, 5).map((c) => (
+                <div key={c.title} className="text-[12px] text-white/50">{c.title}</div>
+              ))}
+            </div>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <div className="font-mono text-[10px] text-white/30 uppercase tracking-[0.2em] mb-4">Contact</div>
+            <div className="space-y-3">
+              <div className="text-[12px] text-white/50">{siteInfo.address}</div>
+              <a href={`tel:${siteInfo.phone}`} className="block text-[12px] text-white/50 hover:text-white transition-colors font-mono">{siteInfo.phone}</a>
+              <a href={`mailto:${siteInfo.email}`} className="block text-[12px] text-white/50 hover:text-white transition-colors font-mono">{siteInfo.email}</a>
+            </div>
+            <div className="mt-5 pt-4 border-t border-white/5">
+              <div className="font-mono text-[9px] text-white/25 uppercase tracking-wider">License: {siteInfo.license}</div>
+              <div className="font-mono text-[9px] text-white/25 uppercase tracking-wider mt-1">Rating: {siteInfo.safetyRating}</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mt-12 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4">
+          <div className="font-mono text-[10px] text-white/25">
+            &copy; {new Date().getFullYear()} {siteInfo.name}. All rights reserved.
+          </div>
+          <div className="font-mono text-[10px] text-white/25">
+            Chicago, IL — Est. 1997
           </div>
         </div>
       </div>
@@ -591,20 +831,19 @@ function Footer() {
   )
 }
 
-/* ── App ── */
+/* ── Main App ── */
 
 export default function App() {
   return (
-    <div className="font-body bg-white text-navy antialiased">
+    <div className="min-h-screen bg-white antialiased">
       <Navbar />
       <Hero />
       <Capabilities />
-      <StatsStrip />
       <FeaturedProjects />
       <PreConstruction />
       <Safety />
       <Process />
-      <Contact />
+      <CallToAction />
       <Footer />
     </div>
   )

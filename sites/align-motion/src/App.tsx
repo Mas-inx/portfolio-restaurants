@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence, useInView, useMotionValue, useTransform, animate } from 'framer-motion'
 import {
   conditions,
   recoveryStages,
@@ -8,182 +8,188 @@ import {
   progressMetrics,
 } from './data'
 
-/* ─── Inline SVG Icons ─── */
-function IconSpine({ c = "text-[#1E88E5]" }: { c?: string }) {
-  return (
-    <svg className={`w-8 h-8 ${c}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 2C7 4 4 8 4 12c0 4 3 8 8 10 5-2 8-6 8-10 0-4-3-8-8-10z"/><path d="M8 12h8"/><path d="M10 9l2-3 2 3"/><path d="M10 15l2 3 2-3"/>
-    </svg>
-  )
-}
-function IconKnee({ c = "text-[#1E88E5]" }: { c?: string }) {
-  return (
-    <svg className={`w-8 h-8 ${c}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="5" r="3"/><path d="M9 8l-3 6"/><path d="M15 8l3 6"/><path d="M6 14h12"/><path d="M8 14v4"/><path d="M16 14v4"/><path d="M8 18H6"/><path d="M16 18h2"/>
-    </svg>
-  )
-}
-function IconShoulder({ c = "text-[#1E88E5]" }: { c?: string }) {
-  return (
-    <svg className={`w-8 h-8 ${c}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M4 6c0 3 2 5 4 6"/><path d="M20 6c0 3-2 5-4 6"/><path d="M8 12c0 4 2 6 4 6s4-2 4-6"/><path d="M12 18v4"/>
-    </svg>
-  )
-}
-function IconSports({ c = "text-[#1E88E5]" }: { c?: string }) {
-  return (
-    <svg className={`w-8 h-8 ${c}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10"/><path d="M12 2v20"/><path d="M2 12h20"/><path d="M7 7l10 10"/><path d="M17 7l-10 10"/>
-    </svg>
-  )
-}
-function IconSurgery({ c = "text-[#1E88E5]" }: { c?: string }) {
-  return (
-    <svg className={`w-8 h-8 ${c}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M7 17l3-3"/><path d="M14 10l3-3"/><path d="M5 19l14-14"/><circle cx="12" cy="12" r="10"/>
-    </svg>
-  )
-}
-function IconArrowRight({ c = "text-[#1E88E5]" }: { c?: string }) {
-  return (
-    <svg className={`w-5 h-5 ${c}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M5 12h14"/><path d="M12 5l7 7-7 7"/>
-    </svg>
-  )
-}
-function IconCheck({ c = "text-[#1E88E5]" }: { c?: string }) {
-  return (
-    <svg className={`w-4 h-4 ${c}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="20 6 9 17 4 12"/>
-    </svg>
-  )
-}
-function IconTrendUp({ c = "text-emerald-500" }: { c?: string }) {
-  return (
-    <svg className={`w-4 h-4 ${c}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
-    </svg>
-  )
+/* ─── SVG Icons (inline, no emoji) ─── */
+const IconSpine = () => (
+  <svg viewBox="0 0 48 48" fill="none" className="w-full h-full">
+    <path d="M24 4v40M20 10h8M18 18h12M16 26h16M18 34h12M20 42h8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+    <circle cx="24" cy="7" r="2" fill="currentColor" opacity="0.4"/>
+    <circle cx="24" cy="15" r="2" fill="currentColor" opacity="0.4"/>
+    <circle cx="24" cy="23" r="2" fill="currentColor" opacity="0.4"/>
+    <circle cx="24" cy="31" r="2" fill="currentColor" opacity="0.4"/>
+    <circle cx="24" cy="39" r="2" fill="currentColor" opacity="0.4"/>
+  </svg>
+)
+const IconKnee = () => (
+  <svg viewBox="0 0 48 48" fill="none" className="w-full h-full">
+    <path d="M16 4v14c0 4 3 8 8 8s8-4 8-8V4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+    <path d="M16 26v18M32 26v18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+    <circle cx="24" cy="22" r="5" stroke="currentColor" strokeWidth="2" strokeDasharray="3 2"/>
+    <path d="M21 22h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>
+)
+const IconShoulder = () => (
+  <svg viewBox="0 0 48 48" fill="none" className="w-full h-full">
+    <path d="M8 16c4-6 10-8 16-8s12 2 16 8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+    <path d="M12 20c0 8 5 14 12 14s12-6 12-14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+    <path d="M24 34v10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+    <circle cx="24" cy="24" r="4" fill="currentColor" opacity="0.3"/>
+  </svg>
+)
+const IconSports = () => (
+  <svg viewBox="0 0 48 48" fill="none" className="w-full h-full">
+    <circle cx="24" cy="24" r="18" stroke="currentColor" strokeWidth="2.5"/>
+    <path d="M24 6v36M6 24h36" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 3"/>
+    <path d="M12 12l24 24M36 12L12 36" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 3"/>
+    <circle cx="24" cy="24" r="6" fill="currentColor" opacity="0.2"/>
+  </svg>
+)
+const IconSurgery = () => (
+  <svg viewBox="0 0 48 48" fill="none" className="w-full h-full">
+    <path d="M14 34l8-8M26 22l8-8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+    <path d="M10 38l4-4M34 14l4-4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+    <rect x="18" y="18" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="2" transform="rotate(45 24 24)"/>
+    <path d="M22 24h4M24 22v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+  </svg>
+)
+
+const iconMap: Record<string, React.FC> = {
+  spine: IconSpine, knee: IconKnee, shoulder: IconShoulder, sports: IconSports, surgery: IconSurgery,
 }
 
-function iconCond(id: string): React.ReactNode {
-  const base = "text-[#1E88E5]";
-  switch (id) {
-    case "spine": return <IconSpine c={base} />;
-    case "knee": return <IconKnee c={base} />;
-    case "shoulder": return <IconShoulder c={base} />;
-    case "sports": return <IconSports c={base} />;
-    case "surgery": return <IconSurgery c={base} />;
-    default: return <IconSpine c={base} />;
-  }
+/* ─── Animated Counter ─── */
+function Counter({ target, duration = 2 }: { target: number; duration?: number }) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-50px' })
+  const [val, setVal] = useState(0)
+
+  useEffect(() => {
+    if (!inView) return
+    const controls = animate(0, target, {
+      duration,
+      ease: [0.25, 0.1, 0.25, 1],
+      onUpdate: (v) => setVal(Math.round(v)),
+    })
+    return () => controls.stop()
+  }, [inView, target, duration])
+
+  return <span ref={ref}>{val}</span>
 }
 
-/* ─── Animation Variants ─── */
-const easeOut = [0.25, 0.1, 0.25, 1] as const
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i = 0) => ({
-    opacity: 1, y: 0,
-    transition: { duration: 0.6, delay: i * 0.08, ease: easeOut },
-  }),
-}
-const stagger = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
-}
-/* ─── Components ─── */
-function SectionWrap({ id, className = '', children }: { id: string; className?: string; children: React.ReactNode }) {
+/* ─── Kinetic Wave Background ─── */
+function KineticWave() {
   return (
-    <section id={id} className={`px-6 py-20 md:py-28 ${className}`}>
-      <div className="mx-auto max-w-6xl">{children}</div>
-    </section>
-  )
-}
-
-function SectionHeading({ title, subtitle, light = false }: { title: string; subtitle?: string; light?: boolean }) {
-  return (
-    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}
-      variants={fadeUp} className="mb-14 text-center">
-      <h2 className={`text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl ${light ? 'text-white' : 'text-[#2D2B28]'}`}>
-        {title}
-      </h2>
-      {subtitle && (
-        <p className={`mx-auto mt-4 max-w-2xl text-lg leading-relaxed ${light ? 'text-white/80' : 'text-[#8A8580]'}`}>
-          {subtitle}
-        </p>
-      )}
-    </motion.div>
+    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1440 800" preserveAspectRatio="none" aria-hidden>
+      <defs>
+        <linearGradient id="waveGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#1E88E5" stopOpacity="0.15"/>
+          <stop offset="50%" stopColor="#0D9488" stopOpacity="0.1"/>
+          <stop offset="100%" stopColor="#1E88E5" stopOpacity="0.05"/>
+        </linearGradient>
+        <linearGradient id="waveGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#0D9488" stopOpacity="0.08"/>
+          <stop offset="100%" stopColor="#1E88E5" stopOpacity="0.12"/>
+        </linearGradient>
+      </defs>
+      <motion.path
+        d="M0 400 C 240 300, 480 500, 720 400 S 1200 300, 1440 400"
+        fill="none" stroke="url(#waveGrad1)" strokeWidth="3"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+        transition={{ duration: 3, ease: 'easeInOut' }}
+      />
+      <motion.path
+        d="M0 350 C 300 250, 500 450, 720 350 S 1100 250, 1440 350"
+        fill="none" stroke="url(#waveGrad2)" strokeWidth="2"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+        transition={{ duration: 3.5, delay: 0.3, ease: 'easeInOut' }}
+      />
+      <motion.path
+        d="M0 450 C 200 550, 400 350, 720 450 S 1200 550, 1440 450"
+        fill="none" stroke="url(#waveGrad1)" strokeWidth="1.5"
+        initial={{ pathLength: 0 }} animate={{ pathLength: 1 }}
+        transition={{ duration: 4, delay: 0.6, ease: 'easeInOut' }}
+      />
+      {/* Pulsing dots along the wave */}
+      {[200, 500, 800, 1100, 1350].map((x, i) => (
+        <motion.circle
+          key={i} cx={x} cy={400}
+          r="4" fill="#1E88E5" opacity="0.3"
+          animate={{ opacity: [0.1, 0.5, 0.1], r: [3, 6, 3] }}
+          transition={{ duration: 2 + i * 0.3, repeat: Infinity, delay: i * 0.4 }}
+        />
+      ))}
+    </svg>
   )
 }
 
 /* ─── Navbar ─── */
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    const h = () => setScrolled(window.scrollY > 50)
+    window.addEventListener('scroll', h, { passive: true })
+    return () => window.removeEventListener('scroll', h)
   }, [])
 
-  const scrollTo = (href: string) => {
-    setMenuOpen(false)
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  const links = [
-    { label: 'Conditions', href: '#conditions' },
-    { label: 'Programs', href: '#programs' },
-    { label: 'Recovery Plan', href: '#recovery' },
-    { label: 'Team', href: '#team' },
-    { label: 'Progress', href: '#progress' },
+  const go = (id: string) => { setOpen(false); document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' }) }
+  const nav = [
+    { l: 'Conditions', h: '#conditions' },
+    { l: 'Programs', h: '#programs' },
+    { l: 'Recovery', h: '#recovery' },
+    { l: 'Progress', h: '#progress' },
+    { l: 'Team', h: '#team' },
   ]
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-[#F5F3F0]/95 shadow-lg shadow-black/5 backdrop-blur-xl' : 'bg-transparent'
-    }`}>
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="flex items-center gap-2 text-xl font-bold tracking-tight text-[#2D2B28]">
-          <svg className="w-7 h-7" viewBox="0 0 28 28" fill="none">
-            <circle cx="14" cy="14" r="12" stroke="#1E88E5" strokeWidth="2" strokeDasharray="4 3"/>
-            <path d="M14 6c-3 1.5-5 4.5-5 8s2 6.5 5 8c3-1.5 5-4.5 5-8s-2-6.5-5-8z" fill="#1E88E5" opacity="0.2"/>
-            <circle cx="14" cy="14" r="3" fill="#1E88E5"/>
-          </svg>
-          Align Motion
+    <nav className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? 'bg-[#F5F3F0]/90 backdrop-blur-xl shadow-[0_1px_0_rgba(30,136,229,0.1)]' : 'bg-transparent'}`}>
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-3 group">
+          <div className="relative w-9 h-9">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+              className="absolute inset-0 rounded-full border-2 border-dashed border-[#1E88E5]/40"
+            />
+            <div className="absolute inset-1.5 rounded-full bg-[#1E88E5] group-hover:scale-110 transition-transform" />
+          </div>
+          <span className="text-lg font-black tracking-tight text-[#2D2B28]">
+            ALIGN<span className="text-[#1E88E5]">/</span>MOTION
+          </span>
         </button>
-        <div className="hidden items-center gap-8 md:flex">
-          {links.map((l) => (
-            <button key={l.href} onClick={() => scrollTo(l.href)}
-              className="text-sm font-medium text-[#8A8580] transition-colors hover:text-[#1E88E5]">
-              {l.label}
+
+        <div className="hidden md:flex items-center gap-1">
+          {nav.map(n => (
+            <button key={n.h} onClick={() => go(n.h)}
+              className="relative px-4 py-2 text-sm font-semibold text-[#2D2B28]/70 hover:text-[#1E88E5] transition-colors group">
+              {n.l}
+              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-[#1E88E5] group-hover:w-4 transition-all duration-300" />
             </button>
           ))}
-          <button onClick={() => scrollTo('#cta')}
-            className="rounded-full bg-[#1E88E5] px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-[#1565C0] hover:shadow-lg hover:shadow-[#1E88E5]/25">
-            Start Your Journey
+          <button onClick={() => go('#cta')}
+            className="ml-4 rounded-full bg-[#2D2B28] px-6 py-2.5 text-sm font-bold text-white hover:bg-[#1E88E5] transition-all duration-300 hover:shadow-lg hover:shadow-[#1E88E5]/20">
+            Book Now
           </button>
         </div>
-        <button className="md:hidden" onClick={() => setMenuOpen((o) => !o)} aria-label="Toggle menu">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2D2B28" strokeWidth="2">
-            {menuOpen ? <path d="M6 18L18 6M6 6l12 12" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
-          </svg>
+
+        <button className="md:hidden p-2" onClick={() => setOpen(!open)} aria-label="Menu">
+          <div className="space-y-1.5">
+            <motion.div animate={{ rotate: open ? 45 : 0, y: open ? 6 : 0 }} className="w-6 h-0.5 bg-[#2D2B28]" />
+            <motion.div animate={{ opacity: open ? 0 : 1 }} className="w-6 h-0.5 bg-[#2D2B28]" />
+            <motion.div animate={{ rotate: open ? -45 : 0, y: open ? -6 : 0 }} className="w-6 h-0.5 bg-[#2D2B28]" />
+          </div>
         </button>
       </div>
+
       <AnimatePresence>
-        {menuOpen && (
+        {open && (
           <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden bg-[#F5F3F0] shadow-lg">
-            <div className="flex flex-col gap-3 px-6 pb-6 pt-2">
-              {links.map((l) => (
-                <button key={l.href} onClick={() => scrollTo(l.href)}
-                  className="text-left text-sm font-medium text-[#8A8580]">{l.label}</button>
+            className="md:hidden overflow-hidden bg-[#F5F3F0] border-t border-[#1E88E5]/10">
+            <div className="flex flex-col px-6 py-4 gap-1">
+              {nav.map(n => (
+                <button key={n.h} onClick={() => go(n.h)} className="text-left py-3 text-sm font-semibold text-[#2D2B28]">{n.l}</button>
               ))}
-              <button onClick={() => scrollTo('#cta')}
-                className="mt-2 rounded-full bg-[#1E88E5] px-5 py-2.5 text-sm font-semibold text-white">Start Your Journey</button>
+              <button onClick={() => go('#cta')} className="mt-2 rounded-full bg-[#2D2B28] py-3 text-sm font-bold text-white">Book Now</button>
             </div>
           </motion.div>
         )}
@@ -195,98 +201,135 @@ function Navbar() {
 /* ─── Hero ─── */
 function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#F5F3F0] px-6 pt-28">
-      {/* Kinetic background */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <svg className="w-full h-full opacity-[0.06]" viewBox="0 0 1440 900" preserveAspectRatio="none">
-          <path d="M0 450 Q 360 200 720 450 T 1440 450" fill="none" stroke="#1E88E5" strokeWidth="2" className="animate-dash" strokeDasharray="20 40"/>
-          <path d="M0 300 Q 360 550 720 300 T 1440 300" fill="none" stroke="#64B5F6" strokeWidth="1.5" className="animate-dash" strokeDasharray="30 50" style={{ animationDelay: '-5s' }}/>
-          <path d="M0 600 Q 360 350 720 600 T 1440 600" fill="none" stroke="#1E88E5" strokeWidth="1" className="animate-dash" strokeDasharray="15 35" style={{ animationDelay: '-10s' }}/>
-        </svg>
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#F5F3F0]">
+      {/* Kinetic wave background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <KineticWave />
       </div>
-      <div className="pointer-events-none absolute -top-40 right-20 w-96 h-96 rounded-full bg-[#1E88E5]/5 blur-[120px]" />
-      <div className="pointer-events-none absolute -bottom-40 left-20 w-80 h-80 rounded-full bg-[#64B5F6]/5 blur-[120px]" />
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
-        <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }}>
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#1E88E5]/20 bg-[#E3F0FA] px-4 py-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#1E88E5] animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-wider text-[#1E88E5]">Movement Restored. Lives Transformed.</span>
-          </div>
-          <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">
-            <span className="text-[#2D2B28]">Move without</span><br />
-            <span className="kinetic-text">pain. Live without limits.</span>
-          </h1>
-          <p className="mt-5 text-lg leading-relaxed text-[#8A8580] md:text-xl">
-            Evidence-based physical therapy that gets to the root of your pain. Personalized treatment plans with measurable results.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-4">
-            <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}
-              onClick={() => document.querySelector('#cta')?.scrollIntoView({ behavior: 'smooth' })}
-              className="rounded-full bg-[#1E88E5] px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-[#1E88E5]/25 transition-all hover:bg-[#1565C0]">
-              Book Free Assessment
-            </motion.button>
-            <button onClick={() => document.querySelector('#conditions')?.scrollIntoView({ behavior: 'smooth' })}
-              className="rounded-full border border-[#D1D0CC] bg-white/80 px-8 py-3.5 text-base font-semibold text-[#2D2B28] backdrop-blur-sm transition-all hover:border-[#1E88E5]/40 hover:text-[#1E88E5]">
-              Conditions We Treat
-            </button>
-          </div>
-          <div className="mt-8 flex items-center gap-6">
-            <div className="flex -space-x-2">
-              {[1,2,3,4].map(i => (
-                <img key={i} src={`https://images.unsplash.com/photo-${i === 1 ? '1579684385127-1ef15d508118' : i === 2 ? '1559839734-2b71ea197ec2' : i === 3 ? '1612349317150-e413f6a5b16d' : '1594824476967-48c8b964273f'}?w=40&h=40&fit=crop&crop=face&q=80`}
-                  className="w-8 h-8 rounded-full border-2 border-white object-cover" alt="" />
-              ))}
-            </div>
-            <p className="text-sm text-[#8A8580]"><span className="font-semibold text-[#2D2B28]">200+</span> patients recovered this month</p>
-          </div>
-        </motion.div>
+      {/* Diagonal accent stripe */}
+      <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-bl from-[#1E88E5]/[0.03] to-transparent skew-x-[-6deg] origin-top-right pointer-events-none" />
 
-        <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.2 }}
-          className="hidden lg:flex justify-center">
-          <div className="relative w-full max-w-md">
-            <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-              className="rounded-3xl bg-white shadow-2xl shadow-[#1E88E5]/10 overflow-hidden">
-              <div className="p-1">
-                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=500&q=85"
-                  alt="Physical therapy session" className="rounded-2xl w-full h-64 object-cover" />
+      {/* Floating geometric shapes */}
+      <motion.div animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-32 right-[15%] w-20 h-20 border-2 border-[#0D9488]/20 rounded-2xl pointer-events-none hidden lg:block" />
+      <motion.div animate={{ y: [0, 15, 0], rotate: [0, -3, 0] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+        className="absolute bottom-40 left-[10%] w-14 h-14 bg-[#1E88E5]/5 rounded-full pointer-events-none hidden lg:block" />
+
+      <div className="relative mx-auto max-w-7xl px-6 pt-32 pb-20 w-full">
+        <div className="grid lg:grid-cols-12 gap-12 items-center">
+          {/* Left: Copy */}
+          <div className="lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+            >
+              <div className="inline-flex items-center gap-2 mb-6">
+                <motion.div animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 2, repeat: Infinity }}
+                  className="w-2.5 h-2.5 rounded-full bg-[#0D9488]" />
+                <span className="text-xs font-black uppercase tracking-[0.2em] text-[#0D9488]">Performance Recovery Lab</span>
               </div>
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#1E88E5]">Your Recovery Journey</span>
-                  <span className="flex items-center gap-1 text-xs text-emerald-600">
-                    <IconTrendUp /> +87% improvement
-                  </span>
-                </div>
-                <div className="space-y-3">
-                  {recoveryStages.slice(0, 3).map((r, i) => (
-                    <div key={r.step} className="flex items-center gap-3">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold ${
-                        i === 0 ? 'bg-[#1E88E5] text-white' : 'bg-[#E3F0FA] text-[#1E88E5]'
-                      }`}>{i + 1}</div>
-                      <div className="flex-1">
-                        <div className="flex justify-between">
-                          <span className="text-sm font-medium text-[#2D2B28]">{r.step}</span>
-                          <span className="text-xs text-[#A09890]">{r.duration}</span>
-                        </div>
-                        <p className="text-xs text-[#8A8580] mt-0.5">{r.subtitle}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <button className="mt-4 w-full rounded-xl bg-[#E3F0FA] py-2.5 text-sm font-semibold text-[#1E88E5] hover:bg-[#D1E5F5] transition-colors">
-                  See Full Recovery Plan
+
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black leading-[0.9] tracking-tight text-[#2D2B28]">
+                <motion.span className="block" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.6 }}>
+                  MOVE
+                </motion.span>
+                <motion.span className="block text-[#1E88E5]" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35, duration: 0.6 }}>
+                  WITHOUT
+                </motion.span>
+                <motion.span className="block" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.6 }}>
+                  LIMITS<span className="text-[#0D9488]">.</span>
+                </motion.span>
+              </h1>
+
+              <motion.p
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7, duration: 0.6 }}
+                className="mt-8 text-lg text-[#2D2B28]/60 max-w-lg leading-relaxed"
+              >
+                Evidence-based physical therapy engineered for athletes and active people. We don't just treat pain — we rebuild performance.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9, duration: 0.5 }}
+                className="mt-10 flex flex-wrap gap-4"
+              >
+                <motion.button whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
+                  onClick={() => document.querySelector('#cta')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="group relative rounded-full bg-[#1E88E5] px-8 py-4 text-sm font-bold text-white overflow-hidden">
+                  <span className="relative z-10">Start Your Recovery →</span>
+                  <motion.div className="absolute inset-0 bg-[#0D9488]" initial={{ x: '-100%' }} whileHover={{ x: 0 }} transition={{ duration: 0.3 }} />
+                </motion.button>
+                <button onClick={() => document.querySelector('#programs')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="rounded-full border-2 border-[#2D2B28]/20 px-8 py-4 text-sm font-bold text-[#2D2B28] hover:border-[#1E88E5] hover:text-[#1E88E5] transition-all duration-300">
+                  Explore Programs
                 </button>
-              </div>
-            </motion.div>
-            {/* Floating metric */}
-            <motion.div animate={{ x: [0, 8, 0], y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute -right-4 -bottom-4 rounded-2xl bg-white shadow-lg p-4 border border-[#E3F0FA]">
-              <p className="text-xs text-[#8A8580]">Avg. recovery</p>
-              <p className="text-2xl font-bold text-[#1E88E5]">6.2 <span className="text-sm font-normal text-[#8A8580]">weeks</span></p>
+              </motion.div>
             </motion.div>
           </div>
-        </motion.div>
+
+          {/* Right: Athlete card + stats */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="lg:col-span-5 hidden lg:block"
+          >
+            <div className="relative">
+              {/* Main card */}
+              <div className="relative rounded-3xl overflow-hidden bg-white shadow-2xl shadow-[#1E88E5]/10 border border-[#1E88E5]/5">
+                <div className="relative h-72 overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=85"
+                    alt="Athlete in motion" className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#2D2B28]/80 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-5">
+                    <p className="text-xs font-bold uppercase tracking-wider text-[#0D9488]">Active Recovery</p>
+                    <p className="text-white font-bold text-lg mt-0.5">Performance Protocol</p>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <div className="grid grid-cols-3 gap-4">
+                    {progressMetrics.slice(0, 3).map((m) => (
+                      <div key={m.label} className="text-center">
+                        <p className="text-2xl font-black text-[#1E88E5]"><Counter target={m.current} /></p>
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-[#8A8580] mt-1">{m.label}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating badge */}
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute -top-4 -right-4 rounded-2xl bg-[#0D9488] px-5 py-3 shadow-xl shadow-[#0D9488]/30"
+              >
+                <p className="text-xs font-bold text-white/70">Avg Recovery</p>
+                <p className="text-xl font-black text-white">6.2 wks</p>
+              </motion.div>
+
+              {/* Bottom floating stat */}
+              <motion.div
+                animate={{ y: [0, 6, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+                className="absolute -bottom-6 -left-6 rounded-2xl bg-[#2D2B28] px-5 py-3 shadow-xl"
+              >
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5 text-[#0D9488]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+                  </svg>
+                  <span className="text-sm font-bold text-white">+87% improvement</span>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Bottom wave divider */}
+      <div className="absolute bottom-0 left-0 right-0">
+        <svg viewBox="0 0 1440 60" fill="none" preserveAspectRatio="none" className="w-full h-12">
+          <path d="M0 60V30C240 0 480 0 720 30S1200 60 1440 30V60H0Z" fill="white"/>
+        </svg>
       </div>
     </section>
   )
@@ -295,272 +338,521 @@ function Hero() {
 /* ─── Conditions ─── */
 function Conditions() {
   return (
-    <SectionWrap id="conditions" className="bg-white">
-      <SectionHeading title="Conditions we treat" subtitle="Targeted, evidence-based treatment plans for common movement and pain conditions." />
-      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}
-        variants={stagger} className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-        {conditions.map((c, i: number) => (
-          <motion.div key={c.name} variants={fadeUp} custom={i}
-            className="movement-card rounded-2xl bg-[#F5F3F0] p-6 text-center">
-            <div className="mx-auto w-14 h-14 rounded-2xl bg-[#E3F0FA] flex items-center justify-center">
-              {iconCond(c.icon)}
-            </div>
-            <h3 className="mt-4 text-base font-semibold text-[#2D2B28]">{c.name}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-[#8A8580]">{c.description}</p>
-          </motion.div>
-        ))}
-      </motion.div>
-    </SectionWrap>
+    <section id="conditions" className="bg-white py-24 px-6">
+      <div className="mx-auto max-w-7xl">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-4">
+          <div>
+            <motion.p initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+              className="text-xs font-black uppercase tracking-[0.2em] text-[#0D9488] mb-3">What We Treat</motion.p>
+            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              className="text-4xl md:text-5xl font-black text-[#2D2B28] tracking-tight">
+              Conditions<span className="text-[#1E88E5]">.</span>
+            </motion.h2>
+          </div>
+          <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+            className="text-[#2D2B28]/50 max-w-md text-sm leading-relaxed">
+              Targeted, evidence-based treatment plans built around your specific movement dysfunction and recovery goals.
+            </motion.p>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {conditions.map((c, i) => {
+            const Icon = iconMap[c.icon] || IconSpine
+            return (
+              <motion.div
+                key={c.name}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ delay: i * 0.08, duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+                whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                className="group relative rounded-2xl bg-[#F5F3F0] p-6 cursor-pointer overflow-hidden"
+              >
+                {/* Hover accent */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-[#1E88E5] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+
+                <div className="w-12 h-12 text-[#1E88E5] group-hover:text-[#0D9488] transition-colors duration-300 mb-4">
+                  <motion.div whileHover={{ rotate: [0, -10, 10, 0] }} transition={{ duration: 0.5 }}>
+                    <Icon />
+                  </motion.div>
+                </div>
+                <h3 className="text-sm font-black text-[#2D2B28] mb-2">{c.name}</h3>
+                <p className="text-xs text-[#2D2B28]/50 leading-relaxed">{c.description}</p>
+
+                {/* Corner number */}
+                <span className="absolute top-4 right-4 text-4xl font-black text-[#2D2B28]/[0.04] group-hover:text-[#1E88E5]/10 transition-colors">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+              </motion.div>
+            )
+          })}
+        </div>
+      </div>
+    </section>
   )
 }
 
-/* ─── Programs ─── */
+/* ─── Programs (Tabbed) ─── */
 function Programs() {
-  const [activeProgram, setActiveProgram] = useState(0)
+  const [active, setActive] = useState(0)
 
   return (
-    <SectionWrap id="programs" className="bg-[#F5F3F0]">
-      <SectionHeading title="Our programs" subtitle="Structured recovery programs designed for your specific needs." />
-      <div className="mx-auto max-w-5xl">
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
+    <section id="programs" className="py-24 px-6 bg-[#2D2B28] relative overflow-hidden">
+      {/* Background pattern */}
+      <div className="absolute inset-0 opacity-[0.03]">
+        <svg width="100%" height="100%">
+          <defs>
+            <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" strokeWidth="1"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)"/>
+        </svg>
+      </div>
+
+      <div className="mx-auto max-w-7xl relative">
+        <div className="mb-14">
+          <motion.p initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+            className="text-xs font-black uppercase tracking-[0.2em] text-[#0D9488] mb-3">Programs</motion.p>
+          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="text-4xl md:text-5xl font-black text-white tracking-tight">
+            Built for your<span className="text-[#1E88E5]"> recovery.</span>
+          </motion.h2>
+        </div>
+
+        {/* Tabs */}
+        <div className="flex flex-wrap gap-2 mb-10">
           {programs.map((p, i) => (
-            <button key={p.name} onClick={() => setActiveProgram(i)}
-              className={`px-5 py-2.5 text-sm font-semibold rounded-xl transition-all ${
-                activeProgram === i
-                  ? 'bg-[#1E88E5] text-white shadow-lg'
-                  : 'bg-white border border-[#D1D0CC] text-[#8A8580] hover:border-[#1E88E5]/30 hover:text-[#1E88E5]'
-              }`}>
+            <motion.button
+              key={p.name}
+              onClick={() => setActive(i)}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className={`relative px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 ${
+                active === i
+                  ? 'bg-[#1E88E5] text-white shadow-lg shadow-[#1E88E5]/30'
+                  : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white border border-white/10'
+              }`}
+            >
               {p.name}
-            </button>
+            </motion.button>
           ))}
         </div>
+
+        {/* Content */}
         <AnimatePresence mode="wait">
-          <motion.div key={activeProgram}
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="rounded-2xl bg-white border border-[#E2E8F0] p-8 md:p-10">
-            <div className="grid gap-8 md:grid-cols-2">
-              <div>
-                <h3 className="text-xl font-bold text-[#2D2B28]">{programs[activeProgram].name}</h3>
-                <p className="mt-3 text-[#8A8580] leading-relaxed">{programs[activeProgram].description}</p>
-                <motion.button whileHover={{ scale: 1.02 }}
-                  className="mt-6 rounded-full bg-[#1E88E5] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#1565C0] transition-all">
-                  Learn More <IconArrowRight c="text-white inline-block ml-1" />
-                </motion.button>
+            className="grid md:grid-cols-2 gap-8"
+          >
+            {/* Left: Description */}
+            <div className="rounded-3xl bg-white/5 border border-white/10 p-8 md:p-10 backdrop-blur-sm">
+              <div className="inline-flex items-center gap-2 mb-4">
+                <span className="w-8 h-0.5 bg-[#1E88E5]" />
+                <span className="text-xs font-bold uppercase tracking-wider text-[#1E88E5]">Program {active + 1}</span>
               </div>
-              <div className="bg-[#F5F3F0] rounded-xl p-6">
-                <h4 className="text-sm font-bold uppercase tracking-wider text-[#1E88E5] mb-4">What's included</h4>
-                <ul className="space-y-3">
-                  {programs[activeProgram].features.map((f) => (
-                    <li key={f} className="flex items-start gap-3">
-                      <span className="mt-0.5 w-5 h-5 rounded-full bg-[#E3F0FA] flex items-center justify-center flex-shrink-0">
-                        <IconCheck />
-                      </span>
-                      <span className="text-sm text-[#2D2B28]">{f}</span>
-                    </li>
-                  ))}
-                </ul>
+              <h3 className="text-2xl md:text-3xl font-black text-white mb-4">{programs[active].name}</h3>
+              <p className="text-white/60 leading-relaxed">{programs[active].description}</p>
+              <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#1E88E5] px-7 py-3 text-sm font-bold text-white hover:bg-[#0D9488] transition-colors duration-300">
+                Learn More
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </motion.button>
+            </div>
+
+            {/* Right: Features */}
+            <div className="rounded-3xl bg-[#1E88E5]/10 border border-[#1E88E5]/20 p-8 md:p-10">
+              <h4 className="text-xs font-black uppercase tracking-[0.15em] text-[#1E88E5] mb-6">What's Included</h4>
+              <div className="space-y-4">
+                {programs[active].features.map((f, i) => (
+                  <motion.div
+                    key={f}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1, duration: 0.3 }}
+                    className="flex items-center gap-4 group"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-[#1E88E5]/20 flex items-center justify-center group-hover:bg-[#0D9488]/30 transition-colors flex-shrink-0">
+                      <svg className="w-5 h-5 text-[#1E88E5] group-hover:text-[#0D9488] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                    </div>
+                    <span className="text-sm font-semibold text-white/90">{f}</span>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </motion.div>
         </AnimatePresence>
       </div>
-    </SectionWrap>
+    </section>
   )
 }
 
-/* ─── Recovery Plan Timeline ─── */
+/* ─── Recovery Plan (Interactive Timeline) ─── */
 function RecoveryPlan() {
-  const [activeStep, setActiveStep] = useState<number | null>(null)
+  const [step, setStep] = useState(0)
+  const progress = ((step + 1) / recoveryStages.length) * 100
 
   return (
-    <SectionWrap id="recovery" className="bg-white">
-      <SectionHeading title="Your recovery plan" subtitle="A phased approach with clear milestones and measurable progress." />
-      <div className="mx-auto max-w-4xl">
-        {/* Desktop timeline */}
-        <div className="hidden md:block relative">
-          <div className="absolute top-16 left-0 right-0 h-0.5 bg-[#E2E8F0]" />
-          <div className="absolute top-16 left-0 h-0.5 bg-[#1E88E5]" style={{ width: activeStep !== null ? `${(activeStep + 1) * 25}%` : '0%' }} />
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-80px' }}
-            variants={stagger} className="grid grid-cols-4 gap-4">
-            {recoveryStages.map((r, i) => (
-              <motion.div key={r.step} variants={fadeUp} custom={i}
-                onClick={() => setActiveStep(activeStep === i ? null : i)}
-                className={`timeline-step cursor-pointer text-center ${activeStep === i ? 'active' : ''}`}>
-                <div className={`step-dot mx-auto w-12 h-12 rounded-2xl flex items-center justify-center text-base font-bold mb-4 ${
-                  activeStep !== null && i <= activeStep ? 'bg-[#1E88E5] text-white shadow-lg' : 'bg-[#E3F0FA] text-[#1E88E5]'
-                }`}>
-                  {i + 1}
-                </div>
-                <h3 className="text-base font-semibold text-[#2D2B28]">{r.step}</h3>
-                <p className="text-xs font-medium text-[#1E88E5] mt-1">{r.subtitle}</p>
-                <p className="text-xs text-[#A09890] mt-1">{r.duration}</p>
-                <AnimatePresence>
-                  {activeStep === i && (
-                    <motion.p initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }} className="mt-2 text-sm text-[#8A8580] overflow-hidden">
-                      {r.description}
-                    </motion.p>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
-          </motion.div>
+    <section id="recovery" className="py-24 px-6 bg-white">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-16">
+          <motion.p initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+            className="text-xs font-black uppercase tracking-[0.2em] text-[#0D9488] mb-3">Recovery Plan</motion.p>
+          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="text-4xl md:text-5xl font-black text-[#2D2B28] tracking-tight">
+            Your path<span className="text-[#1E88E5]"> forward.</span>
+          </motion.h2>
         </div>
 
-        {/* Mobile timeline */}
-        <div className="md:hidden space-y-6">
-          {recoveryStages.map((r, i) => (
-            <motion.div key={r.step} initial={{ opacity: 0, x: -20 }} whileInView="visible"
-              viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-              onClick={() => setActiveStep(activeStep === i ? null : i)}
-              className={`timeline-step flex items-start gap-4 p-4 rounded-xl bg-[#F5F3F0] cursor-pointer ${activeStep === i ? 'active' : ''}`}>
-              <div className={`step-dot w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold flex-shrink-0 ${
-                i <= (activeStep ?? -1) ? 'bg-[#1E88E5] text-white' : 'bg-[#E3F0FA] text-[#1E88E5]'
-              }`}>{i + 1}</div>
-              <div>
-                <h3 className="text-sm font-semibold text-[#2D2B28]">{r.step}</h3>
-                <p className="text-xs text-[#1E88E5]">{r.subtitle} &middot; {r.duration}</p>
-                <AnimatePresence>
-                  {activeStep === i && (
-                    <motion.p initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }} className="mt-2 text-sm text-[#8A8580] overflow-hidden">
-                      {r.description}
-                    </motion.p>
-                  )}
-                </AnimatePresence>
-              </div>
-            </motion.div>
-          ))}
+        {/* Progress bar */}
+        <div className="mb-12">
+          <div className="flex justify-between text-xs font-bold text-[#8A8580] mb-2">
+            <span>Progress</span>
+            <span>Stage {step + 1} of {recoveryStages.length}</span>
+          </div>
+          <div className="w-full h-2 rounded-full bg-[#F5F3F0] overflow-hidden">
+            <motion.div
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+              className="h-full rounded-full bg-gradient-to-r from-[#1E88E5] to-[#0D9488]"
+            />
+          </div>
+        </div>
+
+        <div className="grid lg:grid-cols-12 gap-8">
+          {/* Timeline steps (left) */}
+          <div className="lg:col-span-5 space-y-3">
+            {recoveryStages.map((r, i) => (
+              <motion.button
+                key={r.step}
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.4 }}
+                onClick={() => setStep(i)}
+                className={`w-full text-left rounded-2xl p-5 transition-all duration-300 border-2 ${
+                  step === i
+                    ? 'bg-[#1E88E5] border-[#1E88E5] shadow-lg shadow-[#1E88E5]/20'
+                    : i <= step
+                    ? 'bg-[#F5F3F0] border-[#0D9488]/20 hover:border-[#1E88E5]/40'
+                    : 'bg-[#F5F3F0]/50 border-transparent hover:border-[#1E88E5]/20'
+                }`}
+              >
+                <div className="flex items-center gap-4">
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-black flex-shrink-0 ${
+                    step === i ? 'bg-white text-[#1E88E5]' : i <= step ? 'bg-[#0D9488]/20 text-[#0D9488]' : 'bg-white text-[#8A8580]'
+                  }`}>
+                    {i <= step ? (
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
+                        <polyline points="20 6 9 17 4 12"/>
+                      </svg>
+                    ) : (
+                      i + 1
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className={`text-sm font-bold ${step === i ? 'text-white' : 'text-[#2D2B28]'}`}>{r.step}</p>
+                    <p className={`text-xs ${step === i ? 'text-white/70' : 'text-[#8A8580]'}`}>{r.duration}</p>
+                  </div>
+                </div>
+              </motion.button>
+            ))}
+          </div>
+
+          {/* Detail panel (right) */}
+          <div className="lg:col-span-7">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={step}
+                initial={{ opacity: 0, y: 20, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.98 }}
+                transition={{ duration: 0.3 }}
+                className="rounded-3xl bg-[#F5F3F0] p-8 md:p-10 h-full"
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-2xl bg-[#1E88E5] flex items-center justify-center">
+                    <span className="text-lg font-black text-white">{step + 1}</span>
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-[#0D9488]">{recoveryStages[step].duration}</p>
+                    <h3 className="text-xl font-black text-[#2D2B28]">{recoveryStages[step].step}</h3>
+                  </div>
+                </div>
+
+                <p className="text-2xl font-bold text-[#1E88E5] mb-4">{recoveryStages[step].subtitle}</p>
+                <p className="text-[#2D2B28]/60 leading-relaxed text-base">{recoveryStages[step].description}</p>
+
+                {/* Visual indicator */}
+                <div className="mt-8 flex items-center gap-4">
+                  <div className="flex-1 h-1 rounded-full bg-[#2D2B28]/10 overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${((step + 1) / recoveryStages.length) * 100}%` }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                      className="h-full rounded-full bg-gradient-to-r from-[#1E88E5] to-[#0D9488]"
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-[#8A8580]">{Math.round(((step + 1) / recoveryStages.length) * 100)}%</span>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
-    </SectionWrap>
+    </section>
   )
 }
 
 /* ─── Progress Dashboard ─── */
 function ProgressDashboard() {
   return (
-    <SectionWrap id="progress" className="bg-[#F5F3F0]">
-      <SectionHeading title="Track your progress" subtitle="Data-driven recovery metrics that show you how far you've come." />
-      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}
-        variants={stagger} className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {progressMetrics.map((m, i) => (
-          <motion.div key={m.label} variants={fadeUp} custom={i}
-            className="rounded-2xl bg-white border border-[#E2E8F0] p-6">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#8A8580]">{m.label}</span>
-              {m.improvement && <span className="flex items-center gap-1 text-xs font-medium text-emerald-600"><IconTrendUp /> Improving</span>}
-            </div>
-            <div className="flex items-baseline gap-1">
-              <span className="text-3xl font-bold text-[#2D2B28]">{m.current}</span>
-              <span className="text-sm text-[#8A8580]">{m.unit}</span>
-            </div>
-            <div className="mt-4">
-              <div className="flex justify-between text-xs text-[#8A8580] mb-1">
-                <span>Current</span>
-                <span>Previous: {m.previous}{m.unit}</span>
-              </div>
-              <div className="w-full h-2 rounded-full bg-[#F0EFED] overflow-hidden">
-                <motion.div initial={{ width: 0 }} whileInView={{ width: `${(m.current / (m.current + m.previous)) * 100}%` }}
-                  viewport={{ once: true }}
-                  className="bar-fill h-full rounded-full bg-gradient-to-r from-[#1E88E5] to-[#64B5F6]" />
-              </div>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
-    </SectionWrap>
+    <section id="progress" className="py-24 px-6 bg-[#F5F3F0]">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-16">
+          <motion.p initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+            className="text-xs font-black uppercase tracking-[0.2em] text-[#0D9488] mb-3">Data-Driven Results</motion.p>
+          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="text-4xl md:text-5xl font-black text-[#2D2B28] tracking-tight">
+            Track your<span className="text-[#1E88E5]"> progress.</span>
+          </motion.h2>
+        </div>
+
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {progressMetrics.map((m, i) => {
+            const pct = m.label === 'Pain Level'
+              ? ((m.previous - m.current) / m.previous) * 100  // lower is better
+              : ((m.current - m.previous) / (100 - m.previous)) * 100
+            const barWidth = m.label === 'Pain Level'
+              ? (m.current / 10) * 100
+              : m.current
+
+            return (
+              <motion.div
+                key={m.label}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                className="rounded-2xl bg-white p-6 border border-[#2D2B28]/5 shadow-sm hover:shadow-md transition-shadow"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs font-black uppercase tracking-wider text-[#8A8580]">{m.label}</span>
+                  {m.improvement && (
+                    <span className="flex items-center gap-1 rounded-full bg-[#0D9488]/10 px-2.5 py-1">
+                      <svg className="w-3 h-3 text-[#0D9488]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
+                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+                      </svg>
+                      <span className="text-[10px] font-bold text-[#0D9488]">
+                        {m.label === 'Pain Level' ? `-${Math.round(pct)}%` : `+${Math.round(pct)}%`}
+                      </span>
+                    </span>
+                  )}
+                </div>
+
+                <div className="flex items-baseline gap-1 mb-1">
+                  <span className="text-4xl font-black text-[#2D2B28]"><Counter target={m.current} /></span>
+                  <span className="text-sm font-bold text-[#8A8580]">{m.unit}</span>
+                </div>
+                <p className="text-xs text-[#8A8580] mb-5">from {m.previous}{m.unit}</p>
+
+                {/* Animated bar */}
+                <div className="w-full h-3 rounded-full bg-[#F5F3F0] overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${barWidth}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2, delay: 0.3 + i * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+                    className={`h-full rounded-full ${
+                      m.label === 'Pain Level'
+                        ? 'bg-gradient-to-r from-[#0D9488] to-[#1E88E5]'
+                        : 'bg-gradient-to-r from-[#1E88E5] to-[#0D9488]'
+                    }`}
+                  />
+                </div>
+              </motion.div>
+            )
+          })}
+        </div>
+      </div>
+    </section>
   )
 }
 
 /* ─── Therapist Team ─── */
 function TherapistTeam() {
   return (
-    <SectionWrap id="team" className="bg-white">
-      <SectionHeading title="Meet your therapists" subtitle="Experienced clinicians dedicated to your recovery." />
-      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}
-        variants={stagger} className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {therapists.map((t, i: number) => (
-          <motion.div key={t.name} variants={fadeUp} custom={i}
-            className="movement-card rounded-2xl border border-[#E2E8F0] bg-white p-6 text-center">
-            <div className="mx-auto w-16 h-16 rounded-2xl bg-[#E3F0FA] flex items-center justify-center text-xl font-bold text-[#1E88E5]">
-              {t.name.split(' ').map(w => w[0]).join('')}
-            </div>
-            <h3 className="mt-4 text-base font-semibold text-[#2D2B28]">{t.name}</h3>
-            <p className="text-xs font-bold uppercase tracking-wider text-[#1E88E5] mt-1">{t.title}</p>
-            <p className="text-xs text-[#A09890] mt-0.5">{t.specialties}</p>
-            <p className="mt-3 text-sm leading-relaxed text-[#8A8580]">{t.bio}</p>
-          </motion.div>
-        ))}
-      </motion.div>
-    </SectionWrap>
+    <section id="team" className="py-24 px-6 bg-white">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-16">
+          <motion.p initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+            className="text-xs font-black uppercase tracking-[0.2em] text-[#0D9488] mb-3">The Team</motion.p>
+          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="text-4xl md:text-5xl font-black text-[#2D2B28] tracking-tight">
+            Meet your<span className="text-[#1E88E5]"> therapists.</span>
+          </motion.h2>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {therapists.map((t, i) => {
+            const initials = t.name.split(' ').filter(w => w[0] === w[0].toUpperCase()).map(w => w[0]).join('').slice(0, 2)
+            return (
+              <motion.div
+                key={t.name}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                whileHover={{ y: -6, transition: { duration: 0.2 } }}
+                className="group relative rounded-3xl overflow-hidden bg-[#F5F3F0]"
+              >
+                {/* Photo area with gradient */}
+                <div className="relative h-48 bg-gradient-to-br from-[#1E88E5] to-[#0D9488] overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-5xl font-black text-white/20">{initials}</span>
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#2D2B28]/40 to-transparent" />
+                  {/* Decorative lines */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20" />
+                </div>
+
+                {/* Info */}
+                <div className="p-5">
+                  <h3 className="text-base font-black text-[#2D2B28]">{t.name}</h3>
+                  <p className="text-xs font-bold text-[#1E88E5] mt-1">{t.title}</p>
+                  <p className="text-xs text-[#0D9488] font-semibold mt-0.5">{t.specialties}</p>
+                  <p className="text-xs text-[#2D2B28]/50 mt-3 leading-relaxed">{t.bio}</p>
+                </div>
+
+                {/* Hover overlay */}
+                <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-[#1E88E5]/30 transition-colors duration-300 pointer-events-none" />
+              </motion.div>
+            )
+          })}
+        </div>
+      </div>
+    </section>
   )
 }
 
 /* ─── CTA ─── */
 function CTA() {
   return (
-    <SectionWrap id="cta" className="bg-[#2D2B28] relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 opacity-[0.04]">
-        <svg width="100%" height="100%"><defs><pattern id="dots" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="white"/></pattern></defs><rect width="100%" height="100%" fill="url(#dots)"/></svg>
+    <section id="cta" className="py-24 px-6 bg-[#1E88E5] relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div
+          animate={{ x: [0, 100, 0], y: [0, -50, 0] }}
+          transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+          className="absolute -top-20 -left-20 w-80 h-80 rounded-full bg-white/5"
+        />
+        <motion.div
+          animate={{ x: [0, -80, 0], y: [0, 60, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
+          className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-[#0D9488]/10"
+        />
+        {/* Diagonal lines */}
+        <svg className="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <line x1="0" y1="100" x2="100" y2="0" stroke="white" strokeWidth="0.3"/>
+          <line x1="20" y1="100" x2="100" y2="20" stroke="white" strokeWidth="0.2"/>
+          <line x1="0" y1="80" x2="80" y2="0" stroke="white" strokeWidth="0.2"/>
+        </svg>
       </div>
-      <div className="mx-auto max-w-3xl text-center relative">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView="visible" viewport={{ once: true }}>
-          <h2 className="text-3xl font-bold text-white md:text-4xl lg:text-5xl">Ready to move without pain?</h2>
-          <p className="mt-4 text-lg text-white/70 max-w-2xl mx-auto">
-            Book a free assessment and get a personalized recovery plan. No commitment, no pressure.
+
+      <div className="mx-auto max-w-4xl text-center relative">
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-white/60 mb-4">Ready to start?</p>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
+            Your recovery<br />starts today<span className="text-[#F5F3F0]/40">.</span>
+          </h2>
+          <p className="mt-6 text-lg text-white/70 max-w-xl mx-auto">
+            Book a free assessment and get a personalized recovery plan. No commitment, no pressure — just results.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="rounded-full bg-[#1E88E5] px-10 py-3.5 text-base font-semibold text-white shadow-lg hover:bg-[#1565C0] transition-all">
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
+            <motion.button whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
+              className="rounded-full bg-white px-10 py-4 text-sm font-black text-[#1E88E5] shadow-xl hover:shadow-2xl transition-shadow">
               Book Free Assessment
             </motion.button>
-            <button
-              className="rounded-full border border-white/20 bg-white/10 px-8 py-3.5 text-base font-semibold text-white backdrop-blur-sm hover:bg-white/20 transition-all">
+            <motion.a whileHover={{ scale: 1.02 }} href="tel:5553456789"
+              className="rounded-full border-2 border-white/30 px-8 py-4 text-sm font-bold text-white hover:bg-white/10 transition-colors inline-flex items-center gap-2">
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+              </svg>
               (555) 345-6789
-            </button>
+            </motion.a>
           </div>
         </motion.div>
       </div>
-    </SectionWrap>
+    </section>
   )
 }
 
 /* ─── Footer ─── */
 function Footer() {
   return (
-    <footer className="bg-[#1A1917] px-6 py-12">
-      <div className="mx-auto max-w-6xl">
-        <div className="grid gap-8 md:grid-cols-4">
-          <div className="md:col-span-2">
-            <div className="flex items-center gap-2 text-xl font-bold text-white">
-              <svg className="w-7 h-7" viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="12" stroke="#1E88E5" strokeWidth="2" strokeDasharray="4 3"/>
-                <path d="M14 6c-3 1.5-5 4.5-5 8s2 6.5 5 8c3-1.5 5-4.5 5-8s-2-6.5-5-8z" fill="#1E88E5" opacity="0.3"/>
-                <circle cx="14" cy="14" r="3" fill="#1E88E5"/>
-              </svg>
-              Align Motion
+    <footer className="bg-[#1A1917] px-6 py-16">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-10 md:grid-cols-12">
+          {/* Brand */}
+          <div className="md:col-span-5">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="relative w-8 h-8">
+                <div className="absolute inset-0 rounded-full border-2 border-dashed border-[#1E88E5]/40" />
+                <div className="absolute inset-1.5 rounded-full bg-[#1E88E5]" />
+              </div>
+              <span className="text-lg font-black text-white tracking-tight">
+                ALIGN<span className="text-[#1E88E5]">/</span>MOTION
+              </span>
             </div>
-            <p className="mt-3 text-sm text-[#A09890] max-w-md">
-              Evidence-based physical therapy that gets you back to what you love. Move without pain. Live without limits.
+            <p className="text-sm text-[#A09890] max-w-sm leading-relaxed">
+              Evidence-based physical therapy engineered for athletes and active people. Move without pain. Live without limits.
             </p>
           </div>
-          <div>
-            <h4 className="text-sm font-semibold text-white mb-3">Contact</h4>
-            <p className="text-sm text-[#A09890]">111 Movement Street, Suite 100</p>
-            <p className="text-sm text-[#A09890] mt-1">Portland, OR 97204</p>
-            <p className="text-sm text-[#A09890] mt-1">(555) 345-6789</p>
+
+          {/* Contact */}
+          <div className="md:col-span-3">
+            <h4 className="text-xs font-black uppercase tracking-[0.15em] text-white mb-4">Contact</h4>
+            <div className="space-y-2 text-sm text-[#A09890]">
+              <p>111 Movement Street, Suite 100</p>
+              <p>Portland, OR 97204</p>
+              <p className="text-[#1E88E5] font-semibold">(555) 345-6789</p>
+            </div>
           </div>
-          <div>
-            <h4 className="text-sm font-semibold text-white mb-3">Hours</h4>
-            <p className="text-sm text-[#A09890]">Mon–Fri: 6 AM – 7 PM</p>
-            <p className="text-sm text-[#A09890] mt-1">Saturday: 8 AM – 2 PM</p>
+
+          {/* Hours */}
+          <div className="md:col-span-4">
+            <h4 className="text-xs font-black uppercase tracking-[0.15em] text-white mb-4">Hours</h4>
+            <div className="space-y-2 text-sm text-[#A09890]">
+              <div className="flex justify-between max-w-[200px]">
+                <span>Mon – Fri</span><span className="text-white font-semibold">6 AM – 7 PM</span>
+              </div>
+              <div className="flex justify-between max-w-[200px]">
+                <span>Saturday</span><span className="text-white font-semibold">8 AM – 2 PM</span>
+              </div>
+              <div className="flex justify-between max-w-[200px]">
+                <span>Sunday</span><span className="text-white/40">Closed</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="mt-10 pt-6 border-t border-white/10 text-center">
-          <p className="text-xs text-[#8A8580]">&copy; {new Date().getFullYear()} Align Motion Physical Therapy. All rights reserved.</p>
+
+        {/* Bottom bar */}
+        <div className="mt-14 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-xs text-[#8A8580]">&copy; {new Date().getFullYear()} Align & Motion Physical Therapy. All rights reserved.</p>
+          <div className="flex gap-4">
+            {['Privacy', 'Terms', 'Accessibility'].map(l => (
+              <button key={l} className="text-xs text-[#8A8580] hover:text-[#1E88E5] transition-colors">{l}</button>
+            ))}
+          </div>
         </div>
       </div>
     </footer>
@@ -570,7 +862,7 @@ function Footer() {
 /* ─── App ─── */
 export default function App() {
   return (
-    <div className="font-sans antialiased">
+    <div className="font-sans antialiased text-[#2D2B28]">
       <Navbar />
       <main>
         <Hero />

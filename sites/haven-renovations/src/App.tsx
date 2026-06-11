@@ -11,108 +11,109 @@ import {
   navLinks,
 } from './data'
 
-const IconHome = ({className}:{className?:string}) => (
+// ─── Inline SVG Icons ───────────────────────────────────────────────────────
+
+const IconHome = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M3 9.5L12 3l9 6.5"/><path d="M5 8.5V20a1 1 0 001 1h4v-7h4v7h4a1 1 0 001-1V8.5"/>
+    <path d="M3 9.5L12 3l9 6.5" /><path d="M5 8.5V20a1 1 0 001 1h4v-7h4v7h4a1 1 0 001-1V8.5" />
   </svg>
 )
-const IconHammer = ({className}:{className?:string}) => (
+const IconHammer = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M12 3v4"/><path d="M8 7h8l-1 4H9L8 7z"/><path d="M12 11v10"/>
+    <path d="M12 3v4" /><path d="M8 7h8l-1 4H9L8 7z" /><path d="M12 11v10" />
   </svg>
 )
-const IconWrench = ({className}:{className?:string}) => (
+const IconWrench = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+    <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
   </svg>
 )
-const IconRuler = ({className}:{className?:string}) => (
+const IconRuler = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M2 6h20v12H2z"/><path d="M6 6v12"/><path d="M10 6v12"/><path d="M14 6v12"/><path d="M18 6v12"/>
+    <path d="M2 6h20v12H2z" /><path d="M6 6v12" /><path d="M10 6v12" /><path d="M14 6v12" /><path d="M18 6v12" />
   </svg>
 )
-const IconUtensils = ({className}:{className?:string}) => (
+const IconUtensils = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>
+    <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2" /><path d="M7 2v20" /><path d="M21 15V2v0a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3zm0 0v7" />
   </svg>
 )
-const IconBath = ({className}:{className?:string}) => (
+const IconBath = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M4 12h16a1 1 0 011 1v3a4 4 0 01-4 4H7a4 4 0 01-4-4v-3a1 1 0 011-1z"/><path d="M6 12V5a2 2 0 012-2v0a2 2 0 012 2v3"/><path d="M18 12V5a2 2 0 00-2-2v0a2 2 0 00-2 2v3"/>
+    <path d="M4 12h16a1 1 0 011 1v3a4 4 0 01-4 4H7a4 4 0 01-4-4v-3a1 1 0 011-1z" /><path d="M6 12V5a2 2 0 012-2v0a2 2 0 012 2v3" /><path d="M18 12V5a2 2 0 00-2-2v0a2 2 0 00-2 2v3" />
   </svg>
 )
-const IconDown = ({className}:{className?:string}) => (
+const IconDown = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
+    <line x1="12" y1="5" x2="12" y2="19" /><polyline points="19 12 12 19 5 12" />
   </svg>
 )
-const IconPlus = ({className}:{className?:string}) => (
+const IconPlus = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+    <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
   </svg>
 )
-const IconSofa = ({className}:{className?:string}) => (
+const IconSofa = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M4 7a2 2 0 012-2h12a2 2 0 012 2v2"/><path d="M4 13h16v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4z"/><path d="M4 13v-4"/><path d="M20 13v-4"/>
+    <path d="M4 7a2 2 0 012-2h12a2 2 0 012 2v2" /><path d="M4 13h16v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4z" /><path d="M4 13v-4" /><path d="M20 13v-4" />
   </svg>
 )
-const IconStone = ({className}:{className?:string}) => (
+const IconStone = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+    <path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" />
   </svg>
 )
-const IconLight = ({className}:{className?:string}) => (
+const IconLight = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0018 8 6 6 0 006 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 008.91 14"/>
+    <path d="M9 18h6" /><path d="M10 22h4" /><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0018 8 6 6 0 006 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 008.91 14" />
   </svg>
 )
-const IconGrid = ({className}:{className?:string}) => (
+const IconGrid = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+    <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /><rect x="14" y="14" width="7" height="7" />
   </svg>
 )
-const IconShield = ({className}:{className?:string}) => (
+const IconPhone = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>
+    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
   </svg>
 )
-const IconPhone = ({className}:{className?:string}) => (
+const IconMail = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+    <rect x="2" y="4" width="20" height="16" rx="2" /><path d="M22 4L12 13 2 4" />
   </svg>
 )
-const IconMail = ({className}:{className?:string}) => (
+const IconLocation = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/>
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" />
   </svg>
 )
-const IconLocation = ({className}:{className?:string}) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
-  </svg>
-)
-const IconArrowRight = ({className}:{className?:string}) => (
+const IconArrowRight = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+    <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
   </svg>
 )
-const IconCheckmark = ({className}:{className?:string}) => (
+const IconChevronDown = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <polyline points="20 6 9 17 4 12"/>
+    <polyline points="6 9 12 15 18 9" />
   </svg>
 )
-const IconStar = ({className}:{className?:string}) => (
+const IconQuote = ({ className = 'w-6 h-6' }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804.167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z" />
+  </svg>
+)
+const IconLeaf = ({ className = 'w-6 h-6' }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+    <path d="M11 20A7 7 0 019.8 6.9C15.5 4.9 20 7.5 20 12c0 3-1.5 5.5-4 7.5" /><path d="M4 20l7-7" />
   </svg>
 )
 
-const iconMap: Record<string, React.FC<{className?:string}>> = {
+const iconMap: Record<string, React.FC<{ className?: string }>> = {
   home: IconHome, hammer: IconHammer, wrench: IconWrench, ruler: IconRuler,
   utensils: IconUtensils, bath: IconBath, down: IconDown, plus: IconPlus,
   sofa: IconSofa, stone: IconStone, light: IconLight, grid: IconGrid,
-  shield: IconShield, phone: IconPhone, mail: IconMail, location: IconLocation,
-  'arrow-right': IconArrowRight, checkmark: IconCheckmark, star: IconStar,
+  phone: IconPhone, mail: IconMail, location: IconLocation, 'arrow-right': IconArrowRight,
 }
 
 function Icon({ name, className = 'w-6 h-6' }: { name: string; className?: string }) {
@@ -120,80 +121,86 @@ function Icon({ name, className = 'w-6 h-6' }: { name: string; className?: strin
   return <C className={className} />
 }
 
-function ScrollReveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+// ─── Utility Components ─────────────────────────────────────────────────────
+
+function Reveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-60px' })
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
   return (
     <motion.div
       ref={ref}
       className={className}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-      transition={{ duration: 0.7, delay, ease: [0.25, 0.1, 0.25, 1] }}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
   )
 }
 
-function Section({ id, children, className = '' }: { id?: string; children: React.ReactNode; className?: string }) {
-  return (
-    <section id={id} className={`relative px-6 md:px-12 lg:px-24 py-20 md:py-28 ${className}`}>
-      {children}
-    </section>
-  )
-}
+// ─── Navbar ─────────────────────────────────────────────────────────────────
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
+    const onScroll = () => setScrolled(window.scrollY > 80)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const scrollTo = (id: string) => {
+  const scrollTo = (href: string) => {
     setMobileOpen(false)
-    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' })
+    const el = document.querySelector(href)
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
     <motion.nav
-      initial={{ y: -80 }}
+      initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? 'bg-ivory/95 backdrop-blur-md shadow-md' : 'bg-transparent'
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+        scrolled ? 'bg-[#FFFAF5]/95 backdrop-blur-lg shadow-[0_1px_0_rgba(139,115,85,0.1)]' : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-20">
-        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-charcoal rounded-full flex items-center justify-center">
-            <Icon name="home" className="w-5 h-5 text-bronze" />
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex items-center justify-between h-20">
+        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-3 group">
+          <div className="w-11 h-11 bg-[#2D5A27] rounded-full flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+            <Icon name="home" className="w-5 h-5 text-[#F5F0E8]" />
           </div>
           <div className="hidden sm:block text-left">
-            <span className="text-lg font-heading tracking-tight text-charcoal block leading-none">Haven</span>
-            <span className="text-[10px] uppercase tracking-[0.15em] text-charcoal/60 font-medium">Renovations</span>
+            <span className="text-[17px] font-heading text-[#2D5A27] tracking-tight leading-none block">Haven</span>
+            <span className="text-[9px] uppercase tracking-[0.2em] text-[#8B7355] font-medium">Renovations</span>
           </div>
         </button>
 
-        <div className="hidden lg:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-10">
           {navLinks.map((l) => (
-            <button key={l.href} onClick={() => scrollTo(l.href)} className="text-sm font-semibold text-charcoal/70 hover:text-charcoal transition-colors tracking-wide uppercase">
+            <button
+              key={l.href}
+              onClick={() => scrollTo(l.href)}
+              className="text-[13px] font-medium text-[#8B7355] hover:text-[#2D5A27] transition-colors duration-300 tracking-wide uppercase"
+            >
               {l.label}
             </button>
           ))}
-          <button onClick={() => scrollTo('#contact')} className="bg-charcoal text-white px-6 py-2.5 text-sm font-bold tracking-wide hover:bg-black transition-colors rounded-full shadow-sm">
-            Start Your Project
+          <button
+            onClick={() => scrollTo('#contact')}
+            className="bg-[#2D5A27] text-[#F5F0E8] px-6 py-2.5 text-[12px] font-semibold tracking-wider uppercase hover:bg-[#2D5A27]/90 transition-all duration-300 rounded-full"
+          >
+            Begin Project
           </button>
         </div>
 
         <button className="lg:hidden p-2" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Menu">
-          <div className={`w-6 h-0.5 bg-charcoal mb-1.5 transition-all ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
-          <div className={`w-6 h-0.5 bg-charcoal mb-1.5 transition-all ${mobileOpen ? 'opacity-0' : ''}`} />
-          <div className={`w-6 h-0.5 bg-charcoal transition-all ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          <div className="w-6 flex flex-col gap-1.5">
+            <span className={`block h-[1.5px] bg-[#2D5A27] transition-all duration-300 origin-center ${mobileOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />
+            <span className={`block h-[1.5px] bg-[#2D5A27] transition-all duration-300 ${mobileOpen ? 'opacity-0 scale-0' : ''}`} />
+            <span className={`block h-[1.5px] bg-[#2D5A27] transition-all duration-300 origin-center ${mobileOpen ? '-rotate-45 -translate-y-[7px]' : ''}`} />
+          </div>
         </button>
       </div>
 
@@ -203,16 +210,24 @@ function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="lg:hidden bg-ivory border-t border-charcoal/10 overflow-hidden"
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:hidden bg-[#FFFAF5] border-t border-[#8B7355]/10 overflow-hidden"
           >
-            <div className="px-6 py-6 flex flex-col gap-4">
+            <div className="px-6 py-8 flex flex-col gap-5">
               {navLinks.map((l) => (
-                <button key={l.href} onClick={() => scrollTo(l.href)} className="text-sm font-semibold text-charcoal text-left uppercase tracking-wide">
+                <button
+                  key={l.href}
+                  onClick={() => scrollTo(l.href)}
+                  className="text-[13px] font-semibold text-[#2D5A27] text-left uppercase tracking-wider"
+                >
                   {l.label}
                 </button>
               ))}
-              <button onClick={() => scrollTo('#contact')} className="bg-charcoal text-white px-5 py-3 text-sm font-bold tracking-wide text-center rounded-full">
-                Start Your Project
+              <button
+                onClick={() => scrollTo('#contact')}
+                className="bg-[#2D5A27] text-[#F5F0E8] px-5 py-3.5 text-[12px] font-semibold tracking-wider uppercase text-center rounded-full mt-2"
+              >
+                Begin Project
               </button>
             </div>
           </motion.div>
@@ -222,580 +237,754 @@ function Navbar() {
   )
 }
 
+// ─── Hero ───────────────────────────────────────────────────────────────────
+
 function Hero() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -120])
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -60])
+  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 1.05])
 
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center bg-ivory overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10 py-28">
-        <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-          <motion.div style={{ opacity }} className="relative z-10">
+    <section ref={ref} className="relative min-h-screen bg-[#F5F0E8] overflow-hidden">
+      {/* Subtle texture overlay */}
+      <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%238B7355\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
+
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 pt-28 pb-20 relative z-10">
+        <motion.div style={{ opacity }} className="grid lg:grid-cols-12 gap-8 lg:gap-6 items-center min-h-[80vh]">
+          {/* Left: Text */}
+          <div className="lg:col-span-5 relative z-20 order-2 lg:order-1">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             >
-              <span className="text-bronze text-sm font-semibold tracking-[0.25em] uppercase">
-                {siteInfo.shortTagline}
-              </span>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-[1px] bg-[#8B7355]" />
+                <span className="text-[#8B7355] text-[11px] font-semibold tracking-[0.3em] uppercase">
+                  {siteInfo.shortTagline}
+                </span>
+              </div>
             </motion.div>
+
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-5xl sm:text-6xl md:text-7xl font-heading text-charcoal leading-[1.05] mt-4"
+              transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="font-heading text-[#2D5A27] leading-[0.95] tracking-tight"
+              style={{ fontSize: 'clamp(2.8rem, 5.5vw, 5.2rem)' }}
             >
-              Renovations that feel
-              <span className="block text-bronze">considered, not rushed</span>
+              Renovations
+              <br />
+              <span className="italic text-[#8B7355]">that feel</span>
+              <br />
+              considered
             </motion.h1>
+
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-charcoal/60 text-lg mt-6 leading-relaxed"
+              transition={{ duration: 1, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="text-[#8B7355]/80 text-[15px] leading-relaxed mt-8 max-w-md"
             >
-              Kitchens, bathrooms, basements, and whole-home transformations. Designed with intention and
-              built with craftsmanship that lasts.
+              We design and build kitchens, bathrooms, and whole-home transformations
+              with the patience and precision of a design studio — not a construction crew.
             </motion.p>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="flex flex-wrap gap-4 mt-8"
+              transition={{ duration: 1, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-wrap items-center gap-5 mt-10"
             >
-              <a href="#contact" className="bg-bronze hover:bg-bronze-dark text-white px-8 py-4 font-semibold text-sm uppercase tracking-wide transition-colors rounded-full shadow-sm">
-                Start Your Renovation
+              <a
+                href="#contact"
+                className="group inline-flex items-center gap-3 bg-[#2D5A27] text-[#F5F0E8] px-7 py-4 text-[12px] font-semibold tracking-wider uppercase hover:bg-[#2D5A27]/90 transition-all duration-300 rounded-full"
+              >
+                Start Your Project
+                <IconArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
-              <a href="#transformations" className="border-2 border-charcoal/20 hover:border-charcoal/40 text-charcoal px-8 py-4 font-semibold text-sm uppercase tracking-wide transition-colors rounded-full">
-                See Transformations
+              <a
+                href="#transformations"
+                className="text-[12px] font-semibold tracking-wider uppercase text-[#8B7355] hover:text-[#2D5A27] transition-colors duration-300 underline underline-offset-4 decoration-[#8B7355]/30 hover:decoration-[#2D5A27]"
+              >
+                View Transformations
               </a>
             </motion.div>
 
+            {/* Stats strip */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1.3, duration: 1 }}
-              className="flex gap-10 mt-12"
+              transition={{ delay: 1.4, duration: 1 }}
+              className="flex gap-8 mt-14 pt-8 border-t border-[#8B7355]/15"
             >
-              <div><span className="text-charcoal text-2xl font-heading block">{siteInfo.yearsExperience}+</span><span className="text-charcoal/50 text-xs uppercase tracking-widest">Years</span></div>
-              <div><span className="text-charcoal text-2xl font-heading block">{siteInfo.projectsCompleted}+</span><span className="text-charcoal/50 text-xs uppercase tracking-widest">Homes</span></div>
-              <div><span className="text-charcoal text-2xl font-heading block">{siteInfo.license}</span><span className="text-charcoal/50 text-xs uppercase tracking-widest">License</span></div>
+              {[
+                { value: `${siteInfo.yearsExperience}+`, label: 'Years' },
+                { value: `${siteInfo.projectsCompleted}+`, label: 'Homes' },
+                { value: 'Chicago', label: 'Based' },
+              ].map((s) => (
+                <div key={s.label}>
+                  <div className="font-heading text-[#2D5A27] text-xl">{s.value}</div>
+                  <div className="text-[10px] uppercase tracking-[0.2em] text-[#8B7355]/70 mt-1">{s.label}</div>
+                </div>
+              ))}
             </motion.div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="relative"
-          >
-            <div className="relative z-10">
+          {/* Right: Image Gallery */}
+          <div className="lg:col-span-7 relative order-1 lg:order-2">
+            <motion.div style={{ y: y1, scale }} className="relative">
+              {/* Main large image */}
               <motion.div
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.5 }}
-                className="overflow-hidden rounded-sm shadow-xl"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="relative overflow-hidden rounded-sm shadow-2xl shadow-[#2D5A27]/10"
               >
                 <img
-                  src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=800&q=85"
-                  alt="Elegant living room"
-                  className="w-full h-[400px] md:h-[550px] object-cover"
+                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000&q=85"
+                  alt="Beautiful renovated home"
+                  className="w-full h-[380px] sm:h-[480px] lg:h-[580px] object-cover"
+                />
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#2D5A27]/20 via-transparent to-transparent" />
+              </motion.div>
+
+              {/* Floating secondary image */}
+              <motion.div
+                style={{ y: y2 }}
+                initial={{ opacity: 0, x: 30, y: 20 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ duration: 1, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute -bottom-8 -left-4 sm:-left-12 w-[200px] sm:w-[260px] overflow-hidden rounded-sm shadow-xl border-4 border-[#FFFAF5] hidden md:block"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80"
+                  alt="Kitchen detail"
+                  className="w-full h-[160px] sm:h-[200px] object-cover"
                 />
               </motion.div>
-              {/* Decorative frame accent */}
-              <div className="absolute -bottom-4 -right-4 w-full h-full border-2 border-bronze/30 rounded-sm -z-10 hidden md:block" />
+
+              {/* Floating tagline card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.2 }}
+                className="absolute top-6 right-4 sm:top-8 sm:right-8 bg-[#FFFAF5]/95 backdrop-blur-sm px-5 py-4 rounded-sm shadow-lg max-w-[200px] hidden sm:block"
+              >
+                <IconLeaf className="w-5 h-5 text-[#2D5A27] mb-2" />
+                <p className="text-[11px] text-[#8B7355] leading-relaxed italic">
+                  "Design-led remodeling with the soul of a craftsman."
+                </p>
+              </motion.div>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Scroll hint */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      >
+        <span className="text-[9px] uppercase tracking-[0.3em] text-[#8B7355]/60">Scroll</span>
+        <motion.div
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <IconChevronDown className="w-4 h-4 text-[#8B7355]/50" />
+        </motion.div>
+      </motion.div>
+    </section>
+  )
+}
+
+// ─── Renovations (Horizontal Scroll) ────────────────────────────────────────
+
+function Renovations() {
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+
+  const checkScroll = () => {
+    if (!scrollRef.current) return
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
+    setCanScrollLeft(scrollLeft > 5)
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 5)
+  }
+
+  useEffect(() => {
+    checkScroll()
+    const el = scrollRef.current
+    if (el) el.addEventListener('scroll', checkScroll, { passive: true })
+    return () => { if (el) el.removeEventListener('scroll', checkScroll) }
+  }, [])
+
+  const scroll = (dir: 'left' | 'right') => {
+    if (!scrollRef.current) return
+    const amount = 380
+    scrollRef.current.scrollBy({ left: dir === 'left' ? -amount : amount, behavior: 'smooth' })
+  }
+
+  return (
+    <section id="renovations" className="py-24 md:py-32 bg-[#FFFAF5] relative overflow-hidden">
+      {/* Decorative top border */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#8B7355]/20 to-transparent" />
+
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+        <Reveal>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-[1px] bg-[#8B7355]" />
+                <span className="text-[#8B7355] text-[11px] font-semibold tracking-[0.3em] uppercase">Our Expertise</span>
+              </div>
+              <h2 className="font-heading text-[#2D5A27] text-4xl md:text-5xl leading-tight">
+                What we <span className="italic text-[#8B7355]">build</span>
+              </h2>
             </div>
-            <div className="absolute -bottom-6 -left-6 bg-white p-6 shadow-lg rounded-sm hidden md:block">
-              <div className="text-3xl font-heading text-bronze">{siteInfo.projectsCompleted}+</div>
-              <div className="text-xs uppercase tracking-widest text-charcoal/60 mt-1">Completed Projects</div>
+            <div className="flex gap-3">
+              <button
+                onClick={() => scroll('left')}
+                disabled={!canScrollLeft}
+                className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-300 ${
+                  canScrollLeft ? 'border-[#8B7355]/30 text-[#8B7355] hover:bg-[#8B7355] hover:text-[#F5F0E8] hover:border-[#8B7355]' : 'border-[#8B7355]/10 text-[#8B7355]/20 cursor-default'
+                }`}
+              >
+                <IconArrowRight className="w-4 h-4 rotate-180" />
+              </button>
+              <button
+                onClick={() => scroll('right')}
+                disabled={!canScrollRight}
+                className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-300 ${
+                  canScrollRight ? 'border-[#8B7355]/30 text-[#8B7355] hover:bg-[#8B7355] hover:text-[#F5F0E8] hover:border-[#8B7355]' : 'border-[#8B7355]/10 text-[#8B7355]/20 cursor-default'
+                }`}
+              >
+                <IconArrowRight className="w-4 h-4" />
+              </button>
             </div>
-          </motion.div>
+          </div>
+        </Reveal>
+
+        {/* Horizontal scroll container */}
+        <div
+          ref={scrollRef}
+          className="flex gap-6 overflow-x-auto scrollbar-hide pb-4 -mx-6 px-6 lg:-mx-12 lg:px-12 snap-x snap-mandatory"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {renovationTypes.map((r, i) => (
+            <Reveal key={r.title} delay={i * 0.08}>
+              <div className="group relative w-[320px] sm:w-[360px] shrink-0 snap-start">
+                {/* Image */}
+                <div className="relative overflow-hidden rounded-sm aspect-[4/5]">
+                  <motion.img
+                    src={r.image}
+                    alt={r.title}
+                    className="w-full h-full object-cover"
+                    whileHover={{ scale: 1.06 }}
+                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                  />
+                  {/* Overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#2D5A27]/80 via-[#2D5A27]/20 to-transparent" />
+
+                  {/* Icon badge */}
+                  <div className="absolute top-5 left-5 w-10 h-10 bg-[#FFFAF5]/90 backdrop-blur-sm rounded-full flex items-center justify-center">
+                    <Icon name={r.icon} className="w-5 h-5 text-[#2D5A27]" />
+                  </div>
+
+                  {/* Content overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="font-heading text-[#F5F0E8] text-xl mb-2">{r.title}</h3>
+                    <p className="text-[#F5F0E8]/70 text-[13px] leading-relaxed line-clamp-3 group-hover:line-clamp-none transition-all duration-500">
+                      {r.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
   )
 }
 
-function Renovations() {
-  return (
-    <Section id="renovations" className="bg-ivory-dark">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <span className="text-xs font-semibold tracking-[0.2em] uppercase text-bronze">What We Do</span>
-          <h2 className="text-4xl md:text-5xl font-heading text-charcoal mt-3 leading-tight">Renovation types</h2>
-          <p className="text-charcoal/60 mt-4 max-w-2xl mx-auto text-lg leading-relaxed">
-            Every home tells a different story. We match the scope to the space from a single powder room to a full-home transformation.
-          </p>
-        </div>
+// ─── Before & After (Hover Reveal Cards) ────────────────────────────────────
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {renovationTypes.map((r, i) => (
-            <ScrollReveal key={r.title} delay={i * 0.07}>
-              <div className="group bg-white border border-charcoal/10 overflow-hidden hover:shadow-lg transition-all duration-400 rounded-sm">
-                <div className="overflow-hidden h-48">
-                  <motion.img
-                    src={r.image}
-                    alt={r.title}
-                    className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.08 }}
-                    transition={{ duration: 0.5 }}
-                  />
-                </div>
-                <div className="p-6">
-                  <div className="w-10 h-10 rounded-full bg-bronze-pale/60 flex items-center justify-center mb-3">
-                    <Icon name={r.icon} className="w-5 h-5 text-bronze" />
-                  </div>
-                  <h3 className="text-xl font-heading text-charcoal">{r.title}</h3>
-                  <p className="text-charcoal/60 text-sm mt-3 leading-relaxed">{r.description}</p>
-                </div>
-              </div>
-            </ScrollReveal>
+function BeforeAfter() {
+  return (
+    <section id="transformations" className="py-24 md:py-32 bg-[#F5F0E8] relative">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+        <Reveal>
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="w-12 h-[1px] bg-[#8B7355]" />
+              <span className="text-[#8B7355] text-[11px] font-semibold tracking-[0.3em] uppercase">Transformations</span>
+              <div className="w-12 h-[1px] bg-[#8B7355]" />
+            </div>
+            <h2 className="font-heading text-[#2D5A27] text-4xl md:text-5xl leading-tight">
+              Before <span className="italic text-[#8B7355]">&</span> After
+            </h2>
+            <p className="text-[#8B7355]/70 mt-4 max-w-xl mx-auto text-[15px] leading-relaxed">
+              Hover to reveal the transformation. Each project tells a story of patience and precision.
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+          {beforeAfters.map((ba, i) => (
+            <Reveal key={ba.title} delay={i * 0.12}>
+              <BeforeAfterCard item={ba} />
+            </Reveal>
           ))}
         </div>
       </div>
-    </Section>
+    </section>
   )
 }
 
-function Transformations() {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [sliderPos, setSliderPos] = useState(50)
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  const ba = beforeAfters[activeIndex]
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current) return
-    const rect = containerRef.current.getBoundingClientRect()
-    const x = ((e.clientX - rect.left) / rect.width) * 100
-    setSliderPos(Math.max(5, Math.min(95, x)))
-  }
+function BeforeAfterCard({ item }: { item: typeof beforeAfters[0] }) {
+  const [hovered, setHovered] = useState(false)
 
   return (
-    <Section id="transformations" className="bg-ivory">
-      <div className="max-w-6xl mx-auto" ref={containerRef}>
-        <div className="text-center mb-16">
-          <span className="text-xs font-semibold tracking-[0.2em] uppercase text-bronze">Transformations</span>
-          <h2 className="text-4xl md:text-5xl font-heading text-charcoal mt-3 leading-tight">Before and after</h2>
-          <p className="text-charcoal/60 mt-4 max-w-2xl mx-auto text-lg leading-relaxed">
-            Every renovation tells a story. Slide to see the difference.
-          </p>
+    <div
+      className="group relative overflow-hidden rounded-sm cursor-pointer"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div className="aspect-[3/4] relative">
+        {/* After image (shown by default) */}
+        <motion.img
+          src={item.after}
+          alt={`${item.title} after`}
+          className="absolute inset-0 w-full h-full object-cover"
+          animate={{ scale: hovered ? 1.05 : 1 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        />
+        {/* Before image (revealed on hover) */}
+        <motion.img
+          src={item.before}
+          alt={`${item.title} before`}
+          className="absolute inset-0 w-full h-full object-cover"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: hovered ? 1 : 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        />
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#2D5A27]/90 via-[#2D5A27]/30 to-transparent" />
+
+        {/* Labels */}
+        <div className="absolute top-4 left-4 flex gap-2">
+          <span className={`text-[9px] uppercase tracking-wider font-semibold px-2.5 py-1 rounded-sm transition-all duration-300 ${
+            hovered ? 'bg-[#F5F0E8] text-[#2D5A27]' : 'bg-transparent text-[#F5F0E8]/70 border border-[#F5F0E8]/30'
+          }`}>
+            Before
+          </span>
+          <span className={`text-[9px] uppercase tracking-wider font-semibold px-2.5 py-1 rounded-sm transition-all duration-300 ${
+            hovered ? 'bg-transparent text-[#F5F0E8]/70 border border-[#F5F0E8]/30' : 'bg-[#F5F0E8] text-[#2D5A27]'
+          }`}>
+            After
+          </span>
         </div>
 
-        <ScrollReveal>
-          <div className="bg-ivory-dark border border-charcoal/10 rounded-sm overflow-hidden">
-            <div className="p-6 md:p-8">
-              <div className="flex flex-wrap gap-2 mb-6">
-                {beforeAfters.map((b, i) => (
-                  <button
-                    key={b.title}
-                    onClick={() => { setActiveIndex(i); setSliderPos(50) }}
-                    className={`px-5 py-2 text-xs font-semibold uppercase tracking-wider rounded-full transition-all ${
-                      activeIndex === i
-                        ? 'bg-charcoal text-white shadow-sm'
-                        : 'bg-white text-charcoal/60 border border-charcoal/20 hover:border-charcoal/40'
-                    }`}
-                  >
-                    {b.title}
-                  </button>
-                ))}
-              </div>
-
-              <div
-                className="relative w-full h-[300px] md:h-[500px] overflow-hidden rounded-sm cursor-ew-resize select-none"
-                onMouseMove={handleMouseMove}
-                onTouchMove={(e) => {
-                  if (!containerRef.current || !e.touches[0]) return
-                  const rect = containerRef.current.getBoundingClientRect()
-                  const x = ((e.touches[0].clientX - rect.left) / rect.width) * 100
-                  setSliderPos(Math.max(5, Math.min(95, x)))
-                }}
-              >
-                <img src={ba.after} alt="After" className="absolute inset-0 w-full h-full object-cover" />
-                <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}>
-                  <img src={ba.before} alt="Before" className="absolute inset-0 w-full h-full object-cover" />
-                </div>
-                <div className="absolute inset-y-0" style={{ left: `${sliderPos}%`, marginLeft: '-1.5px' }}>
-                  <div className="h-full w-[3px] bg-white shadow-lg" />
-                  <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-charcoal">
-                    <Icon name="arrow-right" className="w-5 h-5" />
-                  </div>
-                </div>
-                <div className="absolute top-4 left-4 bg-charcoal/80 text-white text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-sm font-semibold">
-                  Before
-                </div>
-                <div className="absolute top-4 right-4 bg-bronze/80 text-white text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-sm font-semibold">
-                  After
-                </div>
-              </div>
-
-              <p className="text-charcoal/70 text-sm mt-5 text-center italic leading-relaxed max-w-2xl mx-auto">
-                {ba.description}
-              </p>
-            </div>
-          </div>
-        </ScrollReveal>
+        {/* Content */}
+        <div className="absolute bottom-0 left-0 right-0 p-6">
+          <h3 className="font-heading text-[#F5F0E8] text-xl mb-2">{item.title}</h3>
+          <motion.p
+            className="text-[#F5F0E8]/70 text-[12px] leading-relaxed"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 10 }}
+            transition={{ duration: 0.4, delay: hovered ? 0.1 : 0 }}
+          >
+            {item.description}
+          </motion.p>
+        </div>
       </div>
-    </Section>
+    </div>
   )
 }
 
-function DesignBuild() {
-  return (
-    <Section id="design-build" className="bg-ivory-dark">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-          <ScrollReveal>
-            <div>
-              <span className="text-xs font-semibold tracking-[0.2em] uppercase text-bronze">Our Approach</span>
-              <h2 className="text-4xl md:text-5xl font-heading text-charcoal mt-3 leading-tight">
-                Integrated <span className="text-bronze">design and build</span>
-              </h2>
-              <p className="text-charcoal/60 mt-6 leading-relaxed text-lg">
-                Most renovation companies separate design from construction creating handoffs that lose time,
-                budget, and intent. We keep it under one roof.
-              </p>
-              <div className="mt-8 space-y-6">
-                {[
-                  { title: 'Design-led process', desc: 'Every project starts with a design phase space plans, material boards, 3D renderings before we price or schedule a single trade.' },
-                  { title: 'One team, one vision', desc: 'Your designer and project manager work side by side from day one. Decisions made in the studio are understood on the job site.' },
-                  { title: 'Cost certainty', desc: 'Because design is complete before construction begins, there are no surprises. What you approve in the rendering is what gets built.' },
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-4">
-                    <div className="w-1 bg-bronze rounded-full shrink-0 mt-1" />
-                    <div>
-                      <h4 className="font-semibold text-charcoal">{item.title}</h4>
-                      <p className="text-charcoal/60 text-sm mt-1">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </ScrollReveal>
-          <ScrollReveal delay={0.15}>
-            <div className="relative">
-              <div className="overflow-hidden rounded-sm shadow-lg">
-                <img
-                  src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80"
-                  alt="Interior design"
-                  className="w-full h-[400px] md:h-[500px] object-cover"
-                />
-              </div>
-              <div className="absolute -bottom-5 -left-5 bg-white p-5 shadow-md rounded-sm hidden md:block">
-                <div className="text-2xl font-heading text-bronze">{siteInfo.projectsCompleted}+</div>
-                <div className="text-xs uppercase tracking-widest text-charcoal/60 mt-0.5">Completed Projects</div>
-              </div>
-            </div>
-          </ScrollReveal>
-        </div>
-      </div>
-    </Section>
-  )
-}
+// ─── Materials Guide ────────────────────────────────────────────────────────
 
 function Materials() {
-  return (
-    <Section id="materials" className="bg-ivory">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <span className="text-xs font-semibold tracking-[0.2em] uppercase text-bronze">Materials</span>
-          <h2 className="text-4xl md:text-5xl font-heading text-charcoal mt-3 leading-tight">What goes in your home</h2>
-          <p className="text-charcoal/60 mt-4 max-w-2xl mx-auto text-lg leading-relaxed">
-            We source from the best mills, quarries, and showrooms. Each material is vetted for quality, durability, and aesthetics.
-          </p>
-        </div>
+  const [expanded, setExpanded] = useState<number | null>(null)
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {materialCategories.map((m, i) => (
-            <ScrollReveal key={m.title} delay={i * 0.06}>
-              <div className="p-6 border border-charcoal/10 hover:border-bronze/30 transition-all duration-300 rounded-sm bg-ivory-dark group">
-                <div className="w-10 h-10 rounded-full bg-bronze-pale/60 flex items-center justify-center mb-3 group-hover:bg-bronze/20 transition-colors">
-                  <Icon name={m.icon} className="w-5 h-5 text-bronze" />
+  return (
+    <section className="py-24 md:py-32 bg-[#FFFAF5] relative">
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#8B7355]/20 to-transparent" />
+
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+        <Reveal>
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="w-12 h-[1px] bg-[#8B7355]" />
+              <span className="text-[#8B7355] text-[11px] font-semibold tracking-[0.3em] uppercase">Materials</span>
+              <div className="w-12 h-[1px] bg-[#8B7355]" />
+            </div>
+            <h2 className="font-heading text-[#2D5A27] text-4xl md:text-5xl leading-tight">
+              The <span className="italic text-[#8B7355]">palette</span>
+            </h2>
+            <p className="text-[#8B7355]/70 mt-4 max-w-xl mx-auto text-[15px] leading-relaxed">
+              Curated materials that define the character of every project.
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
+          {materialCategories.map((cat, i) => (
+            <Reveal key={cat.title} delay={i * 0.07}>
+              <motion.div
+                className={`relative border rounded-sm overflow-hidden transition-all duration-500 cursor-pointer ${
+                  expanded === i
+                    ? 'border-[#2D5A27]/30 bg-[#F5F0E8] shadow-lg shadow-[#2D5A27]/5'
+                    : 'border-[#8B7355]/15 bg-white hover:border-[#8B7355]/30 hover:shadow-md'
+                }`}
+                onClick={() => setExpanded(expanded === i ? null : i)}
+                whileHover={{ y: -2 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="p-6">
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className={`w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 ${
+                        expanded === i ? 'bg-[#2D5A27] text-[#F5F0E8]' : 'bg-[#F5F0E8] text-[#8B7355]'
+                      }`}>
+                        <Icon name={cat.icon} className="w-5 h-5" />
+                      </div>
+                      <h3 className="font-heading text-[#2D5A27] text-lg">{cat.title}</h3>
+                    </div>
+                    <motion.div
+                      animate={{ rotate: expanded === i ? 180 : 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <IconChevronDown className="w-4 h-4 text-[#8B7355]" />
+                    </motion.div>
+                  </div>
+
+                  <AnimatePresence>
+                    {expanded === i && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <ul className="mt-5 pt-5 border-t border-[#8B7355]/10 space-y-2.5">
+                          {cat.items.map((item) => (
+                            <li key={item} className="flex items-center gap-3 text-[13px] text-[#8B7355]">
+                              <div className="w-1.5 h-1.5 rounded-full bg-[#2D5A27] shrink-0" />
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
-                <h3 className="text-lg font-heading text-charcoal">{m.title}</h3>
-                <ul className="mt-3 space-y-1.5">
-                  {m.items.map((item) => (
-                    <li key={item} className="text-sm text-charcoal/60 flex items-center gap-2">
-                      <span className="w-1 h-1 bg-bronze rounded-full shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </ScrollReveal>
+              </motion.div>
+            </Reveal>
           ))}
         </div>
       </div>
-    </Section>
+    </section>
   )
 }
+
+// ─── Process Timeline ───────────────────────────────────────────────────────
 
 function Process() {
   return (
-    <Section id="process" className="bg-charcoal">
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-16">
-          <span className="text-xs font-semibold tracking-[0.2em] uppercase text-bronze">Timeline</span>
-          <h2 className="text-4xl md:text-5xl font-heading text-white mt-3 leading-tight">
-            Your renovation journey
-          </h2>
-          <p className="text-white/50 mt-4 text-lg max-w-2xl mx-auto">
-            From first conversation to final walkthrough here is what to expect.
-          </p>
-        </div>
+    <section id="design-build" className="py-24 md:py-32 bg-[#2D5A27] relative overflow-hidden">
+      {/* Decorative pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-20 right-20 w-96 h-96 rounded-full border border-[#F5F0E8]" />
+        <div className="absolute bottom-20 left-20 w-64 h-64 rounded-full border border-[#F5F0E8]" />
+      </div>
 
-        <div className="relative">
-          {/* Vertical timeline line */}
-          <div className="absolute left-9 md:left-[42px] top-0 bottom-0 w-px bg-white/10 hidden md:block" />
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
+        <Reveal>
+          <div className="text-center mb-20">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="w-12 h-[1px] bg-[#F5F0E8]/40" />
+              <span className="text-[#F5F0E8]/60 text-[11px] font-semibold tracking-[0.3em] uppercase">Our Process</span>
+              <div className="w-12 h-[1px] bg-[#F5F0E8]/40" />
+            </div>
+            <h2 className="font-heading text-[#F5F0E8] text-4xl md:text-5xl leading-tight">
+              The <span className="italic text-[#8B7355]">journey</span>
+            </h2>
+            <p className="text-[#F5F0E8]/50 mt-4 max-w-xl mx-auto text-[15px] leading-relaxed">
+              From first conversation to final walkthrough — a considered path to your new home.
+            </p>
+          </div>
+        </Reveal>
+
+        {/* Vertical timeline */}
+        <div className="relative max-w-3xl mx-auto">
+          {/* Center line */}
+          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[1px] bg-[#F5F0E8]/15 md:-translate-x-[0.5px]" />
 
           {timelineSteps.map((step, i) => (
-            <ScrollReveal key={step.phase} delay={i * 0.1}>
-              <div className="flex gap-6 md:gap-10 mb-10 last:mb-0">
-                <div className="hidden md:flex flex-col items-center">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.15, type: 'spring', stiffness: 200, damping: 15 }}
-                    className="w-[84px] h-[84px] rounded-full border-2 border-bronze/60 flex items-center justify-center font-heading text-lg text-bronze z-10 bg-charcoal"
-                  >
-                    {step.phase}
-                  </motion.div>
-                </div>
-                <div className="flex-1">
-                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 md:p-8 rounded-sm hover:border-bronze/30 transition-all duration-300">
-                    <div className="flex items-center gap-3 md:hidden mb-2">
-                      <span className="w-10 h-10 rounded-full border-2 border-bronze/60 flex items-center justify-center font-heading text-sm text-bronze">{step.phase}</span>
+            <Reveal key={step.phase} delay={i * 0.12}>
+              <div className={`relative flex items-start gap-6 md:gap-0 mb-16 last:mb-0 ${
+                i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+              }`}>
+                {/* Dot */}
+                <div className="absolute left-6 md:left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[#8B7355] border-4 border-[#2D5A27] z-10 mt-1" />
+
+                {/* Content card */}
+                <div className={`ml-14 md:ml-0 md:w-1/2 ${i % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16'}`}>
+                  <div className="bg-[#FFFAF5]/5 backdrop-blur-sm border border-[#F5F0E8]/10 rounded-sm p-6 hover:bg-[#FFFAF5]/10 transition-all duration-500">
+                    <div className={`flex items-center gap-3 mb-3 ${i % 2 === 0 ? 'md:justify-end' : ''}`}>
+                      <span className="text-[#8B7355] font-heading text-2xl italic">{step.phase}</span>
+                      <span className="text-[#F5F0E8]/30 text-[10px] uppercase tracking-wider border border-[#F5F0E8]/10 px-2 py-0.5 rounded-full">
+                        {step.duration}
+                      </span>
                     </div>
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1">
-                        <h3 className="text-xl font-heading text-white">{step.title}</h3>
-                        <p className="text-white/60 mt-2 text-sm leading-relaxed">{step.description}</p>
-                      </div>
-                      <span className="text-xs text-bronze whitespace-nowrap font-semibold uppercase tracking-wider shrink-0">{step.duration}</span>
-                    </div>
+                    <h3 className="font-heading text-[#F5F0E8] text-lg mb-2">{step.title}</h3>
+                    <p className="text-[#F5F0E8]/50 text-[13px] leading-relaxed">{step.description}</p>
                   </div>
                 </div>
               </div>
-            </ScrollReveal>
+            </Reveal>
           ))}
         </div>
       </div>
-    </Section>
+    </section>
   )
 }
+
+// ─── Testimonials ───────────────────────────────────────────────────────────
 
 function Testimonials() {
-  const [active, setActive] = useState(0)
-
   return (
-    <Section id="testimonials" className="bg-ivory-dark">
-      <div className="max-w-4xl mx-auto text-center">
-        <div className="text-center mb-12">
-          <span className="text-xs font-semibold tracking-[0.2em] uppercase text-bronze">Testimonials</span>
-          <h2 className="text-4xl md:text-5xl font-heading text-charcoal mt-3 leading-tight">What our clients say</h2>
-        </div>
-
-        <motion.div
-          key={active}
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-bronze/30 mx-auto mb-6">
-            <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/>
-          </svg>
-          <p className="text-charcoal text-lg md:text-xl leading-relaxed italic">
-            {testimonials[active].text}
-          </p>
-          <div className="mt-6">
-            <p className="text-charcoal font-heading text-lg">{testimonials[active].name}</p>
-            <p className="text-charcoal/50 text-sm">{testimonials[active].role}</p>
+    <section className="py-24 md:py-32 bg-[#F5F0E8] relative">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+        <Reveal>
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="w-12 h-[1px] bg-[#8B7355]" />
+              <span className="text-[#8B7355] text-[11px] font-semibold tracking-[0.3em] uppercase">Testimonials</span>
+              <div className="w-12 h-[1px] bg-[#8B7355]" />
+            </div>
+            <h2 className="font-heading text-[#2D5A27] text-4xl md:text-5xl leading-tight">
+              Kind <span className="italic text-[#8B7355]">words</span>
+            </h2>
           </div>
-        </motion.div>
+        </Reveal>
 
-        <div className="flex justify-center gap-2 mt-8">
-          {testimonials.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setActive(i)}
-              className={`w-2.5 h-2.5 rounded-full transition-all ${
-                i === active ? 'bg-bronze w-6' : 'bg-charcoal/20 hover:bg-charcoal/40'
-              }`}
-            />
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+          {testimonials.map((t, i) => (
+            <Reveal key={t.name} delay={i * 0.12}>
+              <div className="relative bg-[#FFFAF5] border border-[#8B7355]/10 rounded-sm p-8 hover:shadow-lg hover:shadow-[#8B7355]/5 transition-all duration-500 group">
+                {/* Quote icon */}
+                <IconQuote className="w-8 h-8 text-[#2D5A27]/15 mb-5" />
+
+                <p className="text-[#8B7355] text-[14px] leading-relaxed mb-8">
+                  {t.text}
+                </p>
+
+                <div className="flex items-center gap-3 pt-5 border-t border-[#8B7355]/10">
+                  <div className="w-10 h-10 rounded-full bg-[#2D5A27]/10 flex items-center justify-center">
+                    <span className="font-heading text-[#2D5A27] text-sm">{t.name.charAt(0)}</span>
+                  </div>
+                  <div>
+                    <div className="font-medium text-[#2D5A27] text-[13px]">{t.name}</div>
+                    <div className="text-[#8B7355]/60 text-[11px] uppercase tracking-wider">{t.role}</div>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
           ))}
         </div>
       </div>
-    </Section>
+    </section>
   )
 }
+
+// ─── FAQ ────────────────────────────────────────────────────────────────────
 
 function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
-    <Section id="faq" className="bg-ivory">
-      <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-12">
-          <span className="text-xs font-semibold tracking-[0.2em] uppercase text-bronze">FAQ</span>
-          <h2 className="text-4xl md:text-5xl font-heading text-charcoal mt-3 leading-tight">Questions you might have</h2>
-          <p className="text-charcoal/60 mt-4 max-w-xl mx-auto text-lg">Honest answers about cost, timeline, and how we work.</p>
-        </div>
+    <section className="py-24 md:py-32 bg-[#FFFAF5] relative">
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#8B7355]/20 to-transparent" />
 
-        <div className="space-y-2">
-          {faqs.map((f, i) => (
-            <div key={i} className="bg-ivory-dark border border-charcoal/10 rounded-sm overflow-hidden">
-              <button
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full flex justify-between items-center p-5 text-left"
-              >
-                <span className="font-semibold text-charcoal text-sm pr-4">{f.question}</span>
-                <motion.span
-                  animate={{ rotate: openIndex === i ? 180 : 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="text-bronze shrink-0"
-                >
-                  <Icon name="arrow-right" className="w-4 h-4" />
-                </motion.span>
-              </button>
-              <AnimatePresence>
-                {openIndex === i && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.25 }}
-                  >
-                    <p className="px-5 pb-5 text-charcoal/60 text-sm leading-relaxed">{f.answer}</p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+      <div className="max-w-3xl mx-auto px-6 lg:px-12">
+        <Reveal>
+          <div className="text-center mb-14">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="w-12 h-[1px] bg-[#8B7355]" />
+              <span className="text-[#8B7355] text-[11px] font-semibold tracking-[0.3em] uppercase">Questions</span>
+              <div className="w-12 h-[1px] bg-[#8B7355]" />
             </div>
+            <h2 className="font-heading text-[#2D5A27] text-4xl md:text-5xl leading-tight">
+              Common <span className="italic text-[#8B7355]">questions</span>
+            </h2>
+          </div>
+        </Reveal>
+
+        <div className="space-y-3">
+          {faqs.map((faq, i) => (
+            <Reveal key={i} delay={i * 0.06}>
+              <div className="border border-[#8B7355]/10 rounded-sm overflow-hidden bg-white hover:border-[#8B7355]/20 transition-all duration-300">
+                <button
+                  onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                  className="w-full flex items-center justify-between p-5 text-left"
+                >
+                  <span className="font-medium text-[#2D5A27] text-[14px] pr-4">{faq.question}</span>
+                  <motion.div
+                    animate={{ rotate: openIndex === i ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="shrink-0"
+                  >
+                    <IconChevronDown className="w-4 h-4 text-[#8B7355]" />
+                  </motion.div>
+                </button>
+                <AnimatePresence>
+                  {openIndex === i && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-5 pb-5 pt-0">
+                        <div className="h-[1px] bg-[#8B7355]/10 mb-4" />
+                        <p className="text-[#8B7355]/80 text-[13px] leading-relaxed">{faq.answer}</p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </Reveal>
           ))}
         </div>
       </div>
-    </Section>
+    </section>
   )
 }
 
-function Contact() {
-  const [submitted, setSubmitted] = useState(false)
+// ─── CTA ────────────────────────────────────────────────────────────────────
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 3000)
-  }
-
+function CTA() {
   return (
-    <Section id="contact" className="bg-charcoal">
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-12">
-          <span className="text-xs font-semibold tracking-[0.2em] uppercase text-bronze">Contact</span>
-          <h2 className="text-4xl md:text-5xl font-heading text-white mt-3 leading-tight">
-            Lets talk about your home
-          </h2>
-          <p className="text-white/50 mt-4 text-lg max-w-xl mx-auto">
-            Tell us about your space. We will schedule a consultation within 48 hours.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-5 gap-10 max-w-4xl mx-auto">
-          <ScrollReveal className="md:col-span-2">
-            <div className="space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-bronze">
-                  <Icon name="phone" className="w-5 h-5" />
-                </div>
-                <div><div className="text-white font-semibold">Phone</div><div className="text-white/50 text-sm">{siteInfo.phone}</div></div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-bronze">
-                  <Icon name="mail" className="w-5 h-5" />
-                </div>
-                <div><div className="text-white font-semibold">Email</div><div className="text-white/50 text-sm">{siteInfo.email}</div></div>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-bronze">
-                  <Icon name="location" className="w-5 h-5" />
-                </div>
-                <div><div className="text-white font-semibold">Studio</div><div className="text-white/50 text-sm">{siteInfo.address}</div></div>
-              </div>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={0.1} className="md:col-span-3">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <input type="text" placeholder="Full name" required className="w-full bg-white/10 border border-white/20 text-white px-4 py-3 text-sm focus:outline-none focus:border-bronze transition-colors rounded-sm placeholder-white/30" />
-                <input type="email" placeholder="Email address" required className="w-full bg-white/10 border border-white/20 text-white px-4 py-3 text-sm focus:outline-none focus:border-bronze transition-colors rounded-sm placeholder-white/30" />
-              </div>
-              <input type="tel" placeholder="Phone number" required className="w-full bg-white/10 border border-white/20 text-white px-4 py-3 text-sm focus:outline-none focus:border-bronze transition-colors rounded-sm placeholder-white/30" />
-              <select className="w-full bg-white/10 border border-white/20 text-white px-4 py-3 text-sm focus:outline-none focus:border-bronze transition-colors rounded-sm">
-                <option value="" className="text-gray-400">Renovation type</option>
-                <option value="kitchen" className="text-gray-900">Kitchen</option>
-                <option value="bathroom" className="text-gray-900">Bathroom</option>
-                <option value="basement" className="text-gray-900">Basement</option>
-                <option value="full-home" className="text-gray-900">Full Home</option>
-                <option value="addition" className="text-gray-900">Addition</option>
-                <option value="other" className="text-gray-900">Other</option>
-              </select>
-              <textarea rows={4} placeholder="Tell us about your project..." required className="w-full bg-white/10 border border-white/20 text-white px-4 py-3 text-sm focus:outline-none focus:border-bronze transition-colors rounded-sm placeholder-white/30" />
-              <motion.button
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
-                type="submit"
-                className="w-full bg-bronze hover:bg-bronze-dark text-white py-4 font-bold text-sm tracking-wide uppercase transition-colors rounded-full"
-              >
-                {submitted ? <span className="flex items-center justify-center gap-2"><Icon name="checkmark" className="w-4 h-4" /> Inquiry Sent</span> : 'Request Consultation'}
-              </motion.button>
-            </form>
-          </ScrollReveal>
-        </div>
+    <section id="contact" className="py-24 md:py-32 bg-[#2D5A27] relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-full">
+        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-[#8B7355]/10 blur-3xl" />
+        <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-[#F5F0E8]/5 blur-3xl" />
       </div>
-    </Section>
+
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
+        <Reveal>
+          <div className="text-center max-w-2xl mx-auto">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <div className="w-12 h-[1px] bg-[#F5F0E8]/30" />
+              <span className="text-[#F5F0E8]/50 text-[11px] font-semibold tracking-[0.3em] uppercase">Get Started</span>
+              <div className="w-12 h-[1px] bg-[#F5F0E8]/30" />
+            </div>
+            <h2 className="font-heading text-[#F5F0E8] text-4xl md:text-5xl lg:text-6xl leading-tight">
+              Let's design your
+              <br />
+              <span className="italic text-[#8B7355]">next chapter</span>
+            </h2>
+            <p className="text-[#F5F0E8]/50 mt-6 text-[15px] leading-relaxed max-w-lg mx-auto">
+              Every great renovation begins with a conversation. Tell us about your home, your vision, and how you'd like to live in it.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
+              <a
+                href={`tel:${siteInfo.phone}`}
+                className="group inline-flex items-center gap-3 bg-[#F5F0E8] text-[#2D5A27] px-8 py-4 text-[12px] font-semibold tracking-wider uppercase hover:bg-white transition-all duration-300 rounded-full"
+              >
+                <IconPhone className="w-4 h-4" />
+                {siteInfo.phone}
+              </a>
+              <a
+                href={`mailto:${siteInfo.email}`}
+                className="group inline-flex items-center gap-3 border border-[#F5F0E8]/30 text-[#F5F0E8] px-8 py-4 text-[12px] font-semibold tracking-wider uppercase hover:bg-[#F5F0E8]/10 hover:border-[#F5F0E8]/50 transition-all duration-300 rounded-full"
+              >
+                <IconMail className="w-4 h-4" />
+                Email Us
+              </a>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-10 text-[#F5F0E8]/40 text-[12px]">
+              <div className="flex items-center gap-2">
+                <IconLocation className="w-3.5 h-3.5" />
+                <span>{siteInfo.address}</span>
+              </div>
+              <div className="hidden sm:block w-1 h-1 rounded-full bg-[#F5F0E8]/20" />
+              <span>License: {siteInfo.license}</span>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
   )
 }
+
+// ─── Footer ─────────────────────────────────────────────────────────────────
 
 function Footer() {
   return (
-    <footer className="bg-[#1a1816] text-white/40 px-6 md:px-12 lg:px-24 py-12">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-bronze rounded-full flex items-center justify-center">
-            <Icon name="home" className="w-4 h-4 text-[#1a1816]" />
+    <footer className="bg-[#1a3518] py-12">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 bg-[#2D5A27] rounded-full flex items-center justify-center">
+              <IconHome className="w-4 h-4 text-[#F5F0E8]" />
+            </div>
+            <div>
+              <span className="font-heading text-[#F5F0E8] text-sm block leading-none">{siteInfo.name}</span>
+              <span className="text-[9px] uppercase tracking-[0.2em] text-[#F5F0E8]/30">Est. {siteInfo.founded}</span>
+            </div>
           </div>
-          <span className="text-white font-heading">Haven Renovations</span>
-        </div>
-        <div className="text-xs text-center md:text-left">
-          &copy; {new Date().getFullYear()} Haven Renovations. {siteInfo.license}. All rights reserved.
-        </div>
-        <div className="flex gap-4 text-xs">
-          <span className="hover:text-white/80 transition-colors cursor-pointer">Privacy</span>
-          <span className="hover:text-white/80 transition-colors cursor-pointer">Terms</span>
-          <span className="hover:text-white/80 transition-colors cursor-pointer">Instagram</span>
+
+          <div className="flex flex-wrap items-center justify-center gap-6">
+            {navLinks.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="text-[11px] uppercase tracking-wider text-[#F5F0E8]/40 hover:text-[#F5F0E8]/70 transition-colors"
+              >
+                {l.label}
+              </a>
+            ))}
+          </div>
+
+          <div className="text-[11px] text-[#F5F0E8]/30">
+            &copy; {new Date().getFullYear()} {siteInfo.name}. All rights reserved.
+          </div>
         </div>
       </div>
     </footer>
   )
 }
 
+// ─── App ────────────────────────────────────────────────────────────────────
+
 export default function App() {
   return (
-    <div className="font-body bg-ivory text-charcoal antialiased overflow-x-hidden">
+    <div className="min-h-screen bg-[#F5F0E8] font-sans antialiased">
       <Navbar />
-      <main>
-        <Hero />
-        <Renovations />
-        <Transformations />
-        <DesignBuild />
-        <Materials />
-        <Process />
-        <Testimonials />
-        <FAQ />
-        <Contact />
-      </main>
+      <Hero />
+      <Renovations />
+      <BeforeAfter />
+      <Materials />
+      <Process />
+      <Testimonials />
+      <FAQ />
+      <CTA />
       <Footer />
     </div>
   )
