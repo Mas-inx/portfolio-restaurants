@@ -64,4 +64,5 @@ COPY --from=builder /app/sites/keystone-property/dist /usr/share/nginx/html/keys
 COPY --from=builder /app/sites/stayvista/dist /usr/share/nginx/html/stayvista
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY index.html /usr/share/nginx/html/index.html
 HEALTHCHECK CMD curl -f http://localhost:80/restaurant-1/ || exit 1
