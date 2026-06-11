@@ -1,0 +1,63 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-charcoal-900: #0d0d0d;
+  --color-charcoal-800: #1a1a1a;
+  --color-charcoal-700: #262626;
+  --color-charcoal-600: #333333;
+  --color-charcoal-500: #4a4a4a;
+  --color-flame-500: #ff4500;
+  --color-flame-400: #ff5a1f;
+  --color-flame-300: #ff6b2b;
+  --color-flame-200: #ff8c42;
+  --color-flame-100: #ffab73;
+  --color-offwhite: #f5f0e8;
+  --color-offwhite-200: #e8e0d4;
+  --color-neon-red: #ff1744;
+  --color-neon-orange: #ff9100;
+  --color-gold: #ffc107;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0d0d;
+}
+::-webkit-scrollbar-thumb {
+  background: #ff4500;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff6b2b;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Body reset */
+body {
+  margin: 0;
+  background: #0d0d0d;
+  color: #f5f0e8;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Noise texture overlay */
+.noise-overlay::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}

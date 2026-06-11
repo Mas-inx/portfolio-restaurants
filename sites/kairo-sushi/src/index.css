@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --color-kairo-white: #fafaf9;
+  --color-kairo-black: #0a0a0a;
+  --color-kairo-red: #c42828;
+  --color-kairo-gray: #d4d4d4;
+  --color-kairo-light: #f5f5f4;
+  --color-kairo-dark: #525252;
+  --color-kairo-border: #e5e5e0;
+  --font-kairo: "Inter", "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+    background-color: var(--color-kairo-white);
+    color: var(--color-kairo-black);
+    font-family: var(--font-kairo);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::selection {
+    background-color: var(--color-kairo-red);
+    color: white;
+  }
+}
