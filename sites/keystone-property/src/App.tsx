@@ -94,7 +94,7 @@ function IconRenderer({ name }: { name: string }) {
   }
 }
 
-
+const navItems = [
   'Services',
   'Properties',
   'Insights',

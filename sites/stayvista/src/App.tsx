@@ -85,7 +85,7 @@ function IconKey({ className = 'w-6 h-6' }: { className?: string }) {
   );
 }
 
-function IconResolver({ name, size = 'text-5xl' }: { name: string; size?: string }) {
+function IconResolver({ name, size: _size = 'text-5xl' }: { name: string; size?: string }) {
   const iconClass = 'inline-block w-9 h-9 text-terracotta';
   switch (name) {
     case 'camera': return <IconCamera className={iconClass} />;

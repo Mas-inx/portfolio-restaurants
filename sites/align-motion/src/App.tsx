@@ -5,8 +5,6 @@ import {
   recoveryStages,
   programs,
   therapists,
-  journeySteps,
-  galleryImages,
   progressMetrics,
 } from './data'
 
@@ -94,11 +92,6 @@ const stagger = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
 }
-const slideUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeOut } },
-}
-
 /* ─── Components ─── */
 function SectionWrap({ id, className = '', children }: { id: string; className?: string; children: React.ReactNode }) {
   return (
