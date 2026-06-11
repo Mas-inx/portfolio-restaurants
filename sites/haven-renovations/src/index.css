@@ -2,20 +2,17 @@
 
 @theme {
   --color-ivory: #faf6f0;
+  --color-ivory-dark: #f0eade;
   --color-charcoal: #2d2a26;
+  --color-charcoal-light: #4a4540;
   --color-bronze: #b8946e;
   --color-bronze-light: #c9a88a;
   --color-bronze-dark: #a88156;
+  --color-bronze-pale: #e8d9cb;
 
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body: 'Inter', system-ui, sans-serif;
 }
-
-/*
-  Haven Renovations — Tailwind v4 theme
-  Soft ivory, charcoal, muted bronze palette
-  Elegant serif headings (Playfair Display)
-*/
 
 html {
   scroll-behavior: smooth;

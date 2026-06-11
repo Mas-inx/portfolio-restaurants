@@ -2,25 +2,62 @@
 
 @theme {
   --font-family-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --color-brand: #2D7D6A;
-  --color-brand-light: #7EBFAA;
-  --color-brand-dark: #1A5C4C;
-  --color-warm-gray: #F5F5F4;
-  --color-pale-blue: #E0F2FE;
-  --color-calm-green: #DCFCE7;
+  --color-brand: #3B8A7A;
+  --color-brand-light: #7EC4B0;
+  --color-brand-dark: #256D5C;
+  --color-brand-bg: #F0F8F5;
+  --color-blue-soft: #E8F1F8;
+  --color-blue-pale: #D6E8F5;
+  --color-warm-bg: #FAF8F6;
+  --color-text-primary: #1A2E2A;
+  --color-text-secondary: #5A6E6A;
+  --color-text-muted: #8A9E9A;
+  --color-border-light: #E2EAE8;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-fadeIn: fadeIn 0.7s ease-out;
+  --animate-slideUp: slideUp 0.7s ease-out;
 }
 
-html {
-  scroll-behavior: smooth;
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #FAF8F6;
 }
 
-::selection {
-  background-color: #2D7D6A;
-  color: white;
+::selection { background-color: #3B8A7A; color: white; }
+
+.card-hover {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.35s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(59, 138, 122, 0.12);
+}
+
+.provider-card {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.4s ease;
+}
+.provider-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(59, 138, 122, 0.15);
 }

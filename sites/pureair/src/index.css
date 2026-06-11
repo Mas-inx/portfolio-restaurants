@@ -1,68 +1,40 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
-  --color-sky-50: #f0f9ff;
-  --color-sky-100: #e0f2fe;
-  --color-sky-200: #bae6fd;
-  --color-sky-300: #7dd3fc;
-  --color-sky-400: #38bdf8;
-  --color-sky-500: #0ea5e9;
-  --color-sky-600: #0284c7;
-  --color-sky-700: #0369a1;
-  --color-sky-800: #075985;
-  --color-sky-900: #0c4a6e;
-  --color-air-50: #f7fafc;
-  --color-air-100: #edf5f9;
-  --color-air-200: #d2e6f0;
-  --color-air-300: #a8d0e4;
-  --color-air-400: #72b0d0;
-  --color-air-500: #4a90b8;
-  --color-air-600: #35759e;
-  --color-air-700: #2c5e7e;
-  --color-air-800: #274f68;
-  --color-air-900: #244358;
-  --color-air-950: #162b3a;
-  --color-mint-50: #f0fdf4;
-  --color-mint-100: #dcfce7;
-  --color-mint-200: #bbf7d0;
-  --color-mint-300: #86efac;
-  --color-mint-400: #4ade80;
-  --color-mint-500: #22c55e;
-  --font-sans: 'Inter', sans-serif;
+  --color-sky-50: #f0f7ff;
+  --color-sky-100: #e0effe;
+  --color-sky-200: #baddfe;
+  --color-sky-300: #8dc3fa;
+  --color-sky-400: #5ba5f5;
+  --color-sky-500: #3b82f6;
+  --color-sky-600: #2563eb;
+  --color-sky-700: #1d4ed8;
+  --color-sky-800: #1e3a8a;
+  --color-sky-900: #1e3a5f;
+  --color-air: #dbeafe;
+  --color-clean-50: #f8fafc;
+  --color-clean-100: #f1f5f9;
+  --color-clean-200: #e2e8f0;
+  --color-mint: #10b981;
+  --color-mint-dark: #059669;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; color: #334155; background: #f8fafc; }
 
-body {
-  @apply bg-white text-gray-800 font-sans antialiased;
+.section-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1e3a5f;
+  text-align: center;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
 }
-
-/* Gradient backgrounds */
-.bg-gradient-air {
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f7fafc 100%);
-}
-
-.bg-gradient-sky {
-  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 50%, #0369a1 100%);
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  @apply bg-gray-50;
-}
-::-webkit-scrollbar-thumb {
-  @apply bg-sky-300 rounded-full;
-}
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-sky-400;
-}
-
-/* Soft shadow for product cards */
-.shadow-air {
-  box-shadow: 0 4px 20px rgba(14, 165, 233, 0.1), 0 2px 8px rgba(0, 0, 0, 0.04);
+.section-subtitle {
+  font-size: 1.05rem;
+  color: #64748b;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 3rem auto;
+  line-height: 1.6;
 }

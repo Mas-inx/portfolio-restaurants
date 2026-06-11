@@ -1,436 +1,594 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { conditions, recoveryStages, programs, therapists, journeySteps, galleryImages, progressMetrics } from './data';
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import {
+  conditions,
+  recoveryStages,
+  programs,
+  therapists,
+  journeySteps,
+  galleryImages,
+  progressMetrics,
+} from './data'
 
-const easeOut = [0.25, 0.1, 0.25, 1] as [number, number, number, number];
+/* ─── Inline SVG Icons ─── */
+function IconSpine({ c = "text-[#1E88E5]" }: { c?: string }) {
+  return (
+    <svg className={`w-8 h-8 ${c}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2C7 4 4 8 4 12c0 4 3 8 8 10 5-2 8-6 8-10 0-4-3-8-8-10z"/><path d="M8 12h8"/><path d="M10 9l2-3 2 3"/><path d="M10 15l2 3 2-3"/>
+    </svg>
+  )
+}
+function IconKnee({ c = "text-[#1E88E5]" }: { c?: string }) {
+  return (
+    <svg className={`w-8 h-8 ${c}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="5" r="3"/><path d="M9 8l-3 6"/><path d="M15 8l3 6"/><path d="M6 14h12"/><path d="M8 14v4"/><path d="M16 14v4"/><path d="M8 18H6"/><path d="M16 18h2"/>
+    </svg>
+  )
+}
+function IconShoulder({ c = "text-[#1E88E5]" }: { c?: string }) {
+  return (
+    <svg className={`w-8 h-8 ${c}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 6c0 3 2 5 4 6"/><path d="M20 6c0 3-2 5-4 6"/><path d="M8 12c0 4 2 6 4 6s4-2 4-6"/><path d="M12 18v4"/>
+    </svg>
+  )
+}
+function IconSports({ c = "text-[#1E88E5]" }: { c?: string }) {
+  return (
+    <svg className={`w-8 h-8 ${c}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10"/><path d="M12 2v20"/><path d="M2 12h20"/><path d="M7 7l10 10"/><path d="M17 7l-10 10"/>
+    </svg>
+  )
+}
+function IconSurgery({ c = "text-[#1E88E5]" }: { c?: string }) {
+  return (
+    <svg className={`w-8 h-8 ${c}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7 17l3-3"/><path d="M14 10l3-3"/><path d="M5 19l14-14"/><circle cx="12" cy="12" r="10"/>
+    </svg>
+  )
+}
+function IconArrowRight({ c = "text-[#1E88E5]" }: { c?: string }) {
+  return (
+    <svg className={`w-5 h-5 ${c}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M5 12h14"/><path d="M12 5l7 7-7 7"/>
+    </svg>
+  )
+}
+function IconCheck({ c = "text-[#1E88E5]" }: { c?: string }) {
+  return (
+    <svg className={`w-4 h-4 ${c}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  )
+}
+function IconTrendUp({ c = "text-emerald-500" }: { c?: string }) {
+  return (
+    <svg className={`w-4 h-4 ${c}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+    </svg>
+  )
+}
+
+function iconCond(id: string): React.ReactNode {
+  const base = "text-[#1E88E5]";
+  switch (id) {
+    case "spine": return <IconSpine c={base} />;
+    case "knee": return <IconKnee c={base} />;
+    case "shoulder": return <IconShoulder c={base} />;
+    case "sports": return <IconSports c={base} />;
+    case "surgery": return <IconSurgery c={base} />;
+    default: return <IconSpine c={base} />;
+  }
+}
+
+/* ─── Animation Variants ─── */
+const easeOut = [0.25, 0.1, 0.25, 1] as const
 
 const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i = 0) => ({
+    opacity: 1, y: 0,
+    transition: { duration: 0.6, delay: i * 0.08, ease: easeOut },
+  }),
+}
+const stagger = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
+}
+const slideUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: easeOut, delay: i * 0.1 },
-  }),
-};
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeOut } },
+}
 
-const slideIn = {
-  hidden: { opacity: 0, x: -40 },
-  visible: (i = 0) => ({
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.7, ease: easeOut, delay: i * 0.12 },
-  }),
-};
-
-function SectionHeader({ label, title, subtitle }: { label: string; title: string; subtitle?: string }) {
+/* ─── Components ─── */
+function SectionWrap({ id, className = '', children }: { id: string; className?: string; children: React.ReactNode }) {
   return (
-    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center mb-16">
-      <span className="text-electric-blue uppercase tracking-[0.3em] text-xs font-semibold mb-3 block">{label}</span>
-      <h2 className="text-3xl md:text-5xl font-bold text-charcoal leading-tight">{title}</h2>
-      {subtitle && <p className="text-stone mt-4 max-w-xl mx-auto leading-relaxed">{subtitle}</p>}
+    <section id={id} className={`px-6 py-20 md:py-28 ${className}`}>
+      <div className="mx-auto max-w-6xl">{children}</div>
+    </section>
+  )
+}
+
+function SectionHeading({ title, subtitle, light = false }: { title: string; subtitle?: string; light?: boolean }) {
+  return (
+    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}
+      variants={fadeUp} className="mb-14 text-center">
+      <h2 className={`text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl ${light ? 'text-white' : 'text-[#2D2B28]'}`}>
+        {title}
+      </h2>
+      {subtitle && (
+        <p className={`mx-auto mt-4 max-w-2xl text-lg leading-relaxed ${light ? 'text-white/80' : 'text-[#8A8580]'}`}>
+          {subtitle}
+        </p>
+      )}
     </motion.div>
-  );
+  )
 }
 
-function AnimatedLine() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
-  return (
-    <div ref={ref} className="relative h-1 w-full bg-stone/20 rounded-full overflow-hidden my-20 max-w-2xl mx-auto">
-      <motion.div
-        initial={{ width: '0%' }}
-        animate={inView ? { width: '100%' } : {}}
-        transition={{ duration: 1.8, ease: easeOut }}
-        className="h-full bg-electric-blue rounded-full"
-      />
-    </div>
-  );
-}
+/* ─── Navbar ─── */
+function Navbar() {
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
-function Nav() {
-  const [open, setOpen] = useState(false);
-  const links = ['Conditions', 'Recovery', 'Programs', 'Progress', 'Therapists', 'Journey'];
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const scrollTo = (href: string) => {
+    setMenuOpen(false)
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const links = [
+    { label: 'Conditions', href: '#conditions' },
+    { label: 'Programs', href: '#programs' },
+    { label: 'Recovery Plan', href: '#recovery' },
+    { label: 'Team', href: '#team' },
+    { label: 'Progress', href: '#progress' },
+  ]
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-off-white/90 backdrop-blur-md border-b border-stone/10">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <span className="text-lg font-bold text-charcoal tracking-tight">Align & Motion <span className="text-electric-blue">PT</span></span>
-        <button className="md:hidden text-charcoal" onClick={() => setOpen(!open)}>
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={open ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'} /></svg>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      scrolled ? 'bg-[#F5F3F0]/95 shadow-lg shadow-black/5 backdrop-blur-xl' : 'bg-transparent'
+    }`}>
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="flex items-center gap-2 text-xl font-bold tracking-tight text-[#2D2B28]">
+          <svg className="w-7 h-7" viewBox="0 0 28 28" fill="none">
+            <circle cx="14" cy="14" r="12" stroke="#1E88E5" strokeWidth="2" strokeDasharray="4 3"/>
+            <path d="M14 6c-3 1.5-5 4.5-5 8s2 6.5 5 8c3-1.5 5-4.5 5-8s-2-6.5-5-8z" fill="#1E88E5" opacity="0.2"/>
+            <circle cx="14" cy="14" r="3" fill="#1E88E5"/>
+          </svg>
+          Align Motion
         </button>
-        <div className={`${open ? 'flex' : 'hidden'} md:flex flex-col md:flex-row items-center gap-6 absolute md:static top-full left-0 right-0 bg-off-white md:bg-transparent p-6 md:p-0 border-b md:border-0 border-stone/10 md:border-0 shadow-lg md:shadow-none`}>
-          {links.map(l => (
-            <a key={l} href={`#${l.toLowerCase()}`} className="text-sm text-charcoal/70 hover:text-electric-blue transition-colors tracking-wide">{l}</a>
+        <div className="hidden items-center gap-8 md:flex">
+          {links.map((l) => (
+            <button key={l.href} onClick={() => scrollTo(l.href)}
+              className="text-sm font-medium text-[#8A8580] transition-colors hover:text-[#1E88E5]">
+              {l.label}
+            </button>
           ))}
-          <a href="#contact" className="text-sm bg-electric-blue text-white px-5 py-2 rounded-full hover:bg-electric-blue-dark transition-colors">Book Session</a>
+          <button onClick={() => scrollTo('#cta')}
+            className="rounded-full bg-[#1E88E5] px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-[#1565C0] hover:shadow-lg hover:shadow-[#1E88E5]/25">
+            Start Your Journey
+          </button>
         </div>
+        <button className="md:hidden" onClick={() => setMenuOpen((o) => !o)} aria-label="Toggle menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2D2B28" strokeWidth="2">
+            {menuOpen ? <path d="M6 18L18 6M6 6l12 12" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
+          </svg>
+        </button>
       </div>
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+            className="overflow-hidden bg-[#F5F3F0] shadow-lg">
+            <div className="flex flex-col gap-3 px-6 pb-6 pt-2">
+              {links.map((l) => (
+                <button key={l.href} onClick={() => scrollTo(l.href)}
+                  className="text-left text-sm font-medium text-[#8A8580]">{l.label}</button>
+              ))}
+              <button onClick={() => scrollTo('#cta')}
+                className="mt-2 rounded-full bg-[#1E88E5] px-5 py-2.5 text-sm font-semibold text-white">Start Your Journey</button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
-  );
+  )
 }
 
+/* ─── Hero ─── */
 function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <div className="absolute inset-0">
-        <img
-          src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1600&q=85"
-          alt=""
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-off-white/80" />
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#F5F3F0] px-6 pt-28">
+      {/* Kinetic background */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <svg className="w-full h-full opacity-[0.06]" viewBox="0 0 1440 900" preserveAspectRatio="none">
+          <path d="M0 450 Q 360 200 720 450 T 1440 450" fill="none" stroke="#1E88E5" strokeWidth="2" className="animate-dash" strokeDasharray="20 40"/>
+          <path d="M0 300 Q 360 550 720 300 T 1440 300" fill="none" stroke="#64B5F6" strokeWidth="1.5" className="animate-dash" strokeDasharray="30 50" style={{ animationDelay: '-5s' }}/>
+          <path d="M0 600 Q 360 350 720 600 T 1440 600" fill="none" stroke="#1E88E5" strokeWidth="1" className="animate-dash" strokeDasharray="15 35" style={{ animationDelay: '-10s' }}/>
+        </svg>
       </div>
-      <div className="absolute inset-0 opacity-[0.03]"
-        style={{ backgroundImage: 'radial-gradient(circle at 25% 50%, #1E88E5 0%, transparent 50%), radial-gradient(circle at 75% 50%, #1E88E5 0%, transparent 50%)' }}
-      />
-      <div className="relative z-10 text-center px-6 max-w-4xl">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-electric-blue uppercase tracking-[0.35em] text-xs md:text-sm mb-6 font-semibold"
-        >
-          Evidence-Based Physical Therapy
-        </motion.p>
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5, ease: easeOut }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold text-charcoal leading-[1.1] mb-6"
-        >
-          Move better.<br /><span className="text-electric-blue">Recover with a plan.</span>
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-stone text-lg md:text-xl max-w-xl mx-auto mb-10 leading-relaxed"
-        >
-          Personalized physical therapy programs built on movement science — designed to get you back to what you love.
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.1 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <a href="#conditions" className="bg-electric-blue text-white px-8 py-3 rounded-full text-sm font-medium hover:bg-electric-blue-dark transition-all">Start Your Recovery</a>
-          <a href="#programs" className="text-charcoal/70 hover:text-charcoal px-8 py-3 text-sm border border-stone/30 rounded-full hover:border-charcoal/30 transition-all">View Programs</a>
-        </motion.div>
-      </div>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-px h-12 bg-electric-blue/40"
-        />
-      </motion.div>
-    </section>
-  );
-}
+      <div className="pointer-events-none absolute -top-40 right-20 w-96 h-96 rounded-full bg-[#1E88E5]/5 blur-[120px]" />
+      <div className="pointer-events-none absolute -bottom-40 left-20 w-80 h-80 rounded-full bg-[#64B5F6]/5 blur-[120px]" />
 
-function ConditionsTreated() {
-  const iconMap: Record<string, string> = {
-    spine: 'M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5',
-    knee: 'M13 2L3 9v10l10 7 10-7V9l-10-7zM3 9l10 5 10-5M3 19l10-5',
-    shoulder: 'M12 2l9 4.5v9L12 20l-9-4.5v-9L12 2zM12 20v-9',
-    sports: 'M12 2l9 4.5v9L12 20l-9-4.5v-9L12 2zM8 12l2 2 6-6',
-    surgery: 'M4 6h16M4 12h16M4 18h16',
-  };
-  return (
-    <section id="conditions" className="py-24 md:py-32 px-6 max-w-6xl mx-auto">
-      <SectionHeader label="Conditions We Treat" title="We handle everything from daily aches to surgical recovery." subtitle="Evidence-based treatment for the most common musculoskeletal conditions." />
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {conditions.map((c, i) => (
-          <motion.div
-            key={c.name}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            custom={i}
-            className="kinetic-card bg-white p-6 md:p-8 rounded-2xl border border-stone/10"
-          >
-            <div className="w-10 h-10 rounded-full bg-electric-blue/10 flex items-center justify-center mb-4">
-              <svg className="w-5 h-5 text-electric-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d={iconMap[c.icon] || 'M13 2L3 9v10l10 7 10-7V9l-10-7z'} />
-              </svg>
-            </div>
-            <h3 className="text-lg font-bold text-charcoal mb-2">{c.name}</h3>
-            <p className="text-stone text-sm leading-relaxed">{c.description}</p>
-          </motion.div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function RecoveryPlan() {
-  const ref = useRef(null);
-  useInView(ref, { once: true, margin: '-100px' });
-  const [activeStage, setActiveStage] = useState(0);
-
-  return (
-    <section id="recovery" className="py-24 md:py-32 px-6 bg-white">
-      <div className="max-w-5xl mx-auto" ref={ref}>
-        <SectionHeader label="Your Recovery Plan" title="A phased approach built around your body." subtitle="Each stage builds on the last — progress at your pace with measurable milestones." />
-        <AnimatedLine />
-        <div className="recovery-timeline relative">
-          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-stone/10 md:-translate-x-px" />
-          <div className="space-y-8 md:space-y-16">
-            {recoveryStages.map((stage, i) => (
-              <motion.div
-                key={stage.step}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-80px' }}
-                variants={slideIn}
-                custom={i}
-                onViewportEnter={() => setActiveStage(i)}
-                className={`relative flex flex-col md:flex-row items-start gap-6 md:gap-10 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
-              >
-                <div className={`flex-1 ${i % 2 === 0 ? 'md:text-right' : 'md:text-left'} ${i % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
-                  <span className="text-xs text-electric-blue font-semibold uppercase tracking-wider">{stage.duration}</span>
-                  <h3 className="text-xl font-bold text-charcoal mt-1">{stage.step}</h3>
-                  <p className="text-electric-blue/70 text-sm font-medium mt-0.5">{stage.subtitle}</p>
-                  <p className="text-stone text-sm mt-2 leading-relaxed">{stage.description}</p>
-                </div>
-                <div className="relative z-10 flex-shrink-0">
-                  <div className={`w-12 h-12 rounded-full border-2 flex items-center justify-center bg-off-white transition-all duration-600 ${i <= activeStage ? 'border-electric-blue' : 'border-stone/20'}`}>
-                    <div className={`w-3 h-3 rounded-full transition-all duration-600 ${i <= activeStage ? 'bg-electric-blue scale-125' : 'bg-stone/20'}`} />
-                  </div>
-                </div>
-                <div className="flex-1 hidden md:block" />
-              </motion.div>
-            ))}
+      <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
+        <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }}>
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#1E88E5]/20 bg-[#E3F0FA] px-4 py-1.5">
+            <span className="w-2 h-2 rounded-full bg-[#1E88E5] animate-pulse" />
+            <span className="text-xs font-bold uppercase tracking-wider text-[#1E88E5]">Movement Restored. Lives Transformed.</span>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ProgramsSection() {
-  const [active, setActive] = useState(0);
-  return (
-    <section id="programs" className="py-24 md:py-32 px-6 max-w-6xl mx-auto">
-      <SectionHeader label="Our Programs" title="Structured programs for every recovery goal." subtitle="From elite athletes to first-time rehab — find the program that fits your needs." />
-      <div className="grid md:grid-cols-2 gap-6">
-        {programs.map((p, i) => (
-          <motion.div
-            key={p.name}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            custom={i}
-            onMouseEnter={() => setActive(i)}
-            className={`kinetic-card rounded-2xl p-8 transition-colors ${active === i ? 'bg-electric-blue text-white' : 'bg-white border border-stone/10'}`}
-          >
-            <h3 className={`text-xl font-bold mb-3 ${active === i ? 'text-white' : 'text-charcoal'}`}>{p.name}</h3>
-            <p className={`text-sm leading-relaxed mb-5 ${active === i ? 'text-white/80' : 'text-stone'}`}>{p.description}</p>
-            <ul className="space-y-2">
-              {p.features.map(f => (
-                <li key={f} className={`flex items-center gap-2 text-sm ${active === i ? 'text-white/70' : 'text-stone'}`}>
-                  <svg className={`w-4 h-4 flex-shrink-0 ${active === i ? 'text-white' : 'text-electric-blue'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                  {f}
-                </li>
+          <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">
+            <span className="text-[#2D2B28]">Move without</span><br />
+            <span className="kinetic-text">pain. Live without limits.</span>
+          </h1>
+          <p className="mt-5 text-lg leading-relaxed text-[#8A8580] md:text-xl">
+            Evidence-based physical therapy that gets to the root of your pain. Personalized treatment plans with measurable results.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-4">
+            <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}
+              onClick={() => document.querySelector('#cta')?.scrollIntoView({ behavior: 'smooth' })}
+              className="rounded-full bg-[#1E88E5] px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-[#1E88E5]/25 transition-all hover:bg-[#1565C0]">
+              Book Free Assessment
+            </motion.button>
+            <button onClick={() => document.querySelector('#conditions')?.scrollIntoView({ behavior: 'smooth' })}
+              className="rounded-full border border-[#D1D0CC] bg-white/80 px-8 py-3.5 text-base font-semibold text-[#2D2B28] backdrop-blur-sm transition-all hover:border-[#1E88E5]/40 hover:text-[#1E88E5]">
+              Conditions We Treat
+            </button>
+          </div>
+          <div className="mt-8 flex items-center gap-6">
+            <div className="flex -space-x-2">
+              {[1,2,3,4].map(i => (
+                <img key={i} src={`https://images.unsplash.com/photo-${i === 1 ? '1579684385127-1ef15d508118' : i === 2 ? '1559839734-2b71ea197ec2' : i === 3 ? '1612349317150-e413f6a5b16d' : '1594824476967-48c8b964273f'}?w=40&h=40&fit=crop&crop=face&q=80`}
+                  className="w-8 h-8 rounded-full border-2 border-white object-cover" alt="" />
               ))}
-            </ul>
-          </motion.div>
-        ))}
-      </div>
-    </section>
-  );
-}
+            </div>
+            <p className="text-sm text-[#8A8580]"><span className="font-semibold text-[#2D2B28]">200+</span> patients recovered this month</p>
+          </div>
+        </motion.div>
 
-function ProgressTracking() {
-  return (
-    <section id="progress" className="py-24 md:py-32 px-6 bg-white">
-      <div className="max-w-5xl mx-auto">
-        <SectionHeader label="Progress Tracking" title="See how far you've come." subtitle="Real metrics, real improvement. We measure what matters so you can track your recovery." />
-        <div className="grid sm:grid-cols-2 gap-6">
-          {progressMetrics.map((m, i) => {
-            const pct = `${m.current}${m.unit}`;
-            return (
-              <motion.div
-                key={m.label}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                custom={i}
-                className="dashboard-card p-6 md:p-8"
-              >
+        <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.2 }}
+          className="hidden lg:flex justify-center">
+          <div className="relative w-full max-w-md">
+            <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+              className="rounded-3xl bg-white shadow-2xl shadow-[#1E88E5]/10 overflow-hidden">
+              <div className="p-1">
+                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=500&q=85"
+                  alt="Physical therapy session" className="rounded-2xl w-full h-64 object-cover" />
+              </div>
+              <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-sm font-medium text-charcoal">{m.label}</span>
-                  <span className="flex items-center gap-1 text-xs text-sage-green">
-                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                    </svg>
-                    {m.previous}{m.unit} → {pct}
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#1E88E5]">Your Recovery Journey</span>
+                  <span className="flex items-center gap-1 text-xs text-emerald-600">
+                    <IconTrendUp /> +87% improvement
                   </span>
                 </div>
-                <div className="flex items-baseline gap-2 mb-3">
-                  <span className="text-3xl font-bold text-charcoal">{pct}</span>
-                  <span className="text-xs text-stone">from {m.previous}{m.unit}</span>
+                <div className="space-y-3">
+                  {recoveryStages.slice(0, 3).map((r, i) => (
+                    <div key={r.step} className="flex items-center gap-3">
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold ${
+                        i === 0 ? 'bg-[#1E88E5] text-white' : 'bg-[#E3F0FA] text-[#1E88E5]'
+                      }`}>{i + 1}</div>
+                      <div className="flex-1">
+                        <div className="flex justify-between">
+                          <span className="text-sm font-medium text-[#2D2B28]">{r.step}</span>
+                          <span className="text-xs text-[#A09890]">{r.duration}</span>
+                        </div>
+                        <p className="text-xs text-[#8A8580] mt-0.5">{r.subtitle}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <div className="h-2 bg-stone/10 rounded-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: '0%' }}
-                    whileInView={{ width: `${m.current}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.5, ease: easeOut }}
-                    className="h-full bg-electric-blue rounded-full"
-                  />
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+                <button className="mt-4 w-full rounded-xl bg-[#E3F0FA] py-2.5 text-sm font-semibold text-[#1E88E5] hover:bg-[#D1E5F5] transition-colors">
+                  See Full Recovery Plan
+                </button>
+              </div>
+            </motion.div>
+            {/* Floating metric */}
+            <motion.div animate={{ x: [0, 8, 0], y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute -right-4 -bottom-4 rounded-2xl bg-white shadow-lg p-4 border border-[#E3F0FA]">
+              <p className="text-xs text-[#8A8580]">Avg. recovery</p>
+              <p className="text-2xl font-bold text-[#1E88E5]">6.2 <span className="text-sm font-normal text-[#8A8580]">weeks</span></p>
+            </motion.div>
+          </div>
+        </motion.div>
       </div>
     </section>
-  );
+  )
 }
 
-function TherapistsSection() {
+/* ─── Conditions ─── */
+function Conditions() {
   return (
-    <section id="therapists" className="py-24 md:py-32 px-6 max-w-6xl mx-auto">
-      <SectionHeader label="Meet Our Therapists" title="Your recovery is in expert hands." subtitle="Licensed physical therapists with specialized training and a passion for movement." />
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {therapists.map((t, i) => (
-          <motion.div
-            key={t.name}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            custom={i}
-            className="kinetic-card bg-white p-6 rounded-2xl border border-stone/10 text-center"
-          >
-            <div className="w-16 h-16 rounded-full bg-electric-blue/10 flex items-center justify-center mx-auto mb-4">
-              <span className="text-xl font-bold text-electric-blue">{t.name.split(' ').map(n => n[0]).join('')}</span>
+    <SectionWrap id="conditions" className="bg-white">
+      <SectionHeading title="Conditions we treat" subtitle="Targeted, evidence-based treatment plans for common movement and pain conditions." />
+      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}
+        variants={stagger} className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        {conditions.map((c, i: number) => (
+          <motion.div key={c.name} variants={fadeUp} custom={i}
+            className="movement-card rounded-2xl bg-[#F5F3F0] p-6 text-center">
+            <div className="mx-auto w-14 h-14 rounded-2xl bg-[#E3F0FA] flex items-center justify-center">
+              {iconCond(c.icon)}
             </div>
-            <h3 className="font-bold text-charcoal">{t.name}</h3>
-            <p className="text-electric-blue text-sm font-medium mt-0.5">{t.title}</p>
-            <p className="text-stone text-xs mt-1 uppercase tracking-wider">{t.specialties}</p>
-            <p className="text-stone text-sm mt-3 leading-relaxed">{t.bio}</p>
+            <h3 className="mt-4 text-base font-semibold text-[#2D2B28]">{c.name}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-[#8A8580]">{c.description}</p>
           </motion.div>
         ))}
-      </div>
-    </section>
-  );
+      </motion.div>
+    </SectionWrap>
+  )
 }
 
-function PatientJourney() {
+/* ─── Programs ─── */
+function Programs() {
+  const [activeProgram, setActiveProgram] = useState(0)
+
   return (
-    <section id="journey" className="py-24 md:py-32 px-6 bg-white">
-      <div className="max-w-4xl mx-auto">
-        <SectionHeader label="Patient Journey" title="From first visit to full recovery." subtitle="A clear path forward — no surprises, no guesswork." />
-        <div className="relative">
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-stone/10 md:-translate-x-px" />
-          <div className="space-y-10">
-            {journeySteps.map((s, i) => (
-              <motion.div
-                key={s.phase}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-80px' }}
-                variants={slideIn}
-                custom={i}
-                className={`relative flex items-start gap-6 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
-              >
-                <div className={`flex-1 ${i % 2 === 0 ? 'md:text-right md:pr-16' : 'md:text-left md:pl-16'}`}>
-                  <span className="text-xs text-electric-blue font-semibold uppercase tracking-wider">{s.duration}</span>
-                  <h3 className="text-lg font-bold text-charcoal mt-1">{s.phase}</h3>
-                  <p className="text-stone text-sm mt-1 leading-relaxed">{s.description}</p>
+    <SectionWrap id="programs" className="bg-[#F5F3F0]">
+      <SectionHeading title="Our programs" subtitle="Structured recovery programs designed for your specific needs." />
+      <div className="mx-auto max-w-5xl">
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
+          {programs.map((p, i) => (
+            <button key={p.name} onClick={() => setActiveProgram(i)}
+              className={`px-5 py-2.5 text-sm font-semibold rounded-xl transition-all ${
+                activeProgram === i
+                  ? 'bg-[#1E88E5] text-white shadow-lg'
+                  : 'bg-white border border-[#D1D0CC] text-[#8A8580] hover:border-[#1E88E5]/30 hover:text-[#1E88E5]'
+              }`}>
+              {p.name}
+            </button>
+          ))}
+        </div>
+        <AnimatePresence mode="wait">
+          <motion.div key={activeProgram}
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="rounded-2xl bg-white border border-[#E2E8F0] p-8 md:p-10">
+            <div className="grid gap-8 md:grid-cols-2">
+              <div>
+                <h3 className="text-xl font-bold text-[#2D2B28]">{programs[activeProgram].name}</h3>
+                <p className="mt-3 text-[#8A8580] leading-relaxed">{programs[activeProgram].description}</p>
+                <motion.button whileHover={{ scale: 1.02 }}
+                  className="mt-6 rounded-full bg-[#1E88E5] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#1565C0] transition-all">
+                  Learn More <IconArrowRight c="text-white inline-block ml-1" />
+                </motion.button>
+              </div>
+              <div className="bg-[#F5F3F0] rounded-xl p-6">
+                <h4 className="text-sm font-bold uppercase tracking-wider text-[#1E88E5] mb-4">What's included</h4>
+                <ul className="space-y-3">
+                  {programs[activeProgram].features.map((f) => (
+                    <li key={f} className="flex items-start gap-3">
+                      <span className="mt-0.5 w-5 h-5 rounded-full bg-[#E3F0FA] flex items-center justify-center flex-shrink-0">
+                        <IconCheck />
+                      </span>
+                      <span className="text-sm text-[#2D2B28]">{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </SectionWrap>
+  )
+}
+
+/* ─── Recovery Plan Timeline ─── */
+function RecoveryPlan() {
+  const [activeStep, setActiveStep] = useState<number | null>(null)
+
+  return (
+    <SectionWrap id="recovery" className="bg-white">
+      <SectionHeading title="Your recovery plan" subtitle="A phased approach with clear milestones and measurable progress." />
+      <div className="mx-auto max-w-4xl">
+        {/* Desktop timeline */}
+        <div className="hidden md:block relative">
+          <div className="absolute top-16 left-0 right-0 h-0.5 bg-[#E2E8F0]" />
+          <div className="absolute top-16 left-0 h-0.5 bg-[#1E88E5]" style={{ width: activeStep !== null ? `${(activeStep + 1) * 25}%` : '0%' }} />
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-80px' }}
+            variants={stagger} className="grid grid-cols-4 gap-4">
+            {recoveryStages.map((r, i) => (
+              <motion.div key={r.step} variants={fadeUp} custom={i}
+                onClick={() => setActiveStep(activeStep === i ? null : i)}
+                className={`timeline-step cursor-pointer text-center ${activeStep === i ? 'active' : ''}`}>
+                <div className={`step-dot mx-auto w-12 h-12 rounded-2xl flex items-center justify-center text-base font-bold mb-4 ${
+                  activeStep !== null && i <= activeStep ? 'bg-[#1E88E5] text-white shadow-lg' : 'bg-[#E3F0FA] text-[#1E88E5]'
+                }`}>
+                  {i + 1}
                 </div>
-                <div className="relative z-10 flex-shrink-0">
-                  <div className="w-8 h-8 rounded-full bg-electric-blue flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">{i + 1}</span>
-                  </div>
-                </div>
-                <div className="flex-1 hidden md:block" />
+                <h3 className="text-base font-semibold text-[#2D2B28]">{r.step}</h3>
+                <p className="text-xs font-medium text-[#1E88E5] mt-1">{r.subtitle}</p>
+                <p className="text-xs text-[#A09890] mt-1">{r.duration}</p>
+                <AnimatePresence>
+                  {activeStep === i && (
+                    <motion.p initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }} className="mt-2 text-sm text-[#8A8580] overflow-hidden">
+                      {r.description}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
-      </div>
-    </section>
-  );
-}
 
-function GallerySection() {
-  return (
-    <section className="py-24 md:py-32 px-6 bg-white">
-      <div className="max-w-6xl mx-auto">
-        <SectionHeader label="Our Facility" title="Where recovery happens." subtitle="State-of-the-art equipment and a welcoming environment designed for healing." />
-        <div className="grid md:grid-cols-2 gap-6">
-          {galleryImages.map((img, i) => (
-            <motion.div
-              key={img.src}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              custom={i}
-              className="rounded-2xl overflow-hidden shadow-md"
-            >
-              <img src={img.src} alt={img.alt} className="w-full h-72 md:h-96 object-cover" loading="lazy" />
+        {/* Mobile timeline */}
+        <div className="md:hidden space-y-6">
+          {recoveryStages.map((r, i) => (
+            <motion.div key={r.step} initial={{ opacity: 0, x: -20 }} whileInView="visible"
+              viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+              onClick={() => setActiveStep(activeStep === i ? null : i)}
+              className={`timeline-step flex items-start gap-4 p-4 rounded-xl bg-[#F5F3F0] cursor-pointer ${activeStep === i ? 'active' : ''}`}>
+              <div className={`step-dot w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold flex-shrink-0 ${
+                i <= (activeStep ?? -1) ? 'bg-[#1E88E5] text-white' : 'bg-[#E3F0FA] text-[#1E88E5]'
+              }`}>{i + 1}</div>
+              <div>
+                <h3 className="text-sm font-semibold text-[#2D2B28]">{r.step}</h3>
+                <p className="text-xs text-[#1E88E5]">{r.subtitle} &middot; {r.duration}</p>
+                <AnimatePresence>
+                  {activeStep === i && (
+                    <motion.p initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }} className="mt-2 text-sm text-[#8A8580] overflow-hidden">
+                      {r.description}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </div>
             </motion.div>
           ))}
         </div>
       </div>
-    </section>
-  );
+    </SectionWrap>
+  )
 }
 
+/* ─── Progress Dashboard ─── */
+function ProgressDashboard() {
+  return (
+    <SectionWrap id="progress" className="bg-[#F5F3F0]">
+      <SectionHeading title="Track your progress" subtitle="Data-driven recovery metrics that show you how far you've come." />
+      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}
+        variants={stagger} className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {progressMetrics.map((m, i) => (
+          <motion.div key={m.label} variants={fadeUp} custom={i}
+            className="rounded-2xl bg-white border border-[#E2E8F0] p-6">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#8A8580]">{m.label}</span>
+              {m.improvement && <span className="flex items-center gap-1 text-xs font-medium text-emerald-600"><IconTrendUp /> Improving</span>}
+            </div>
+            <div className="flex items-baseline gap-1">
+              <span className="text-3xl font-bold text-[#2D2B28]">{m.current}</span>
+              <span className="text-sm text-[#8A8580]">{m.unit}</span>
+            </div>
+            <div className="mt-4">
+              <div className="flex justify-between text-xs text-[#8A8580] mb-1">
+                <span>Current</span>
+                <span>Previous: {m.previous}{m.unit}</span>
+              </div>
+              <div className="w-full h-2 rounded-full bg-[#F0EFED] overflow-hidden">
+                <motion.div initial={{ width: 0 }} whileInView={{ width: `${(m.current / (m.current + m.previous)) * 100}%` }}
+                  viewport={{ once: true }}
+                  className="bar-fill h-full rounded-full bg-gradient-to-r from-[#1E88E5] to-[#64B5F6]" />
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
+    </SectionWrap>
+  )
+}
+
+/* ─── Therapist Team ─── */
+function TherapistTeam() {
+  return (
+    <SectionWrap id="team" className="bg-white">
+      <SectionHeading title="Meet your therapists" subtitle="Experienced clinicians dedicated to your recovery." />
+      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}
+        variants={stagger} className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {therapists.map((t, i: number) => (
+          <motion.div key={t.name} variants={fadeUp} custom={i}
+            className="movement-card rounded-2xl border border-[#E2E8F0] bg-white p-6 text-center">
+            <div className="mx-auto w-16 h-16 rounded-2xl bg-[#E3F0FA] flex items-center justify-center text-xl font-bold text-[#1E88E5]">
+              {t.name.split(' ').map(w => w[0]).join('')}
+            </div>
+            <h3 className="mt-4 text-base font-semibold text-[#2D2B28]">{t.name}</h3>
+            <p className="text-xs font-bold uppercase tracking-wider text-[#1E88E5] mt-1">{t.title}</p>
+            <p className="text-xs text-[#A09890] mt-0.5">{t.specialties}</p>
+            <p className="mt-3 text-sm leading-relaxed text-[#8A8580]">{t.bio}</p>
+          </motion.div>
+        ))}
+      </motion.div>
+    </SectionWrap>
+  )
+}
+
+/* ─── CTA ─── */
+function CTA() {
+  return (
+    <SectionWrap id="cta" className="bg-[#2D2B28] relative overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 opacity-[0.04]">
+        <svg width="100%" height="100%"><defs><pattern id="dots" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="white"/></pattern></defs><rect width="100%" height="100%" fill="url(#dots)"/></svg>
+      </div>
+      <div className="mx-auto max-w-3xl text-center relative">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView="visible" viewport={{ once: true }}>
+          <h2 className="text-3xl font-bold text-white md:text-4xl lg:text-5xl">Ready to move without pain?</h2>
+          <p className="mt-4 text-lg text-white/70 max-w-2xl mx-auto">
+            Book a free assessment and get a personalized recovery plan. No commitment, no pressure.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="rounded-full bg-[#1E88E5] px-10 py-3.5 text-base font-semibold text-white shadow-lg hover:bg-[#1565C0] transition-all">
+              Book Free Assessment
+            </motion.button>
+            <button
+              className="rounded-full border border-white/20 bg-white/10 px-8 py-3.5 text-base font-semibold text-white backdrop-blur-sm hover:bg-white/20 transition-all">
+              (555) 345-6789
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    </SectionWrap>
+  )
+}
+
+/* ─── Footer ─── */
 function Footer() {
   return (
-    <footer id="contact" className="py-12 px-6 bg-charcoal text-off-white">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
-        <div>
-          <span className="text-lg font-bold">Align & Motion <span className="text-electric-blue-light">PT</span></span>
-          <p className="text-stone text-sm mt-2 leading-relaxed">Evidence-based physical therapy built around your goals.</p>
+    <footer className="bg-[#1A1917] px-6 py-12">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid gap-8 md:grid-cols-4">
+          <div className="md:col-span-2">
+            <div className="flex items-center gap-2 text-xl font-bold text-white">
+              <svg className="w-7 h-7" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="12" stroke="#1E88E5" strokeWidth="2" strokeDasharray="4 3"/>
+                <path d="M14 6c-3 1.5-5 4.5-5 8s2 6.5 5 8c3-1.5 5-4.5 5-8s-2-6.5-5-8z" fill="#1E88E5" opacity="0.3"/>
+                <circle cx="14" cy="14" r="3" fill="#1E88E5"/>
+              </svg>
+              Align Motion
+            </div>
+            <p className="mt-3 text-sm text-[#A09890] max-w-md">
+              Evidence-based physical therapy that gets you back to what you love. Move without pain. Live without limits.
+            </p>
+          </div>
+          <div>
+            <h4 className="text-sm font-semibold text-white mb-3">Contact</h4>
+            <p className="text-sm text-[#A09890]">111 Movement Street, Suite 100</p>
+            <p className="text-sm text-[#A09890] mt-1">Portland, OR 97204</p>
+            <p className="text-sm text-[#A09890] mt-1">(555) 345-6789</p>
+          </div>
+          <div>
+            <h4 className="text-sm font-semibold text-white mb-3">Hours</h4>
+            <p className="text-sm text-[#A09890]">Mon–Fri: 6 AM – 7 PM</p>
+            <p className="text-sm text-[#A09890] mt-1">Saturday: 8 AM – 2 PM</p>
+          </div>
         </div>
-        <div>
-          <h4 className="text-sm font-semibold mb-3 uppercase tracking-wider">Contact</h4>
-          <p className="text-stone text-sm">1234 Wellness Way, Suite 200</p>
-          <p className="text-stone text-sm">Portland, OR 97201</p>
-          <p className="text-electric-blue-light text-sm mt-2">(555) 234-5678</p>
+        <div className="mt-10 pt-6 border-t border-white/10 text-center">
+          <p className="text-xs text-[#8A8580]">&copy; {new Date().getFullYear()} Align Motion Physical Therapy. All rights reserved.</p>
         </div>
-        <div>
-          <h4 className="text-sm font-semibold mb-3 uppercase tracking-wider">Hours</h4>
-          <p className="text-stone text-sm">Mon–Fri: 6:00 AM – 7:00 PM</p>
-          <p className="text-stone text-sm">Saturday: 8:00 AM – 2:00 PM</p>
-        </div>
-      </div>
-      <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-stone/20 text-center text-stone text-xs">
-        &copy; 2025 Align & Motion Physical Therapy. All rights reserved.
       </div>
     </footer>
-  );
+  )
 }
 
+/* ─── App ─── */
 export default function App() {
   return (
-    <>
-      <Nav />
-      <Hero />
-      <ConditionsTreated />
-      <RecoveryPlan />
-      <ProgramsSection />
-      <ProgressTracking />
-      <TherapistsSection />
-      <PatientJourney />
-      <GallerySection />
+    <div className="font-sans antialiased">
+      <Navbar />
+      <main>
+        <Hero />
+        <Conditions />
+        <Programs />
+        <RecoveryPlan />
+        <ProgressDashboard />
+        <TherapistTeam />
+        <CTA />
+      </main>
       <Footer />
-    </>
-  );
+    </div>
+  )
 }

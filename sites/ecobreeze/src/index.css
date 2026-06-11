@@ -1,214 +1,62 @@
 @import "tailwindcss";
 
 @theme {
-  --color-sage-50: #f0f5f0;
-  --color-sage-100: #e0ebe0;
-  --color-sage-200: #c8dcc8;
-  --color-sage-300: #a8c8a8;
-  --color-sage-400: #8cb08c;
-  --color-sage-500: #6b9b6b;
-  --color-sage-600: #4a7a4a;
-  --color-sage-700: #3a5f3a;
-  --color-teal-900: #051515;
-  --color-teal-800: #0d3333;
-  --color-teal-700: #1a4a4a;
-  --color-teal-600: #266060;
-  --color-teal-500: #3a7a7a;
-  --color-sky-light: #a8d8f0;
-  --color-sky-pale: #d6ecf8;
+  --color-sage-50: #f4f8f4;
+  --color-sage-100: #e2efe2;
+  --color-sage-200: #c6dfc6;
+  --color-sage-300: #a8cfa8;
+  --color-sage-400: #85b985;
+  --color-sage-500: #6a9e6e;
+  --color-sage-600: #5a8a5e;
+  --color-sage-700: #4a7250;
+  --color-sage-800: #3d5e42;
+  --color-sage-900: #2f4a35;
+  --color-teal-50: #effbfa;
+  --color-teal-100: #d3f3f0;
+  --color-teal-200: #a7e7e0;
+  --color-teal-300: #75d5cb;
+  --color-teal-400: #4dbfb3;
+  --color-teal-500: #34a99d;
+  --color-teal-600: #1a8780;
+  --color-teal-700: #1a6360;
+  --color-teal-800: #134b49;
+  --color-teal-900: #0f3d3b;
+  --color-leaf: #4ade80;
+  --color-leaf-dark: #22c55e;
 }
 
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; color: #374151; background: #fff; }
 
-
-body {
-  font-family: 'Inter', sans-serif;
-  color: #334155;
-  background: #f8faf8;
-  scroll-behavior: smooth;
-}
-
-/* Section header */
 .section-title {
-  font-size: 2rem;
+  font-size: 2.25rem;
   font-weight: 700;
-  color: #0d3333;
+  color: #1a6360;
   text-align: center;
   margin-bottom: 0.75rem;
+  line-height: 1.2;
 }
-
 .section-subtitle {
   font-size: 1.05rem;
-  color: #64748b;
+  color: #6b7280;
   text-align: center;
   max-width: 640px;
-  margin: 0 auto 2.5rem auto;
+  margin: 0 auto 3rem auto;
+  line-height: 1.6;
 }
-
-/* Cards */
-.card {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 1.5rem;
-  transition: all 0.2s ease;
-}
-
-.card:hover {
-  border-color: #8cb08c;
-  box-shadow: 0 8px 24px rgba(13, 51, 51, 0.06);
-  transform: translateY(-2px);
-}
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: #1a4a4a;
+.section-title-light {
+  font-size: 2.25rem;
+  font-weight: 700;
   color: #fff;
-  font-weight: 600;
-  padding: 0.875rem 2rem;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: all 0.2s;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.btn-primary:hover {
-  background: #0d3333;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(13, 51, 51, 0.25);
-}
-
-.btn-outline-green {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  border: 2px solid #6b9b6b;
-  color: #4a7a4a;
-  font-weight: 600;
-  padding: 0.75rem 1.75rem;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: all 0.2s;
-  background: transparent;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.btn-outline-green:hover {
-  background: #6b9b6b;
-  color: #fff;
-}
-
-/* Calculator */
-.calculator-widget {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 2rem;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.calculator-widget input[type="range"] {
-  width: 100%;
-  height: 8px;
-  border-radius: 4px;
-  background: #e2e8f0;
-  appearance: none;
-  outline: none;
-}
-
-.calculator-widget input[type="range"]::-webkit-slider-thumb {
-  appearance: none;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: #1a4a4a;
-  cursor: pointer;
-  border: 3px solid #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-}
-
-/* Steps */
-.step-card {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  padding: 1.75rem;
   text-align: center;
-  transition: all 0.2s;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
 }
-
-.step-card:hover {
-  border-color: #8cb08c;
-  box-shadow: 0 8px 24px rgba(13, 51, 51, 0.06);
-}
-
-.step-num {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #1a4a4a;
-  color: #fff;
-  font-weight: 700;
-  font-size: 1.25rem;
-  margin: 0 auto 1rem auto;
-}
-
-/* Smart features */
-.feature-card {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  padding: 1.75rem;
-  transition: all 0.2s;
-}
-
-.feature-card:hover {
-  border-color: #a8d8f0;
-  box-shadow: 0 8px 24px rgba(168, 216, 240, 0.15);
-}
-
-/* Rebate cards */
-.rebate-card {
-  background: #f0f5f0;
-  border: 1px solid #c8dcc8;
-  border-radius: 12px;
-  padding: 1.5rem;
-  transition: all 0.2s;
-}
-
-.rebate-card:hover {
-  border-color: #8cb08c;
-  box-shadow: 0 4px 12px rgba(107, 155, 107, 0.15);
-}
-
-/* Case cards */
-.case-card {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  padding: 1.75rem;
-  transition: all 0.2s;
-}
-
-.case-card:hover {
-  border-color: #1a4a4a;
-  box-shadow: 0 8px 24px rgba(13, 51, 51, 0.08);
-}
-
-.savings-badge {
-  display: inline-block;
-  background: #1a4a4a;
-  color: #fff;
-  font-weight: 700;
-  font-size: 1.5rem;
-  padding: 0.5rem 1.25rem;
-  border-radius: 8px;
+.section-subtitle-light {
+  font-size: 1.05rem;
+  color: #c6dfc6;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 3rem auto;
+  line-height: 1.6;
 }

@@ -37,7 +37,64 @@ const cardVariants = {
   whileInView: { opacity: 1, y: 0 },
 };
 
-const navItems = [
+/* --- SVG Icon Components --- */
+function IconShield({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    </svg>
+  );
+}
+function IconChartUp({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" />
+    </svg>
+  );
+}
+function IconMap({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}
+function IconClipboard({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" /><rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+    </svg>
+  );
+}
+function IconMoney({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" /><path d="M12 6v12" /><path d="M15 9h-4a2 2 0 000 4h2a2 2 0 010 4H9" />
+    </svg>
+  );
+}
+function IconBuilding({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="2" width="16" height="20" rx="2" ry="2" /><line x1="9" y1="6" x2="9" y2="6.01" /><line x1="15" y1="6" x2="15" y2="6.01" /><line x1="9" y1="10" x2="9" y2="10.01" /><line x1="15" y1="10" x2="15" y2="10.01" />
+    </svg>
+  );
+}
+
+function IconRenderer({ name }: { name: string }) {
+  const iconClass = 'inline-block w-8 h-8 text-accent-blue';
+  switch (name) {
+    case 'shield': return <IconShield className={iconClass} />;
+    case 'chart-up': return <IconChartUp className={iconClass} />;
+    case 'map': return <IconMap className={iconClass} />;
+    case 'clipboard': return <IconClipboard className={iconClass} />;
+    case 'money': return <IconMoney className={iconClass} />;
+    case 'building': return <IconBuilding className={iconClass} />;
+    default: return <IconShield className={iconClass} />;
+  }
+}
+
+
   'Services',
   'Properties',
   'Insights',
@@ -204,7 +261,7 @@ function ServicesSection({ items }: { items: Service[] }) {
               variants={cardVariants}
               className="bg-cream p-8 rounded-xl hover:shadow-lg transition-all duration-300 group"
             >
-              <span className="text-4xl">{s.icon}</span>
+              <IconRenderer name={s.icon} />
               <h3 className="text-lg font-bold text-deep-blue mt-4 group-hover:text-accent-blue transition-colors">
                 {s.title}
               </h3>

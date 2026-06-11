@@ -96,25 +96,25 @@ export const guestFeatures: GuestFeature[] = [
     title: 'Curated Homes',
     description:
       'Every property is personally vetted and photographed. We showcase only the stays that meet our quality standards.',
-    icon: '🏡',
+    icon: 'home',
   },
   {
     title: 'Easy Check-In',
     description:
       'Contactless entry with smart locks, personalized welcome guides, and 24/7 concierge support throughout your stay.',
-    icon: '🔑',
+    icon: 'key',
   },
   {
     title: 'Local Guides',
     description:
       'Digital guidebooks curated by local experts — from hidden gem restaurants to off-the-beaten-path experiences.',
-    icon: '📍',
+    icon: 'location-pin',
   },
   {
     title: 'Dedicated Support',
     description:
       'Reach us anytime via text, call, or in-app chat. Real humans, no bots, average response under 5 minutes.',
-    icon: '💬',
+    icon: 'chat',
   },
 ];
 
@@ -123,25 +123,25 @@ export const ownerFeatures: OwnerFeature[] = [
     title: 'Listing Setup',
     description:
       "Professional photography, compelling descriptions, and dynamic pricing strategy to maximize your property's visibility and bookings.",
-    icon: '📸',
+    icon: 'camera',
   },
   {
     title: 'Guest Messaging',
     description:
       'We handle all guest communication — inquiries, booking confirmations, check-in instructions, and reviews — so you do not have to.',
-    icon: '💬',
+    icon: 'chat',
   },
   {
     title: 'Cleaning & Maintenance',
     description:
       'Coordinated professional cleaning between stays and proactive maintenance checks to keep your property in peak condition.',
-    icon: '🧹',
+    icon: 'cleaning',
   },
   {
     title: 'Revenue Reporting',
     description:
       'Detailed monthly statements, occupancy analytics, and market benchmarking so you always know how your property performs.',
-    icon: '📊',
+    icon: 'chart',
   },
 ];
 

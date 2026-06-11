@@ -1,58 +1,46 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
-  --color-graphite-50: #f3f4f6;
-  --color-graphite-100: #e5e7eb;
-  --color-graphite-200: #cbd5e1;
-  --color-graphite-300: #9ca3af;
-  --color-graphite-400: #6b7280;
-  --color-graphite-500: #52525b;
-  --color-graphite-600: #3f3f46;
-  --color-graphite-700: #334155;
-  --color-graphite-800: #27272a;
-  --color-graphite-900: #18181b;
-  --color-graphite-950: #0c0c0e;
-  --color-blue-50: #eff6ff;
-  --color-blue-100: #dbeafe;
-  --color-blue-200: #bfdbfe;
-  --color-blue-300: #93c5fd;
-  --color-blue-400: #60a5fa;
-  --color-blue-500: #3b82f6;
-  --color-blue-600: #2563eb;
-  --color-blue-700: #1d4ed8;
-  --color-blue-800: #1e40af;
-  --color-blue-900: #1e3a8a;
-  --color-blue-950: #172554;
-  --color-ind-blue: #1d4ed8;
-  --color-ind-blue-dark: #1e3a8a;
-  --color-ind-blue-light: #60a5fa;
-  --font-sans: 'Inter', sans-serif;
+  --color-graphite-50: #f8f9fa;
+  --color-graphite-100: #e9eaec;
+  --color-graphite-200: #d1d3d7;
+  --color-graphite-300: #adafb7;
+  --color-graphite-400: #858892;
+  --color-graphite-500: #6b6e7a;
+  --color-graphite-600: #555865;
+  --color-graphite-700: #434650;
+  --color-graphite-800: #3b3b45;
+  --color-graphite-900: #2d2d34;
+  --color-ind-blue-50: #eef2f7;
+  --color-ind-blue-100: #d9e0ed;
+  --color-ind-blue-200: #b1c1d9;
+  --color-ind-blue-300: #8aa2c6;
+  --color-ind-blue-400: #6283b2;
+  --color-ind-blue-500: #4a6a9a;
+  --color-ind-blue-600: #2d4f7a;
+  --color-ind-blue-700: #1a3a5c;
+  --color-ind-blue-800: #122a45;
+  --color-ind-blue-900: #0c1d30;
+  --color-accent: #f59e0b;
+  --color-accent-dark: #d97706;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; color: #374151; background: #f8f9fa; }
 
-body {
-  @apply bg-white text-graphite-900 font-sans antialiased;
+.section-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1a3a5c;
+  text-align: center;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
 }
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  @apply bg-graphite-50;
-}
-::-webkit-scrollbar-thumb {
-  @apply bg-blue-400 rounded-full;
-}
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-blue-500;
-}
-
-/* Dashboard card styling */
-.dashboard-grid {
-  @apply grid gap-4;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+.section-subtitle {
+  font-size: 1.05rem;
+  color: #6b7280;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 3rem auto;
+  line-height: 1.6;
 }

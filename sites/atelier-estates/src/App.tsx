@@ -237,7 +237,7 @@ function Navbar() {
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Menu"
         >
-          {menuOpen ? '✕' : '☰'}
+          {menuOpen ? '' : ''}
         </button>
       </div>
       {menuOpen && (

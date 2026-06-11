@@ -61,37 +61,37 @@ export const services: Service[] = [
     title: 'Leasing',
     description:
       'Full-service leasing representation for tenants and landlords across all commercial asset classes. We structure terms that align with your operational goals.',
-    icon: '📋',
+    icon: 'clipboard',
   },
   {
     title: 'Sales',
     description:
       'Investment sales advisory for office, retail, industrial, and mixed-use assets. Our data-driven approach ensures optimal pricing and market positioning.',
-    icon: '📈',
+    icon: 'chart-up',
   },
   {
     title: 'Tenant Representation',
     description:
       'Strategic tenant advisory from site selection through lease negotiation. We reduce occupancy costs while improving space quality and flexibility.',
-    icon: '🛡️',
+    icon: 'shield',
   },
   {
     title: 'Landlord Representation',
     description:
       'Maximize asset value through targeted marketing, qualified tenant screening, and lease terms that protect long-term property performance.',
-    icon: '🏢',
+    icon: 'building',
   },
   {
     title: 'Investment Advisory',
     description:
       'Acquisition and disposition advisory with rigorous financial modeling, market benchmarking, and risk assessment for institutional and private capital.',
-    icon: '💰',
+    icon: 'money',
   },
   {
     title: 'Land Advisory',
     description:
       'Development site acquisition, zoning analysis, entitlements, and disposition for residential, commercial, and mixed-use development projects.',
-    icon: '🗺️',
+    icon: 'map',
   },
 ];
 

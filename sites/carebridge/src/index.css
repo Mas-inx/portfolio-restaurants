@@ -5,10 +5,14 @@
   --color-sage-green: #7BA88F;
   --color-sage-green-dark: #5C8A72;
   --color-sage-green-light: #B5D4C4;
+  --color-sage-green-bg: #EFF6F2;
   --color-gentle-blue: #89B8D4;
   --color-gentle-blue-dark: #6A9BBF;
   --color-gentle-blue-light: #C5DEEF;
+  --color-gentle-blue-bg: #EEF5FA;
   --color-soft-charcoal: #3A3A3A;
+  --color-warm-gray: #8A8580;
+  --color-warm-border: #E8E2DA;
 
   --font-family-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
 
@@ -26,43 +30,45 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-warm-white);
   color: var(--color-soft-charcoal);
-  font-family: var(--font-family-sans);
 }
 
-/* Care card base */
-.care-card {
+::selection { background-color: #7BA88F; color: white; }
+
+.service-card {
   background: white;
   border-radius: 16px;
-  border: 1px solid var(--color-sage-green-light);
-  transition: box-shadow 0.4s ease, transform 0.4s ease;
+  border: 1px solid var(--color-warm-border);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.4s ease;
+  overflow: hidden;
 }
-.care-card:hover {
-  box-shadow: 0 8px 28px rgba(123, 168, 143, 0.15);
+.service-card:hover {
   transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(123, 168, 143, 0.12);
 }
 
-/* Timeline connector for care matching */
-.timeline-connector {
+.care-timeline-item {
   position: relative;
+  padding-left: 60px;
 }
-.timeline-connector::before {
+.care-timeline-item::before {
   content: '';
   position: absolute;
   left: 23px;
-  top: 50px;
-  bottom: -20px;
+  top: 48px;
+  bottom: -16px;
   width: 2px;
-  background: var(--color-sage-green-light);
+  background: linear-gradient(to bottom, var(--color-sage-green-light), var(--color-gentle-blue-light));
 }
 
-/* Family portal card stack */
 .portal-card {
   background: white;
   border-radius: 12px;
@@ -72,29 +78,17 @@ body {
 }
 .portal-card:hover {
   transform: translateX(6px);
-  box-shadow: 0 4px 16px rgba(137, 184, 212, 0.2);
+  box-shadow: 0 8px 24px rgba(137, 184, 212, 0.18);
 }
 
-/* Sticky CTA */
-.sticky-cta {
-  position: sticky;
-  bottom: 0;
-  z-index: 40;
-}
-
-/* Testimonial card */
 .testimonial-card {
   background: white;
   border-left: 4px solid var(--color-sage-green);
-  border-radius: 0 12px 12px 0;
+  border-radius: 0 16px 16px 0;
   box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
-/* Trust badge */
-.trust-badge {
-  background: white;
-  border-radius: 12px;
-  border: 1px solid var(--color-gentle-blue-light);
-  text-align: center;
-  padding: 1.5rem;
+.testimonial-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
 }

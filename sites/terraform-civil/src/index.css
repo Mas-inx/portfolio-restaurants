@@ -5,19 +5,19 @@
   --color-earth-100: #e8e0d4;
   --color-earth-200: #d1c3ab;
   --color-earth-300: #b8a378;
-  --color-earth-400: #a0864f;
-  --color-earth-500: #8a6f3e;
-  --color-earth-600: #6d5532;
-  --color-earth-700: #564228;
-  --color-earth-800: #473622;
-  --color-earth-900: #3b2d1d;
+  --color-earth-400: #8a6f3e;
+  --color-earth-500: #6d5532;
+  --color-earth-600: #5c4033;
+  --color-earth-700: #4a3328;
+  --color-earth-800: #3b2d1d;
+  --color-earth-900: #2d2216;
   --color-survey-50: #fff7ed;
   --color-survey-100: #ffedd5;
   --color-survey-200: #fed7aa;
   --color-survey-300: #fdba74;
   --color-survey-400: #fb923c;
-  --color-survey-500: #f97316;
-  --color-survey-600: #ea580c;
+  --color-survey-500: #ff6b35;
+  --color-survey-600: #e55a2b;
   --color-survey-700: #c2410c;
   --color-survey-800: #9a3412;
   --color-survey-900: #7c2d12;
@@ -42,34 +42,40 @@ html {
 }
 
 body {
-  @apply bg-asphalt-950 text-asphalt-100 font-sans antialiased;
+  @apply bg-[#1A1A1A] text-white font-sans antialiased;
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-asphalt-950;
+  @apply bg-[#1A1A1A];
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-earth-700 rounded-full;
+  @apply bg-[#5C4033] rounded-full;
 }
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-earth-600;
+  @apply bg-[#6d5532];
 }
 
 /* Horizontal scroll container for gallery */
 .scroll-container {
   scrollbar-width: thin;
-  scrollbar-color: #6d5532 #1a1a1a;
+  scrollbar-color: #5C4033 #1A1A1A;
 }
 .scroll-container::-webkit-scrollbar {
-  height: 8px;
+  height: 6px;
 }
 .scroll-container::-webkit-scrollbar-track {
-  @apply bg-asphalt-950;
+  @apply bg-[#1A1A1A];
 }
 .scroll-container::-webkit-scrollbar-thumb {
-  @apply bg-earth-700 rounded-full;
+  @apply bg-[#5C4033] rounded-full;
+}
+
+/* Selection */
+::selection {
+  @apply bg-[#FF6B35]/40 text-white;
 }

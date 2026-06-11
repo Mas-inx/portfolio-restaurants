@@ -520,7 +520,7 @@ const PhilosophySection: FC = () => {
           <motion.div style={{ x }} className="relative">
             <div className="aspect-[3/4] rounded-sm overflow-hidden relative">
               <img
-                src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=85"
+                src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=85"
                 alt="Luxury botanical garden pathway"
                 className="w-full h-full object-cover"
               />

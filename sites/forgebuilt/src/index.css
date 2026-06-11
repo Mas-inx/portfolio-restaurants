@@ -1,37 +1,30 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-brand-50: #f8fafc;
-  --color-brand-100: #f1f5f9;
-  --color-brand-200: #e2e8f0;
-  --color-brand-300: #cbd5e1;
-  --color-brand-400: #94a3b8;
-  --color-brand-500: #64748b;
-  --color-brand-600: #475569;
-  --color-brand-700: #334155;
-  --color-brand-800: #1e293b;
-  --color-brand-900: #0f172a;
+  --color-concrete-50: #f8f7f5;
+  --color-concrete-100: #efede9;
+  --color-concrete-200: #ddd9d1;
+  --color-concrete-300: #c4bdb1;
+  --color-concrete-400: #a69b8b;
+  --color-concrete-500: #928575;
+  --color-concrete-600: #857665;
+  --color-concrete-700: #6f5f4f;
+  --color-concrete-800: #5d4f42;
+  --color-concrete-900: #4e4237;
+  --color-concrete-950: #2a231c;
 
-  --color-orange-50: #fff7ed;
-  --color-orange-100: #ffedd5;
-  --color-orange-200: #fed7aa;
-  --color-orange-300: #fdba74;
-  --color-orange-400: #fb923c;
-  --color-orange-500: #f97316;
-  --color-orange-600: #ea580c;
-  --color-orange-700: #c2410c;
-  --color-orange-800: #9a3412;
-  --color-orange-900: #7c2d12;
+  --color-amber-accent: #d97706;
+  --color-amber-light: #f59e0b;
+  --color-amber-dark: #b45309;
+
+  --color-steel-900: #1a1a1a;
+  --color-steel-800: #262626;
+  --color-steel-700: #333333;
+  --color-steel-600: #4a4a4a;
 
   --font-heading: 'Anton', 'Impact', sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
 }
-
-/*
-  ForgeBuilt Contractors — Tailwind v4 theme
-  Concrete gray + black + safety orange palette
-  Heavy condensed typography (Anton)
-*/
 
 html {
   scroll-behavior: smooth;
@@ -39,24 +32,24 @@ html {
 
 body {
   font-family: var(--font-body);
+  background-color: #f8f7f5;
+  color: #1a1a1a;
 }
 
-/* Selection color */
 ::selection {
-  background-color: #f97316;
+  background-color: #d97706;
   color: white;
 }
 
-/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #efede9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #94a3b8;
+  background: #c4bdb1;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: #a69b8b;
 }

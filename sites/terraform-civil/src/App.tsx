@@ -1,330 +1,374 @@
-import { useState } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { useRef, useState, useEffect } from 'react'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
 import {
-  siteInfo, capabilities, processPhases, equipment,
-  projectTypes, safetyPoints, navLinks
+  siteInfo, stats, capabilities, processPhases, equipment,
+  projectTypes, safetyPoints, galleryImages, navLinks,
 } from './data'
+import type { EquipmentItem } from './data'
 
-/* ── SVG Icon Library ── */
+/* ── Topographic Decoration ── */
 
-const IconHelmet = ({className}:{className?:string}) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M12 3a7 7 0 00-7 7v2h14v-2a7 7 0 00-7-7z"/><path d="M5 12v3a4 4 0 004 4h6a4 4 0 004-4v-3"/><path d="M9 19v-2a3 3 0 013-3v0a3 3 0 013 3v2"/>
-  </svg>
-)
-
-const IconHome = ({className}:{className?:string}) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M3 9.5L12 3l9 6.5"/><path d="M5 8.5V20a1 1 0 001 1h4v-7h4v7h4a1 1 0 001-1V8.5"/>
-  </svg>
-)
-
-const IconBuilding = ({className}:{className?:string}) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <rect x="4" y="2" width="16" height="20" rx="1"/><path d="M9 6h2"/><path d="M13 6h2"/>
-  </svg>
-)
-
-const IconRuler = ({className}:{className?:string}) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M2 6h20v12H2z"/><path d="M6 6v12"/><path d="M10 6v12"/><path d="M14 6v12"/><path d="M18 6v12"/>
-  </svg>
-)
-
-const IconTruck = ({className}:{className?:string}) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <rect x="1" y="3" width="15" height="13"/><rect x="16" y="5" width="7" height="11" rx="1"/><path d="M16 16h-3"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
-  </svg>
-)
-
-const IconWater = ({className}:{className?:string}) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/>
-  </svg>
-)
-
-const IconZap = ({className}:{className?:string}) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-  </svg>
-)
-
-const IconRoad = ({className}:{className?:string}) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M4 19.5L8 4"/><path d="M16 4l4 15.5"/><path d="M8 4h8"/><path d="M4 19.5h16"/><path d="M12 4v15.5"/>
-  </svg>
-)
-
-const IconCalendar = ({className}:{className?:string}) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/><path d="M8 2v4"/><path d="M16 2v4"/>
-  </svg>
-)
-
-const IconLocation = ({className}:{className?:string}) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
-  </svg>
-)
-
-const IconPhone = ({className}:{className?:string}) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
-  </svg>
-)
-
-const IconMail = ({className}:{className?:string}) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/>
-  </svg>
-)
-
-const IconCheckmark = ({className}:{className?:string}) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <polyline points="20 6 9 17 4 12"/>
-  </svg>
-)
-
-const IconShield = ({className}:{className?:string}) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>
-  </svg>
-)
-
-const IconArrowDown = ({className}:{className?:string}) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
-  </svg>
-)
-
-const IconArrowRight = ({className}:{className?:string}) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-  </svg>
-)
-
-const IconStar = ({className}:{className?:string}) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-  </svg>
-)
-
-const icons: Record<string, React.FC<{className?:string}>> = {
-  'helmet': IconHelmet, 'home': IconHome, 'building': IconBuilding,
-  'ruler': IconRuler, 'truck': IconTruck, 'water': IconWater,
-  'zap': IconZap, 'road': IconRoad, 'calendar': IconCalendar,
-  'location': IconLocation, 'phone': IconPhone, 'mail': IconMail,
-  'checkmark': IconCheckmark, 'shield': IconShield,
-  'arrow-down': IconArrowDown, 'arrow-right': IconArrowRight, 'star': IconStar,
+function TopographicLines({ className = '' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0 200 Q100 150 200 200 T400 200" stroke="currentColor" strokeWidth="0.5" opacity="0.3" />
+      <path d="M0 180 Q100 130 200 180 T400 180" stroke="currentColor" strokeWidth="0.4" opacity="0.25" />
+      <path d="M0 220 Q100 170 200 220 T400 220" stroke="currentColor" strokeWidth="0.4" opacity="0.25" />
+      <path d="M0 160 Q120 100 200 160 T400 160" stroke="currentColor" strokeWidth="0.3" opacity="0.2" />
+      <path d="M0 240 Q120 190 200 240 T400 240" stroke="currentColor" strokeWidth="0.3" opacity="0.2" />
+      <path d="M0 140 Q140 70 200 140 T400 140" stroke="currentColor" strokeWidth="0.25" opacity="0.15" />
+      <path d="M0 260 Q140 210 200 260 T400 260" stroke="currentColor" strokeWidth="0.25" opacity="0.15" />
+      <path d="M0 100 Q160 40 200 100 T400 100" stroke="currentColor" strokeWidth="0.2" opacity="0.1" />
+      <path d="M0 300 Q160 250 200 300 T400 300" stroke="currentColor" strokeWidth="0.2" opacity="0.1" />
+      <path d="M200 0 Q150 100 200 200 T200 400" stroke="currentColor" strokeWidth="0.3" opacity="0.15" />
+      <path d="M220 0 Q170 100 220 200 T220 400" stroke="currentColor" strokeWidth="0.25" opacity="0.12" />
+      <path d="M180 0 Q130 100 180 200 T180 400" stroke="currentColor" strokeWidth="0.25" opacity="0.12" />
+    </svg>
+  )
 }
 
-function Icon({ name, className = 'w-6 h-6' }: { name: string; className?: string }) {
-  const C = icons[name] || IconHelmet
-  return <C className={className} />
+/* ── SVG Icons ── */
+
+function IconExcavator({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 9v4a2 2 0 0 1-2 2H8" />
+      <path d="M3 13h4l3 4h4a2 2 0 0 0 2-2V9" />
+      <circle cx="6" cy="17" r="2" />
+      <circle cx="18" cy="17" r="2" />
+      <line x1="14" y1="5" x2="20" y2="5" />
+      <path d="M12 3L8 9h8z" />
+      <line x1="4" y1="11" x2="8" y2="11" />
+    </svg>
+  )
 }
 
-function useScrollProgress() {
-  const { scrollYProgress } = useScroll()
-  const width = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
-  return width
+function IconGrading({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="8" width="20" height="8" rx="1" />
+      <path d="M2 16v3" />
+      <path d="M22 16v3" />
+      <path d="M6 11h12" />
+      <path d="M4 13h10" />
+      <path d="M18 6l-3-3-3 3" />
+      <path d="M15 3v5" />
+    </svg>
+  )
 }
+
+function IconDrainage({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2a8 8 0 0 0-8 8c0 4.5 8 12 8 12s8-7.5 8-12a8 8 0 0 0-8-8z" />
+      <path d="M12 6v4" />
+      <path d="M12 14h.01" />
+    </svg>
+  )
+}
+
+function IconUtilities({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 20h16" />
+      <path d="M6 20V8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12" />
+      <path d="M8 5V3" />
+      <path d="M16 5V3" />
+      <line x1="9" y1="12" x2="15" y2="12" />
+      <line x1="9" y1="16" x2="15" y2="16" />
+    </svg>
+  )
+}
+
+function IconPaving({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="14" width="20" height="4" rx="1" />
+      <path d="M6 10h12" />
+      <path d="M8 6h8" />
+      <circle cx="6" cy="18" r="1.5" />
+      <circle cx="18" cy="18" r="1.5" />
+      <path d="M2 5v3h20V5" />
+    </svg>
+  )
+}
+
+function IconRetaining({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="4" width="16" height="16" rx="1" />
+      <line x1="4" y1="10" x2="20" y2="10" />
+      <line x1="4" y1="16" x2="20" y2="16" />
+      <line x1="10" y1="4" x2="10" y2="20" />
+      <line x1="14" y1="4" x2="14" y2="20" />
+      <path d="M4 4L2 2" />
+      <path d="M20 4l2-2" />
+      <path d="M4 20l-2 2" />
+      <path d="M20 20l2 2" />
+    </svg>
+  )
+}
+
+function IconSurvey({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 3l18 18" />
+      <path d="M21 3l-7 7" />
+      <path d="M3 21l7-7" />
+      <circle cx="12" cy="12" r="2" />
+    </svg>
+  )
+}
+
+function IconClearing({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 3L3 8l9 5 9-5z" />
+      <path d="M3 14l9 5 9-5" />
+      <path d="M3 19l9 5 9-5" />
+      <path d="M3 8v11" />
+      <path d="M21 8v11" />
+    </svg>
+  )
+}
+
+function IconCompaction({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 3" />
+      <path d="M7 12h10" />
+    </svg>
+  )
+}
+
+function IconHandoff({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 17l4 4L20 7" />
+      <path d="M4 12l4 4L20 3" />
+    </svg>
+  )
+}
+
+function IconShield({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    </svg>
+  )
+}
+
+function IconChevronRight({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>
+  )
+}
+
+function IconMenu({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="3" y1="6" x2="21" y2="6" />
+      <line x1="3" y1="12" x2="21" y2="12" />
+      <line x1="3" y1="18" x2="21" y2="18" />
+    </svg>
+  )
+}
+
+function IconX({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  )
+}
+
+function IconPhone({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  )
+}
+
+function IconMail({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="4" width="20" height="16" rx="2" />
+      <path d="M22 7l-10 6L2 7" />
+    </svg>
+  )
+}
+
+function IconMapPin({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  )
+}
+
+function IconCheck({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  )
+}
+
+const capabilityIcons = [IconExcavator, IconGrading, IconDrainage, IconUtilities, IconPaving, IconRetaining]
+const processIcons = [IconSurvey, IconClearing, IconGrading, IconUtilities, IconCompaction, IconHandoff]
+
+/* ── Reusable Components ── */
 
 function Navbar() {
+  const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const width = useScrollProgress()
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-asphalt-950/95 backdrop-blur-sm border-b border-earth-900/50">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      scrolled ? 'bg-[#1A1A1A]/95 backdrop-blur-md border-b border-[#5C4033]/30' : 'bg-transparent'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-survey-500 flex items-center justify-center text-asphalt-950 font-bold text-lg font-display">
-              <Icon name="helmet" className="w-5 h-5" />
-            </div>
-            <div>
-              <h1 className="text-lg font-bold text-white leading-tight">{siteInfo.name}</h1>
-              <p className="text-xs text-asphalt-400 hidden sm:block font-mono">{siteInfo.shortTagline}</p>
-            </div>
-          </div>
-
-          {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map(l => (
-              <a key={l.href} href={l.href} className="text-sm text-asphalt-300 hover:text-survey-400 transition-colors font-medium tracking-wide uppercase">
+          <a href="#" className="font-display text-2xl text-white tracking-wider">
+            TERRA<span className="text-[#FF6B35]">FORM</span>
+            <span className="block text-[10px] font-mono text-[#8A6F3E] tracking-[0.3em] uppercase -mt-1">Civil Works</span>
+          </a>
+          <div className="hidden lg:flex items-center gap-6">
+            {navLinks.map((l) => (
+              <a key={l.href} href={l.href} className="text-sm font-medium text-[#B8A378] hover:text-white transition-colors tracking-wide uppercase">
                 {l.label}
               </a>
             ))}
-            <a href="#contact" className="px-5 py-2.5 bg-survey-500 hover:bg-survey-600 text-asphalt-950 font-bold rounded-lg transition-colors text-sm tracking-wide">
+            <a href="#contact" className="bg-[#FF6B35] text-white px-5 py-2.5 text-sm font-bold uppercase tracking-wider hover:bg-[#E55A2B] transition-colors">
               Get a Quote
             </a>
           </div>
-
-          {/* Mobile menu button */}
-          <button onClick={() => setMenuOpen(!menuOpen)} className="lg:hidden text-asphalt-300 hover:text-white p-2" aria-label="Menu">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {menuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
+          <button className="lg:hidden p-2" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+            {menuOpen ? <IconX className="w-6 h-6 text-white" /> : <IconMenu className="w-6 h-6 text-white" />}
           </button>
         </div>
       </div>
-
-      {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="bg-asphalt-900 border-t border-earth-900/50 overflow-hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden bg-[#1A1A1A] border-t border-[#5C4033]/30"
           >
             <div className="px-4 py-4 space-y-3">
-              {navLinks.map(l => (
-                <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} className="block text-sm text-asphalt-300 hover:text-survey-400 transition-colors uppercase font-medium tracking-wide">
-                  {l.label}
-                </a>
+              {navLinks.map((l) => (
+                <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} className="block text-[#B8A378] font-medium">{l.label}</a>
               ))}
-              <a href="#contact" onClick={() => setMenuOpen(false)} className="block text-center px-5 py-3 bg-survey-500 hover:bg-survey-600 text-asphalt-950 font-bold rounded-lg transition-colors text-sm tracking-wide">
-                Get a Quote
-              </a>
+              <a href="#contact" onClick={() => setMenuOpen(false)} className="block bg-[#FF6B35] text-white px-5 py-2.5 text-sm font-bold uppercase text-center">Get a Quote</a>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Scroll progress bar */}
-      <motion.div className="h-0.5 bg-survey-500 origin-left" style={{ scaleX: width }} />
     </nav>
   )
 }
 
-function SectionHeading({ title, subtitle, light }: { title: string; subtitle?: string; light?: boolean }) {
+function FadeInSection({ children, className }: { children: React.ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-80px' })
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      className="text-center mb-16"
-    >
-      <h2 className={`text-4xl lg:text-5xl font-display tracking-wider ${light ? 'text-white' : 'text-asphalt-950'}`}>
-        {title}
-      </h2>
-      <div className="w-16 h-1 bg-survey-500 mx-auto mt-4 mb-4" />
-      {subtitle && <p className={`max-w-2xl mx-auto text-base ${light ? 'text-asphalt-300' : 'text-asphalt-600'}`}>{subtitle}</p>}
-    </motion.div>
-  )
-}
-
-function FadeInUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.5, delay }}
-    >
+    <motion.div ref={ref} initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className={className}>
       {children}
     </motion.div>
   )
 }
 
+function SectionHeading({ title, subtitle, survey }: { title: string; subtitle?: string; survey?: boolean }) {
+  return (
+    <div className="text-center mb-14 lg:mb-16">
+      <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white tracking-wide">{title}</h2>
+      {subtitle && <p className="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-[#B8A378]">{subtitle}</p>}
+      <div className={`w-20 h-0.5 mx-auto mt-6 ${survey ? 'bg-[#FF6B35]' : 'bg-[#FF6B35]'}`} />
+    </div>
+  )
+}
+
+function SpecBadge({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-baseline gap-1 px-2.5 py-1 bg-[#1A1A1A] border border-[#5C4033]/40 rounded-none">
+      <span className="text-[#8A6F3E] text-[10px] font-mono uppercase tracking-widest">{label}</span>
+      <span className="text-[#FF6B35] text-xs font-mono font-bold">{value}</span>
+    </div>
+  )
+}
+
+/* ── Sections ── */
+
 function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-      {/* Background image with gradient overlay */}
+    <section className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Background */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-asphalt-950/95 via-asphalt-900/90 to-earth-900/95 z-10" />
         <img
           src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=1600&q=85"
-          alt="Heavy construction equipment at work"
+          alt="Heavy equipment on construction site"
           className="w-full h-full object-cover"
         />
-      </div>
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 opacity-[0.06] z-10" style={{
-        backgroundImage: 'linear-gradient(#f97316 1px, transparent 1px), linear-gradient(90deg, #f97316 1px, transparent 1px)',
-        backgroundSize: '60px 60px'
-      }} />
-
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-survey-500/10 border border-survey-500/20 mb-6">
-              <span className="w-2 h-2 rounded-full bg-survey-400 animate-pulse" />
-              <span className="text-sm text-survey-300 font-mono">Est. {siteInfo.founded} · Licensed & Insured</span>
-            </div>
-            <h1 className="text-6xl lg:text-8xl font-display tracking-wider text-white leading-none mb-6">
-              {siteInfo.tagline}
-              <span className="block text-survey-400 text-4xl lg:text-5xl mt-2">Heavy Civil · Sitework · Land Development</span>
-            </h1>
-            <p className="text-lg text-asphalt-300 leading-relaxed mb-8 max-w-xl">
-              With <strong className="text-white">{siteInfo.yearsExperience} years</strong> and over <strong className="text-white">{siteInfo.projectsCompleted}+ projects</strong> completed, 
-              we prepare land for residential, commercial, and industrial development across the greater Chicago area.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a href="#contact" className="px-8 py-3.5 bg-survey-500 hover:bg-survey-600 text-asphalt-950 font-bold rounded-lg transition-colors text-lg tracking-wide">
-                Request a Site Evaluation
-              </a>
-              <a href="#capabilities" className="px-8 py-3.5 border border-asphalt-600 hover:border-survey-500 text-asphalt-200 hover:text-white rounded-lg transition-colors text-lg font-medium">
-                Our Capabilities
-              </a>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="hidden lg:block"
-          >
-            <div className="bg-asphalt-900/50 border border-asphalt-700 rounded-2xl p-8 backdrop-blur-sm">
-              <div className="space-y-6">
-                {[
-                  { label: 'Years Experience', value: siteInfo.yearsExperience },
-                  { label: 'Projects Completed', value: siteInfo.projectsCompleted },
-                  { label: 'Crew Size', value: siteInfo.crewSize },
-                  { label: 'Acres Cleared', value: siteInfo.acresCleared },
-                ].map((stat, i) => (
-                  <motion.div
-                    key={stat.label}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.4 + i * 0.1 }}
-                    className="flex items-center justify-between border-b border-asphalt-700/50 pb-4 last:border-0 last:pb-0"
-                  >
-                    <span className="text-asphalt-400 font-mono text-sm uppercase tracking-wider">{stat.label}</span>
-                    <span className="text-2xl font-bold text-white font-mono">{stat.value}</span>
-                  </motion.div>
-                ))}
-              </div>
-              <div className="mt-6 pt-4 border-t border-asphalt-700/50">
-                <p className="text-sm text-asphalt-400 font-mono">{siteInfo.license} · {siteInfo.insurance}</p>
-              </div>
-            </div>
-          </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1A1A1A]/95 via-[#1A1A1A]/80 to-[#1A1A1A]/50" />
+        {/* Topographic overlay */}
+        <div className="absolute inset-0 text-[#FF6B35] opacity-[0.06]">
+          <TopographicLines className="w-full h-full" />
         </div>
+      </div>
 
-        {/* Scroll indicator */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-40 w-full">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-3xl"
+        >
+          <div className="inline-flex items-center gap-2 bg-[#1A1A1A]/80 border border-[#5C4033]/50 px-4 py-2 mb-6">
+            <span className="text-[#FF6B35] text-sm font-mono font-semibold tracking-wider uppercase">Heavy Civil Contractor</span>
+          </div>
+          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-white leading-none mb-6 tracking-wide">
+            Preparing Land<br />
+            <span className="text-[#FF6B35]">For What Comes Next</span>
+          </h1>
+          <p className="text-[#B8A378] text-lg max-w-xl mb-10 leading-relaxed">
+            22 years of heavy civil sitework in the Midwest. We move earth, install infrastructure, and deliver ready-to-build sites on schedule and on budget.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <a href="#capabilities" className="bg-[#FF6B35] text-white px-8 py-3.5 font-bold uppercase tracking-wider text-sm hover:bg-[#E55A2B] transition-colors inline-flex items-center gap-2">
+              View Capabilities <IconChevronRight className="w-4 h-4" />
+            </a>
+            <a href="#projects" className="border border-[#8A6F3E] text-[#B8A378] px-8 py-3.5 font-bold uppercase tracking-wider text-sm hover:bg-[#5C4033]/30 transition-colors">
+              Our Projects
+            </a>
+          </div>
+        </motion.div>
+
+        {/* Stats */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="flex justify-center mt-16"
+          transition={{ duration: 1, delay: 0.5 }}
+          className="flex flex-wrap gap-5 mt-16"
         >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-            className="text-survey-400"
-          >
-            <Icon name="arrow-down" className="w-6 h-6" />
-          </motion.div>
+          {stats.map((s) => (
+            <div key={s.label} className="bg-[#1A1A1A]/60 backdrop-blur-sm border border-[#5C4033]/50 px-6 py-4 text-center min-w-[130px]">
+              <div className="font-mono text-3xl font-bold text-[#FF6B35]">{s.value}</div>
+              <div className="text-[#8A6F3E] text-xs font-medium mt-1 uppercase tracking-wider">{s.label}</div>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>
@@ -333,23 +377,127 @@ function Hero() {
 
 function CapabilitiesSection() {
   return (
-    <section id="capabilities" className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="capabilities" className="py-20 lg:py-28 bg-[#1A1A1A] relative overflow-hidden">
+      <div className="absolute inset-0 text-[#FF6B35] opacity-[0.03]">
+        <TopographicLines className="w-full h-full" />
+      </div>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           title="Core Capabilities"
-          subtitle="From mass excavation to final compaction — we handle every phase of sitework in-house."
+          subtitle="Six specialized disciplines covering every phase of site development from raw land to ready-to-build."
         />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {capabilities.map((c, i) => (
-            <FadeInUp key={c.title} delay={i * 0.08}>
-              <div className="group p-6 rounded-xl border border-asphalt-200 hover:border-survey-400 bg-white hover:bg-asphalt-50 transition-all duration-300 hover:-translate-y-1">
-                <div className="w-12 h-12 rounded-lg bg-survey-100 flex items-center justify-center mb-4 group-hover:bg-survey-500 transition-colors">
-                  <Icon name={c.icon} className="w-6 h-6 text-survey-600 group-hover:text-white transition-colors" />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {capabilities.map((c, i) => {
+            const IconComp = capabilityIcons[i % capabilityIcons.length]
+            return (
+              <FadeInSection key={c.title}>
+                <div className="group h-full bg-[#1A1A1A] border border-[#5C4033]/40 p-8 hover:border-[#FF6B35] hover:bg-[#1A1A1A]/80 transition-all duration-300">
+                  <div className="flex items-center gap-4 mb-5">
+                    <div className="w-12 h-12 bg-[#FF6B35]/10 text-[#FF6B35] flex items-center justify-center group-hover:bg-[#FF6B35] group-hover:text-white transition-colors duration-300">
+                      <IconComp className="w-6 h-6" />
+                    </div>
+                    <div className="font-mono text-[#5C4033] text-sm font-bold">{String(i + 1).padStart(2, '0')}</div>
+                  </div>
+                  <h3 className="font-display text-xl text-white mb-3 tracking-wide">{c.title}</h3>
+                  <p className="text-[#B8A378] text-sm leading-relaxed">{c.description}</p>
                 </div>
-                <h3 className="text-lg font-bold text-asphalt-950 mb-2">{c.title}</h3>
-                <p className="text-sm text-asphalt-600 leading-relaxed">{c.description}</p>
+              </FadeInSection>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ProcessSection() {
+  return (
+    <section id="process" className="py-20 lg:py-28 bg-[#0D0D0D] relative overflow-hidden">
+      <div className="absolute inset-0 text-[#FF6B35] opacity-[0.02]">
+        <TopographicLines className="w-full h-full" />
+      </div>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          title="Sitework Process"
+          subtitle="A proven six-phase delivery method from survey to site handoff."
+        />
+        {/* Horizontal scroll container */}
+        <div className="overflow-x-auto pb-4 -mx-4 px-4 scroll-container">
+          <div className="flex gap-4 min-w-max pb-2">
+            {/* Timeline rail */}
+            <div className="hidden lg:block absolute top-[72px] left-[8%] right-[8%] h-0.5 bg-[#5C4033]/40" />
+            {processPhases.map((p, i) => {
+              const IconComp = processIcons[i % processIcons.length]
+              return (
+                <FadeInSection key={p.phase}>
+                  <div className="relative w-[200px] text-center p-6 bg-[#1A1A1A] border border-[#5C4033]/40 h-full hover:border-[#FF6B35]/50 transition-colors duration-300 flex-shrink-0">
+                    <div className="relative z-10 w-12 h-12 bg-[#FF6B35] text-white flex items-center justify-center mx-auto mb-4 font-mono text-sm font-bold">
+                      {p.phase}
+                    </div>
+                    <div className="w-10 h-10 mx-auto mb-3 text-[#B8A378]">
+                      <IconComp className="w-full h-full" />
+                    </div>
+                    <h3 className="font-display text-lg text-white mb-2 tracking-wide">{p.title}</h3>
+                    <p className="text-[#B8A378] text-xs leading-relaxed mb-3">{p.description}</p>
+                    <p className="text-[#8A6F3E] text-[10px] leading-relaxed font-mono">{p.details}</p>
+                  </div>
+                </FadeInSection>
+              )
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function EquipmentSection() {
+  return (
+    <section id="equipment" className="py-20 lg:py-28 bg-[#1A1A1A] relative overflow-hidden">
+      <div className="absolute inset-0 text-[#FF6B35] opacity-[0.03]">
+        <TopographicLines className="w-full h-full" />
+      </div>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          title="Equipment Fleet"
+          subtitle="Modern, well-maintained heavy machinery operated by certified crew members."
+        />
+        <div className="grid sm:grid-cols-2 gap-5">
+          {equipment.map((eq: EquipmentItem, i: number) => (
+            <FadeInSection key={eq.name}>
+              <div className="h-full bg-[#0D0D0D] border border-[#5C4033]/40 overflow-hidden group hover:border-[#FF6B35] transition-colors duration-300">
+                {/* Equipment image area */}
+                <div className="h-48 bg-gradient-to-br from-[#1A1A1A] to-[#0D0D0D] relative overflow-hidden">
+                  <img
+                    src={
+                      i === 0
+                        ? 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80'
+                        : i === 1
+                        ? 'https://images.unsplash.com/photo-1541888946425-d81bb2c88ea5?w=800&q=80'
+                        : i === 2
+                        ? 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80'
+                        : 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80'
+                    }
+                    alt={eq.name}
+                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D] via-transparent to-transparent" />
+                  {/* Model badge */}
+                  <div className="absolute top-3 left-3 bg-[#FF6B35] text-white px-3 py-1 text-xs font-mono font-bold">
+                    {eq.model}
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="font-display text-2xl text-white mb-2 tracking-wide">{eq.name}</h3>
+                  <p className="text-[#B8A378] text-sm leading-relaxed mb-5">{eq.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {eq.specs.map((spec) => (
+                      <SpecBadge key={spec.label} label={spec.label} value={spec.value} />
+                    ))}
+                  </div>
+                </div>
               </div>
-            </FadeInUp>
+            </FadeInSection>
           ))}
         </div>
       </div>
@@ -357,44 +505,35 @@ function CapabilitiesSection() {
   )
 }
 
-function Process() {
+function ProjectsGallery() {
   return (
-    <section id="process" className="py-24 bg-asphalt-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="py-20 lg:py-28 bg-[#0D0D0D] relative overflow-hidden">
+      <div className="absolute inset-0 text-[#FF6B35] opacity-[0.02]">
+        <TopographicLines className="w-full h-full" />
+      </div>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          title="Sitework Process"
-          subtitle="A proven 6-phase methodology that delivers consistent results across every project."
+          title="Project Gallery"
+          subtitle="From raw land to finished sites. Our work in residential, commercial, road, and industrial development."
         />
-        <div className="relative">
-          {/* Process line */}
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-asphalt-300 hidden lg:block" />
-
-          <div className="space-y-8 lg:space-y-0 relative">
-            {processPhases.map((phase, i) => (
-              <FadeInUp key={phase.title} delay={i * 0.1}>
-                <div className="lg:grid lg:grid-cols-5 gap-8 items-start relative">
-                  {/* Phase number */}
-                  <div className="lg:col-span-1 flex lg:block items-center gap-4 mb-4 lg:mb-0">
-                    <div className="w-16 h-16 rounded-full bg-survey-500 flex items-center justify-center text-asphalt-950 font-display text-2xl flex-shrink-0 relative z-10">
-                      {phase.phase}
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-asphalt-950 lg:hidden">{phase.title}</h3>
-                      <p className="text-xs text-survey-600 font-mono uppercase tracking-wider hidden lg:block">Phase {phase.phase}</p>
-                    </div>
+        <div className="overflow-x-auto pb-4 -mx-4 px-4 scroll-container">
+          <div className="flex gap-6 min-w-max pb-2">
+            {projectTypes.map((p) => (
+              <FadeInSection key={p.title}>
+                <div className="w-[350px] sm:w-[400px] bg-[#1A1A1A] border border-[#5C4033]/40 overflow-hidden group hover:border-[#FF6B35]/70 transition-colors duration-300">
+                  <div className="h-52 overflow-hidden">
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
                   </div>
-
-                  {/* Content */}
-                  <div className="lg:col-span-4 bg-white rounded-xl border border-asphalt-200 p-6 ml-4 lg:ml-0">
-                    <h3 className="text-xl font-bold text-asphalt-950 mb-2 hidden lg:block">{phase.title}</h3>
-                    <p className="text-asphalt-700 mb-3">{phase.description}</p>
-                    <p className="text-sm text-asphalt-500 font-mono flex items-start gap-2">
-                      <Icon name="arrow-right" className="w-4 h-4 text-survey-500 mt-0.5 shrink-0" />
-                      {phase.details}
-                    </p>
+                  <div className="p-6">
+                    <h3 className="font-display text-xl text-white mb-3 tracking-wide">{p.title}</h3>
+                    <p className="text-[#B8A378] text-sm leading-relaxed">{p.description}</p>
                   </div>
                 </div>
-              </FadeInUp>
+              </FadeInSection>
             ))}
           </div>
         </div>
@@ -403,94 +542,28 @@ function Process() {
   )
 }
 
-function EquipmentFleet() {
+function SafetySection() {
   return (
-    <section id="equipment" className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          title="Equipment Fleet"
-          subtitle="Modern, well-maintained machines operated by certified heavy equipment operators."
-        />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {equipment.map((eq, i) => (
-            <FadeInUp key={eq.name} delay={i * 0.08}>
-              <div className="bg-asphalt-50 rounded-xl border border-asphalt-200 overflow-hidden group hover:border-survey-400 transition-colors">
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <Icon name={eq.icon} className="w-8 h-8 text-survey-600" />
-                    <span className="text-xs font-mono text-survey-600 bg-survey-100 px-2 py-1 rounded-full uppercase tracking-wider">
-                      {eq.category}
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-bold text-asphalt-950 mb-1">{eq.name}</h3>
-                  <p className="text-sm text-asphalt-600 mb-3">{eq.description}</p>
-                  <div className="flex items-center gap-2 text-sm font-mono text-asphalt-500 bg-asphalt-100 rounded-lg px-3 py-2">
-                    <Icon name="zap" className="w-4 h-4 text-survey-500" />
-                    {eq.specs}
-                  </div>
-                </div>
-              </div>
-            </FadeInUp>
-          ))}
-        </div>
+    <section id="safety" className="py-20 lg:py-28 bg-[#1A1A1A] relative overflow-hidden">
+      <div className="absolute inset-0 text-[#FF6B35] opacity-[0.03]">
+        <TopographicLines className="w-full h-full" />
       </div>
-    </section>
-  )
-}
-
-function ProjectTypes() {
-  return (
-    <section id="projects" className="py-24 bg-asphalt-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          title="Project Types"
-          subtitle="Diverse experience across residential, commercial, and heavy civil sitework."
-          light
-        />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {projectTypes.map((pt, i) => (
-            <FadeInUp key={pt.title} delay={i * 0.1}>
-              <div className="group relative overflow-hidden rounded-xl border border-asphalt-700 hover:border-survey-500 transition-all duration-300">
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={pt.image}
-                    alt={pt.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-asphalt-950 via-asphalt-950/50 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-5">
-                  <h3 className="text-lg font-bold text-white mb-1">{pt.title}</h3>
-                  <p className="text-sm text-asphalt-300 leading-relaxed">{pt.description}</p>
-                </div>
-              </div>
-            </FadeInUp>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function Safety() {
-  return (
-    <section id="safety" className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           title="Safety & Compliance"
-          subtitle="We maintain rigorous safety protocols and full regulatory compliance on every site."
+          subtitle="Every project operates under a site-specific safety and compliance plan. Non-negotiable."
         />
-        <div className="grid sm:grid-cols-2 gap-6">
-          {safetyPoints.map((sp, i) => (
-            <FadeInUp key={sp.title} delay={i * 0.1}>
-              <div className="flex gap-4 p-6 rounded-xl bg-asphalt-50 border border-asphalt-200 hover:border-survey-300 transition-colors">
-                <div className="w-1.5 bg-survey-500 rounded-full flex-shrink-0" />
-                <div>
-                  <h3 className="font-bold text-asphalt-950 text-lg mb-2">{sp.title}</h3>
-                  <p className="text-asphalt-600 text-sm leading-relaxed">{sp.description}</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {safetyPoints.map((s) => (
+            <FadeInSection key={s.title}>
+              <div className="text-center p-6 bg-[#0D0D0D] border border-[#5C4033]/40 h-full">
+                <div className="w-14 h-14 bg-[#FF6B35]/10 text-[#FF6B35] flex items-center justify-center mx-auto mb-5">
+                  <IconShield className="w-7 h-7" />
                 </div>
+                <h3 className="font-display text-lg text-white mb-3 tracking-wide">{s.title}</h3>
+                <p className="text-[#B8A378] text-sm leading-relaxed">{s.description}</p>
               </div>
-            </FadeInUp>
+            </FadeInSection>
           ))}
         </div>
       </div>
@@ -498,172 +571,205 @@ function Safety() {
   )
 }
 
-function Gallery() {
-  const images = [
-    { src: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&q=80', label: 'Site Preparation' },
-    { src: 'https://images.unsplash.com/photo-1541888946425-d81bb2c88ea5?w=600&q=80', label: 'Road Construction' },
-    { src: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&q=80', label: 'Commercial Pad' },
-    { src: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80', label: 'Industrial Yard' },
-    { src: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80', label: 'Residential Development' },
-    { src: 'https://images.unsplash.com/photo-1590674899484-d5640d854c2c?w=600&q=80', label: 'Utility Installation' },
-  ]
-
+function JobsitesGallery() {
   return (
-    <section className="py-24 bg-asphalt-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          title="Project Gallery"
-          subtitle="Real job sites across stages of development — from clearing to finished pad."
-        />
+    <section className="py-20 lg:py-28 bg-[#0D0D0D] relative overflow-hidden">
+      <div className="absolute inset-0 text-[#FF6B35] opacity-[0.02]">
+        <TopographicLines className="w-full h-full" />
       </div>
-      <div className="overflow-x-auto scroll-container px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="flex gap-6 pb-4"
-          style={{ minWidth: 'max-content' }}
-        >
-          {images.map((img, i) => (
-            <motion.div
-              key={img.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              className="relative flex-shrink-0 w-80 rounded-xl overflow-hidden group"
-            >
-              <img src={img.src} alt={img.label} className="w-80 h-52 object-cover group-hover:scale-105 transition-transform duration-500" />
-              <div className="absolute inset-0 bg-gradient-to-t from-asphalt-950/70 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-4">
-                <p className="text-white font-semibold text-sm">{img.label}</p>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          title="Jobsite Gallery"
+          subtitle="Active project photographs documenting sitework from clearing through final grading."
+        />
+        <div className="overflow-x-auto pb-4 -mx-4 px-4 scroll-container">
+          <div className="flex gap-4 min-w-max pb-2">
+            {galleryImages.map((img, i) => (
+              <FadeInSection key={i}>
+                <div className="w-[300px] sm:w-[350px] h-56 overflow-hidden border border-[#5C4033]/40 group hover:border-[#FF6B35]/70 transition-colors duration-300">
+                  <img
+                    src={img}
+                    alt={`Jobsite photo ${i + 1}`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+              </FadeInSection>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   )
 }
 
-function Contact() {
+function ContactSection() {
+  const [formState, setFormState] = useState({
+    name: '',
+    company: '',
+    email: '',
+    phone: '',
+    siteType: '',
+    message: '',
+  })
   const [submitted, setSubmitted] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    // In production this would POST to an API
     setSubmitted(true)
   }
 
   return (
-    <section id="contact" className="py-24 bg-asphalt-950 relative overflow-hidden">
-      <div className="absolute inset-0 opacity-[0.02]" style={{
-        backgroundImage: 'radial-gradient(circle, #f97316 1px, transparent 1px)',
-        backgroundSize: '30px 30px'
-      }} />
+    <section id="contact" className="py-20 lg:py-28 bg-[#1A1A1A] relative overflow-hidden">
+      <div className="absolute inset-0 text-[#FF6B35] opacity-[0.03]">
+        <TopographicLines className="w-full h-full" />
+      </div>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl lg:text-5xl font-display tracking-wider text-white leading-tight mb-6">
-              Ready to break ground?
-              <span className="block text-survey-400 text-2xl lg:text-3xl mt-2">Request a site evaluation</span>
-            </h2>
-            <p className="text-asphalt-300 mb-8 leading-relaxed">
-              Tell us about your project and we'll provide a preliminary assessment within 48 hours.
-              We serve residential, commercial, and industrial clients across northern Illinois and northwest Indiana.
-            </p>
-            <div className="space-y-4 text-sm">
-              <div className="flex items-center gap-3 text-asphalt-300">
-                <Icon name="phone" className="w-5 h-5 text-survey-400 flex-shrink-0" />
-                {siteInfo.phone}
-              </div>
-              <div className="flex items-center gap-3 text-asphalt-300">
-                <Icon name="mail" className="w-5 h-5 text-survey-400 flex-shrink-0" />
-                {siteInfo.email}
-              </div>
-              <div className="flex items-center gap-3 text-asphalt-300">
-                <Icon name="location" className="w-5 h-5 text-survey-400 flex-shrink-0" />
-                {siteInfo.address}
-              </div>
-              <div className="flex items-center gap-3 text-asphalt-300">
-                <Icon name="shield" className="w-5 h-5 text-survey-400 flex-shrink-0" />
-                {siteInfo.license}
-              </div>
-            </div>
-          </motion.div>
+        <SectionHeading
+          title="Site Evaluation"
+          subtitle="Tell us about your sitework needs. We'll respond with a preliminary assessment within 48 hours."
+        />
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15 }}
-          >
-            {submitted ? (
-              <div className="bg-asphalt-900/50 border border-survey-500/30 rounded-2xl p-8 text-center">
-                <div className="w-16 h-16 rounded-full bg-survey-500/20 flex items-center justify-center mx-auto mb-4">
-                  <Icon name="checkmark" className="w-8 h-8 text-survey-400" />
+        <div className="grid lg:grid-cols-5 gap-8 max-w-5xl mx-auto">
+          {/* Contact info */}
+          <div className="lg:col-span-2 space-y-6">
+            <FadeInSection>
+              <div className="bg-[#0D0D0D] border border-[#5C4033]/40 p-6 space-y-5">
+                <div className="flex items-start gap-3">
+                  <IconPhone className="w-5 h-5 text-[#FF6B35] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <div className="text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-0.5">Call</div>
+                    <a href={`tel:${siteInfo.phone}`} className="text-white font-mono font-bold text-lg hover:text-[#FF6B35] transition-colors">{siteInfo.phone}</a>
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-2">Evaluation Request Submitted</h3>
-                <p className="text-asphalt-400">A project estimator will contact you within 48 hours to discuss your sitework needs.</p>
+                <div className="flex items-start gap-3">
+                  <IconMail className="w-5 h-5 text-[#FF6B35] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <div className="text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-0.5">Email</div>
+                    <a href={`mailto:${siteInfo.email}`} className="text-white font-mono text-sm hover:text-[#FF6B35] transition-colors">{siteInfo.email}</a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <IconMapPin className="w-5 h-5 text-[#FF6B35] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <div className="text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-0.5">Office</div>
+                    <p className="text-white text-sm">{siteInfo.address}</p>
+                    <p className="text-[#8A6F3E] text-xs font-mono mt-1">{siteInfo.license}</p>
+                  </div>
+                </div>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="bg-asphalt-900/50 border border-asphalt-700 rounded-2xl p-8 space-y-5">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-asphalt-300 mb-1.5">Full Name</label>
-                    <input type="text" required className="w-full px-4 py-3 bg-asphalt-950 border border-asphalt-700 rounded-lg text-white placeholder-asphalt-500 focus:border-survey-500 focus:ring-1 focus:ring-survey-500 outline-none transition-colors" placeholder="Your name" />
+            </FadeInSection>
+
+            <FadeInSection>
+              <div className="bg-[#0D0D0D] border border-[#5C4033]/40 p-6">
+                <div className="text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-2">Quick Response</div>
+                <p className="text-white text-sm leading-relaxed">
+                  Most site evaluations return a preliminary budget within 48 hours. Complex sites with geotechnical requirements may take 3-5 business days.
+                </p>
+              </div>
+            </FadeInSection>
+          </div>
+
+          {/* Form */}
+          <div className="lg:col-span-3">
+            <FadeInSection>
+              {submitted ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="bg-[#0D0D0D] border border-[#FF6B35]/40 p-8 text-center"
+                >
+                  <div className="w-16 h-16 bg-[#FF6B35]/10 text-[#FF6B35] flex items-center justify-center mx-auto mb-6">
+                    <IconCheck className="w-8 h-8" />
+                  </div>
+                  <h3 className="font-display text-2xl text-white mb-3 tracking-wide">Evaluation Request Sent</h3>
+                  <p className="text-[#B8A378] text-sm leading-relaxed max-w-md mx-auto">
+                    Thank you. Our estimating team will review your site details and respond with a preliminary assessment within 48 hours.
+                  </p>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit} className="bg-[#0D0D0D] border border-[#5C4033]/40 p-8 space-y-5">
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-1.5">Your Name</label>
+                      <input
+                        type="text"
+                        required
+                        value={formState.name}
+                        onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                        className="w-full bg-[#1A1A1A] border border-[#5C4033]/40 text-white px-3 py-2.5 text-sm focus:outline-none focus:border-[#FF6B35] transition-colors"
+                        placeholder="John Miller"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-1.5">Company</label>
+                      <input
+                        type="text"
+                        value={formState.company}
+                        onChange={(e) => setFormState({ ...formState, company: e.target.value })}
+                        className="w-full bg-[#1A1A1A] border border-[#5C4033]/40 text-white px-3 py-2.5 text-sm focus:outline-none focus:border-[#FF6B35] transition-colors"
+                        placeholder="Company Name"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-1.5">Email</label>
+                      <input
+                        type="email"
+                        required
+                        value={formState.email}
+                        onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                        className="w-full bg-[#1A1A1A] border border-[#5C4033]/40 text-white px-3 py-2.5 text-sm focus:outline-none focus:border-[#FF6B35] transition-colors"
+                        placeholder="j.miller@buildco.com"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-1.5">Phone</label>
+                      <input
+                        type="tel"
+                        value={formState.phone}
+                        onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
+                        className="w-full bg-[#1A1A1A] border border-[#5C4033]/40 text-white px-3 py-2.5 text-sm focus:outline-none focus:border-[#FF6B35] transition-colors"
+                        placeholder="(312) 555-0000"
+                      />
+                    </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-asphalt-300 mb-1.5">Company</label>
-                    <input type="text" className="w-full px-4 py-3 bg-asphalt-950 border border-asphalt-700 rounded-lg text-white placeholder-asphalt-500 focus:border-survey-500 focus:ring-1 focus:ring-survey-500 outline-none transition-colors" placeholder="Company name" />
+                    <label className="block text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-1.5">Site Type</label>
+                    <select
+                      value={formState.siteType}
+                      onChange={(e) => setFormState({ ...formState, siteType: e.target.value })}
+                      className="w-full bg-[#1A1A1A] border border-[#5C4033]/40 text-white px-3 py-2.5 text-sm focus:outline-none focus:border-[#FF6B35] transition-colors"
+                    >
+                      <option value="">Select site type...</option>
+                      <option value="residential">Residential Subdivision</option>
+                      <option value="commercial">Commercial Building Pad</option>
+                      <option value="road">Road / Infrastructure</option>
+                      <option value="industrial">Industrial Yard</option>
+                      <option value="other">Other</option>
+                    </select>
                   </div>
-                </div>
-                <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-asphalt-300 mb-1.5">Email</label>
-                    <input type="email" required className="w-full px-4 py-3 bg-asphalt-950 border border-asphalt-700 rounded-lg text-white placeholder-asphalt-500 focus:border-survey-500 focus:ring-1 focus:ring-survey-500 outline-none transition-colors" placeholder="your@email.com" />
+                    <label className="block text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-1.5">Project Details</label>
+                    <textarea
+                      rows={4}
+                      value={formState.message}
+                      onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                      className="w-full bg-[#1A1A1A] border border-[#5C4033]/40 text-white px-3 py-2.5 text-sm focus:outline-none focus:border-[#FF6B35] transition-colors resize-none"
+                      placeholder="Approximate acreage, scope of work, timeline expectations..."
+                    />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-asphalt-300 mb-1.5">Phone</label>
-                    <input type="tel" className="w-full px-4 py-3 bg-asphalt-950 border border-asphalt-700 rounded-lg text-white placeholder-asphalt-500 focus:border-survey-500 focus:ring-1 focus:ring-survey-500 outline-none transition-colors" placeholder="(312) 555-0000" />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-asphalt-300 mb-1.5">Project Type</label>
-                  <select className="w-full px-4 py-3 bg-asphalt-950 border border-asphalt-700 rounded-lg text-white focus:border-survey-500 focus:ring-1 focus:ring-survey-500 outline-none transition-colors">
-                    <option value="">Select project type</option>
-                    <option>Residential Subdivision</option>
-                    <option>Commercial Building Pad</option>
-                    <option>Road & Infrastructure</option>
-                    <option>Industrial Yard</option>
-                    <option>Utility Installation</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-asphalt-300 mb-1.5">Project Description</label>
-                  <textarea rows={4} required className="w-full px-4 py-3 bg-asphalt-950 border border-asphalt-700 rounded-lg text-white placeholder-asphalt-500 focus:border-survey-500 focus:ring-1 focus:ring-survey-500 outline-none transition-colors resize-none" placeholder="Describe your project scope, location, and timeline..." />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-asphalt-300 mb-1.5">Estimated Project Size</label>
-                  <select className="w-full px-4 py-3 bg-asphalt-950 border border-asphalt-700 rounded-lg text-white focus:border-survey-500 focus:ring-1 focus:ring-survey-500 outline-none transition-colors">
-                    <option value="">Select size</option>
-                    <option>Under 1 acre</option>
-                    <option>1–5 acres</option>
-                    <option>5–20 acres</option>
-                    <option>20–100 acres</option>
-                    <option>100+ acres</option>
-                  </select>
-                </div>
-                <button type="submit" className="w-full px-8 py-3.5 bg-survey-500 hover:bg-survey-600 text-asphalt-950 font-bold rounded-lg transition-colors text-lg tracking-wide">
-                  Submit Evaluation Request
-                </button>
-              </form>
-            )}
-          </motion.div>
+                  <button
+                    type="submit"
+                    className="w-full bg-[#FF6B35] text-white px-8 py-3.5 font-bold uppercase tracking-wider text-sm hover:bg-[#E55A2B] transition-colors"
+                  >
+                    Submit Site Evaluation
+                  </button>
+                </form>
+              )}
+            </FadeInSection>
+          </div>
         </div>
       </div>
     </section>
@@ -672,46 +778,27 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="bg-asphalt-950 border-t border-asphalt-800 py-12">
+    <footer className="bg-[#0D0D0D] border-t border-[#5C4033]/30 py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-survey-500 flex items-center justify-center text-asphalt-950 font-bold font-display">
-                <Icon name="helmet" className="w-4 h-4" />
-              </div>
-              <span className="text-white font-bold">{siteInfo.name}</span>
+            <div className="font-display text-xl text-white tracking-wider">
+              TERRA<span className="text-[#FF6B35]">FORM</span>
+              <span className="block text-[10px] font-mono text-[#8A6F3E] tracking-[0.3em] uppercase">Civil Works</span>
             </div>
-            <p className="text-sm text-asphalt-400 leading-relaxed">{siteInfo.shortTagline}</p>
           </div>
-          <div>
-            <h4 className="text-white font-semibold mb-3 text-sm uppercase tracking-wider">Services</h4>
-            <ul className="space-y-2 text-sm text-asphalt-400">
-              {capabilities.slice(0, 5).map(c => (
-                <li key={c.title}>{c.title}</li>
-              ))}
-            </ul>
+          <div className="flex flex-wrap gap-4 text-[#8A6F3E] text-xs font-mono">
+            <a href="#capabilities" className="hover:text-[#FF6B35] transition-colors">Capabilities</a>
+            <a href="#process" className="hover:text-[#FF6B35] transition-colors">Process</a>
+            <a href="#equipment" className="hover:text-[#FF6B35] transition-colors">Equipment</a>
+            <a href="#projects" className="hover:text-[#FF6B35] transition-colors">Projects</a>
+            <a href="#safety" className="hover:text-[#FF6B35] transition-colors">Safety</a>
+            <a href="#contact" className="hover:text-[#FF6B35] transition-colors">Contact</a>
           </div>
-          <div>
-            <h4 className="text-white font-semibold mb-3 text-sm uppercase tracking-wider">Contact</h4>
-            <ul className="space-y-2 text-sm text-asphalt-400">
-              <li>{siteInfo.address}</li>
-              <li>{siteInfo.phone}</li>
-              <li>{siteInfo.email}</li>
-            </ul>
+          <div className="text-[#8A6F3E] text-sm text-center lg:text-right">
+            <p>&copy; {new Date().getFullYear()} TerraForm Civil Works. All rights reserved.</p>
+            <p className="text-[#5C4033] text-xs mt-1">{siteInfo.license} &middot; Heavy Civil Contractor &middot; IL Licensed & Bonded</p>
           </div>
-          <div>
-            <h4 className="text-white font-semibold mb-3 text-sm uppercase tracking-wider">Licensing</h4>
-            <ul className="space-y-2 text-sm text-asphalt-400">
-              <li>{siteInfo.license}</li>
-              <li>{siteInfo.insurance}</li>
-              <li>Est. {siteInfo.founded}</li>
-            </ul>
-          </div>
-        </div>
-        <div className="mt-10 pt-6 border-t border-asphalt-800 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-asphalt-500">© {new Date().getFullYear()} {siteInfo.name}. All rights reserved.</p>
-          <p className="text-xs text-asphalt-500 font-mono">{siteInfo.license} · Fully Insured</p>
         </div>
       </div>
     </footer>
@@ -720,19 +807,17 @@ function Footer() {
 
 export default function App() {
   return (
-    <>
+    <div className="font-sans bg-[#1A1A1A] text-white antialiased">
       <Navbar />
-      <main>
-        <Hero />
-        <CapabilitiesSection />
-        <Process />
-        <EquipmentFleet />
-        <ProjectTypes />
-        <Safety />
-        <Gallery />
-        <Contact />
-      </main>
+      <Hero />
+      <CapabilitiesSection />
+      <ProcessSection />
+      <EquipmentSection />
+      <ProjectsGallery />
+      <SafetySection />
+      <JobsitesGallery />
+      <ContactSection />
       <Footer />
-    </>
+    </div>
   )
 }

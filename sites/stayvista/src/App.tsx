@@ -34,6 +34,71 @@ const cardVariants = {
   whileInView: { opacity: 1, y: 0 },
 };
 
+/* --- SVG Icon Components --- */
+function IconCamera({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" /><circle cx="12" cy="13" r="4" />
+    </svg>
+  );
+}
+function IconLocationPin({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}
+function IconCleaning({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /><polyline points="10 9 9 9 8 9" />
+    </svg>
+  );
+}
+function IconChart({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" />
+    </svg>
+  );
+}
+function IconHome({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /><polyline points="9 22 9 12 15 12 15 22" />
+    </svg>
+  );
+}
+function IconChat({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+    </svg>
+  );
+}
+function IconKey({ className = 'w-6 h-6' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 11-7.78 7.78 5.5 5.5 0 017.78-7.78zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" />
+    </svg>
+  );
+}
+
+function IconResolver({ name, size = 'text-5xl' }: { name: string; size?: string }) {
+  const iconClass = 'inline-block w-9 h-9 text-terracotta';
+  switch (name) {
+    case 'camera': return <IconCamera className={iconClass} />;
+    case 'location-pin': return <IconLocationPin className={iconClass} />;
+    case 'cleaning': return <IconCleaning className={iconClass} />;
+    case 'chart': return <IconChart className={iconClass} />;
+    case 'home': return <IconHome className={iconClass} />;
+    case 'chat': return <IconChat className={iconClass} />;
+    case 'key': return <IconKey className={iconClass} />;
+    default: return <IconHome className={iconClass} />;
+  }
+}
+
 function Navbar({
   scrolled,
   mobileOpen,
@@ -268,7 +333,7 @@ function GuestsSection({ features }: { features: GuestFeature[] }) {
               variants={cardVariants}
               className="text-center p-6 rounded-xl hover:bg-warm-white transition-colors"
             >
-              <span className="text-5xl">{f.icon}</span>
+              <IconResolver name={f.icon} />
               <h3 className="text-lg font-bold text-soft-black mt-4">{f.title}</h3>
               <p className="text-gray-500 mt-2 leading-relaxed">{f.description}</p>
             </motion.div>
@@ -302,7 +367,7 @@ function OwnersSection({ features }: { features: OwnerFeature[] }) {
               variants={cardVariants}
               className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:bg-white/15 transition-colors"
             >
-              <span className="text-4xl">{f.icon}</span>
+              <IconResolver name={f.icon} size="text-4xl" />
               <h3 className="text-lg font-bold mt-4">{f.title}</h3>
               <p className="text-gray-300 mt-2 leading-relaxed text-sm">{f.description}</p>
             </motion.div>

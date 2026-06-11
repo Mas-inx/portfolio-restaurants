@@ -1,20 +1,9 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-navy: #1a365d;
-  --color-navy-dark: #0f1d33;
-  --color-navy-light: #2a5298;
-
-  --color-red-50: #fef2f2;
-  --color-red-100: #fee2e2;
-  --color-red-200: #fecaca;
-  --color-red-300: #fca5a5;
-  --color-red-400: #f87171;
-  --color-red-500: #ef4444;
-  --color-red-600: #dc2626;
-  --color-red-700: #b91c1c;
-  --color-red-800: #991b1b;
-  --color-red-900: #7f1d1d;
+  --color-navy: #0f2b4b;
+  --color-navy-dark: #081829;
+  --color-navy-light: #1e4a7a;
 
   --font-heading: 'DM Sans', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
@@ -23,8 +12,8 @@
 
 /*
   RapidRoof & Exteriors — Tailwind v4 theme
-  Deep blue, white, warning red (emergency only)
-  Crisp service-business typography
+  Deep blue, white, red emergency accents
+  Crisp service-business typography with DM Sans headings
 */
 
 html {
@@ -47,8 +36,8 @@ body {
   background: #f1f5f9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1a365d;
+  background: #0f2b4b;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #0f1d33;
+  background: #081829;
 }
