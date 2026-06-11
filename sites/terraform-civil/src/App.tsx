@@ -1,175 +1,244 @@
-import { useRef, useState, useEffect } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { useRef, useState, useEffect, useCallback } from 'react'
+import { motion, useInView, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import {
   siteInfo, stats, capabilities, processPhases, equipment,
   projectTypes, safetyPoints, galleryImages, navLinks,
 } from './data'
 import type { EquipmentItem } from './data'
 
-/* ── Topographic Decoration ── */
+/* ═══════════════════════════════════════════════════════════════
+   TERRAFORM CIVIL WORKS — Heavy Civil / Sitework
+   Design: Rugged, earthy, engineering-focused
+   Palette: Earth Brown #5C4033 · Olive #6B8E23 · Sand #F5E6CA · Slate #4A5568
+   ═══════════════════════════════════════════════════════════════ */
 
-function TopographicLines({ className = '' }: { className?: string }) {
+/* ── Topographic Contour Pattern ── */
+
+function ContourPattern({ className = '' }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <path d="M0 200 Q100 150 200 200 T400 200" stroke="currentColor" strokeWidth="0.5" opacity="0.3" />
-      <path d="M0 180 Q100 130 200 180 T400 180" stroke="currentColor" strokeWidth="0.4" opacity="0.25" />
-      <path d="M0 220 Q100 170 200 220 T400 220" stroke="currentColor" strokeWidth="0.4" opacity="0.25" />
-      <path d="M0 160 Q120 100 200 160 T400 160" stroke="currentColor" strokeWidth="0.3" opacity="0.2" />
-      <path d="M0 240 Q120 190 200 240 T400 240" stroke="currentColor" strokeWidth="0.3" opacity="0.2" />
-      <path d="M0 140 Q140 70 200 140 T400 140" stroke="currentColor" strokeWidth="0.25" opacity="0.15" />
-      <path d="M0 260 Q140 210 200 260 T400 260" stroke="currentColor" strokeWidth="0.25" opacity="0.15" />
-      <path d="M0 100 Q160 40 200 100 T400 100" stroke="currentColor" strokeWidth="0.2" opacity="0.1" />
-      <path d="M0 300 Q160 250 200 300 T400 300" stroke="currentColor" strokeWidth="0.2" opacity="0.1" />
-      <path d="M200 0 Q150 100 200 200 T200 400" stroke="currentColor" strokeWidth="0.3" opacity="0.15" />
-      <path d="M220 0 Q170 100 220 200 T220 400" stroke="currentColor" strokeWidth="0.25" opacity="0.12" />
-      <path d="M180 0 Q130 100 180 200 T180 400" stroke="currentColor" strokeWidth="0.25" opacity="0.12" />
+    <svg className={className} viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <path d="M0 300C100 280 200 320 300 300S500 260 600 300S750 340 800 300" stroke="currentColor" strokeWidth="0.8" />
+      <path d="M0 260C120 240 240 280 360 260S540 220 660 260S760 300 800 260" stroke="currentColor" strokeWidth="0.6" />
+      <path d="M0 340C120 320 240 360 360 340S540 300 660 340S760 380 800 340" stroke="currentColor" strokeWidth="0.6" />
+      <path d="M0 220C140 190 280 240 420 220S620 180 720 220S780 260 800 220" stroke="currentColor" strokeWidth="0.4" />
+      <path d="M0 380C140 350 280 400 420 380S620 340 720 380S780 420 800 380" stroke="currentColor" strokeWidth="0.4" />
+      <path d="M0 180C160 150 320 200 480 180S680 140 760 180S790 220 800 180" stroke="currentColor" strokeWidth="0.3" />
+      <path d="M0 420C160 390 320 440 480 420S680 380 760 420S790 460 800 420" stroke="currentColor" strokeWidth="0.3" />
+      <path d="M0 140C180 100 360 160 540 140S720 100 780 140" stroke="currentColor" strokeWidth="0.2" />
+      <path d="M0 460C180 420 360 480 540 460S720 420 780 460" stroke="currentColor" strokeWidth="0.2" />
+      <path d="M400 0C380 100 420 200 400 300S360 500 400 600" stroke="currentColor" strokeWidth="0.5" />
+      <path d="M340 0C320 120 360 240 340 360S300 520 340 600" stroke="currentColor" strokeWidth="0.3" />
+      <path d="M460 0C440 120 480 240 460 360S420 520 460 600" stroke="currentColor" strokeWidth="0.3" />
+      <path d="M280 0C260 140 300 280 280 420S240 540 280 600" stroke="currentColor" strokeWidth="0.2" />
+      <path d="M520 0C500 140 540 280 520 420S480 540 520 600" stroke="currentColor" strokeWidth="0.2" />
+      {/* Elevation markers */}
+      <circle cx="400" cy="300" r="3" fill="currentColor" opacity="0.4" />
+      <circle cx="200" cy="260" r="2" fill="currentColor" opacity="0.3" />
+      <circle cx="600" cy="340" r="2" fill="currentColor" opacity="0.3" />
+      <text x="410" y="295" fill="currentColor" fontSize="8" opacity="0.3" fontFamily="monospace">+742.5</text>
+      <text x="210" y="255" fill="currentColor" fontSize="7" opacity="0.25" fontFamily="monospace">+738.0</text>
+      <text x="610" y="335" fill="currentColor" fontSize="7" opacity="0.25" fontFamily="monospace">+745.2</text>
     </svg>
   )
 }
 
-/* ── SVG Icons ── */
+/* ── Grid Pattern (engineering paper) ── */
+
+function GridPattern({ className = '' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <defs>
+        <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+          <path d="M 10 0 L 0 0 0 10" stroke="currentColor" strokeWidth="0.15" opacity="0.3" />
+        </pattern>
+      </defs>
+      <rect width="100" height="100" fill="url(#grid)" />
+    </svg>
+  )
+}
+
+/* ── SVG Icons (inline, no emoji) ── */
 
 function IconExcavator({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20 9v4a2 2 0 0 1-2 2H8" />
-      <path d="M3 13h4l3 4h4a2 2 0 0 0 2-2V9" />
-      <circle cx="6" cy="17" r="2" />
-      <circle cx="18" cy="17" r="2" />
-      <line x1="14" y1="5" x2="20" y2="5" />
-      <path d="M12 3L8 9h8z" />
-      <line x1="4" y1="11" x2="8" y2="11" />
+    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="20" width="16" height="6" rx="1" />
+      <circle cx="7" cy="28" r="2" />
+      <circle cx="17" cy="28" r="2" />
+      <path d="M20 20V14h4v6" />
+      <path d="M20 14l-6-8h-3l4 8" />
+      <path d="M11 6l8 4" />
+      <path d="M19 10l4-4 4 2" />
     </svg>
   )
 }
 
-function IconGrading({ className }: { className?: string }) {
+function IconGrader({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="8" width="20" height="8" rx="1" />
-      <path d="M2 16v3" />
-      <path d="M22 16v3" />
-      <path d="M6 11h12" />
-      <path d="M4 13h10" />
-      <path d="M18 6l-3-3-3 3" />
-      <path d="M15 3v5" />
+    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="6" y="10" width="10" height="8" rx="1" />
+      <circle cx="9" cy="22" r="2.5" />
+      <circle cx="24" cy="22" r="2.5" />
+      <path d="M16 14h8v4h-8" />
+      <path d="M4 20h24" />
+      <path d="M6 20l-2 2h4" />
+      <path d="M26 20l2 2h-4" />
+      <path d="M8 10V7h6v3" />
     </svg>
   )
 }
 
-function IconDrainage({ className }: { className?: string }) {
+function IconPipe({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 2a8 8 0 0 0-8 8c0 4.5 8 12 8 12s8-7.5 8-12a8 8 0 0 0-8-8z" />
-      <path d="M12 6v4" />
-      <path d="M12 14h.01" />
+    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 12h8v8H4" />
+      <path d="M12 14h8v4h-8" />
+      <path d="M20 10h8v12h-8" />
+      <path d="M8 12V8" />
+      <path d="M24 10V6" />
+      <path d="M24 22v4" />
     </svg>
   )
 }
 
-function IconUtilities({ className }: { className?: string }) {
+function IconUtility({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M4 20h16" />
-      <path d="M6 20V8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12" />
-      <path d="M8 5V3" />
-      <path d="M16 5V3" />
-      <line x1="9" y1="12" x2="15" y2="12" />
-      <line x1="9" y1="16" x2="15" y2="16" />
+    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 4v6" />
+      <path d="M10 10h12v4H10z" />
+      <path d="M16 14v4" />
+      <path d="M8 18h16v4H8z" />
+      <path d="M16 22v6" />
+      <path d="M12 28h8" />
+      <path d="M6 10l-2-2" />
+      <path d="M26 10l2-2" />
     </svg>
   )
 }
 
 function IconPaving({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="14" width="20" height="4" rx="1" />
-      <path d="M6 10h12" />
-      <path d="M8 6h8" />
-      <circle cx="6" cy="18" r="1.5" />
-      <circle cx="18" cy="18" r="1.5" />
-      <path d="M2 5v3h20V5" />
+    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="18" width="24" height="6" rx="1" />
+      <path d="M4 24v3h24v-3" />
+      <path d="M8 18v-4h16v4" />
+      <path d="M12 14v-3h8v3" />
+      <circle cx="8" cy="27" r="1.5" />
+      <circle cx="24" cy="27" r="1.5" />
     </svg>
   )
 }
 
-function IconRetaining({ className }: { className?: string }) {
+function IconWall({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="4" y="4" width="16" height="16" rx="1" />
-      <line x1="4" y1="10" x2="20" y2="10" />
-      <line x1="4" y1="16" x2="20" y2="16" />
-      <line x1="10" y1="4" x2="10" y2="20" />
-      <line x1="14" y1="4" x2="14" y2="20" />
-      <path d="M4 4L2 2" />
-      <path d="M20 4l2-2" />
-      <path d="M4 20l-2 2" />
-      <path d="M20 20l2 2" />
+    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="6" width="24" height="20" rx="0" />
+      <line x1="4" y1="12" x2="28" y2="12" />
+      <line x1="4" y1="18" x2="28" y2="18" />
+      <line x1="4" y1="24" x2="28" y2="24" />
+      <line x1="12" y1="6" x2="12" y2="12" />
+      <line x1="20" y1="6" x2="20" y2="12" />
+      <line x1="8" y1="12" x2="8" y2="18" />
+      <line x1="16" y1="12" x2="16" y2="18" />
+      <line x1="24" y1="12" x2="24" y2="18" />
+      <line x1="12" y1="18" x2="12" y2="24" />
+      <line x1="20" y1="18" x2="20" y2="24" />
     </svg>
   )
 }
 
 function IconSurvey({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 3l18 18" />
-      <path d="M21 3l-7 7" />
-      <path d="M3 21l7-7" />
-      <circle cx="12" cy="12" r="2" />
+    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 4l-2 6h4l-2-6z" />
+      <circle cx="16" cy="14" r="3" />
+      <path d="M16 17v11" />
+      <path d="M10 28h12" />
+      <path d="M13 24l3-3 3 3" />
     </svg>
   )
 }
 
 function IconClearing({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 3L3 8l9 5 9-5z" />
-      <path d="M3 14l9 5 9-5" />
-      <path d="M3 19l9 5 9-5" />
-      <path d="M3 8v11" />
-      <path d="M21 8v11" />
+    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 4l-8 10h5l-4 8h14l-4-8h5z" />
+      <path d="M16 22v6" />
+      <path d="M12 28h8" />
     </svg>
   )
 }
 
 function IconCompaction({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 7v5l3 3" />
-      <path d="M7 12h10" />
+    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="8" y="8" width="16" height="10" rx="2" />
+      <path d="M8 18v4h16v-4" />
+      <path d="M6 22h20" />
+      <path d="M10 26h12" />
+      <path d="M12 8V5" />
+      <path d="M20 8V5" />
+      <path d="M14 12h4" />
+      <path d="M14 15h4" />
     </svg>
   )
 }
 
 function IconHandoff({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M4 17l4 4L20 7" />
-      <path d="M4 12l4 4L20 3" />
+    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="6" y="4" width="20" height="24" rx="1" />
+      <path d="M10 10h12" />
+      <path d="M10 14h12" />
+      <path d="M10 18h8" />
+      <path d="M20 22l3 3 5-6" />
     </svg>
   )
 }
 
 function IconShield({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 3L4 8v8c0 7 5.5 12 12 13 6.5-1 12-6 12-13V8L16 3z" />
+      <path d="M12 16l3 3 5-6" />
     </svg>
   )
 }
 
-function IconChevronRight({ className }: { className?: string }) {
+function IconWater({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="9 18 15 12 9 6" />
+    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 4C16 4 6 14 6 20a10 10 0 0 0 20 0c0-6-10-16-10-16z" />
+      <path d="M12 22a4 4 0 0 0 4 4" />
+    </svg>
+  )
+}
+
+function IconInspect({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="14" cy="14" r="8" />
+      <path d="M20 20l8 8" />
+      <path d="M14 10v4l3 2" />
+    </svg>
+  )
+}
+
+function IconDoc({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M8 4h12l6 6v18H8z" />
+      <path d="M20 4v6h6" />
+      <path d="M12 16h8" />
+      <path d="M12 20h8" />
+      <path d="M12 24h5" />
     </svg>
   )
 }
 
 function IconMenu({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
       <line x1="3" y1="6" x2="21" y2="6" />
       <line x1="3" y1="12" x2="21" y2="12" />
       <line x1="3" y1="18" x2="21" y2="18" />
@@ -179,9 +248,18 @@ function IconMenu({ className }: { className?: string }) {
 
 function IconX({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
       <line x1="18" y1="6" x2="6" y2="18" />
       <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  )
+}
+
+function IconArrow({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12" />
+      <polyline points="12 5 19 12 12 19" />
     </svg>
   )
 }
@@ -189,7 +267,7 @@ function IconX({ className }: { className?: string }) {
 function IconPhone({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
     </svg>
   )
 }
@@ -203,7 +281,7 @@ function IconMail({ className }: { className?: string }) {
   )
 }
 
-function IconMapPin({ className }: { className?: string }) {
+function IconPin({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
@@ -212,67 +290,152 @@ function IconMapPin({ className }: { className?: string }) {
   )
 }
 
-function IconCheck({ className }: { className?: string }) {
+function IconExpand({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="20 6 9 17 4 12" />
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="15 3 21 3 21 9" />
+      <polyline points="9 21 3 21 3 15" />
+      <line x1="21" y1="3" x2="14" y2="10" />
+      <line x1="3" y1="21" x2="10" y2="14" />
     </svg>
   )
 }
 
-const capabilityIcons = [IconExcavator, IconGrading, IconDrainage, IconUtilities, IconPaving, IconRetaining]
-const processIcons = [IconSurvey, IconClearing, IconGrading, IconUtilities, IconCompaction, IconHandoff]
+/* ── Icon Maps ── */
 
-/* ── Reusable Components ── */
+const capabilityIcons = [IconExcavator, IconGrader, IconPipe, IconUtility, IconPaving, IconWall]
+const processIcons = [IconSurvey, IconClearing, IconGrader, IconPipe, IconCompaction, IconHandoff]
+const safetyIcons = [IconWater, IconShield, IconInspect, IconDoc]
+
+/* ── Animated Counter Hook ── */
+
+function useCounter(target: string, inView: boolean) {
+  const [display, setDisplay] = useState('0')
+  const numericPart = target.replace(/[^0-9]/g, '')
+  const suffix = target.replace(/[0-9]/g, '')
+  const num = parseInt(numericPart, 10)
+
+  useEffect(() => {
+    if (!inView || isNaN(num)) {
+      setDisplay(target)
+      return
+    }
+    let start = 0
+    const duration = 1500
+    const startTime = performance.now()
+    const step = (now: number) => {
+      const elapsed = now - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      start = Math.round(eased * num)
+      setDisplay(start + suffix)
+      if (progress < 1) requestAnimationFrame(step)
+    }
+    requestAnimationFrame(step)
+  }, [inView, target, num, suffix])
+
+  return display
+}
+
+/* ── Components ── */
+
+function AnimatedStat({ value, label }: { value: string; label: string }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-50px' })
+  const display = useCounter(value, inView)
+  return (
+    <div ref={ref} className="text-center px-6 py-4">
+      <div className="font-mono text-3xl sm:text-4xl font-black text-[#F5E6CA] tracking-tight">{display}</div>
+      <div className="text-[#6B8E23] text-[11px] font-bold uppercase tracking-[0.2em] mt-1">{label}</div>
+    </div>
+  )
+}
+
+function FadeIn({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+/* ── Navbar ── */
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    const handler = () => setScrolled(window.scrollY > 50)
+    window.addEventListener('scroll', handler, { passive: true })
+    return () => window.removeEventListener('scroll', handler)
   }, [])
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-[#1A1A1A]/95 backdrop-blur-md border-b border-[#5C4033]/30' : 'bg-transparent'
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      scrolled ? 'bg-[#2D1F14]/95 backdrop-blur-sm shadow-lg shadow-black/20' : 'bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          <a href="#" className="font-display text-2xl text-white tracking-wider">
-            TERRA<span className="text-[#FF6B35]">FORM</span>
-            <span className="block text-[10px] font-mono text-[#8A6F3E] tracking-[0.3em] uppercase -mt-1">Civil Works</span>
+          {/* Logo */}
+          <a href="#" className="flex items-center gap-3 group">
+            <div className="w-9 h-9 bg-[#6B8E23] flex items-center justify-center relative">
+              <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#F5E6CA]" fill="currentColor">
+                <path d="M12 2L2 7v2l10-5 10 5V7L12 2zM2 12l10 5 10-5v2l-10 5-10-5v-2z" />
+              </svg>
+            </div>
+            <div className="leading-none">
+              <span className="block text-[#F5E6CA] font-black text-lg tracking-tight uppercase">TerraForm</span>
+              <span className="block text-[#6B8E23] text-[9px] font-mono font-bold tracking-[0.25em] uppercase">Civil Works</span>
+            </div>
           </a>
-          <div className="hidden lg:flex items-center gap-6">
+
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex items-center gap-1">
             {navLinks.map((l) => (
-              <a key={l.href} href={l.href} className="text-sm font-medium text-[#B8A378] hover:text-white transition-colors tracking-wide uppercase">
+              <a key={l.href} href={l.href} className="px-3 py-2 text-[11px] font-bold uppercase tracking-[0.15em] text-[#F5E6CA]/70 hover:text-[#F5E6CA] transition-colors relative group">
                 {l.label}
+                <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#6B8E23] scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
               </a>
             ))}
-            <a href="#contact" className="bg-[#FF6B35] text-white px-5 py-2.5 text-sm font-bold uppercase tracking-wider hover:bg-[#E55A2B] transition-colors">
-              Get a Quote
+            <a href="#contact" className="ml-4 bg-[#5C4033] text-[#F5E6CA] px-5 py-2.5 text-[11px] font-black uppercase tracking-[0.15em] hover:bg-[#6B8E23] transition-colors">
+              Request Bid
             </a>
           </div>
-          <button className="lg:hidden p-2" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
-            {menuOpen ? <IconX className="w-6 h-6 text-white" /> : <IconMenu className="w-6 h-6 text-white" />}
+
+          {/* Mobile Toggle */}
+          <button className="lg:hidden p-2 text-[#F5E6CA]" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+            {menuOpen ? <IconX className="w-6 h-6" /> : <IconMenu className="w-6 h-6" />}
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-[#1A1A1A] border-t border-[#5C4033]/30"
+            className="lg:hidden bg-[#2D1F14] border-t border-[#5C4033]/50"
           >
-            <div className="px-4 py-4 space-y-3">
+            <div className="px-4 py-5 space-y-1">
               {navLinks.map((l) => (
-                <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} className="block text-[#B8A378] font-medium">{l.label}</a>
+                <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} className="block px-3 py-3 text-sm font-bold uppercase tracking-wider text-[#F5E6CA]/80 hover:text-[#6B8E23] transition-colors border-b border-[#5C4033]/20">
+                  {l.label}
+                </a>
               ))}
-              <a href="#contact" onClick={() => setMenuOpen(false)} className="block bg-[#FF6B35] text-white px-5 py-2.5 text-sm font-bold uppercase text-center">Get a Quote</a>
+              <a href="#contact" onClick={() => setMenuOpen(false)} className="block mt-3 bg-[#5C4033] text-[#F5E6CA] px-5 py-3 text-sm font-black uppercase text-center tracking-wider">
+                Request Bid
+              </a>
             </div>
           </motion.div>
         )}
@@ -281,92 +444,96 @@ function Navbar() {
   )
 }
 
-function FadeInSection({ children, className }: { children: React.ReactNode; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
-  return (
-    <motion.div ref={ref} initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className={className}>
-      {children}
-    </motion.div>
-  )
-}
-
-function SectionHeading({ title, subtitle, survey }: { title: string; subtitle?: string; survey?: boolean }) {
-  return (
-    <div className="text-center mb-14 lg:mb-16">
-      <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white tracking-wide">{title}</h2>
-      {subtitle && <p className="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-[#B8A378]">{subtitle}</p>}
-      <div className={`w-20 h-0.5 mx-auto mt-6 ${survey ? 'bg-[#FF6B35]' : 'bg-[#FF6B35]'}`} />
-    </div>
-  )
-}
-
-function SpecBadge({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex items-baseline gap-1 px-2.5 py-1 bg-[#1A1A1A] border border-[#5C4033]/40 rounded-none">
-      <span className="text-[#8A6F3E] text-[10px] font-mono uppercase tracking-widest">{label}</span>
-      <span className="text-[#FF6B35] text-xs font-mono font-bold">{value}</span>
-    </div>
-  )
-}
-
-/* ── Sections ── */
+/* ── Hero Section ── */
 
 function Hero() {
+  const ref = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.8], [0.6, 0.85])
+
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0">
+    <section ref={ref} className="relative min-h-screen flex items-end overflow-hidden">
+      {/* Parallax Background */}
+      <motion.div className="absolute inset-0" style={{ y: bgY }}>
         <img
-          src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=1600&q=85"
-          alt="Heavy equipment on construction site"
-          className="w-full h-full object-cover"
+          src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=1920&q=85"
+          alt="Aerial view of heavy civil construction site"
+          className="w-full h-[120%] object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1A1A1A]/95 via-[#1A1A1A]/80 to-[#1A1A1A]/50" />
-        {/* Topographic overlay */}
-        <div className="absolute inset-0 text-[#FF6B35] opacity-[0.06]">
-          <TopographicLines className="w-full h-full" />
-        </div>
+      </motion.div>
+
+      {/* Overlays */}
+      <motion.div className="absolute inset-0 bg-[#2D1F14]" style={{ opacity: overlayOpacity }} />
+      <div className="absolute inset-0 text-[#6B8E23] opacity-[0.07]">
+        <ContourPattern className="w-full h-full" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-40 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-3xl"
-        >
-          <div className="inline-flex items-center gap-2 bg-[#1A1A1A]/80 border border-[#5C4033]/50 px-4 py-2 mb-6">
-            <span className="text-[#FF6B35] text-sm font-mono font-semibold tracking-wider uppercase">Heavy Civil Contractor</span>
-          </div>
-          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-white leading-none mb-6 tracking-wide">
-            Preparing Land<br />
-            <span className="text-[#FF6B35]">For What Comes Next</span>
-          </h1>
-          <p className="text-[#B8A378] text-lg max-w-xl mb-10 leading-relaxed">
-            22 years of heavy civil sitework in the Midwest. We move earth, install infrastructure, and deliver ready-to-build sites on schedule and on budget.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <a href="#capabilities" className="bg-[#FF6B35] text-white px-8 py-3.5 font-bold uppercase tracking-wider text-sm hover:bg-[#E55A2B] transition-colors inline-flex items-center gap-2">
-              View Capabilities <IconChevronRight className="w-4 h-4" />
-            </a>
-            <a href="#projects" className="border border-[#8A6F3E] text-[#B8A378] px-8 py-3.5 font-bold uppercase tracking-wider text-sm hover:bg-[#5C4033]/30 transition-colors">
-              Our Projects
-            </a>
-          </div>
-        </motion.div>
+      {/* Diagonal cut at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-[#1A120B]" style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }} />
 
-        {/* Stats */}
+      {/* Content */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32 lg:pb-40 pt-32 w-full">
+        <div className="max-w-4xl">
+          {/* Tag badge */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="inline-flex items-center gap-2 mb-6"
+          >
+            <span className="w-8 h-px bg-[#6B8E23]" />
+            <span className="text-[#6B8E23] text-xs font-mono font-bold tracking-[0.3em] uppercase">
+              Est. 2003 · Chicago, IL
+            </span>
+          </motion.div>
+
+          {/* Main heading */}
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="font-black text-5xl sm:text-6xl lg:text-8xl text-[#F5E6CA] leading-[0.9] tracking-tight mb-6"
+          >
+            We Move<br />
+            <span className="text-[#6B8E23]">Earth.</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.5 }}
+            className="text-[#F5E6CA]/70 text-lg sm:text-xl max-w-xl leading-relaxed mb-8"
+          >
+            {siteInfo.tagline}. Heavy civil sitework, mass grading, utility installation, and site development across the Midwest.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            className="flex flex-wrap gap-4"
+          >
+            <a href="#capabilities" className="group inline-flex items-center gap-3 bg-[#6B8E23] text-[#F5E6CA] px-7 py-4 font-black text-sm uppercase tracking-wider hover:bg-[#5a7a1e] transition-colors">
+              Our Capabilities
+              <IconArrow className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </a>
+            <a href="#contact" className="inline-flex items-center gap-3 border-2 border-[#F5E6CA]/30 text-[#F5E6CA] px-7 py-4 font-black text-sm uppercase tracking-wider hover:border-[#6B8E23] hover:text-[#6B8E23] transition-colors">
+              Request a Bid
+            </a>
+          </motion.div>
+        </div>
+
+        {/* Stats Bar */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="flex flex-wrap gap-5 mt-16"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1 }}
+          className="mt-16 lg:mt-20 grid grid-cols-3 gap-0 border border-[#5C4033]/60 bg-[#1A120B]/80 backdrop-blur-sm max-w-lg"
         >
-          {stats.map((s) => (
-            <div key={s.label} className="bg-[#1A1A1A]/60 backdrop-blur-sm border border-[#5C4033]/50 px-6 py-4 text-center min-w-[130px]">
-              <div className="font-mono text-3xl font-bold text-[#FF6B35]">{s.value}</div>
-              <div className="text-[#8A6F3E] text-xs font-medium mt-1 uppercase tracking-wider">{s.label}</div>
+          {stats.map((s, i) => (
+            <div key={s.label} className={`py-4 px-2 ${i < stats.length - 1 ? 'border-r border-[#5C4033]/40' : ''}`}>
+              <AnimatedStat value={s.value} label={s.label} />
             </div>
           ))}
         </motion.div>
@@ -375,33 +542,55 @@ function Hero() {
   )
 }
 
+/* ── Capabilities Section ── */
+
 function CapabilitiesSection() {
   return (
-    <section id="capabilities" className="py-20 lg:py-28 bg-[#1A1A1A] relative overflow-hidden">
-      <div className="absolute inset-0 text-[#FF6B35] opacity-[0.03]">
-        <TopographicLines className="w-full h-full" />
+    <section id="capabilities" className="py-24 lg:py-32 bg-[#1A120B] relative overflow-hidden">
+      {/* Background grid */}
+      <div className="absolute inset-0 text-[#5C4033] opacity-20">
+        <GridPattern className="w-full h-full" />
       </div>
+
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          title="Core Capabilities"
-          subtitle="Six specialized disciplines covering every phase of site development from raw land to ready-to-build."
-        />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* Section header */}
+        <FadeIn>
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16">
+            <div>
+              <span className="text-[#6B8E23] text-xs font-mono font-bold tracking-[0.3em] uppercase block mb-3">
+                // What We Do
+              </span>
+              <h2 className="font-black text-4xl sm:text-5xl lg:text-6xl text-[#F5E6CA] leading-[0.95] tracking-tight">
+                Core<br />Capabilities
+              </h2>
+            </div>
+            <p className="text-[#F5E6CA]/60 text-base max-w-md leading-relaxed">
+              Six specialized disciplines covering every phase of site development — from raw land to ready-to-build pad.
+            </p>
+          </div>
+        </FadeIn>
+
+        {/* Cards grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-0 border border-[#5C4033]/40">
           {capabilities.map((c, i) => {
-            const IconComp = capabilityIcons[i % capabilityIcons.length]
+            const IconComp = capabilityIcons[i]
             return (
-              <FadeInSection key={c.title}>
-                <div className="group h-full bg-[#1A1A1A] border border-[#5C4033]/40 p-8 hover:border-[#FF6B35] hover:bg-[#1A1A1A]/80 transition-all duration-300">
-                  <div className="flex items-center gap-4 mb-5">
-                    <div className="w-12 h-12 bg-[#FF6B35]/10 text-[#FF6B35] flex items-center justify-center group-hover:bg-[#FF6B35] group-hover:text-white transition-colors duration-300">
-                      <IconComp className="w-6 h-6" />
-                    </div>
-                    <div className="font-mono text-[#5C4033] text-sm font-bold">{String(i + 1).padStart(2, '0')}</div>
+              <FadeIn key={c.title} delay={i * 0.08}>
+                <div className="group h-full p-8 border-b sm:border-r border-[#5C4033]/30 hover:bg-[#5C4033]/10 transition-colors duration-300 relative overflow-hidden">
+                  {/* Corner index */}
+                  <span className="absolute top-3 right-4 text-[#5C4033] text-xs font-mono font-bold">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  {/* Icon */}
+                  <div className="w-14 h-14 mb-6 text-[#6B8E23] group-hover:text-[#F5E6CA] transition-colors duration-300">
+                    <IconComp className="w-full h-full" />
                   </div>
-                  <h3 className="font-display text-xl text-white mb-3 tracking-wide">{c.title}</h3>
-                  <p className="text-[#B8A378] text-sm leading-relaxed">{c.description}</p>
+                  <h3 className="font-black text-xl text-[#F5E6CA] mb-3 tracking-tight uppercase">{c.title}</h3>
+                  <p className="text-[#F5E6CA]/50 text-sm leading-relaxed">{c.description}</p>
+                  {/* Bottom accent line */}
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#6B8E23] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                 </div>
-              </FadeInSection>
+              </FadeIn>
             )
           })}
         </div>
@@ -410,94 +599,170 @@ function CapabilitiesSection() {
   )
 }
 
+/* ── Process Section ── */
+
 function ProcessSection() {
+  const [activePhase, setActivePhase] = useState(0)
+
   return (
-    <section id="process" className="py-20 lg:py-28 bg-[#0D0D0D] relative overflow-hidden">
-      <div className="absolute inset-0 text-[#FF6B35] opacity-[0.02]">
-        <TopographicLines className="w-full h-full" />
+    <section id="process" className="py-24 lg:py-32 bg-[#2D1F14] relative overflow-hidden">
+      {/* Contour decoration */}
+      <div className="absolute inset-0 text-[#5C4033] opacity-[0.08]">
+        <ContourPattern className="w-full h-full" />
       </div>
+
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          title="Sitework Process"
-          subtitle="A proven six-phase delivery method from survey to site handoff."
-        />
-        {/* Horizontal scroll container */}
-        <div className="overflow-x-auto pb-4 -mx-4 px-4 scroll-container">
-          <div className="flex gap-4 min-w-max pb-2">
-            {/* Timeline rail */}
-            <div className="hidden lg:block absolute top-[72px] left-[8%] right-[8%] h-0.5 bg-[#5C4033]/40" />
-            {processPhases.map((p, i) => {
-              const IconComp = processIcons[i % processIcons.length]
-              return (
-                <FadeInSection key={p.phase}>
-                  <div className="relative w-[200px] text-center p-6 bg-[#1A1A1A] border border-[#5C4033]/40 h-full hover:border-[#FF6B35]/50 transition-colors duration-300 flex-shrink-0">
-                    <div className="relative z-10 w-12 h-12 bg-[#FF6B35] text-white flex items-center justify-center mx-auto mb-4 font-mono text-sm font-bold">
-                      {p.phase}
-                    </div>
-                    <div className="w-10 h-10 mx-auto mb-3 text-[#B8A378]">
-                      <IconComp className="w-full h-full" />
-                    </div>
-                    <h3 className="font-display text-lg text-white mb-2 tracking-wide">{p.title}</h3>
-                    <p className="text-[#B8A378] text-xs leading-relaxed mb-3">{p.description}</p>
-                    <p className="text-[#8A6F3E] text-[10px] leading-relaxed font-mono">{p.details}</p>
-                  </div>
-                </FadeInSection>
-              )
-            })}
+        <FadeIn>
+          <div className="text-center mb-16">
+            <span className="text-[#6B8E23] text-xs font-mono font-bold tracking-[0.3em] uppercase block mb-3">
+              // How We Work
+            </span>
+            <h2 className="font-black text-4xl sm:text-5xl lg:text-6xl text-[#F5E6CA] tracking-tight">
+              Sitework Process
+            </h2>
+            <p className="mt-4 text-[#F5E6CA]/60 max-w-lg mx-auto">
+              A proven six-phase delivery method from initial survey through final site handoff.
+            </p>
           </div>
+        </FadeIn>
+
+        {/* Phase selector tabs */}
+        <FadeIn>
+          <div className="flex flex-wrap justify-center gap-2 mb-12">
+            {processPhases.map((p, i) => (
+              <button
+                key={p.phase}
+                onClick={() => setActivePhase(i)}
+                className={`px-4 py-2.5 text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 border ${
+                  activePhase === i
+                    ? 'bg-[#6B8E23] text-[#F5E6CA] border-[#6B8E23]'
+                    : 'bg-transparent text-[#F5E6CA]/50 border-[#5C4033]/50 hover:border-[#6B8E23]/50 hover:text-[#F5E6CA]'
+                }`}
+              >
+                <span className="mr-2 opacity-60">{p.phase}</span>{p.title}
+              </button>
+            ))}
+          </div>
+        </FadeIn>
+
+        {/* Active phase detail */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activePhase}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4 }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="bg-[#1A120B] border border-[#5C4033]/50 p-8 sm:p-12 relative overflow-hidden">
+              {/* Phase number watermark */}
+              <span className="absolute -top-4 -right-2 text-[120px] sm:text-[180px] font-black text-[#5C4033]/10 leading-none select-none pointer-events-none">
+                {processPhases[activePhase].phase}
+              </span>
+
+              <div className="relative">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 bg-[#6B8E23] flex items-center justify-center text-[#F5E6CA] font-mono font-black text-sm">
+                    {processPhases[activePhase].phase}
+                  </div>
+                  <div className="w-10 h-10 text-[#6B8E23]">
+                    {(() => {
+                      const IconComp = processIcons[activePhase]
+                      return <IconComp className="w-full h-full" />
+                    })()}
+                  </div>
+                </div>
+
+                <h3 className="font-black text-3xl sm:text-4xl text-[#F5E6CA] mb-4 tracking-tight uppercase">
+                  {processPhases[activePhase].title}
+                </h3>
+                <p className="text-[#F5E6CA]/70 text-lg leading-relaxed mb-6 max-w-2xl">
+                  {processPhases[activePhase].description}
+                </p>
+                <div className="inline-flex items-center gap-2 bg-[#5C4033]/30 border border-[#5C4033]/50 px-4 py-2">
+                  <span className="text-[#6B8E23] text-xs font-mono font-bold">TECH:</span>
+                  <span className="text-[#F5E6CA]/60 text-xs font-mono">{processPhases[activePhase].details}</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Timeline dots */}
+        <div className="flex justify-center gap-3 mt-8">
+          {processPhases.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActivePhase(i)}
+              className={`w-3 h-3 transition-all duration-300 ${
+                activePhase === i ? 'bg-[#6B8E23] scale-125' : 'bg-[#5C4033]/60 hover:bg-[#5C4033]'
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>
   )
 }
+
+/* ── Equipment Section ── */
 
 function EquipmentSection() {
   return (
-    <section id="equipment" className="py-20 lg:py-28 bg-[#1A1A1A] relative overflow-hidden">
-      <div className="absolute inset-0 text-[#FF6B35] opacity-[0.03]">
-        <TopographicLines className="w-full h-full" />
+    <section id="equipment" className="py-24 lg:py-32 bg-[#1A120B] relative overflow-hidden">
+      <div className="absolute inset-0 text-[#5C4033] opacity-10">
+        <GridPattern className="w-full h-full" />
       </div>
+
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          title="Equipment Fleet"
-          subtitle="Modern, well-maintained heavy machinery operated by certified crew members."
-        />
-        <div className="grid sm:grid-cols-2 gap-5">
+        <FadeIn>
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16">
+            <div>
+              <span className="text-[#6B8E23] text-xs font-mono font-bold tracking-[0.3em] uppercase block mb-3">
+                // Our Fleet
+              </span>
+              <h2 className="font-black text-4xl sm:text-5xl lg:text-6xl text-[#F5E6CA] tracking-tight">
+                Equipment<br />Spec Sheets
+              </h2>
+            </div>
+            <p className="text-[#F5E6CA]/60 text-base max-w-md leading-relaxed">
+              Modern, GPS-equipped heavy machinery. {siteInfo.equipmentFleet} units across our fleet, maintained to OEM specifications.
+            </p>
+          </div>
+        </FadeIn>
+
+        <div className="grid sm:grid-cols-2 gap-6">
           {equipment.map((eq: EquipmentItem, i: number) => (
-            <FadeInSection key={eq.name}>
-              <div className="h-full bg-[#0D0D0D] border border-[#5C4033]/40 overflow-hidden group hover:border-[#FF6B35] transition-colors duration-300">
-                {/* Equipment image area */}
-                <div className="h-48 bg-gradient-to-br from-[#1A1A1A] to-[#0D0D0D] relative overflow-hidden">
-                  <img
-                    src={
-                      i === 0
-                        ? 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80'
-                        : i === 1
-                        ? 'https://images.unsplash.com/photo-1541888946425-d81bb2c88ea5?w=800&q=80'
-                        : i === 2
-                        ? 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80'
-                        : 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80'
-                    }
-                    alt={eq.name}
-                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D] via-transparent to-transparent" />
-                  {/* Model badge */}
-                  <div className="absolute top-3 left-3 bg-[#FF6B35] text-white px-3 py-1 text-xs font-mono font-bold">
+            <FadeIn key={eq.name} delay={i * 0.1}>
+              <div className="h-full bg-[#2D1F14] border border-[#5C4033]/40 group hover:border-[#6B8E23]/60 transition-all duration-300 overflow-hidden">
+                {/* Spec sheet header */}
+                <div className="bg-[#5C4033]/30 px-6 py-4 flex items-center justify-between border-b border-[#5C4033]/40">
+                  <div>
+                    <div className="text-[#6B8E23] text-[10px] font-mono font-bold tracking-[0.2em] uppercase">Equipment ID</div>
+                    <div className="text-[#F5E6CA] font-black text-lg tracking-tight">{eq.name}</div>
+                  </div>
+                  <div className="bg-[#6B8E23] text-[#F5E6CA] px-3 py-1 text-[10px] font-mono font-black tracking-wider">
                     {eq.model}
                   </div>
                 </div>
+
+                {/* Specs grid */}
+                <div className="grid grid-cols-4 border-b border-[#5C4033]/30">
+                  {eq.specs.map((spec) => (
+                    <div key={spec.label} className="px-3 py-3 text-center border-r border-[#5C4033]/20 last:border-r-0">
+                      <div className="text-[#F5E6CA] font-mono font-black text-sm">{spec.value}</div>
+                      <div className="text-[#6B8E23] text-[9px] font-mono font-bold uppercase tracking-wider mt-0.5">{spec.label}</div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Description */}
                 <div className="p-6">
-                  <h3 className="font-display text-2xl text-white mb-2 tracking-wide">{eq.name}</h3>
-                  <p className="text-[#B8A378] text-sm leading-relaxed mb-5">{eq.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {eq.specs.map((spec) => (
-                      <SpecBadge key={spec.label} label={spec.label} value={spec.value} />
-                    ))}
-                  </div>
+                  <p className="text-[#F5E6CA]/60 text-sm leading-relaxed">{eq.description}</p>
                 </div>
               </div>
-            </FadeInSection>
+            </FadeIn>
           ))}
         </div>
       </div>
@@ -505,299 +770,274 @@ function EquipmentSection() {
   )
 }
 
-function ProjectsGallery() {
+/* ── Project Types Section ── */
+
+function ProjectTypesSection() {
   return (
-    <section id="projects" className="py-20 lg:py-28 bg-[#0D0D0D] relative overflow-hidden">
-      <div className="absolute inset-0 text-[#FF6B35] opacity-[0.02]">
-        <TopographicLines className="w-full h-full" />
-      </div>
+    <section id="projects" className="py-24 lg:py-32 bg-[#2D1F14] relative overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          title="Project Gallery"
-          subtitle="From raw land to finished sites. Our work in residential, commercial, road, and industrial development."
-        />
-        <div className="overflow-x-auto pb-4 -mx-4 px-4 scroll-container">
-          <div className="flex gap-6 min-w-max pb-2">
-            {projectTypes.map((p) => (
-              <FadeInSection key={p.title}>
-                <div className="w-[350px] sm:w-[400px] bg-[#1A1A1A] border border-[#5C4033]/40 overflow-hidden group hover:border-[#FF6B35]/70 transition-colors duration-300">
-                  <div className="h-52 overflow-hidden">
-                    <img
-                      src={p.image}
-                      alt={p.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-display text-xl text-white mb-3 tracking-wide">{p.title}</h3>
-                    <p className="text-[#B8A378] text-sm leading-relaxed">{p.description}</p>
-                  </div>
-                </div>
-              </FadeInSection>
-            ))}
+        <FadeIn>
+          <div className="text-center mb-16">
+            <span className="text-[#6B8E23] text-xs font-mono font-bold tracking-[0.3em] uppercase block mb-3">
+              // Project Types
+            </span>
+            <h2 className="font-black text-4xl sm:text-5xl lg:text-6xl text-[#F5E6CA] tracking-tight">
+              What We Build
+            </h2>
           </div>
+        </FadeIn>
+
+        <div className="grid sm:grid-cols-2 gap-0 border border-[#5C4033]/40">
+          {projectTypes.map((pt, i) => (
+            <FadeIn key={pt.title} delay={i * 0.1}>
+              <div className="group relative h-72 sm:h-80 overflow-hidden border-b sm:border-r border-[#5C4033]/30">
+                {/* Image */}
+                <img
+                  src={pt.image}
+                  alt={pt.title}
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1A120B] via-[#1A120B]/60 to-transparent" />
+                <div className="absolute inset-0 bg-[#6B8E23]/0 group-hover:bg-[#6B8E23]/10 transition-colors duration-500" />
+
+                {/* Content */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                  <span className="text-[#6B8E23] text-[10px] font-mono font-bold tracking-[0.3em] uppercase">
+                    {String(i + 1).padStart(2, '0')} / {String(projectTypes.length).padStart(2, '0')}
+                  </span>
+                  <h3 className="font-black text-2xl text-[#F5E6CA] mt-2 mb-2 tracking-tight">{pt.title}</h3>
+                  <p className="text-[#F5E6CA]/60 text-sm leading-relaxed max-w-sm opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400">
+                    {pt.description}
+                  </p>
+                </div>
+
+                {/* Corner marker */}
+                <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-[#6B8E23] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-[#6B8E23] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            </FadeIn>
+          ))}
         </div>
       </div>
     </section>
   )
 }
+
+/* ── Safety Section ── */
 
 function SafetySection() {
   return (
-    <section id="safety" className="py-20 lg:py-28 bg-[#1A1A1A] relative overflow-hidden">
-      <div className="absolute inset-0 text-[#FF6B35] opacity-[0.03]">
-        <TopographicLines className="w-full h-full" />
+    <section id="safety" className="py-24 lg:py-32 bg-[#1A120B] relative overflow-hidden">
+      <div className="absolute inset-0 text-[#6B8E23] opacity-[0.04]">
+        <ContourPattern className="w-full h-full" />
       </div>
+
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          title="Safety & Compliance"
-          subtitle="Every project operates under a site-specific safety and compliance plan. Non-negotiable."
-        />
+        <FadeIn>
+          <div className="text-center mb-16">
+            <span className="text-[#6B8E23] text-xs font-mono font-bold tracking-[0.3em] uppercase block mb-3">
+              // Compliance & Safety
+            </span>
+            <h2 className="font-black text-4xl sm:text-5xl lg:text-6xl text-[#F5E6CA] tracking-tight">
+              Safety & Environmental
+            </h2>
+            <p className="mt-4 text-[#F5E6CA]/60 max-w-lg mx-auto">
+              Zero-incident culture backed by rigorous documentation, third-party testing, and regulatory compliance.
+            </p>
+          </div>
+        </FadeIn>
+
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {safetyPoints.map((s) => (
-            <FadeInSection key={s.title}>
-              <div className="text-center p-6 bg-[#0D0D0D] border border-[#5C4033]/40 h-full">
-                <div className="w-14 h-14 bg-[#FF6B35]/10 text-[#FF6B35] flex items-center justify-center mx-auto mb-5">
-                  <IconShield className="w-7 h-7" />
+          {safetyPoints.map((sp, i) => {
+            const IconComp = safetyIcons[i]
+            return (
+              <FadeIn key={sp.title} delay={i * 0.1}>
+                <div className="h-full bg-[#2D1F14] border border-[#5C4033]/40 p-6 text-center hover:border-[#6B8E23]/50 transition-colors duration-300 group">
+                  {/* Badge icon */}
+                  <div className="w-16 h-16 mx-auto mb-5 relative">
+                    <div className="absolute inset-0 border-2 border-[#6B8E23]/40 rotate-45 group-hover:rotate-[50deg] transition-transform duration-500" />
+                    <div className="absolute inset-2 flex items-center justify-center text-[#6B8E23]">
+                      <IconComp className="w-7 h-7" />
+                    </div>
+                  </div>
+                  <h3 className="font-black text-base text-[#F5E6CA] uppercase tracking-tight mb-3">{sp.title}</h3>
+                  <p className="text-[#F5E6CA]/50 text-xs leading-relaxed">{sp.description}</p>
                 </div>
-                <h3 className="font-display text-lg text-white mb-3 tracking-wide">{s.title}</h3>
-                <p className="text-[#B8A378] text-sm leading-relaxed">{s.description}</p>
-              </div>
-            </FadeInSection>
+              </FadeIn>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ── Gallery Section ── */
+
+function GallerySection() {
+  const [lightbox, setLightbox] = useState<number | null>(null)
+
+  const closeLightbox = useCallback(() => setLightbox(null), [])
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') closeLightbox() }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [closeLightbox])
+
+  return (
+    <section className="py-24 lg:py-32 bg-[#2D1F14] relative">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <FadeIn>
+          <div className="text-center mb-16">
+            <span className="text-[#6B8E23] text-xs font-mono font-bold tracking-[0.3em] uppercase block mb-3">
+              // Field Photos
+            </span>
+            <h2 className="font-black text-4xl sm:text-5xl lg:text-6xl text-[#F5E6CA] tracking-tight">
+              Project Gallery
+            </h2>
+          </div>
+        </FadeIn>
+
+        {/* Masonry-style grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+          {galleryImages.map((img, i) => (
+            <FadeIn key={i} delay={i * 0.08}>
+              <button
+                onClick={() => setLightbox(i)}
+                className={`group relative overflow-hidden w-full ${i === 0 ? 'col-span-2 row-span-2 aspect-square' : 'aspect-[4/3]'} block`}
+              >
+                <img
+                  src={img}
+                  alt={`Project photo ${i + 1}`}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-[#1A120B]/0 group-hover:bg-[#1A120B]/40 transition-colors duration-300 flex items-center justify-center">
+                  <IconExpand className="w-8 h-8 text-[#F5E6CA] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+                {/* Index label */}
+                <span className="absolute bottom-2 left-2 text-[#F5E6CA]/40 text-[10px] font-mono font-bold">
+                  IMG_{String(i + 1).padStart(3, '0')}
+                </span>
+              </button>
+            </FadeIn>
           ))}
         </div>
       </div>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightbox !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-[#1A120B]/95 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={closeLightbox}
+          >
+            <button className="absolute top-4 right-4 text-[#F5E6CA] p-2" onClick={closeLightbox}>
+              <IconX className="w-8 h-8" />
+            </button>
+            <motion.img
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              src={galleryImages[lightbox]}
+              alt={`Gallery image ${lightbox + 1}`}
+              className="max-w-full max-h-[85vh] object-contain"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
 
-function JobsitesGallery() {
+/* ── CTA Section ── */
+
+function CTASection() {
   return (
-    <section className="py-20 lg:py-28 bg-[#0D0D0D] relative overflow-hidden">
-      <div className="absolute inset-0 text-[#FF6B35] opacity-[0.02]">
-        <TopographicLines className="w-full h-full" />
+    <section id="contact" className="py-24 lg:py-32 bg-[#1A120B] relative overflow-hidden">
+      <div className="absolute inset-0 text-[#6B8E23] opacity-[0.05]">
+        <ContourPattern className="w-full h-full" />
       </div>
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          title="Jobsite Gallery"
-          subtitle="Active project photographs documenting sitework from clearing through final grading."
-        />
-        <div className="overflow-x-auto pb-4 -mx-4 px-4 scroll-container">
-          <div className="flex gap-4 min-w-max pb-2">
-            {galleryImages.map((img, i) => (
-              <FadeInSection key={i}>
-                <div className="w-[300px] sm:w-[350px] h-56 overflow-hidden border border-[#5C4033]/40 group hover:border-[#FF6B35]/70 transition-colors duration-300">
-                  <img
-                    src={img}
-                    alt={`Jobsite photo ${i + 1}`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                </div>
-              </FadeInSection>
-            ))}
+
+      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <FadeIn>
+          <span className="text-[#6B8E23] text-xs font-mono font-bold tracking-[0.3em] uppercase block mb-4">
+            // Start Your Project
+          </span>
+          <h2 className="font-black text-4xl sm:text-5xl lg:text-6xl text-[#F5E6CA] tracking-tight mb-6">
+            Ready to Move Earth?
+          </h2>
+          <p className="text-[#F5E6CA]/60 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+            From preliminary estimates to final grade, our team delivers heavy civil sitework on time and on budget. Contact us for a project consultation.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+            <a href={`tel:${siteInfo.phone}`} className="inline-flex items-center gap-3 bg-[#6B8E23] text-[#F5E6CA] px-8 py-4 font-black text-sm uppercase tracking-wider hover:bg-[#5a7a1e] transition-colors">
+              <IconPhone className="w-5 h-5" />
+              {siteInfo.phone}
+            </a>
+            <a href={`mailto:${siteInfo.email}`} className="inline-flex items-center gap-3 border-2 border-[#F5E6CA]/30 text-[#F5E6CA] px-8 py-4 font-black text-sm uppercase tracking-wider hover:border-[#6B8E23] hover:text-[#6B8E23] transition-colors">
+              <IconMail className="w-5 h-5" />
+              Email Us
+            </a>
           </div>
-        </div>
+
+          {/* Contact details */}
+          <div className="grid sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
+            <div className="flex flex-col items-center gap-2">
+              <IconPin className="w-5 h-5 text-[#6B8E23]" />
+              <span className="text-[#F5E6CA]/60 text-sm text-center">{siteInfo.address}</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <IconPhone className="w-5 h-5 text-[#6B8E23]" />
+              <span className="text-[#F5E6CA]/60 text-sm">{siteInfo.phone}</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <IconMail className="w-5 h-5 text-[#6B8E23]" />
+              <span className="text-[#F5E6CA]/60 text-sm">{siteInfo.email}</span>
+            </div>
+          </div>
+        </FadeIn>
       </div>
     </section>
   )
 }
 
-function ContactSection() {
-  const [formState, setFormState] = useState({
-    name: '',
-    company: '',
-    email: '',
-    phone: '',
-    siteType: '',
-    message: '',
-  })
-  const [submitted, setSubmitted] = useState(false)
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // In production this would POST to an API
-    setSubmitted(true)
-  }
-
-  return (
-    <section id="contact" className="py-20 lg:py-28 bg-[#1A1A1A] relative overflow-hidden">
-      <div className="absolute inset-0 text-[#FF6B35] opacity-[0.03]">
-        <TopographicLines className="w-full h-full" />
-      </div>
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading
-          title="Site Evaluation"
-          subtitle="Tell us about your sitework needs. We'll respond with a preliminary assessment within 48 hours."
-        />
-
-        <div className="grid lg:grid-cols-5 gap-8 max-w-5xl mx-auto">
-          {/* Contact info */}
-          <div className="lg:col-span-2 space-y-6">
-            <FadeInSection>
-              <div className="bg-[#0D0D0D] border border-[#5C4033]/40 p-6 space-y-5">
-                <div className="flex items-start gap-3">
-                  <IconPhone className="w-5 h-5 text-[#FF6B35] flex-shrink-0 mt-0.5" />
-                  <div>
-                    <div className="text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-0.5">Call</div>
-                    <a href={`tel:${siteInfo.phone}`} className="text-white font-mono font-bold text-lg hover:text-[#FF6B35] transition-colors">{siteInfo.phone}</a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <IconMail className="w-5 h-5 text-[#FF6B35] flex-shrink-0 mt-0.5" />
-                  <div>
-                    <div className="text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-0.5">Email</div>
-                    <a href={`mailto:${siteInfo.email}`} className="text-white font-mono text-sm hover:text-[#FF6B35] transition-colors">{siteInfo.email}</a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <IconMapPin className="w-5 h-5 text-[#FF6B35] flex-shrink-0 mt-0.5" />
-                  <div>
-                    <div className="text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-0.5">Office</div>
-                    <p className="text-white text-sm">{siteInfo.address}</p>
-                    <p className="text-[#8A6F3E] text-xs font-mono mt-1">{siteInfo.license}</p>
-                  </div>
-                </div>
-              </div>
-            </FadeInSection>
-
-            <FadeInSection>
-              <div className="bg-[#0D0D0D] border border-[#5C4033]/40 p-6">
-                <div className="text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-2">Quick Response</div>
-                <p className="text-white text-sm leading-relaxed">
-                  Most site evaluations return a preliminary budget within 48 hours. Complex sites with geotechnical requirements may take 3-5 business days.
-                </p>
-              </div>
-            </FadeInSection>
-          </div>
-
-          {/* Form */}
-          <div className="lg:col-span-3">
-            <FadeInSection>
-              {submitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="bg-[#0D0D0D] border border-[#FF6B35]/40 p-8 text-center"
-                >
-                  <div className="w-16 h-16 bg-[#FF6B35]/10 text-[#FF6B35] flex items-center justify-center mx-auto mb-6">
-                    <IconCheck className="w-8 h-8" />
-                  </div>
-                  <h3 className="font-display text-2xl text-white mb-3 tracking-wide">Evaluation Request Sent</h3>
-                  <p className="text-[#B8A378] text-sm leading-relaxed max-w-md mx-auto">
-                    Thank you. Our estimating team will review your site details and respond with a preliminary assessment within 48 hours.
-                  </p>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="bg-[#0D0D0D] border border-[#5C4033]/40 p-8 space-y-5">
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-1.5">Your Name</label>
-                      <input
-                        type="text"
-                        required
-                        value={formState.name}
-                        onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                        className="w-full bg-[#1A1A1A] border border-[#5C4033]/40 text-white px-3 py-2.5 text-sm focus:outline-none focus:border-[#FF6B35] transition-colors"
-                        placeholder="John Miller"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-1.5">Company</label>
-                      <input
-                        type="text"
-                        value={formState.company}
-                        onChange={(e) => setFormState({ ...formState, company: e.target.value })}
-                        className="w-full bg-[#1A1A1A] border border-[#5C4033]/40 text-white px-3 py-2.5 text-sm focus:outline-none focus:border-[#FF6B35] transition-colors"
-                        placeholder="Company Name"
-                      />
-                    </div>
-                  </div>
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-1.5">Email</label>
-                      <input
-                        type="email"
-                        required
-                        value={formState.email}
-                        onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                        className="w-full bg-[#1A1A1A] border border-[#5C4033]/40 text-white px-3 py-2.5 text-sm focus:outline-none focus:border-[#FF6B35] transition-colors"
-                        placeholder="j.miller@buildco.com"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-1.5">Phone</label>
-                      <input
-                        type="tel"
-                        value={formState.phone}
-                        onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
-                        className="w-full bg-[#1A1A1A] border border-[#5C4033]/40 text-white px-3 py-2.5 text-sm focus:outline-none focus:border-[#FF6B35] transition-colors"
-                        placeholder="(312) 555-0000"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-1.5">Site Type</label>
-                    <select
-                      value={formState.siteType}
-                      onChange={(e) => setFormState({ ...formState, siteType: e.target.value })}
-                      className="w-full bg-[#1A1A1A] border border-[#5C4033]/40 text-white px-3 py-2.5 text-sm focus:outline-none focus:border-[#FF6B35] transition-colors"
-                    >
-                      <option value="">Select site type...</option>
-                      <option value="residential">Residential Subdivision</option>
-                      <option value="commercial">Commercial Building Pad</option>
-                      <option value="road">Road / Infrastructure</option>
-                      <option value="industrial">Industrial Yard</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-[#B8A378] text-xs font-mono uppercase tracking-wider mb-1.5">Project Details</label>
-                    <textarea
-                      rows={4}
-                      value={formState.message}
-                      onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                      className="w-full bg-[#1A1A1A] border border-[#5C4033]/40 text-white px-3 py-2.5 text-sm focus:outline-none focus:border-[#FF6B35] transition-colors resize-none"
-                      placeholder="Approximate acreage, scope of work, timeline expectations..."
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full bg-[#FF6B35] text-white px-8 py-3.5 font-bold uppercase tracking-wider text-sm hover:bg-[#E55A2B] transition-colors"
-                  >
-                    Submit Site Evaluation
-                  </button>
-                </form>
-              )}
-            </FadeInSection>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
+/* ── Footer ── */
 
 function Footer() {
   return (
-    <footer className="bg-[#0D0D0D] border-t border-[#5C4033]/30 py-10">
+    <footer className="bg-[#0D0907] border-t border-[#5C4033]/30 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
-          <div>
-            <div className="font-display text-xl text-white tracking-wider">
-              TERRA<span className="text-[#FF6B35]">FORM</span>
-              <span className="block text-[10px] font-mono text-[#8A6F3E] tracking-[0.3em] uppercase">Civil Works</span>
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+          {/* Logo */}
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-[#6B8E23] flex items-center justify-center">
+              <svg viewBox="0 0 24 24" className="w-4 h-4 text-[#F5E6CA]" fill="currentColor">
+                <path d="M12 2L2 7v2l10-5 10 5V7L12 2zM2 12l10 5 10-5v2l-10 5-10-5v-2z" />
+              </svg>
+            </div>
+            <div className="leading-none">
+              <span className="block text-[#F5E6CA] font-black text-base tracking-tight uppercase">TerraForm</span>
+              <span className="block text-[#6B8E23] text-[8px] font-mono font-bold tracking-[0.25em] uppercase">Civil Works</span>
             </div>
           </div>
-          <div className="flex flex-wrap gap-4 text-[#8A6F3E] text-xs font-mono">
-            <a href="#capabilities" className="hover:text-[#FF6B35] transition-colors">Capabilities</a>
-            <a href="#process" className="hover:text-[#FF6B35] transition-colors">Process</a>
-            <a href="#equipment" className="hover:text-[#FF6B35] transition-colors">Equipment</a>
-            <a href="#projects" className="hover:text-[#FF6B35] transition-colors">Projects</a>
-            <a href="#safety" className="hover:text-[#FF6B35] transition-colors">Safety</a>
-            <a href="#contact" className="hover:text-[#FF6B35] transition-colors">Contact</a>
+
+          {/* Info */}
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[#F5E6CA]/40 text-xs font-mono">
+            <span>License: {siteInfo.license}</span>
+            <span className="hidden sm:inline">|</span>
+            <span>{siteInfo.address}</span>
           </div>
-          <div className="text-[#8A6F3E] text-sm text-center lg:text-right">
-            <p>&copy; {new Date().getFullYear()} TerraForm Civil Works. All rights reserved.</p>
-            <p className="text-[#5C4033] text-xs mt-1">{siteInfo.license} &middot; Heavy Civil Contractor &middot; IL Licensed & Bonded</p>
+
+          {/* Copyright */}
+          <div className="text-[#F5E6CA]/30 text-xs font-mono">
+            &copy; {new Date().getFullYear()} TerraForm Civil Works
           </div>
         </div>
       </div>
@@ -805,18 +1045,20 @@ function Footer() {
   )
 }
 
+/* ── Main App ── */
+
 export default function App() {
   return (
-    <div className="font-sans bg-[#1A1A1A] text-white antialiased">
+    <div className="bg-[#1A120B] min-h-screen text-[#F5E6CA] antialiased selection:bg-[#6B8E23] selection:text-[#F5E6CA]">
       <Navbar />
       <Hero />
       <CapabilitiesSection />
       <ProcessSection />
       <EquipmentSection />
-      <ProjectsGallery />
+      <ProjectTypesSection />
       <SafetySection />
-      <JobsitesGallery />
-      <ContactSection />
+      <GallerySection />
+      <CTASection />
       <Footer />
     </div>
   )
