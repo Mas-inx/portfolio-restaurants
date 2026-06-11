@@ -1,0 +1,182 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-900: #0a1628;
+  --color-navy-800: #0f1e3a;
+  --color-navy-700: #152a4d;
+  --color-navy-600: #1c3660;
+  --color-navy-500: #2a4a7a;
+  --color-ice-50: #f0f7fe;
+  --color-ice-100: #d6e8f8;
+  --color-ice-200: #bdd9f2;
+  --color-ice-300: #a8d0f0;
+  --color-ice-400: #8dc0e8;
+  --color-fire: #e63946;
+  --color-fire-light: #f36f38;
+  --color-fire-dark: #ba2b35;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #1f2937;
+  background: #fff;
+  scroll-behavior: smooth;
+}
+
+/* Section header styling */
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0a1628;
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: #6b7280;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 2.5rem auto;
+}
+
+/* Cards with hover */
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  border-color: #a8d0f0;
+  box-shadow: 0 8px 24px rgba(10, 22, 40, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Action button */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #e63946;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.875rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-primary:hover {
+  background: #ba2b35;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid #1c3660;
+  color: #1c3660;
+  font-weight: 600;
+  padding: 0.75rem 1.75rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-outline:hover {
+  background: #1c3660;
+  color: #fff;
+}
+
+/* Service area badges */
+.area-badge {
+  display: inline-block;
+  background: #f0f7fe;
+  color: #152a4d;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+}
+
+/* Book widget */
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+
+.booking-form input:focus,
+.booking-form select:focus,
+.booking-form textarea:focus {
+  outline: none;
+  border-color: #a8d0f0;
+  box-shadow: 0 0 0 3px rgba(168, 208, 240, 0.2);
+}
+
+/* Pricing cards */
+.pricing-card {
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.pricing-card.featured {
+  border-color: #1c3660;
+  box-shadow: 0 8px 24px rgba(10, 22, 40, 0.1);
+}
+
+.pricing-card:hover {
+  border-color: #a8d0f0;
+  box-shadow: 0 8px 24px rgba(10, 22, 40, 0.08);
+}
+
+/* Steps */
+.step-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #e63946;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+/* Map placeholder */
+.map-placeholder {
+  background: linear-gradient(135deg, #d6e8f8, #a8d0f0);
+  border-radius: 16px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1c3660;
+  font-weight: 600;
+  font-size: 1.1rem;
+}

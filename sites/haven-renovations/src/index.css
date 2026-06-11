@@ -1,0 +1,47 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ivory: #faf6f0;
+  --color-charcoal: #2d2a26;
+  --color-bronze: #b8946e;
+  --color-bronze-light: #c9a88a;
+  --color-bronze-dark: #a88156;
+
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+/*
+  Haven Renovations — Tailwind v4 theme
+  Soft ivory, charcoal, muted bronze palette
+  Elegant serif headings (Playfair Display)
+*/
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: #faf6f0;
+  color: #2d2a26;
+}
+
+::selection {
+  background-color: #b8946e;
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #faf6f0;
+}
+::-webkit-scrollbar-thumb {
+  background: #b8946e;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a88156;
+}

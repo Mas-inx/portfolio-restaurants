@@ -1,0 +1,68 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-sky-50: #f0f9ff;
+  --color-sky-100: #e0f2fe;
+  --color-sky-200: #bae6fd;
+  --color-sky-300: #7dd3fc;
+  --color-sky-400: #38bdf8;
+  --color-sky-500: #0ea5e9;
+  --color-sky-600: #0284c7;
+  --color-sky-700: #0369a1;
+  --color-sky-800: #075985;
+  --color-sky-900: #0c4a6e;
+  --color-air-50: #f7fafc;
+  --color-air-100: #edf5f9;
+  --color-air-200: #d2e6f0;
+  --color-air-300: #a8d0e4;
+  --color-air-400: #72b0d0;
+  --color-air-500: #4a90b8;
+  --color-air-600: #35759e;
+  --color-air-700: #2c5e7e;
+  --color-air-800: #274f68;
+  --color-air-900: #244358;
+  --color-air-950: #162b3a;
+  --color-mint-50: #f0fdf4;
+  --color-mint-100: #dcfce7;
+  --color-mint-200: #bbf7d0;
+  --color-mint-300: #86efac;
+  --color-mint-400: #4ade80;
+  --color-mint-500: #22c55e;
+  --font-sans: 'Inter', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-gray-800 font-sans antialiased;
+}
+
+/* Gradient backgrounds */
+.bg-gradient-air {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f7fafc 100%);
+}
+
+.bg-gradient-sky {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 50%, #0369a1 100%);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-gray-50;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-sky-300 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-sky-400;
+}
+
+/* Soft shadow for product cards */
+.shadow-air {
+  box-shadow: 0 4px 20px rgba(14, 165, 233, 0.1), 0 2px 8px rgba(0, 0, 0, 0.04);
+}

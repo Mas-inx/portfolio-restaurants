@@ -1,0 +1,21 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-graphite: #2d2d32;
+  --color-graphite-light: #8a8a8f;
+  --color-deep-blue: #0a1628;
+  --color-deep-blue-light: #13233d;
+  --color-accent-blue: #2a5ea9;
+  --color-accent-blue-light: #4a85d0;
+  --color-cream: #f8f7f4;
+  --color-dark: #1a1a1e;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: #2a5ea9;
+  color: #ffffff;
+}

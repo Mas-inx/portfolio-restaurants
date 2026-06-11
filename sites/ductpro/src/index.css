@@ -1,0 +1,58 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-graphite-50: #f3f4f6;
+  --color-graphite-100: #e5e7eb;
+  --color-graphite-200: #cbd5e1;
+  --color-graphite-300: #9ca3af;
+  --color-graphite-400: #6b7280;
+  --color-graphite-500: #52525b;
+  --color-graphite-600: #3f3f46;
+  --color-graphite-700: #334155;
+  --color-graphite-800: #27272a;
+  --color-graphite-900: #18181b;
+  --color-graphite-950: #0c0c0e;
+  --color-blue-50: #eff6ff;
+  --color-blue-100: #dbeafe;
+  --color-blue-200: #bfdbfe;
+  --color-blue-300: #93c5fd;
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
+  --color-blue-800: #1e40af;
+  --color-blue-900: #1e3a8a;
+  --color-blue-950: #172554;
+  --color-ind-blue: #1d4ed8;
+  --color-ind-blue-dark: #1e3a8a;
+  --color-ind-blue-light: #60a5fa;
+  --font-sans: 'Inter', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-graphite-900 font-sans antialiased;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-graphite-50;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-blue-400 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-blue-500;
+}
+
+/* Dashboard card styling */
+.dashboard-grid {
+  @apply grid gap-4;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}

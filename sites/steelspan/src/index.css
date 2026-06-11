@@ -1,0 +1,50 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-navy: #1a1f2e;
+  --color-steel: #3b4a6b;
+  --color-steel-light: #9ea8c0;
+  --color-yellow-50: #fefce8;
+  --color-yellow-100: #fef9c3;
+  --color-yellow-200: #fef08a;
+  --color-yellow-300: #fde047;
+  --color-yellow-400: #facc15;
+  --color-yellow-500: #eab308;
+  --color-yellow-600: #ca8a04;
+
+  --font-heading: 'Archivo Black', 'Impact', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/*
+  SteelSpan Commercial Builders — Tailwind v4 theme
+  White, navy-black, steel blue, construction yellow
+  Strong data/stat typography with Archivo Black headings and JetBrains Mono for stats
+*/
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+::selection {
+  background-color: #facc15;
+  color: #1a1f2e;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #3b4a6b;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #1a1f2e;
+}
