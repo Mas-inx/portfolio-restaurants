@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
-const heroImage = 'https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=1600&q=85';
-
 // ============ IMAGES ============
 const heroImage = 'https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=1600&q=85';
 const propertyImages = [

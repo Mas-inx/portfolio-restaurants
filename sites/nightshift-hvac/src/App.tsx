@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 // ─── Images ──────────────────────────────────────────────────────────────────
 
 const heroImage = 'https://images.unsplash.com/photo-1631952112745-5b80a7bbfed1?w=1600&q=85';
-const technicianImage = 'https://images.unsplash.com/photo-1631545806607-f4acbf48f12f?w=800&q=85';
 const truckImage = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&q=85';
 
 // ─── Icon Component ──────────────────────────────────────────────────────────
