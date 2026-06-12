@@ -11,6 +11,41 @@ import {
   evaluationCTA,
 } from './data';
 
+// Icon component - maps string names to inline SVGs
+function Icon({ name, className = '' }: { name: string; className?: string }) {
+  const svgProps = {
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.5",
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    className,
+  };
+
+  const icons: Record<string, React.ReactNode> = {
+    lightning: (
+      <svg {...svgProps}>
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+      </svg>
+    ),
+    stopwatch: (
+      <svg {...svgProps}>
+        <circle cx="12" cy="13" r="8" />
+        <path d="M12 9v4l2 2" />
+        <path d="M5 3L2 6" />
+        <path d="M22 6l-3-3" />
+        <path d="M12 2v3" />
+        <path d="M10 2h4" />
+      </svg>
+    ),
+  };
+
+  return <>{icons[name] || null}</>;
+}
+
 // ─── Utility Components ─────────────────────────────────────────────────────
 
 function GridBackground() {
@@ -178,7 +213,7 @@ function ConditionsSection() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <div className="condition-card-icon">{condition.icon}</div>
+              <div className="condition-card-icon">{condition.icon === 'lightning' ? <Icon name="lightning" /> : condition.icon}</div>
               <h3 className="condition-card-name">{condition.name}</h3>
               <p className="condition-card-desc">{condition.description}</p>
               <div className="condition-card-meta">
@@ -294,7 +329,7 @@ function ProgramsSection() {
                 </div>
                 <p className="program-desc">{program.description}</p>
                 <div className="program-meta">
-                  <span>⏱ {program.duration}</span>
+                  <span className="flex items-center gap-1"><Icon name="stopwatch" className="w-4 h-4" /> {program.duration}</span>
                   <span>⟳ {program.frequency}</span>
                 </div>
                 <div className="program-features">

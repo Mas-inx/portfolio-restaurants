@@ -7,6 +7,29 @@ import type { MenuItem, Combo, ProcessStep, Location, BowlOption } from './data'
 
 // ─── Utility Components ───────────────────────────────────────────────────────
 
+function Icon({ name, className = '' }: { name: string; className?: string }) {
+  const icons: Record<string, React.ReactNode> = {
+    chili: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <path d="M12 3c-1 0-2 .5-2.5 1.5C9 5.5 8 7 7 9c-1.5 3-2 6-1 8.5C7 20 9 21 12 21s5-1 6-3.5c1-2.5.5-5.5-1-8.5-1-2-2-3.5-2.5-4.5C14 3.5 13 3 12 3z" />
+        <path d="M12 3c.5-1 1-2 2-2.5" />
+      </svg>
+    ),
+    bowl: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <path d="M3 12h18" />
+        <path d="M5 12c0 4 3 7 7 7s7-3 7-7" />
+        <path d="M4 8c1-2 3-3 5-3" />
+        <path d="M8 5c0-1.5 1-3 2-3" />
+        <path d="M12 5c0-1.5 1-3 2-3" />
+        <path d="M16 5c0-1.5 1-3 2-3" />
+        <path d="M9 21h6" />
+      </svg>
+    ),
+  };
+  return <>{icons[name] || null}</>;
+}
+
 // SteamLines used in hero
 const SteamVisual = () => (
   <div className="absolute -top-16 left-1/2 -translate-x-1/2 flex gap-3 pointer-events-none">
@@ -21,7 +44,7 @@ function SpiceIndicator({ level }: { level: number }) {
   return (
     <div className="flex gap-0.5">
       {Array.from({ length: level }).map((_, i) => (
-        <span key={i} className="text-neon-red text-xs">🌶</span>
+        <span key={i} className="text-neon-red text-xs w-3 h-3 inline-flex"><Icon name="chili" className="w-3 h-3" /></span>
       ))}
     </div>
   );
@@ -495,7 +518,7 @@ function OrderSection() {
               animate={{ opacity: 1, y: 0 }}
               className="border border-neon-yellow/40 p-10 text-center"
             >
-              <div className="text-neon-yellow text-4xl mb-4">🍜</div>
+              <div className="text-neon-yellow text-4xl mb-4"><Icon name="bowl" className="w-10 h-10 mx-auto" /></div>
               <h3 className="font-display font-bold text-2xl text-neon-offwhite mb-3">Order placed!</h3>
               <p className="text-sm text-neon-gray">We'll text {form.phone || 'your number'} when your bowl is ready. Usually 10–15 min.</p>
             </motion.div>

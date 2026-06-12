@@ -22,7 +22,7 @@ export const conditions = [
     id: "acl",
     name: "ACL Recovery",
     description: "Complete ACL reconstruction rehabilitation with sport-specific return criteria.",
-    icon: "⚡",
+    icon: "lightning",
     severity: "High",
     avgWeeks: "9-12",
   },

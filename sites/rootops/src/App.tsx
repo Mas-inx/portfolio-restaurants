@@ -12,6 +12,20 @@ import {
   CTA,
 } from './data';
 
+// ─── Icon Component ───────────────────────────────────────────────────────────
+const iconPaths: Record<string, React.ReactNode> = {
+  'arrow-right': <><path d="M5 12h14" /><path d="M12 5l7 7-7 7" /></>,
+  'arrows-horizontal': <><path d="M7 12H3M3 12l3-3M3 12l3 3" /><path d="M17 12h4M17 12l3-3M17 12l3 3" /><path d="M3 12h18" /></>,
+};
+
+function Icon({ name, className = '' }: { name: string; className?: string }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      {iconPaths[name] || null}
+    </svg>
+  );
+}
+
 function useReveal() {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -349,7 +363,7 @@ function HowItWorks() {
               </div>
               {i < 2 && (
                 <div className="hidden md:block absolute top-1/2 -right-4 w-8 text-center text-gray-300 z-10">
-                  →
+                  <Icon name="arrow-right" className="w-5 h-5" />
                 </div>
               )}
             </div>
@@ -868,7 +882,7 @@ function BeforeAfterCard({ item }: { item: { id: string; title: string; before: 
           style={{ left: `${position}%` }}
         >
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-root-green">
-            <span className="text-xs text-root-green font-bold">⇔</span>
+            <Icon name="arrows-horizontal" className="w-4 h-4 text-root-green" />
           </div>
         </div>
         <div className="absolute top-3 left-3 px-2.5 py-1 bg-black/70 text-white text-xs rounded-full font-medium backdrop-blur-sm">Before</div>

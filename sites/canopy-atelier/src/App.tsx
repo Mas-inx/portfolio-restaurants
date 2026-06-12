@@ -12,6 +12,20 @@ import {
   TESTIMONIALS,
 } from './data';
 
+// ─── Icon Component ───────────────────────────────────────────────────────────
+const iconPaths: Record<string, React.ReactNode> = {
+  'arrow-left': <><path d="M19 12H5" /><path d="M12 19l-7-7 7-7" /></>,
+  'arrow-right': <><path d="M5 12h14" /><path d="M12 5l7 7-7 7" /></>,
+};
+
+function Icon({ name, className = '' }: { name: string; className?: string }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      {iconPaths[name] || null}
+    </svg>
+  );
+}
+
 // Hook: scroll reveal
 function useReveal() {
   const ref = useRef<HTMLDivElement>(null);
@@ -442,14 +456,14 @@ function OutdoorRooms() {
               className="w-12 h-12 border border-cream/20 rounded-full flex items-center justify-center hover:border-moss-light hover:text-moss-light transition-colors"
               aria-label="Scroll left"
             >
-              ←
+              <Icon name="arrow-left" className="w-5 h-5" />
             </button>
             <button
               onClick={() => scroll('right')}
               className="w-12 h-12 border border-cream/20 rounded-full flex items-center justify-center hover:border-moss-light hover:text-moss-light transition-colors"
               aria-label="Scroll right"
             >
-              →
+              <Icon name="arrow-right" className="w-5 h-5" />
             </button>
           </div>
         </div>

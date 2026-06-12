@@ -36,7 +36,7 @@ export interface MenuCategory {
 export const menuCategories: MenuCategory[] = [
   {
     category: "From the Oven",
-    icon: "🥐",
+    icon: "croissant",
     items: [
       { name: "Cardamom Morning Bun", description: "Laminated dough, cardamom sugar, orange glaze", price: "$6", dietary: ["V"], featured: true },
       { name: "Sourdough Croissant", description: "48-hour fermented, cultured butter, flaky layers", price: "$7", dietary: ["V"] },
@@ -47,7 +47,7 @@ export const menuCategories: MenuCategory[] = [
   },
   {
     category: "Plates",
-    icon: "🍳",
+    icon: "egg",
     items: [
       { name: "Garden Ricotta Toast", description: "House ricotta, roasted heirloom tomato, basil oil, sourdough", price: "$16", dietary: ["V"], featured: true },
       { name: "Soft Scramble & Smoked Trout", description: "Farm eggs, dill crème fraîche, capers, rye crisps", price: "$19", dietary: ["GF"] },
@@ -59,7 +59,7 @@ export const menuCategories: MenuCategory[] = [
   },
   {
     category: "Coffee & Tea",
-    icon: "☕",
+    icon: "coffee",
     items: [
       { name: "Single Origin Pour Over", description: "Rotating seasonal selection, hand-brewed", price: "$6" },
       { name: "Oat Milk Cortado", description: "Double shot, steamed oat milk, in a 4oz cup", price: "$5.50" },
@@ -70,7 +70,7 @@ export const menuCategories: MenuCategory[] = [
   },
   {
     category: "Botanical Drinks",
-    icon: "🌸",
+    icon: "flower",
     items: [
       { name: "Elderflower Spritz", description: "Elderflower cordial, sparkling water, cucumber, mint", price: "$8", featured: true },
       { name: "Hibiscus Rose Fizz", description: "Hibiscus tea, rose water, lemon, sparkling", price: "$8" },

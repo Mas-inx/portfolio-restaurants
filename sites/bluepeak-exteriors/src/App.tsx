@@ -1,6 +1,32 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 
+// ============ ICON COMPONENT ============
+function Icon({ name, className = 'w-6 h-6' }: { name: string; className?: string }) {
+  const icons: Record<string, React.ReactNode> = {
+    search: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="11" cy="11" r="7" /><path strokeLinecap="round" d="M21 21l-4.35-4.35" /></svg>,
+    camera: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" /><circle cx="12" cy="13" r="4" /></svg>,
+    check: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M20 6L9 17l-5-5" /></svg>,
+    calendar: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="4" width="18" height="18" rx="2" /><path strokeLinecap="round" d="M16 2v4M8 2v4M3 10h18" /></svg>,
+    hammer: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15 12l-8.5 8.5a2.12 2.12 0 01-3-3L12 9" /><path strokeLinecap="round" d="M17.5 6.5l3 3-4 4-6-6 4-4a2.12 2.12 0 013 0z" /></svg>,
+    clipboard: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" /><rect x="8" y="2" width="8" height="4" rx="1" /></svg>,
+    house: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z" /><path strokeLinecap="round" strokeLinejoin="round" d="M9 21V12h6v9" /></svg>,
+    brick: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="1" /><path strokeLinecap="round" d="M3 9h18M3 15h18M9 3v6M15 9v6M9 15v6" /></svg>,
+    wave: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" d="M2 12c2-3 4-3 6 0s4 3 6 0 4-3 6 0" /><path strokeLinecap="round" d="M2 17c2-3 4-3 6 0s4 3 6 0 4-3 6 0" /><path strokeLinecap="round" d="M2 7c2-3 4-3 6 0s4 3 6 0 4-3 6 0" /></svg>,
+    storm: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M20 16.5A7.5 7.5 0 0012.5 4a7.48 7.48 0 00-7 4.75A5.5 5.5 0 004 19.5h16a3.5 3.5 0 000-3z" /><path strokeLinecap="round" strokeLinejoin="round" d="M13 16l-2 4h4l-2 4" /></svg>,
+    droplet: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" /></svg>,
+    swirl: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" d="M12 3a9 9 0 019 9c0 2.5-1 4.5-3 6" /><path strokeLinecap="round" d="M12 7a5 5 0 015 5c0 1.5-.5 2.5-1.5 3.5" /><path strokeLinecap="round" d="M12 11a1 1 0 011 1c0 .5-.2 1-.5 1.5" /></svg>,
+    ruler: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M21.7 6.3l-4-4a1 1 0 00-1.4 0l-14 14a1 1 0 000 1.4l4 4a1 1 0 001.4 0l14-14a1 1 0 000-1.4z" /><path strokeLinecap="round" d="M7.5 13.5l1.5 1.5M10.5 10.5l2 2M13.5 7.5l1.5 1.5" /></svg>,
+    document: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" /><path strokeLinecap="round" d="M14 2v6h6M8 13h8M8 17h8M8 9h2" /></svg>,
+    handshake: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 11L8 7l-4 4 8 8 8-8-4-4-4 4z" /><path strokeLinecap="round" d="M6 11l2 2M18 11l-2 2M12 11v6" /></svg>,
+    shield: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4" /></svg>,
+    lightning: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>,
+    star: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>,
+    close: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M18 6L6 18M6 6l12 12" /></svg>,
+  };
+  return <>{icons[name] || null}</>;
+}
+
 // ============ TYPES ============
 interface DamageMarker {
   id: number;
@@ -28,21 +54,21 @@ const damageMarkers: DamageMarker[] = [
 ];
 
 const timelineSteps: TimelineStep[] = [
-  { id: 1, title: 'Inspect', description: 'Comprehensive roof and exterior inspection with drone and ground-level documentation', duration: '2-3 hours', icon: '🔍' },
-  { id: 2, title: 'Document', description: 'Photo evidence, measurements, and detailed damage report compiled', duration: '24 hours', icon: '📸' },
-  { id: 3, title: 'Approve', description: 'Insurance adjuster review and claim approval coordination', duration: '3-7 days', icon: '✓' },
-  { id: 4, title: 'Schedule', description: 'Materials ordered and crew scheduled based on your availability', duration: '5-10 days', icon: '📅' },
-  { id: 5, title: 'Repair', description: 'Full restoration with premium materials and clean worksite', duration: '1-3 days', icon: '🔨' },
-  { id: 6, title: 'Final Photos', description: 'Before/after documentation and warranty activation', duration: 'Same day', icon: '📋' },
+  { id: 1, title: 'Inspect', description: 'Comprehensive roof and exterior inspection with drone and ground-level documentation', duration: '2-3 hours', icon: 'search' },
+  { id: 2, title: 'Document', description: 'Photo evidence, measurements, and detailed damage report compiled', duration: '24 hours', icon: 'camera' },
+  { id: 3, title: 'Approve', description: 'Insurance adjuster review and claim approval coordination', duration: '3-7 days', icon: 'check' },
+  { id: 4, title: 'Schedule', description: 'Materials ordered and crew scheduled based on your availability', duration: '5-10 days', icon: 'calendar' },
+  { id: 5, title: 'Repair', description: 'Full restoration with premium materials and clean worksite', duration: '1-3 days', icon: 'hammer' },
+  { id: 6, title: 'Final Photos', description: 'Before/after documentation and warranty activation', duration: 'Same day', icon: 'clipboard' },
 ];
 
 const services = [
-  { name: 'Roofing', icon: '🏠', desc: 'Full replacement, repair, and maintenance for all roof types', features: ['Asphalt shingles', 'Metal roofing', 'Flat roofs', 'Tile & slate'] },
-  { name: 'Siding', icon: '🧱', desc: 'Vinyl, fiber cement, and engineered wood siding systems', features: ['James Hardie', 'LP SmartSide', 'Vinyl siding', 'Insulated options'] },
-  { name: 'Gutters', icon: '🌊', desc: 'Seamless gutter installation and leaf protection systems', features: ['5" & 6" seamless', 'Gutter guards', 'Downspout routing', 'Copper accents'] },
-  { name: 'Storm Damage', icon: '⛈️', desc: 'Emergency response and full storm restoration services', features: ['Hail damage', 'Wind damage', 'Fallen trees', 'Emergency tarping'] },
-  { name: 'Leak Repair', icon: '💧', desc: 'Diagnostic leak detection and permanent repair solutions', features: ['Thermal imaging', 'Flashing repair', 'Valley repair', 'Ice dam prevention'] },
-  { name: 'Ventilation', icon: '🌀', desc: 'Attic ventilation systems for energy efficiency', features: ['Ridge vents', 'Soffit vents', 'Power vents', 'Insulation check'] },
+  { name: 'Roofing', icon: 'house', desc: 'Full replacement, repair, and maintenance for all roof types', features: ['Asphalt shingles', 'Metal roofing', 'Flat roofs', 'Tile & slate'] },
+  { name: 'Siding', icon: 'brick', desc: 'Vinyl, fiber cement, and engineered wood siding systems', features: ['James Hardie', 'LP SmartSide', 'Vinyl siding', 'Insulated options'] },
+  { name: 'Gutters', icon: 'wave', desc: 'Seamless gutter installation and leaf protection systems', features: ['5" & 6" seamless', 'Gutter guards', 'Downspout routing', 'Copper accents'] },
+  { name: 'Storm Damage', icon: 'storm', desc: 'Emergency response and full storm restoration services', features: ['Hail damage', 'Wind damage', 'Fallen trees', 'Emergency tarping'] },
+  { name: 'Leak Repair', icon: 'droplet', desc: 'Diagnostic leak detection and permanent repair solutions', features: ['Thermal imaging', 'Flashing repair', 'Valley repair', 'Ice dam prevention'] },
+  { name: 'Ventilation', icon: 'swirl', desc: 'Attic ventilation systems for energy efficiency', features: ['Ridge vents', 'Soffit vents', 'Power vents', 'Insulation check'] },
 ];
 
 const weatherStates = ['CLEAR', 'WATCH', 'WARNING', 'SEVERE'];
@@ -289,7 +315,7 @@ function BeforeAfterSlider({ beforeColor, afterColor, label }: { beforeColor: st
         <div className="absolute inset-0 rounded-xl" style={{ background: afterColor }}>
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              <div className="text-4xl mb-2">✓</div>
+              <div className="text-4xl mb-2"><Icon name="check" className="w-10 h-10" /></div>
               <p className="text-white font-bold text-sm">AFTER</p>
             </div>
           </div>
@@ -298,7 +324,7 @@ function BeforeAfterSlider({ beforeColor, afterColor, label }: { beforeColor: st
         <div className="ba-before rounded-xl" style={{ width: `${position}%`, background: beforeColor }}>
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              <div className="text-4xl mb-2">✕</div>
+              <div className="text-4xl mb-2"><Icon name="close" className="w-10 h-10" /></div>
               <p className="text-white font-bold text-sm">BEFORE</p>
             </div>
           </div>
@@ -331,7 +357,7 @@ function ServicesSection() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
             >
-              <div className="text-3xl mb-3">{service.icon}</div>
+              <div className="text-3xl mb-3"><Icon name={service.icon} /></div>
               <h3 className="font-bold text-lg text-storm-900 mb-1 group-hover:text-storm-700">{service.name}</h3>
               <p className="text-sm text-storm-600 mb-4">{service.desc}</p>
               <ul className="space-y-1.5">
@@ -352,10 +378,10 @@ function ServicesSection() {
 
 function InsuranceSection() {
   const docs = [
-    { icon: '📸', title: 'Photographic Evidence', desc: 'High-resolution photos of every damage point, timestamped and geo-tagged for adjuster review.' },
-    { icon: '📐', title: 'Precise Measurements', desc: 'Roof squares, siding footage, and gutter linear feet — all measured and documented.' },
-    { icon: '📝', title: 'Written Scope of Work', desc: 'Detailed line-item scope that matches insurance coding for seamless claim processing.' },
-    { icon: '🤝', title: 'Adjuster Coordination', desc: 'We meet with your adjuster on-site to ensure nothing is missed in the initial estimate.' },
+    { icon: 'camera', title: 'Photographic Evidence', desc: 'High-resolution photos of every damage point, timestamped and geo-tagged for adjuster review.' },
+    { icon: 'ruler', title: 'Precise Measurements', desc: 'Roof squares, siding footage, and gutter linear feet — all measured and documented.' },
+    { icon: 'document', title: 'Written Scope of Work', desc: 'Detailed line-item scope that matches insurance coding for seamless claim processing.' },
+    { icon: 'handshake', title: 'Adjuster Coordination', desc: 'We meet with your adjuster on-site to ensure nothing is missed in the initial estimate.' },
   ];
 
   return (
@@ -377,7 +403,7 @@ function InsuranceSection() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
             >
-              <div className="text-3xl mb-3">{doc.icon}</div>
+              <div className="text-3xl mb-3"><Icon name={doc.icon} /></div>
               <h3 className="font-bold text-white mb-2">{doc.title}</h3>
               <p className="text-sm text-storm-400">{doc.desc}</p>
             </motion.div>
@@ -444,7 +470,7 @@ function TimelineSection() {
               onClick={() => setActiveStep(idx)}
             >
               <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-lg transition-all duration-300 ${idx <= activeStep ? 'bg-storm-900 text-white scale-110' : 'bg-storm-200 text-storm-500'}`}>
-                {idx < activeStep ? '✓' : step.icon}
+                {idx < activeStep ? <Icon name="check" className="w-5 h-5" /> : <Icon name={step.icon} className="w-5 h-5" />}
               </div>
               <div className={`flex-1 transition-all duration-300 ${idx === activeStep ? 'opacity-100' : 'opacity-60'}`}>
                 <div className="flex items-center gap-3 mb-1">
@@ -542,7 +568,7 @@ function WarrantySection() {
               transition={{ delay: idx * 0.1 }}
             >
               <div className="w-12 h-12 bg-storm-100 rounded-lg flex items-center justify-center mb-4">
-                <span className="text-xl">🛡️</span>
+                <span className="text-xl"><Icon name="shield" className="w-6 h-6" /></span>
               </div>
               <h3 className="font-bold text-storm-900 mb-1">{mat.name}</h3>
               <p className="text-xs text-storm-500 mb-3">{mat.brand}</p>
@@ -598,7 +624,7 @@ function InspectionCTA() {
         >
           {submitted ? (
             <motion.div className="text-center py-8" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}>
-              <div className="text-5xl mb-4">✓</div>
+              <div className="text-5xl mb-4"><Icon name="check" className="w-12 h-12" /></div>
               <h3 className="text-2xl font-bold text-storm-900 mb-2">Inspection Requested</h3>
               <p className="text-storm-600">We'll call you within 2 hours to confirm your appointment. Emergency requests are prioritized.</p>
             </motion.div>
@@ -643,9 +669,9 @@ function InspectionCTA() {
                 <label className="block text-sm font-semibold text-storm-700 mb-1.5">Urgency Level</label>
                 <div className="grid grid-cols-3 gap-3">
                   {[
-                    { value: 'emergency', label: '⚡ Emergency', desc: 'Active leak / damage' },
-                    { value: 'soon', label: '📅 Soon', desc: 'Within 1-2 weeks' },
-                    { value: 'routine', label: '📋 Routine', desc: 'General inspection' },
+                    { value: 'emergency', label: 'Emergency', desc: 'Active leak / damage', icon: 'lightning' },
+                    { value: 'soon', label: 'Soon', desc: 'Within 1-2 weeks', icon: 'calendar' },
+                    { value: 'routine', label: 'Routine', desc: 'General inspection', icon: 'clipboard' },
                   ].map((opt) => (
                     <button
                       key={opt.value}
@@ -653,7 +679,7 @@ function InspectionCTA() {
                       onClick={() => setFormState({ ...formState, urgency: opt.value })}
                       className={`p-3 border rounded-lg text-left transition-all ${formState.urgency === opt.value ? 'border-storm-900 bg-storm-50 ring-2 ring-storm-900/20' : 'border-storm-200 hover:border-storm-400'}`}
                     >
-                      <p className="font-semibold text-sm text-storm-900">{opt.label}</p>
+                      <p className="font-semibold text-sm text-storm-900 flex items-center gap-1.5"><Icon name={opt.icon} className="w-4 h-4" />{opt.label}</p>
                       <p className="text-xs text-storm-500">{opt.desc}</p>
                     </button>
                   ))}
@@ -760,9 +786,9 @@ export default function App() {
               </a>
             </div>
             <div className="mt-8 flex items-center gap-6 text-sm text-storm-500">
-              <span className="flex items-center gap-1.5">⭐ 4.9 (230+ reviews)</span>
-              <span className="flex items-center gap-1.5">🛡️ Licensed & Insured</span>
-              <span className="flex items-center gap-1.5">⚡ 2hr response</span>
+              <span className="flex items-center gap-1.5"><Icon name="star" className="w-4 h-4" /> 4.9 (230+ reviews)</span>
+              <span className="flex items-center gap-1.5"><Icon name="shield" className="w-4 h-4" /> Licensed &amp; Insured</span>
+              <span className="flex items-center gap-1.5"><Icon name="lightning" className="w-4 h-4" /> 2hr response</span>
             </div>
           </motion.div>
 
@@ -861,7 +887,7 @@ export default function App() {
         transition={{ delay: 2, type: 'spring' }}
         onClick={() => window.location.href = 'tel:5551234567'}
       >
-        <span className="alert-flash">⚡</span>
+        <span className="alert-flash"><Icon name="lightning" className="w-5 h-5" /></span>
         <span>Emergency? Call Now</span>
       </motion.div>
     </div>

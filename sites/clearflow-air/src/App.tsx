@@ -1,6 +1,30 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// ============ ICON COMPONENT ============
+function Icon({ name, className = 'w-6 h-6' }: { name: string; className?: string }) {
+  const icons: Record<string, React.ReactNode> = {
+    fog: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" /><line x1="4" y1="16" x2="20" y2="16" /><line x1="6" y1="20" x2="18" y2="20" /></svg>,
+    nose: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C8 2 6 6 6 10c0 3 1 5 2 7s2 5 4 5 3-3 4-5 2-4 2-7c0-4-2-8-6-8z" /><circle cx="9" cy="12" r="1" /><circle cx="15" cy="12" r="1" /></svg>,
+    allergy: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M8 14s1.5 2 4 2 4-2 4-2" /><line x1="9" y1="9" x2="9.01" y2="9" /><line x1="15" y1="9" x2="15.01" y2="9" /><path d="M12 2v2" /><path d="M12 20v2" /><path d="M4.93 4.93l1.41 1.41" /><path d="M17.66 17.66l1.41 1.41" /></svg>,
+    droplet: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" /></svg>,
+    wind: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2" /></svg>,
+    paw: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="5" cy="10" r="2" /><circle cx="9" cy="6" r="2" /><circle cx="15" cy="6" r="2" /><circle cx="19" cy="10" r="2" /><path d="M12 18c-2 0-4-1-5-3s0-5 2-5c1 0 2 1 3 1s2-1 3-1c2 0 3 3 2 5s-3 3-5 3z" /></svg>,
+    mold: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C8 2 5 5 5 9c0 2 1 4 2 5v4a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-4c1-1 2-3 2-5 0-4-3-7-7-7z" /><line x1="9" y1="22" x2="15" y2="22" /><line x1="12" y1="2" x2="12" y2="9" /><line x1="8" y1="6" x2="12" y2="9" /><line x1="16" y1="6" x2="12" y2="9" /></svg>,
+    search: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>,
+    flask: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 3h6v5l4 9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2l4-9V3z" /><line x1="8" y1="3" x2="16" y2="3" /><path d="M7 15h10" /></svg>,
+    chart: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg>,
+    swirl: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3c4.97 0 9 4.03 9 9" /><path d="M12 7c2.76 0 5 2.24 5 5" /><path d="M12 11a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" fill="currentColor" /><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9" /><path d="M12 21c-4.97 0-9-4.03-9-9" /></svg>,
+    sparkles: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5L12 3z" /><path d="M19 15l.75 2.25L22 18l-2.25.75L19 21l-.75-2.25L16 18l2.25-.75L19 15z" /></svg>,
+    grid: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /></svg>,
+    'wind-face': <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.66 8H7a5 5 0 0 0 0 10h1.5" /><path d="M14 4h4a3.5 3.5 0 0 1 0 7h-1" /><path d="M12 16h6.5a3 3 0 0 0 0-6" /></svg>,
+    broom: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 3l-7 10" /><path d="M12 13L5 21h14l-7-8z" /><line x1="5" y1="21" x2="7" y2="17" /><line x1="19" y1="21" x2="17" y2="17" /><line x1="12" y1="21" x2="12" y2="17" /></svg>,
+    sun: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>,
+    refresh: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10" /><polyline points="1 20 1 14 7 14" /><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" /></svg>,
+  };
+  return <>{icons[name] || null}</>;
+}
+
 // ─── Air Particles Background ──────────────────────────────────────────────
 function AirParticles() {
   return (
@@ -181,13 +205,13 @@ function Hero() {
 // ─── Symptoms Section ──────────────────────────────────────────────────────
 function Symptoms() {
   const symptoms = [
-    { icon: '🌫️', title: 'Excess Dust', desc: 'Visible dust on surfaces within hours of cleaning' },
-    { icon: '👃', title: 'Persistent Odors', desc: 'Lingering smells that ventilation doesn\'t resolve' },
-    { icon: '🤧', title: 'Allergies & Sneezing', desc: 'Seasonal or year-round allergy symptoms indoors' },
-    { icon: '💧', title: 'Humidity Issues', desc: 'Condensation, dry skin, or musty feeling rooms' },
-    { icon: '💨', title: 'Poor Airflow', desc: 'Stuffy rooms, weak vents, uneven temperatures' },
-    { icon: '🐾', title: 'Pet Dander', desc: 'Animal hair and dander circulating through ducts' },
-    { icon: '🍄', title: 'Mold Concerns', desc: 'Visible mold or musty smells indicating moisture issues' },
+    { icon: 'fog', title: 'Excess Dust', desc: 'Visible dust on surfaces within hours of cleaning' },
+    { icon: 'nose', title: 'Persistent Odors', desc: 'Lingering smells that ventilation doesn\'t resolve' },
+    { icon: 'allergy', title: 'Allergies & Sneezing', desc: 'Seasonal or year-round allergy symptoms indoors' },
+    { icon: 'droplet', title: 'Humidity Issues', desc: 'Condensation, dry skin, or musty feeling rooms' },
+    { icon: 'wind', title: 'Poor Airflow', desc: 'Stuffy rooms, weak vents, uneven temperatures' },
+    { icon: 'paw', title: 'Pet Dander', desc: 'Animal hair and dander circulating through ducts' },
+    { icon: 'mold', title: 'Mold Concerns', desc: 'Visible mold or musty smells indicating moisture issues' },
   ];
 
   return (
@@ -206,7 +230,7 @@ function Symptoms() {
             transition={{ delay: i * 0.08 }}
             className="bg-white rounded-2xl p-6 border border-slate-100 hover:border-cyan-200 hover:shadow-lg hover:shadow-cyan-50 transition-all group"
           >
-            <div className="text-3xl mb-3 group-hover:scale-110 transition-transform">{s.icon}</div>
+            <div className="text-3xl mb-3 group-hover:scale-110 transition-transform"><Icon name={s.icon} className="w-8 h-8" /></div>
             <h3 className="font-semibold text-slate-800 mb-1">{s.title}</h3>
             <p className="text-sm text-slate-400">{s.desc}</p>
           </motion.div>
@@ -220,11 +244,11 @@ function Symptoms() {
 function AirSystemAudit() {
   const [activeStep, setActiveStep] = useState(0);
   const steps = [
-    { title: 'Duct Inspection', desc: 'Camera-assisted visual inspection of supply and return ducts for buildup, leaks, and damage.', icon: '🔍' },
-    { title: 'Filter Analysis', desc: 'Evaluate current filter MERV rating, condition, and compatibility with your system.', icon: '🧪' },
-    { title: 'Humidity Mapping', desc: 'Room-by-room humidity readings to identify imbalances and moisture sources.', icon: '📊' },
-    { title: 'Ventilation Check', desc: 'Assess fresh air intake, exhaust function, and overall air exchange rates.', icon: '🌀' },
-    { title: 'Purifier Options', desc: 'Recommend in-duct or standalone purification based on your specific contaminants.', icon: '✨' },
+    { title: 'Duct Inspection', desc: 'Camera-assisted visual inspection of supply and return ducts for buildup, leaks, and damage.', icon: 'search' },
+    { title: 'Filter Analysis', desc: 'Evaluate current filter MERV rating, condition, and compatibility with your system.', icon: 'flask' },
+    { title: 'Humidity Mapping', desc: 'Room-by-room humidity readings to identify imbalances and moisture sources.', icon: 'chart' },
+    { title: 'Ventilation Check', desc: 'Assess fresh air intake, exhaust function, and overall air exchange rates.', icon: 'swirl' },
+    { title: 'Purifier Options', desc: 'Recommend in-duct or standalone purification based on your specific contaminants.', icon: 'sparkles' },
   ];
 
   return (
@@ -243,7 +267,7 @@ function AirSystemAudit() {
               whileHover={{ x: 4 }}
             >
               <div className="flex items-center gap-3">
-                <span className="text-2xl">{s.icon}</span>
+                <span className="text-2xl"><Icon name={s.icon} className="w-7 h-7" /></span>
                 <div>
                   <h4 className={`font-semibold ${activeStep === i ? 'text-cyan-700' : 'text-slate-700'}`}>{s.title}</h4>
                   <AnimatePresence>
@@ -274,7 +298,7 @@ function AirSystemAudit() {
           animate={{ opacity: 1, scale: 1 }}
           className="bg-gradient-to-br from-cyan-50 to-white rounded-3xl p-8 border border-cyan-100 flex flex-col items-center justify-center min-h-[300px]"
         >
-          <div className="text-6xl mb-4">{steps[activeStep].icon}</div>
+          <div className="text-6xl mb-4"><Icon name={steps[activeStep].icon} className="w-16 h-16" /></div>
           <h3 className="text-xl font-bold text-slate-800 mb-2">{steps[activeStep].title}</h3>
           <p className="text-slate-500 text-center max-w-xs">{steps[activeStep].desc}</p>
           <div className="mt-6 flex gap-1">
@@ -488,12 +512,12 @@ function HomeAirScore() {
 // ─── Products & Services ───────────────────────────────────────────────────
 function Products() {
   const products = [
-    { title: 'Filter Upgrades', desc: 'MERV 13-16 pleated and HEPA filters for maximum particle capture.', price: 'From $45', features: ['95%+ particle capture', '6-12 month lifespan', 'All system types'], icon: '🔲' },
-    { title: 'Air Purifiers', desc: 'Whole-home and portable units with multi-stage filtration.', price: 'From $299', features: ['HEPA + carbon', 'Smart sensors', 'Quiet operation'], icon: '🌬️' },
-    { title: 'Duct Cleaning', desc: 'Professional source removal of dust, debris, and contaminants.', price: 'From $350', features: ['Camera inspection', 'Sanitization', 'Seal testing'], icon: '🧹' },
-    { title: 'Humidity Systems', desc: 'Whole-home humidifiers and dehumidifiers for perfect balance.', price: 'From $450', features: ['Automatic control', 'Energy efficient', 'Bypass or powered'], icon: '💧' },
-    { title: 'UV Germicidal', desc: 'UV-C lamp systems for coil and air sterilization.', price: 'From $200', features: ['99.9% kill rate', 'Low maintenance', '5-year lamp life'], icon: '☀️' },
-    { title: 'ERV/HRV Systems', desc: 'Energy recovery ventilators for balanced fresh air.', price: 'From $1,200', features: ['Heat recovery', 'Filter intake', 'Continuous flow'], icon: '🔄' },
+    { title: 'Filter Upgrades', desc: 'MERV 13-16 pleated and HEPA filters for maximum particle capture.', price: 'From $45', features: ['95%+ particle capture', '6-12 month lifespan', 'All system types'], icon: 'grid' },
+    { title: 'Air Purifiers', desc: 'Whole-home and portable units with multi-stage filtration.', price: 'From $299', features: ['HEPA + carbon', 'Smart sensors', 'Quiet operation'], icon: 'wind-face' },
+    { title: 'Duct Cleaning', desc: 'Professional source removal of dust, debris, and contaminants.', price: 'From $350', features: ['Camera inspection', 'Sanitization', 'Seal testing'], icon: 'broom' },
+    { title: 'Humidity Systems', desc: 'Whole-home humidifiers and dehumidifiers for perfect balance.', price: 'From $450', features: ['Automatic control', 'Energy efficient', 'Bypass or powered'], icon: 'droplet' },
+    { title: 'UV Germicidal', desc: 'UV-C lamp systems for coil and air sterilization.', price: 'From $200', features: ['99.9% kill rate', 'Low maintenance', '5-year lamp life'], icon: 'sun' },
+    { title: 'ERV/HRV Systems', desc: 'Energy recovery ventilators for balanced fresh air.', price: 'From $1,200', features: ['Heat recovery', 'Filter intake', 'Continuous flow'], icon: 'refresh' },
   ];
 
   return (
@@ -514,7 +538,7 @@ function Products() {
             className="bg-white rounded-2xl p-6 border border-slate-100 hover:border-cyan-200 hover:shadow-xl hover:shadow-cyan-50 transition-all group"
           >
             <div className="flex items-start justify-between mb-4">
-              <span className="text-3xl group-hover:scale-110 transition-transform">{p.icon}</span>
+              <span className="text-3xl group-hover:scale-110 transition-transform"><Icon name={p.icon} className="w-8 h-8" /></span>
               <span className="text-sm font-semibold text-cyan-600 bg-cyan-50 px-3 py-1 rounded-full">{p.price}</span>
             </div>
             <h3 className="font-bold text-slate-800 mb-2">{p.title}</h3>

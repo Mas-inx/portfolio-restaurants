@@ -2,6 +2,19 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { siteData } from './data';
 
+// ─── Icon Component ──────────────────────────────────────────────────────────
+function Icon({ name, className = 'w-6 h-6' }: { name: string; className?: string }) {
+  const icons: Record<string, React.ReactNode> = {
+    'diamond-outline': <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 3l9 9-9 9-9-9z" /></svg>,
+    triangle: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 3l9 18H3z" /></svg>,
+    'square-outline': <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="4" y="4" width="16" height="16" rx="1" /></svg>,
+    circle: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="9" /></svg>,
+    'diamond-filled': <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 3l9 9-9 9-9-9z" fill="currentColor" opacity="0.15" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 3l9 9-9 9-9-9z" /></svg>,
+    'star-four': <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5z" /></svg>,
+  }
+  return <>{icons[name] || null}</>
+}
+
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -129,7 +142,7 @@ function BeforeBuild() {
               className="group relative bg-ivory border border-stone-light/40 p-8 hover:border-brass/50 transition-all duration-500 hover:-translate-y-1"
             >
               <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-brass/0 via-brass/60 to-brass/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="text-brass text-2xl mb-6 serif italic">{card.icon}</div>
+              <div className="text-brass text-2xl mb-6 serif italic"><Icon name={card.icon} /></div>
               <h3 className="serif text-xl text-espresso font-medium mb-3">{card.title}</h3>
               <p className="text-espresso-light/60 text-sm leading-relaxed mb-5">{card.description}</p>
               <div className="space-y-2">
@@ -409,7 +422,7 @@ function LivingThrough() {
               transition={{ duration: 0.5, delay: i * 0.1 }}
               className="flex gap-6 p-8 bg-ivory border border-stone-light/30 hover:border-brass/30 transition-colors duration-300"
             >
-              <div className="text-brass text-3xl serif shrink-0 mt-1">{commitment.icon}</div>
+              <div className="text-brass text-3xl serif shrink-0 mt-1"><Icon name={commitment.icon} /></div>
               <div>
                 <h3 className="serif text-xl text-espresso font-medium mb-2">{commitment.title}</h3>
                 <p className="text-espresso-light/60 text-sm leading-relaxed">{commitment.description}</p>
@@ -491,15 +504,15 @@ function ConsultationCTA() {
             <p className="text-ivory/60 text-lg leading-relaxed mb-10">{siteData.cta.description}</p>
             <div className="space-y-4 text-sm">
               <div className="flex items-center gap-3">
-                <span className="text-brass">✦</span>
+                <span className="text-brass"><Icon name="star-four" className="w-4 h-4" /></span>
                 <span className="text-ivory/70">{siteData.company.phone}</span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-brass">✦</span>
+                <span className="text-brass"><Icon name="star-four" className="w-4 h-4" /></span>
                 <span className="text-ivory/70">{siteData.company.email}</span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-brass">✦</span>
+                <span className="text-brass"><Icon name="star-four" className="w-4 h-4" /></span>
                 <span className="text-ivory/70">Studio visits by appointment</span>
               </div>
             </div>

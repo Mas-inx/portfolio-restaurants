@@ -1,6 +1,29 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 
+// ─── Icon Component ──────────────────────────────────────────────────────────
+
+const iconPaths: Record<string, React.ReactNode> = {
+  snowflake: <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07M12 6l-2-2m2 2l2-2m-2 14l-2 2m2-2l2 2M6 12l-2-2m2 2l-2 2m14-2l2-2m-2 2l2 2" />,
+  flame: <path strokeLinecap="round" strokeLinejoin="round" d="M12 2c0 4-4 6-4 10a4 4 0 008 0c0-4-4-6-4-10zM9 16a3 3 0 006 0" />,
+  wrench: <path strokeLinecap="round" strokeLinejoin="round" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />,
+  house: <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />,
+  thermometer: <path strokeLinecap="round" strokeLinejoin="round" d="M10 2a2 2 0 014 0v12.5a4 4 0 11-4 0V2zm2 14a2 2 0 100 4 2 2 0 000-4z" />,
+  wind: <path strokeLinecap="round" strokeLinejoin="round" d="M9.59 4.59A2 2 0 1111 8H2m10.59 11.41A2 2 0 1014 16H2m15.73-8.27A2.5 2.5 0 1119.5 12H2" />,
+  check: <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />,
+  lightning: <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />,
+  shield: <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />,
+  money: <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />,
+};
+
+function Icon({ name, className = 'w-6 h-6' }: { name: string; className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      {iconPaths[name] || null}
+    </svg>
+  );
+}
+
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 interface Service {
@@ -22,12 +45,12 @@ interface BookingState {
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const services: Service[] = [
-  { id: 'ac', name: 'AC Repair', icon: '❄️', description: 'Fast cooling restoration', recommendation: 'Most AC issues resolved in a single visit. Average repair: $180–$420.', color: 'ice' },
-  { id: 'heating', name: 'Heating', icon: '🔥', description: 'Furnace & heat pump service', recommendation: 'Heating systems checked for safety and efficiency. Annual tune-up saves 15% on bills.', color: 'heat' },
-  { id: 'tuneup', name: 'Tune-Up', icon: '🔧', description: 'Seasonal maintenance', recommendation: 'Preventive maintenance catches 95% of issues before they become emergencies.', color: 'navy' },
-  { id: 'replacement', name: 'Replacement', icon: '🏠', description: 'Full system install', recommendation: 'Systems over 15 years old cost 30% more to run. Modern units save $400+/year.', color: 'navy' },
-  { id: 'thermostat', name: 'Thermostat', icon: '🌡️', description: 'Smart controls', recommendation: 'Smart thermostats reduce energy use by 10-15%. Payback in under 2 years.', color: 'ice' },
-  { id: 'airquality', name: 'Air Quality', icon: '🌬️', description: 'Filtration & purification', recommendation: 'HEPA filtration removes 99.97% of particles. UV systems kill 99% of pathogens.', color: 'ice' },
+  { id: 'ac', name: 'AC Repair', icon: 'snowflake', description: 'Fast cooling restoration', recommendation: 'Most AC issues resolved in a single visit. Average repair: $180–$420.', color: 'ice' },
+  { id: 'heating', name: 'Heating', icon: 'flame', description: 'Furnace & heat pump service', recommendation: 'Heating systems checked for safety and efficiency. Annual tune-up saves 15% on bills.', color: 'heat' },
+  { id: 'tuneup', name: 'Tune-Up', icon: 'wrench', description: 'Seasonal maintenance', recommendation: 'Preventive maintenance catches 95% of issues before they become emergencies.', color: 'navy' },
+  { id: 'replacement', name: 'Replacement', icon: 'house', description: 'Full system install', recommendation: 'Systems over 15 years old cost 30% more to run. Modern units save $400+/year.', color: 'navy' },
+  { id: 'thermostat', name: 'Thermostat', icon: 'thermometer', description: 'Smart controls', recommendation: 'Smart thermostats reduce energy use by 10-15%. Payback in under 2 years.', color: 'ice' },
+  { id: 'airquality', name: 'Air Quality', icon: 'wind', description: 'Filtration & purification', recommendation: 'HEPA filtration removes 99.97% of particles. UV systems kill 99% of pathogens.', color: 'ice' },
 ];
 
 const maintenancePlans = [
@@ -204,7 +227,7 @@ function ServiceSelector({ selected, onSelect }: { selected: string; onSelect: (
             selected === service.id ? 'selected' : 'border-navy-100 hover:border-navy-200'
           }`}
         >
-          <span className="text-3xl mb-3 block">{service.icon}</span>
+          <span className="text-3xl mb-3 block"><Icon name={service.icon} className="w-8 h-8" /></span>
           <h3 className="font-semibold text-navy-900 text-sm">{service.name}</h3>
           <p className="text-xs text-navy-500 mt-1">{service.description}</p>
         </motion.button>
@@ -235,7 +258,7 @@ function BookingFlow({ booking, setBooking, onComplete }: {
                 booking.service === s.id ? 'border-ice-500 bg-ice-50' : 'border-navy-100 hover:border-ice-300'
               }`}
             >
-              <span className="text-2xl block mb-1">{s.icon}</span>
+              <span className="text-2xl block mb-1"><Icon name={s.icon} className="w-6 h-6 mx-auto" /></span>
               <span className="text-xs font-medium text-navy-800">{s.name}</span>
             </button>
           ))}
@@ -670,7 +693,7 @@ export default function App() {
                 className="mt-8 max-w-3xl mx-auto bg-gradient-to-r from-ice-50 to-white rounded-2xl border border-ice-200 p-6"
               >
                 <div className="flex items-start gap-4">
-                  <span className="text-3xl">{selectedServiceData.icon}</span>
+                  <span className="text-3xl"><Icon name={selectedServiceData.icon} className="w-8 h-8" /></span>
                   <div>
                     <h3 className="font-semibold text-navy-900 mb-1">{selectedServiceData.name} — Our Take</h3>
                     <p className="text-sm text-navy-600">{selectedServiceData.recommendation}</p>
@@ -699,7 +722,7 @@ export default function App() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   className="bg-emerald-50 border-2 border-emerald-200 rounded-3xl p-8 text-center"
                 >
-                  <div className="text-5xl mb-4">✅</div>
+                  <div className="text-5xl mb-4"><Icon name="check" className="w-12 h-12 text-emerald-600 mx-auto" /></div>
                   <h3 className="text-xl font-bold text-emerald-800 mb-2">Booking Confirmed!</h3>
                   <p className="text-emerald-600">A technician will be dispatched to {booking.zip || 'your area'}. You'll receive a confirmation shortly.</p>
                 </motion.div>
@@ -841,9 +864,9 @@ export default function App() {
                 <p className="text-xs text-navy-400 mt-3">Or call us directly: (555) 234-5678</p>
               </div>
               <div className="flex flex-wrap justify-center gap-6 mt-8 text-sm text-navy-300">
-                <span>⚡ 2-hour response time</span>
-                <span>🛡️ 5-year parts warranty</span>
-                <span>💰 Financing available</span>
+                <span className="flex items-center gap-1.5"><Icon name="lightning" className="w-4 h-4" /> 2-hour response time</span>
+                <span className="flex items-center gap-1.5"><Icon name="shield" className="w-4 h-4" /> 5-year parts warranty</span>
+                <span className="flex items-center gap-1.5"><Icon name="money" className="w-4 h-4" /> Financing available</span>
               </div>
             </div>
           </div>

@@ -1,13 +1,42 @@
 import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
+// ─── Icon Component ───────────────────────────────────────────────────────────
+const iconPaths: Record<string, React.ReactNode> = {
+  grain: <><path d="M12 22V8" /><path d="M5 12H2a10 10 0 0 0 20 0h-3" /><path d="M8 5l4 3 4-3" /><path d="M8 5c0-2 1.5-3 4-3s4 1 4 3" /></>,
+  cactus: <><path d="M12 22V6" /><path d="M8 14H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2" /><path d="M16 10h2a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2" /><path d="M9 2h6" /></>,
+  leaf: <><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-9 0 5-2 8-5 10" /><path d="M11 20c2-3 5-7 5-12" /><path d="M4 13c2-1 4-1 7 0" /></>,
+  butterfly: <><path d="M12 22V2" /><path d="M12 8c-4-4-8-2-8 2s4 6 8 2" /><path d="M12 8c4-4 8-2 8 2s-4 6-8 2" /><path d="M12 14c-3 3-6 2-6-1" /><path d="M12 14c3 3 6 2 6-1" /></>,
+  rock: <><path d="M3 18l4-10h10l4 10H3z" /><path d="M7 8l2-4h6l2 4" /><path d="M3 18h18" /></>,
+  pick: <><path d="M14 4l-2 2 6 6 2-2a2.83 2.83 0 0 0-4-4z" /><path d="M12 6L4 14v4h4l8-8" /><path d="M4 22l4-4" /></>,
+  seedling: <><path d="M12 22V12" /><path d="M12 12c0-4 3-7 7-7-1 5-4 7-7 7z" /><path d="M12 12c0-4-3-7-7-7 1 5 4 7 7 7z" /></>,
+  water: <path d="M12 2C12 2 5 10 5 14a7 7 0 0 0 14 0c0-4-7-12-7-12z" />,
+  clipboard: <><rect x="8" y="2" width="8" height="4" rx="1" /><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /><path d="M12 11h4M12 16h4M8 11h.01M8 16h.01" /></>,
+  worm: <><path d="M12 2c-2 4-4 6-4 10a4 4 0 0 0 8 0c0-2-1-3-2-4" /><path d="M12 16v6" /><circle cx="12" cy="2" r="1" /></>,
+  globe: <><circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z" /></>,
+  timer: <><circle cx="12" cy="13" r="8" /><path d="M12 9v4l2 2" /><path d="M5 3l2 2M19 3l-2 2" /><path d="M12 2v3" /></>,
+  'green-square': <rect x="4" y="4" width="16" height="16" rx="2" />,
+  money: <><rect x="2" y="6" width="20" height="12" rx="2" /><circle cx="12" cy="12" r="3" /><path d="M6 12h.01M18 12h.01" /></>,
+  calendar: <><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></>,
+  scroll: <><path d="M8 21h12a2 2 0 0 0 2-2v-2H10v2a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v3h4" /><path d="M19 7V5a2 2 0 0 0-2-2H8" /></>,
+  'flower': <><circle cx="12" cy="12" r="3" /><path d="M12 2a4 4 0 0 1 0 8 4 4 0 0 1 0-8z" /><path d="M12 14a4 4 0 0 1 0 8 4 4 0 0 1 0-8z" /><path d="M2 12a4 4 0 0 1 8 0 4 4 0 0 1-8 0z" /><path d="M14 12a4 4 0 0 1 8 0 4 4 0 0 1-8 0z" /></>,
+};
+
+function Icon({ name, className = '' }: { name: string; className?: string }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      {iconPaths[name] || null}
+    </svg>
+  );
+}
+
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const nativeSystems = [
   {
     id: 'meadow',
     name: 'Native Meadow',
-    icon: '🌾',
+    icon: 'grain',
     desc: 'Flowing grasses and wildflowers that sway with the wind. Supports 40+ pollinator species.',
     water: 15,
     biodiversity: 92,
@@ -17,7 +46,7 @@ const nativeSystems = [
   {
     id: 'desert',
     name: 'Desert Garden',
-    icon: '🌵',
+    icon: 'cactus',
     desc: 'Succulents, agaves, and drought-tolerant shrubs. Zero irrigation after establishment.',
     water: 5,
     biodiversity: 65,
@@ -27,7 +56,7 @@ const nativeSystems = [
   {
     id: 'shade',
     name: 'Shade Understory',
-    icon: '🌿',
+    icon: 'leaf',
     desc: 'Ferns, woodland flowers, and native groundcovers for under trees and north-facing yards.',
     water: 30,
     biodiversity: 78,
@@ -37,7 +66,7 @@ const nativeSystems = [
   {
     id: 'pollinator',
     name: 'Pollinator Edge',
-    icon: '🦋',
+    icon: 'butterfly',
     desc: 'Dense flowering borders designed to attract and sustain native bees, butterflies, and birds.',
     water: 20,
     biodiversity: 95,
@@ -47,7 +76,7 @@ const nativeSystems = [
   {
     id: 'gravel',
     name: 'Gravel Court',
-    icon: '🪨',
+    icon: 'rock',
     desc: 'Permeable gravel with sculptural plantings. Modern aesthetic with maximum drainage.',
     water: 8,
     biodiversity: 45,
@@ -72,12 +101,12 @@ const plants = [
 ]
 
 const timelineSteps = [
-  { phase: 1, title: 'Turf Removal', desc: 'Solarize or sheet-mulch existing lawn. Remove invasive grasses completely.', duration: '2–4 weeks', icon: '⛏️' },
-  { phase: 2, title: 'Soil Preparation', desc: 'Amend with compost, test pH, grade for natural drainage patterns.', duration: '1–2 weeks', icon: '🌱' },
-  { phase: 3, title: 'Irrigation Design', desc: 'Install drip zones by plant type. Smart controller with weather response.', duration: '3–5 days', icon: '💧' },
-  { phase: 4, title: 'Planting', desc: 'Install native species by layer — canopy, shrub, herbaceous, groundcover.', duration: '1–2 weeks', icon: '🌿' },
-  { phase: 5, title: 'Mulch & Hardscape', desc: 'Apply wood chip or gravel mulch. Install paths, borders, and seating.', duration: '3–5 days', icon: '🪨' },
-  { phase: 6, title: 'First-Year Care', desc: 'Deep watering schedule, weed management, seasonal observation visits.', duration: '12 months', icon: '📋' },
+  { phase: 1, title: 'Turf Removal', desc: 'Solarize or sheet-mulch existing lawn. Remove invasive grasses completely.', duration: '2–4 weeks', icon: 'pick' },
+  { phase: 2, title: 'Soil Preparation', desc: 'Amend with compost, test pH, grade for natural drainage patterns.', duration: '1–2 weeks', icon: 'seedling' },
+  { phase: 3, title: 'Irrigation Design', desc: 'Install drip zones by plant type. Smart controller with weather response.', duration: '3–5 days', icon: 'water' },
+  { phase: 4, title: 'Planting', desc: 'Install native species by layer — canopy, shrub, herbaceous, groundcover.', duration: '1–2 weeks', icon: 'leaf' },
+  { phase: 5, title: 'Mulch & Hardscape', desc: 'Apply wood chip or gravel mulch. Install paths, borders, and seating.', duration: '3–5 days', icon: 'rock' },
+  { phase: 6, title: 'First-Year Care', desc: 'Deep watering schedule, weed management, seasonal observation visits.', duration: '12 months', icon: 'clipboard' },
 ]
 
 const rebates = [
@@ -292,7 +321,7 @@ function Calculator() {
             key={results.waterSavedYearly}
           >
             <div className="flex items-center gap-3 mb-2">
-              <span className="text-2xl">💧</span>
+              <span className="text-2xl"><Icon name="water" className="w-6 h-6" /></span>
               <span className="text-sm font-medium text-charcoal-light">Annual Water Saved</span>
             </div>
             <div className="text-4xl font-bold text-sage">
@@ -314,7 +343,7 @@ function Calculator() {
             key={results.mowingHoursSaved}
           >
             <div className="flex items-center gap-3 mb-2">
-              <span className="text-2xl">⏱️</span>
+              <Icon name="timer" className="w-6 h-6" />
               <span className="text-sm font-medium text-charcoal-light">Mowing Hours Reduced</span>
             </div>
             <div className="text-4xl font-bold text-clay">
@@ -328,7 +357,7 @@ function Calculator() {
             key={results.speciesCount}
           >
             <div className="flex items-center gap-3 mb-2">
-              <span className="text-2xl">🌿</span>
+              <Icon name="leaf" className="w-6 h-6" />
               <span className="text-sm font-medium text-charcoal-light">Native Species Supported</span>
             </div>
             <div className="text-4xl font-bold text-moss">
@@ -368,7 +397,7 @@ function NativeSystems() {
                 : 'bg-sand-dark text-charcoal-light hover:bg-sage/10 hover:text-sage-dark'
             }`}
           >
-            <span className="mr-2">{sys.icon}</span>{sys.name}
+            <Icon name={sys.icon} className="w-4 h-4 inline mr-2" />{sys.name}
           </button>
         ))}
       </div>
@@ -385,7 +414,7 @@ function NativeSystems() {
         >
           <div className="grid md:grid-cols-2 gap-10">
             <div>
-              <div className="text-5xl mb-4">{activeSystem.icon}</div>
+              <div className="text-5xl mb-4"><Icon name={activeSystem.icon} className="w-12 h-12" /></div>
               <h3 className="font-serif text-3xl text-charcoal mb-4">{activeSystem.name}</h3>
               <p className="text-charcoal-light leading-relaxed mb-6">{activeSystem.desc}</p>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-sage/10 text-sage-dark text-sm font-medium">
@@ -448,19 +477,19 @@ function BeforeAfter() {
   const [position, setPosition] = useState(50)
 
   const beforeMetrics = [
-    { label: 'Water Use', value: '62 gal/sq ft/yr', icon: '💧' },
-    { label: 'Species Count', value: '1–2', icon: '🌱' },
-    { label: 'Maintenance', value: '40 hrs/yr', icon: '⏱️' },
-    { label: 'Soil Health', value: 'Poor', icon: '🪱' },
-    { label: 'Carbon Sequestration', value: 'Low', icon: '🌍' },
+    { label: 'Water Use', value: '62 gal/sq ft/yr', icon: 'water' },
+    { label: 'Species Count', value: '1–2', icon: 'seedling' },
+    { label: 'Maintenance', value: '40 hrs/yr', icon: 'timer' },
+    { label: 'Soil Health', value: 'Poor', icon: 'worm' },
+    { label: 'Carbon Sequestration', value: 'Low', icon: 'globe' },
   ]
 
   const afterMetrics = [
-    { label: 'Water Use', value: '12 gal/sq ft/yr', icon: '💧' },
-    { label: 'Species Count', value: '25–45', icon: '🌱' },
-    { label: 'Maintenance', value: '8 hrs/yr', icon: '⏱️' },
-    { label: 'Soil Health', value: 'Rich', icon: '🪱' },
-    { label: 'Carbon Sequestration', value: 'High', icon: '🌍' },
+    { label: 'Water Use', value: '12 gal/sq ft/yr', icon: 'water' },
+    { label: 'Species Count', value: '25–45', icon: 'seedling' },
+    { label: 'Maintenance', value: '8 hrs/yr', icon: 'timer' },
+    { label: 'Soil Health', value: 'Rich', icon: 'worm' },
+    { label: 'Carbon Sequestration', value: 'High', icon: 'globe' },
   ]
 
   return (
@@ -477,7 +506,7 @@ function BeforeAfter() {
         <div className="absolute inset-0 bg-gradient-to-br from-green-200 via-green-300 to-green-200">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              <div className="text-6xl mb-2 opacity-60">🟩</div>
+              <div className="text-6xl mb-2 opacity-60"><Icon name="green-square" className="w-16 h-16" /></div>
               <div className="text-sm font-medium text-green-800/70">Conventional Turf</div>
             </div>
           </div>
@@ -494,7 +523,7 @@ function BeforeAfter() {
         >
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              <div className="text-5xl mb-2">🌾🦋🌸🌵🌿</div>
+              <div className="text-5xl mb-2 flex gap-2 justify-center"><Icon name="grain" className="w-10 h-10" /><Icon name="butterfly" className="w-10 h-10" /><Icon name="flower" className="w-10 h-10" /><Icon name="cactus" className="w-10 h-10" /><Icon name="leaf" className="w-10 h-10" /></div>
               <div className="text-sm font-medium text-sage-dark">Native Ecosystem</div>
             </div>
           </div>
@@ -535,7 +564,7 @@ function BeforeAfter() {
             {beforeMetrics.map((m) => (
               <div key={m.label} className="flex justify-between items-center py-2 border-b border-sage/5 last:border-0">
                 <span className="text-sm text-charcoal-light flex items-center gap-2">
-                  <span>{m.icon}</span>{m.label}
+                  <Icon name={m.icon} className="w-4 h-4" />{m.label}
                 </span>
                 <span className="font-semibold text-charcoal">{m.value}</span>
               </div>
@@ -550,7 +579,7 @@ function BeforeAfter() {
             {afterMetrics.map((m) => (
               <div key={m.label} className="flex justify-between items-center py-2 border-b border-sage/5 last:border-0">
                 <span className="text-sm text-charcoal-light flex items-center gap-2">
-                  <span>{m.icon}</span>{m.label}
+                  <Icon name={m.icon} className="w-4 h-4" />{m.label}
                 </span>
                 <span className="font-semibold text-sage-dark">{m.value}</span>
               </div>
@@ -696,7 +725,7 @@ function Timeline() {
             >
               {/* Node */}
               <div className="absolute left-6 md:left-1/2 w-12 h-12 rounded-full bg-sage text-white flex items-center justify-center text-lg shadow-lg shadow-sage/20 -translate-x-1/2 z-10">
-                {step.icon}
+                <Icon name={step.icon} className="w-5 h-5" />
               </div>
 
               {/* Content - alternating sides on desktop */}
@@ -733,7 +762,7 @@ function RebatesRules() {
         {/* Rebates */}
         <div>
           <h3 className="font-semibold text-lg text-charcoal mb-6 flex items-center gap-2">
-            <span className="text-xl">💰</span> Available Rebates
+            <Icon name="money" className="w-5 h-5" /> Available Rebates
           </h3>
           <div className="space-y-4">
             {rebates.map((r) => (
@@ -743,8 +772,8 @@ function RebatesRules() {
                   <span className="text-lg font-bold text-sage">{r.amount}</span>
                 </div>
                 <div className="flex gap-4 text-xs text-charcoal-light">
-                  <span>📋 {r.agency}</span>
-                  <span>📅 {r.deadline}</span>
+                  <span className="flex items-center gap-1"><Icon name="clipboard" className="w-3.5 h-3.5" /> {r.agency}</span>
+                  <span className="flex items-center gap-1"><Icon name="calendar" className="w-3.5 h-3.5" /> {r.deadline}</span>
                 </div>
               </div>
             ))}
@@ -754,7 +783,7 @@ function RebatesRules() {
         {/* Rules & HOA */}
         <div>
           <h3 className="font-semibold text-lg text-charcoal mb-6 flex items-center gap-2">
-            <span className="text-xl">📜</span> Rules &amp; HOA Compliance
+            <Icon name="scroll" className="w-5 h-5" /> Rules &amp; HOA Compliance
           </h3>
           <div className="space-y-4">
             <div className="botanical-border rounded-xl p-5 bg-sand">
@@ -878,7 +907,7 @@ function ConsultationCTA() {
               animate={{ opacity: 1, scale: 1 }}
               className="botanical-border rounded-2xl p-12 bg-sand text-center"
             >
-              <div className="text-5xl mb-4">🌱</div>
+              <div className="text-5xl mb-4"><Icon name="seedling" className="w-12 h-12" /></div>
               <h3 className="font-serif text-2xl text-charcoal mb-3">Assessment Requested</h3>
               <p className="text-charcoal-light">
                 Thank you! We'll review your site details and reach out within 48 hours with a custom conversion proposal.
@@ -909,7 +938,7 @@ function Nav() {
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <a href="#" className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-full bg-sage flex items-center justify-center">
-            <span className="text-white text-sm">🌿</span>
+            <Icon name="leaf" className="w-4 h-4 text-white" />
           </div>
           <span className="font-serif text-lg text-charcoal">NativeLine</span>
         </a>
@@ -959,7 +988,7 @@ function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 rounded-full bg-sage flex items-center justify-center">
-                <span className="text-white text-sm">🌿</span>
+                <Icon name="leaf" className="w-4 h-4 text-white" />
               </div>
               <span className="font-serif text-lg text-white">NativeLine Landscapes</span>
             </div>
@@ -989,7 +1018,7 @@ function Footer() {
         <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs">© 2026 NativeLine Landscapes. Ecological design for a changing climate.</p>
           <div className="flex gap-4 text-xs">
-            <span>Designed with 🌱 for biodiversity</span>
+            <span className="flex items-center gap-1">Designed with <Icon name="seedling" className="w-4 h-4" /> for biodiversity</span>
           </div>
         </div>
       </div>

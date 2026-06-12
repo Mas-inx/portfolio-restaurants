@@ -1,15 +1,41 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 
+// ─── Icon Component ───────────────────────────────────────────────────────────
+const iconPaths: Record<string, React.ReactNode> = {
+  house: <><path d="M3 12l9-9 9 9" /><path d="M5 10v10a1 1 0 001 1h3v-6h6v6h3a1 1 0 001-1V10" /></>,
+  grid: <><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /></>,
+  office: <><rect x="4" y="2" width="16" height="20" rx="1" /><path d="M8 6h2M14 6h2M8 10h2M14 10h2M8 14h2M14 14h2" /><path d="M10 22v-4h4v4" /></>,
+  apartment: <><rect x="4" y="2" width="16" height="20" rx="1" /><path d="M9 22v-4h6v4" /><path d="M8 6h2M14 6h2M8 10h2M14 10h2M8 14h2M14 14h2" /></>,
+  school: <><path d="M2 10l10-6 10 6-10 6-10-6z" /><path d="M6 12v5c0 2 3 4 6 4s6-2 6-4v-5" /><path d="M22 10v6" /></>,
+  warehouse: <><path d="M2 20V8l10-5 10 5v12" /><path d="M2 20h20" /><path d="M6 20v-8h4v8M14 20v-8h4v8" /></>,
+  refresh: <><path d="M21 12a9 9 0 01-15 6.7L3 16" /><path d="M3 12a9 9 0 0115-6.7L21 8" /><path d="M21 3v5h-5M3 21v-5h5" /></>,
+  target: <><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" /></>,
+  flower: <><circle cx="12" cy="12" r="3" /><path d="M12 2a4 4 0 010 8 4 4 0 010-8z" /><path d="M12 14a4 4 0 010 8 4 4 0 010-8z" /><path d="M2 12a4 4 0 018 0 4 4 0 01-8 0z" /><path d="M14 12a4 4 0 018 0 4 4 0 01-8 0z" /></>,
+  lightning: <><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></>,
+  diamond: <><path d="M12 2l10 10-10 10L2 12 12 2z" /></>,
+  check: <><path d="M20 6L9 17l-5-5" /></>,
+  warning: <><path d="M12 9v4M12 17h.01" /><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" /></>,
+  xmark: <><path d="M18 6L6 18M6 6l12 12" /></>,
+};
+
+function Icon({ name, className = '' }: { name: string; className?: string }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      {iconPaths[name] || null}
+    </svg>
+  );
+}
+
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const portfolioTypes = [
-  { type: 'HOAs', count: 47, icon: '⌂', desc: 'Residential communities with shared common areas' },
-  { type: 'Retail Centers', count: 23, icon: '▣', desc: 'Shopping plazas, strip malls, big-box perimeters' },
-  { type: 'Office Parks', count: 31, icon: '◫', desc: 'Corporate campuses and business park grounds' },
-  { type: 'Apartments', count: 58, icon: '▦', desc: 'Multi-family complexes, 50+ unit properties' },
-  { type: 'Schools', count: 12, icon: '◰', desc: 'K-12 and higher education campuses' },
-  { type: 'Warehouses', count: 19, icon: '▤', desc: 'Industrial parks, logistics centers, distribution' },
+  { type: 'HOAs', count: 47, icon: 'house', desc: 'Residential communities with shared common areas' },
+  { type: 'Retail Centers', count: 23, icon: 'grid', desc: 'Shopping plazas, strip malls, big-box perimeters' },
+  { type: 'Office Parks', count: 31, icon: 'office', desc: 'Corporate campuses and business park grounds' },
+  { type: 'Apartments', count: 58, icon: 'apartment', desc: 'Multi-family complexes, 50+ unit properties' },
+  { type: 'Schools', count: 12, icon: 'school', desc: 'K-12 and higher education campuses' },
+  { type: 'Warehouses', count: 19, icon: 'warehouse', desc: 'Industrial parks, logistics centers, distribution' },
 ]
 
 const dashboardMetrics = [
@@ -22,11 +48,11 @@ const dashboardMetrics = [
 ]
 
 const services = [
-  { name: 'Weekly Service', desc: 'Scheduled mowing, edging, blowing, and debris removal on fixed rotation', frequency: '52 visits/yr', icon: '⟳' },
-  { name: 'Irrigation Management', desc: 'System audits, head replacement, controller programming, leak detection', frequency: 'Monthly + emergency', icon: '◉' },
-  { name: 'Seasonal Color', desc: 'Rotating bed plantings, annual refreshes, holiday installations', frequency: '4 rotations/yr', icon: '❋' },
-  { name: 'Storm Response', desc: '24-hour emergency cleanup, tree removal, drainage clearing, debris haul-off', frequency: 'As needed', icon: '⚡' },
-  { name: 'Enhancements', desc: 'Hardscape repair, lighting, mulch installation, drainage solutions', frequency: 'Project-based', icon: '◆' },
+  { name: 'Weekly Service', desc: 'Scheduled mowing, edging, blowing, and debris removal on fixed rotation', frequency: '52 visits/yr', icon: 'refresh' },
+  { name: 'Irrigation Management', desc: 'System audits, head replacement, controller programming, leak detection', frequency: 'Monthly + emergency', icon: 'target' },
+  { name: 'Seasonal Color', desc: 'Rotating bed plantings, annual refreshes, holiday installations', frequency: '4 rotations/yr', icon: 'flower' },
+  { name: 'Storm Response', desc: '24-hour emergency cleanup, tree removal, drainage clearing, debris haul-off', frequency: 'As needed', icon: 'lightning' },
+  { name: 'Enhancements', desc: 'Hardscape repair, lighting, mulch installation, drainage solutions', frequency: 'Project-based', icon: 'diamond' },
 ]
 
 const reportTypes = [
@@ -82,9 +108,9 @@ function useCountUp(target: number, duration: number = 2000, start: boolean = tr
 function WeatherBanner() {
   const [alertState, setAlertState] = useState<'clear' | 'watch' | 'warning'>('watch')
   const states = {
-    clear: { bg: 'bg-ops-green-dim', text: 'All Clear — No weather impacts across portfolio', icon: '✓' },
-    watch: { bg: 'bg-alert-yellow-dim', text: 'STORM WATCH — Thunderstorm risk 2-8 PM for NE corridor properties', icon: '⚠' },
-    warning: { bg: 'bg-red-900', text: 'WEATHER HOLD — 3 properties on service hold until conditions clear', icon: '✕' },
+    clear: { bg: 'bg-ops-green-dim', text: 'All Clear — No weather impacts across portfolio', icon: 'check' },
+    watch: { bg: 'bg-alert-yellow-dim', text: 'STORM WATCH — Thunderstorm risk 2-8 PM for NE corridor properties', icon: 'warning' },
+    warning: { bg: 'bg-red-900', text: 'WEATHER HOLD — 3 properties on service hold until conditions clear', icon: 'xmark' },
   }
 
   useEffect(() => {
@@ -100,7 +126,7 @@ function WeatherBanner() {
 
   return (
     <div className={`${states[alertState].bg} border-b border-white/10 px-4 py-2 flex items-center gap-3 transition-colors duration-700`}>
-      <span className="ops-pulse text-sm">{states[alertState].icon}</span>
+      <span className="ops-pulse text-sm"><Icon name={states[alertState].icon} className="w-4 h-4" /></span>
       <span className="text-xs font-mono tracking-wide uppercase text-white/90">{states[alertState].text}</span>
       <span className="ml-auto text-xs font-mono text-white/50">LIVE</span>
     </div>
@@ -352,7 +378,7 @@ export default function App() {
                 className="bg-graphite-900 border border-graphite-700 rounded-lg p-5 hover:border-ops-green/30 transition-colors group"
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-2xl text-graphite-500 group-hover:text-ops-green transition-colors">{item.icon}</span>
+                  <span className="text-2xl text-graphite-500 group-hover:text-ops-green transition-colors"><Icon name={item.icon} className="w-7 h-7" /></span>
                   <span className="text-xl font-bold font-mono text-white">{item.count}</span>
                 </div>
                 <h3 className="text-sm font-semibold text-white">{item.type}</h3>
@@ -446,7 +472,7 @@ export default function App() {
                 className="bg-graphite-900 border border-graphite-700 rounded-lg p-5 hover:border-ops-green/30 transition-all group"
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xl text-ops-green">{svc.icon}</span>
+                  <span className="text-xl text-ops-green"><Icon name={svc.icon} className="w-5 h-5" /></span>
                   <span className="text-xs font-mono text-graphite-500 bg-graphite-800 px-2 py-0.5 rounded">{svc.frequency}</span>
                 </div>
                 <h3 className="text-sm font-semibold text-white mb-2">{svc.name}</h3>
@@ -544,7 +570,7 @@ export default function App() {
             ))}
           </div>
           <div className="mt-6 bg-graphite-800 border border-graphite-700 rounded-lg p-4 flex items-center gap-4">
-            <span className="text-2xl">⚡</span>
+            <span className="text-2xl"><Icon name="lightning" className="w-6 h-6" /></span>
             <div>
               <div className="text-sm font-semibold text-white">24/7 Emergency Dispatch</div>
               <div className="text-xs text-graphite-400 font-mono">Direct line to on-call operations manager. Average response acknowledgment: 8 minutes.</div>

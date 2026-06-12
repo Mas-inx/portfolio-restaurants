@@ -58,14 +58,14 @@ export const services = [
 
 export const carePlanOptions = {
   needs: [
-    { id: "personal", label: "Personal Care", icon: "🛁" },
-    { id: "medication", label: "Medication Mgmt", icon: "💊" },
-    { id: "companionship", label: "Companionship", icon: "💬" },
-    { id: "nursing", label: "Skilled Nursing", icon: "🩺" },
-    { id: "recovery", label: "Recovery Support", icon: "🏥" },
-    { id: "memory", label: "Memory Support", icon: "🧠" },
-    { id: "meal", label: "Meal Preparation", icon: "🍽️" },
-    { id: "mobility", label: "Mobility Help", icon: "🚶" },
+    { id: "personal", label: "Personal Care", icon: "droplet" },
+    { id: "medication", label: "Medication Mgmt", icon: "pill" },
+    { id: "companionship", label: "Companionship", icon: "chat" },
+    { id: "nursing", label: "Skilled Nursing", icon: "stethoscope" },
+    { id: "recovery", label: "Recovery Support", icon: "hospital" },
+    { id: "memory", label: "Memory Support", icon: "brain" },
+    { id: "meal", label: "Meal Preparation", icon: "utensils" },
+    { id: "mobility", label: "Mobility Help", icon: "walking" },
   ],
   frequencies: [
     { id: "2hr", label: "2 hours/day", price: "$32/hr" },
@@ -94,7 +94,7 @@ export const portalData = {
     { label: "Call Dr. Chen re: prescription", done: false },
   ],
   messages: [
-    { from: "Maria S.", text: "Margaret had a wonderful morning! She finished her oatmeal and we laughed about her garden stories. 💚", time: "9:42 AM" },
+    { from: "Maria S.", text: "Margaret had a wonderful morning! She finished her oatmeal and we laughed about her garden stories.", time: "9:42 AM" },
     { from: "You", text: "That's great to hear. Thank you Maria!", time: "9:50 AM" },
   ],
   upcomingVisits: [
@@ -106,20 +106,20 @@ export const portalData = {
 };
 
 export const whoWeHelp = [
-  { title: "Aging Parents", description: "Support for seniors who want to stay independent at home with dignity.", icon: "🏡" },
-  { title: "Post-Surgery", description: "Recovery care that bridges hospital discharge to full healing.", icon: "🩹" },
-  { title: "Chronic Care", description: "Ongoing management for diabetes, heart disease, COPD, and more.", icon: "💚" },
-  { title: "Respite Care", description: "Give family caregivers a break with trusted, temporary relief.", icon: "🌿" },
-  { title: "Memory Support", description: "Specialized care for Alzheimer's, dementia, and cognitive decline.", icon: "🧠" },
+  { title: "Aging Parents", description: "Support for seniors who want to stay independent at home with dignity.", icon: "house" },
+  { title: "Post-Surgery", description: "Recovery care that bridges hospital discharge to full healing.", icon: "bandage" },
+  { title: "Chronic Care", description: "Ongoing management for diabetes, heart disease, COPD, and more.", icon: "heart" },
+  { title: "Respite Care", description: "Give family caregivers a break with trusted, temporary relief.", icon: "leaf" },
+  { title: "Memory Support", description: "Specialized care for Alzheimer's, dementia, and cognitive decline.", icon: "brain" },
 ];
 
 export const safetyFeatures = [
-  { title: "Background Checked", description: "Every caregiver passes criminal, driving, and reference checks.", icon: "✓" },
-  { title: "Certified Training", description: "CNA, HHA, and specialized certifications required for all roles.", icon: "📋" },
-  { title: "Care Coordinator", description: "A dedicated coordinator oversees your plan and handles any issues.", icon: "👤" },
-  { title: "Backup Coverage", description: "If your caregiver can't make it, we send a qualified backup — guaranteed.", icon: "🔄" },
-  { title: "Family Portal Access", description: "Real-time visit notes, photos, and direct messaging with your team.", icon: "📱" },
-  { title: "Insurance Navigation", description: "We help you understand and maximize your long-term care benefits.", icon: "📄" },
+  { title: "Background Checked", description: "Every caregiver passes criminal, driving, and reference checks.", icon: "check" },
+  { title: "Certified Training", description: "CNA, HHA, and specialized certifications required for all roles.", icon: "clipboard" },
+  { title: "Care Coordinator", description: "A dedicated coordinator oversees your plan and handles any issues.", icon: "user" },
+  { title: "Backup Coverage", description: "If your caregiver can't make it, we send a qualified backup — guaranteed.", icon: "refresh" },
+  { title: "Family Portal Access", description: "Real-time visit notes, photos, and direct messaging with your team.", icon: "smartphone" },
+  { title: "Insurance Navigation", description: "We help you understand and maximize your long-term care benefits.", icon: "document" },
 ];
 
 export const dayInCare = [

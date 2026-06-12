@@ -1,15 +1,34 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// ============ ICON COMPONENT ============
+function Icon({ name, className = 'w-6 h-6' }: { name: string; className?: string }) {
+  const icons: Record<string, React.ReactNode> = {
+    hexagon: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /></svg>,
+    snowflake: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="2" x2="12" y2="22" /><line x1="2" y1="12" x2="22" y2="12" /><line x1="4.93" y1="4.93" x2="19.07" y2="19.07" /><line x1="19.07" y1="4.93" x2="4.93" y2="19.07" /></svg>,
+    boiler: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 2c0 1.5-2 3-2 5a4 4 0 0 0 8 0c0-2-2-3.5-2-5" /><path d="M12 22v-4" /><rect x="7" y="14" width="10" height="6" rx="1" /><path d="M5 20h14" /></svg>,
+    exhaust: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2" /></svg>,
+    refrigeration: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" /><line x1="4" y1="10" x2="20" y2="10" /><line x1="10" y1="6" x2="10" y2="6.01" /><line x1="10" y1="14" x2="10" y2="14.01" /></svg>,
+    ventilation: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" /><line x1="12" y1="2" x2="12" y2="8" /><line x1="12" y1="16" x2="12" y2="22" /><line x1="2" y1="12" x2="8" y2="12" /><line x1="16" y1="12" x2="22" y2="12" /></svg>,
+    cooking: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 11h-4a4 4 0 0 0-4 4v1h12v-1a4 4 0 0 0-4-4z" /><path d="M17 3v4" /><path d="M11 3v4" /><path d="M7 3v4" /><line x1="3" y1="20" x2="21" y2="20" /></svg>,
+    building: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="1" /><line x1="9" y1="6" x2="9" y2="6.01" /><line x1="15" y1="6" x2="15" y2="6.01" /><line x1="9" y1="10" x2="9" y2="10.01" /><line x1="15" y1="10" x2="15" y2="10.01" /><line x1="9" y1="14" x2="9" y2="14.01" /><line x1="15" y1="14" x2="15" y2="14.01" /><path d="M9 22v-4h6v4" /></svg>,
+    hospital: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><line x1="12" y1="8" x2="12" y2="16" /><line x1="8" y1="12" x2="16" y2="12" /></svg>,
+    store: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l1-4h16l1 4" /><path d="M3 9a3 3 0 0 0 3 3 3 3 0 0 0 3-3" /><path d="M9 9a3 3 0 0 0 3 3 3 3 0 0 0 3-3" /><path d="M15 9a3 3 0 0 0 3 3 3 3 0 0 0 3-3" /><path d="M3 9v12h18V9" /><path d="M9 21v-6h6v6" /></svg>,
+    factory: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20V8l6 4V8l6 4V8l6 4v8H2z" /><line x1="14" y1="4" x2="14" y2="8" /><line x1="18" y1="2" x2="18" y2="8" /></svg>,
+    school: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5" /></svg>,
+  };
+  return <>{icons[name] || null}</>;
+}
+
 // ============ DATA ============
 
 const equipmentTypes = [
-  { id: 'rtu', name: 'Rooftop Units', code: 'RTU', count: 47, operational: 44, warning: 2, critical: 1, icon: '⬡', description: 'Packaged rooftop HVAC systems for commercial buildings' },
-  { id: 'chiller', name: 'Chillers', code: 'CH', count: 12, operational: 11, warning: 1, critical: 0, icon: '❄', description: 'Centrifugal and scroll chillers for cooling loops' },
-  { id: 'boiler', name: 'Boilers', code: 'BLR', count: 18, operational: 17, warning: 1, critical: 0, icon: '♨', description: 'High-efficiency condensing and steam boilers' },
-  { id: 'exhaust', name: 'Exhaust Systems', code: 'EXH', count: 34, operational: 33, warning: 1, critical: 0, icon: '↯', description: 'Kitchen, bathroom, and industrial exhaust fans' },
-  { id: 'refrig', name: 'Refrigeration', code: 'REF', count: 23, operational: 21, warning: 1, critical: 1, icon: '◈', description: 'Walk-in coolers, freezers, and display cases' },
-  { id: 'vent', name: 'Ventilation', code: 'VNT', count: 56, operational: 55, warning: 1, critical: 0, icon: '◎', description: 'Makeup air units, ERVs, and DOAS systems' },
+  { id: 'rtu', name: 'Rooftop Units', code: 'RTU', count: 47, operational: 44, warning: 2, critical: 1, icon: 'hexagon', description: 'Packaged rooftop HVAC systems for commercial buildings' },
+  { id: 'chiller', name: 'Chillers', code: 'CH', count: 12, operational: 11, warning: 1, critical: 0, icon: 'snowflake', description: 'Centrifugal and scroll chillers for cooling loops' },
+  { id: 'boiler', name: 'Boilers', code: 'BLR', count: 18, operational: 17, warning: 1, critical: 0, icon: 'boiler', description: 'High-efficiency condensing and steam boilers' },
+  { id: 'exhaust', name: 'Exhaust Systems', code: 'EXH', count: 34, operational: 33, warning: 1, critical: 0, icon: 'exhaust', description: 'Kitchen, bathroom, and industrial exhaust fans' },
+  { id: 'refrig', name: 'Refrigeration', code: 'REF', count: 23, operational: 21, warning: 1, critical: 1, icon: 'refrigeration', description: 'Walk-in coolers, freezers, and display cases' },
+  { id: 'vent', name: 'Ventilation', code: 'VNT', count: 56, operational: 55, warning: 1, critical: 0, icon: 'ventilation', description: 'Makeup air units, ERVs, and DOAS systems' },
 ];
 
 const maintenanceTasks = [
@@ -24,12 +43,12 @@ const maintenanceTasks = [
 ];
 
 const industries = [
-  { name: 'Restaurants', icon: '🍳', requirements: 'Kitchen exhaust, hood suppression, walk-in cooling, grease management', sites: '240+' },
-  { name: 'Office Buildings', icon: '🏢', requirements: 'VAV systems, IAQ monitoring, tenant comfort, energy optimization', sites: '180+' },
-  { name: 'Medical Clinics', icon: '🏥', requirements: 'Positive/negative pressure, HEPA filtration, ASHRAE 170 compliance', sites: '95+' },
-  { name: 'Retail Spaces', icon: '🏬', requirements: 'Customer comfort, display refrigeration, after-hours setbacks', sites: '310+' },
-  { name: 'Warehouses', icon: '🏭', requirements: 'High-volume ventilation, dock sealing, process cooling, destratification', sites: '75+' },
-  { name: 'Schools', icon: '🏫', requirements: 'ASHRAE 62.1 ventilation, MERV upgrades, CO₂ monitoring, scheduling', sites: '120+' },
+  { name: 'Restaurants', icon: 'cooking', requirements: 'Kitchen exhaust, hood suppression, walk-in cooling, grease management', sites: '240+' },
+  { name: 'Office Buildings', icon: 'building', requirements: 'VAV systems, IAQ monitoring, tenant comfort, energy optimization', sites: '180+' },
+  { name: 'Medical Clinics', icon: 'hospital', requirements: 'Positive/negative pressure, HEPA filtration, ASHRAE 170 compliance', sites: '95+' },
+  { name: 'Retail Spaces', icon: 'store', requirements: 'Customer comfort, display refrigeration, after-hours setbacks', sites: '310+' },
+  { name: 'Warehouses', icon: 'factory', requirements: 'High-volume ventilation, dock sealing, process cooling, destratification', sites: '75+' },
+  { name: 'Schools', icon: 'school', requirements: 'ASHRAE 62.1 ventilation, MERV upgrades, CO₂ monitoring, scheduling', sites: '120+' },
 ];
 
 const complianceDocs = [
@@ -197,7 +216,7 @@ function App() {
                   onClick={() => setSelectedEquipment(selectedEquipment === eq.id ? null : eq.id)}
                 >
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-2xl">{eq.icon}</span>
+                    <span className="text-2xl"><Icon name={eq.icon} className="w-6 h-6" /></span>
                     <StatusIndicator status={eq.critical > 0 ? 'critical' : eq.warning > 0 ? 'warning' : 'operational'} />
                   </div>
                   <div className="text-xs font-mono text-graphite-400 mb-1">{eq.code}</div>
@@ -236,8 +255,8 @@ function App() {
                 }`}
               >
                 <div className="flex items-start justify-between mb-4">
-                  <div className="w-12 h-12 rounded-lg bg-graphite-800 flex items-center justify-center text-2xl">
-                    {eq.icon}
+                  <div className="w-12 h-12 rounded-lg bg-graphite-800 flex items-center justify-center">
+                    <Icon name={eq.icon} className="w-7 h-7" />
                   </div>
                   <div className="flex items-center gap-2">
                     <StatusIndicator status={eq.critical > 0 ? 'critical' : eq.warning > 0 ? 'warning' : 'operational'} />
@@ -474,7 +493,7 @@ function App() {
                       <div key={eq.id} className="bg-graphite-900 border border-graphite-700 rounded-xl p-5">
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center gap-2">
-                            <span className="text-xl">{eq.icon}</span>
+                            <span className="text-xl"><Icon name={eq.icon} className="w-5 h-5" /></span>
                             <span className="text-white font-medium">{eq.name}</span>
                           </div>
                           <span className={`text-lg font-bold ${health >= 95 ? 'text-signal-400' : health >= 85 ? 'text-warning-400' : 'text-danger-400'}`}>{health}%</span>
@@ -516,7 +535,7 @@ function App() {
                 transition={{ delay: i * 0.05 }}
                 className="bg-graphite-800 border border-graphite-700 rounded-xl p-6 hover:border-industrial-500/30 transition-all group"
               >
-                <div className="text-3xl mb-4">{ind.icon}</div>
+                <div className="text-3xl mb-4"><Icon name={ind.icon} className="w-8 h-8" /></div>
                 <h3 className="text-white font-semibold text-lg mb-2">{ind.name}</h3>
                 <p className="text-graphite-400 text-sm mb-4">{ind.requirements}</p>
                 <div className="flex items-center justify-between">

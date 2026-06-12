@@ -42,7 +42,7 @@ export const visitTypes: VisitType[] = [
   {
     id: "illness",
     label: "Illness",
-    icon: "🤒",
+    icon: "thermometer",
     description: "Fever, flu, cold, sore throat, ear infection, UTI",
     avgWait: "12 min",
     ctaText: "Check in for illness visit",
@@ -50,7 +50,7 @@ export const visitTypes: VisitType[] = [
   {
     id: "injury",
     label: "Injury",
-    icon: "🩹",
+    icon: "bandage",
     description: "Sprains, cuts, minor fractures, burns, wounds",
     avgWait: "18 min",
     ctaText: "Check in for injury visit",
@@ -58,7 +58,7 @@ export const visitTypes: VisitType[] = [
   {
     id: "testing",
     label: "Testing",
-    icon: "🧪",
+    icon: "flask",
     description: "Strep, flu, COVID, mono, urinalysis, basic labs",
     avgWait: "8 min",
     ctaText: "Check in for testing",
@@ -66,7 +66,7 @@ export const visitTypes: VisitType[] = [
   {
     id: "physicals",
     label: "Physicals",
-    icon: "📋",
+    icon: "clipboard",
     description: "Sports physicals, school physicals, wellness exams",
     avgWait: "15 min",
     ctaText: "Check in for physical",
@@ -74,7 +74,7 @@ export const visitTypes: VisitType[] = [
   {
     id: "occupational",
     label: "Occupational",
-    icon: "🏢",
+    icon: "building",
     description: "Work injuries, drug screens, return-to-work clearance",
     avgWait: "10 min",
     ctaText: "Check in for occupational visit",

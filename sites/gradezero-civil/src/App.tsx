@@ -1,6 +1,20 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 
+// ─── Icon Component ──────────────────────────────────────────────────────────
+function Icon({ name, className = 'w-6 h-6' }: { name: string; className?: string }) {
+  const icons: Record<string, React.ReactNode> = {
+    pickaxe: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M14 4l6 6-3 3-6-6" /><path strokeLinecap="round" strokeLinejoin="round" d="M14 4L8 10l-4 10 10-4 6-6" /><path strokeLinecap="round" d="M10 8l6 6" /></svg>,
+    diamond: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 2l10 10-10 10L2 12z" /></svg>,
+    'square-filled': <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="4" y="4" width="16" height="16" rx="1" fill="currentColor" opacity="0.2" /><rect x="4" y="4" width="16" height="16" rx="1" /></svg>,
+    rectangle: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="8" width="20" height="8" rx="1" /></svg>,
+    arrow: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 5l7 7-7 7" /></svg>,
+    target: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1" /></svg>,
+    check: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M20 6L9 17l-5-5" /></svg>,
+  }
+  return <>{icons[name] || null}</>
+}
+
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const scopeItems = [
@@ -25,12 +39,12 @@ const siteMetrics = [
 ]
 
 const equipment = [
-  { name: 'CAT 390F Excavator', weight: '198,000 lb', use: 'Mass excavation, deep trenching, rock handling', bucket: '7.5 yd³', icon: '⛏' },
-  { name: 'CAT D8T Dozer', weight: '74,500 lb', use: 'Push work, spread, rough grading, ripping', blade: '13.5 ft SU', icon: '🔶' },
-  { name: 'CAT 980M Loader', weight: '72,000 lb', use: 'Material handling, truck loading, stockpile management', bucket: '7.0 yd³', icon: '◼' },
-  { name: 'CAT 14M Grader', weight: '55,000 lb', use: 'Fine grading, slope cutting, road crown shaping', blade: '16 ft', icon: '▬' },
-  { name: 'CAT 745 Hauler', weight: '46,000 lb', use: 'Off-highway material transport, spoil removal', capacity: '36 tons', icon: '▸' },
-  { name: 'CAT CS78B Compactor', weight: '40,000 lb', use: 'Lift compaction, subgrade proof rolling', drum: '84 in', icon: '◎' },
+  { name: 'CAT 390F Excavator', weight: '198,000 lb', use: 'Mass excavation, deep trenching, rock handling', bucket: '7.5 yd³', icon: 'pickaxe' },
+  { name: 'CAT D8T Dozer', weight: '74,500 lb', use: 'Push work, spread, rough grading, ripping', blade: '13.5 ft SU', icon: 'diamond' },
+  { name: 'CAT 980M Loader', weight: '72,000 lb', use: 'Material handling, truck loading, stockpile management', bucket: '7.0 yd³', icon: 'square-filled' },
+  { name: 'CAT 14M Grader', weight: '55,000 lb', use: 'Fine grading, slope cutting, road crown shaping', blade: '16 ft', icon: 'rectangle' },
+  { name: 'CAT 745 Hauler', weight: '46,000 lb', use: 'Off-highway material transport, spoil removal', capacity: '36 tons', icon: 'arrow' },
+  { name: 'CAT CS78B Compactor', weight: '40,000 lb', use: 'Lift compaction, subgrade proof rolling', drum: '84 in', icon: 'target' },
 ]
 
 const sequence = [
@@ -288,7 +302,7 @@ function EquipmentFleet() {
               className="equipment-card p-6 bg-asphalt/80 rounded-lg"
             >
               <div className="flex items-start justify-between mb-4">
-                <span className="equipment-icon text-3xl">{machine.icon}</span>
+                <span className="equipment-icon text-3xl"><Icon name={machine.icon} /></span>
                 <span className="font-mono text-[10px] text-cream/30 uppercase">Unit {String(i + 1).padStart(2, '0')}</span>
               </div>
               <h3 className="font-bold text-cream text-lg mb-1">{machine.name}</h3>
@@ -519,7 +533,7 @@ function EvaluationCTA() {
               animate={{ opacity: 1, scale: 1 }}
               className="text-center py-16"
             >
-              <div className="text-5xl mb-4">✓</div>
+              <div className="text-5xl mb-4"><Icon name="check" className="w-12 h-12" /></div>
               <h3 className="text-2xl font-bold text-cream mb-2">Evaluation Requested</h3>
               <p className="font-mono text-sm text-cream/50">Our team will review site parameters and respond within 48 hours.</p>
             </motion.div>

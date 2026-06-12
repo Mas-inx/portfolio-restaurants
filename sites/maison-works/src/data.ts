@@ -72,25 +72,25 @@ export const siteData = {
     cards: [
       {
         title: "Scope & Vision",
-        icon: "◇",
+        icon: "diamond-outline",
         description: "What's changing, what's staying, and why. We map every room, every intention, every constraint.",
         details: ["Room-by-room assessment", "Structural opportunities", "Lifestyle alignment"],
       },
       {
         title: "Drawings & Design",
-        icon: "△",
+        icon: "triangle",
         description: "Architectural drawings that translate your vision into buildable plans. Floor plans, elevations, and 3D perspectives.",
         details: ["Floor plans & elevations", "Material specifications", "Lighting & electrical plans"],
       },
       {
         title: "Budget & Timeline",
-        icon: "□",
+        icon: "square-outline",
         description: "Transparent, line-item estimates with realistic schedules. No surprises, no scope creep, no hidden costs.",
         details: ["Line-item breakdown", "Contingency planning", "Phased scheduling"],
       },
       {
         title: "Material Direction",
-        icon: "○",
+        icon: "circle",
         description: "A curated palette of materials that work together—stone, wood, metal, tile—selected for beauty and durability.",
         details: ["Material samples", "Finish selections", "Lead time coordination"],
       },
@@ -204,10 +204,10 @@ export const siteData = {
     title: "Living Through Renovation",
     subtitle: "Renovation is an act of trust. We honor that trust by keeping your home livable, your schedule clear, and your stress low.",
     commitments: [
-      { title: "Dust Control", description: "Negative air pressure systems, sealed zip-wall barriers, and HEPA filtration keep construction zones completely isolated from living spaces.", icon: "◈" },
-      { title: "Temporary Kitchen", description: "If your kitchen is out of commission, we set up a fully functional temporary kitchen with microwave, mini-fridge, sink, and coffee maker.", icon: "◇" },
-      { title: "Schedule Updates", description: "Weekly schedule emails every Monday. Daily photo updates in your shared portal. You always know what's happening and what's next.", icon: "△" },
-      { title: "Site Protection", description: "Ram board on floors, protective wrap on furniture, dedicated entry paths. Your home stays clean and protected throughout construction.", icon: "□" },
+      { title: "Dust Control", description: "Negative air pressure systems, sealed zip-wall barriers, and HEPA filtration keep construction zones completely isolated from living spaces.", icon: "diamond-filled" },
+      { title: "Temporary Kitchen", description: "If your kitchen is out of commission, we set up a fully functional temporary kitchen with microwave, mini-fridge, sink, and coffee maker.", icon: "diamond-outline" },
+      { title: "Schedule Updates", description: "Weekly schedule emails every Monday. Daily photo updates in your shared portal. You always know what's happening and what's next.", icon: "triangle" },
+      { title: "Site Protection", description: "Ram board on floors, protective wrap on furniture, dedicated entry paths. Your home stays clean and protected throughout construction.", icon: "square-outline" },
     ],
   },
 

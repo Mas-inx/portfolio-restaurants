@@ -12,6 +12,92 @@ import {
 } from "./data";
 import type { VisitType, IntakeItem } from "./data";
 
+// Icon component - maps string names to inline SVGs
+function Icon({ name, className = "w-6 h-6" }: { name: string; className?: string }) {
+  const svgProps = {
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.5",
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    className,
+  };
+
+  const icons: Record<string, React.ReactNode> = {
+    thermometer: (
+      <svg {...svgProps}>
+        <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" />
+      </svg>
+    ),
+    bandage: (
+      <svg {...svgProps}>
+        <path d="M4 8h4v4H4zM8 4h4v4H8zM12 8h4v4h-4zM8 12h4v4H8z" />
+        <rect x="2" y="2" width="20" height="20" rx="3" />
+      </svg>
+    ),
+    flask: (
+      <svg {...svgProps}>
+        <path d="M9 3h6M10 3v6.5L4 19.5a1 1 0 0 0 .87 1.5h14.26a1 1 0 0 0 .87-1.5L14 9.5V3" />
+        <path d="M7 16h10" />
+      </svg>
+    ),
+    clipboard: (
+      <svg {...svgProps}>
+        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+        <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+        <line x1="8" y1="10" x2="16" y2="10" />
+        <line x1="8" y1="14" x2="16" y2="14" />
+      </svg>
+    ),
+    building: (
+      <svg {...svgProps}>
+        <rect x="4" y="2" width="16" height="20" rx="2" ry="2" />
+        <line x1="9" y1="6" x2="9" y2="6.01" />
+        <line x1="15" y1="6" x2="15" y2="6.01" />
+        <line x1="9" y1="10" x2="9" y2="10.01" />
+        <line x1="15" y1="10" x2="15" y2="10.01" />
+        <line x1="9" y1="14" x2="9" y2="14.01" />
+        <line x1="15" y1="14" x2="15" y2="14.01" />
+        <path d="M9 22v-4h6v4" />
+      </svg>
+    ),
+    lightbulb: (
+      <svg {...svgProps}>
+        <path d="M9 21h6M12 3a6 6 0 0 0-4 10.5V17h8v-3.5A6 6 0 0 0 12 3z" />
+      </svg>
+    ),
+    pin: (
+      <svg {...svgProps}>
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+        <circle cx="12" cy="10" r="3" />
+      </svg>
+    ),
+    phone: (
+      <svg {...svgProps}>
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+      </svg>
+    ),
+    mail: (
+      <svg {...svgProps}>
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+        <polyline points="22,6 12,13 2,6" />
+      </svg>
+    ),
+    alert: (
+      <svg {...svgProps}>
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+        <line x1="12" y1="9" x2="12" y2="13" />
+        <line x1="12" y1="17" x2="12.01" y2="17" />
+      </svg>
+    ),
+  };
+
+  return <>{icons[name] || icons.lightbulb}</>;
+}
+
 function useLiveWaitTime() {
   const [waitTime, setWaitTime] = useState(14);
   const [queueLength, setQueueLength] = useState(6);
@@ -121,8 +207,8 @@ function Hero({ selectedVisit, waitTime, queueLength }: { selectedVisit: VisitTy
               </div>
             </div>
             <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-xl border border-blue-100">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white text-lg">
-                {selectedVisit.icon}
+              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white">
+                <Icon name={selectedVisit.icon} className="w-5 h-5" />
               </div>
               <div>
                 <p className="text-sm font-semibold text-slate-800">{selectedVisit.label} Visit</p>
@@ -168,7 +254,7 @@ function VisitSelector({ selected, onSelect }: { selected: VisitType; onSelect: 
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
               )}
-              <div className="text-3xl mb-3">{visit.icon}</div>
+              <div className="text-3xl mb-3"><Icon name={visit.icon} className="w-8 h-8" /></div>
               <h3 className="font-bold text-slate-900 mb-1">{visit.label}</h3>
               <p className="text-sm text-slate-500 leading-relaxed">{visit.description}</p>
               <div className="mt-3 flex items-center gap-1 text-xs font-medium text-slate-400">
@@ -314,7 +400,7 @@ function Pricing() {
               <p className="text-sm text-slate-500 mt-4">Don't see yours? Call us — we work with most major plans.</p>
             </div>
             <div className="bg-emerald-50 rounded-2xl border border-emerald-200 p-6">
-              <h3 className="font-bold text-emerald-900 mb-2">💡 Good to Know</h3>
+              <h3 className="font-bold text-emerald-900 mb-2 flex items-center gap-1"><Icon name="lightbulb" className="w-5 h-5" /> Good to Know</h3>
               <ul className="space-y-2 text-sm text-emerald-800">
                 <li>• Most copays range $25–$50 for urgent care visits</li>
                 <li>• We provide superbills for out-of-network reimbursement</li>
@@ -647,7 +733,7 @@ function CheckInForm() {
                 className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white"
               >
                 {visitTypes.map((v) => (
-                  <option key={v.id} value={v.id}>{v.icon} {v.label}</option>
+                  <option key={v.id} value={v.id}>{v.label}</option>
                 ))}
               </select>
             </div>
@@ -741,9 +827,9 @@ function Footer() {
           <div>
             <h4 className="font-semibold text-white mb-3">Contact</h4>
             <div className="space-y-2 text-sm">
-              <p>📍 1234 Healthcare Blvd, Suite 100</p>
-              <p>📞 (555) 987-6543</p>
-              <p>✉️ info@rapidwell.care</p>
+              <p className="flex items-center gap-2"><Icon name="pin" className="w-4 h-4" /> 1234 Healthcare Blvd, Suite 100</p>
+              <p className="flex items-center gap-2"><Icon name="phone" className="w-4 h-4" /> (555) 987-6543</p>
+              <p className="flex items-center gap-2"><Icon name="mail" className="w-4 h-4" /> info@rapidwell.care</p>
             </div>
           </div>
           <div>
@@ -759,7 +845,7 @@ function Footer() {
             <h4 className="font-semibold text-white mb-3">Emergency</h4>
             <p className="text-sm mb-3">For life-threatening emergencies, call 911 or go to the nearest ER.</p>
             <div className="bg-red-900/30 border border-red-800 rounded-lg p-3">
-              <p className="text-red-300 text-sm font-medium">🚨 Emergency: 911</p>
+              <p className="text-red-300 text-sm font-medium flex items-center gap-2"><Icon name="alert" className="w-4 h-4" /> Emergency: 911</p>
               <p className="text-red-300/70 text-xs mt-1">Poison Control: 1-800-222-1222</p>
             </div>
           </div>

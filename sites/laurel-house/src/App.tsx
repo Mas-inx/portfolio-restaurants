@@ -8,6 +8,51 @@ import {
 
 // ─── Utility Components ───────────────────────────────────────────────────────
 
+function Icon({ name, className = '' }: { name: string; className?: string }) {
+  const icons: Record<string, React.ReactNode> = {
+    croissant: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <path d="M4 16c1-2 3-4 6-5s5-1 7 0c2 1 3 3 3 5" />
+        <path d="M4 16c0 2 2 4 5 4s6-1 8-3c1-1 2-2 3-2" />
+        <path d="M7 11c1-2 3-4 5-5s4-1 5 0" />
+        <path d="M10 6c1-1 2-2 4-2" />
+      </svg>
+    ),
+    egg: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <ellipse cx="12" cy="14" rx="8" ry="7" />
+        <circle cx="12" cy="14" r="3" />
+        <path d="M8 7c1-2 2.5-3 4-3s3 1 4 3" />
+      </svg>
+    ),
+    coffee: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <path d="M5 11h12v6a4 4 0 01-4 4H9a4 4 0 01-4-4v-6z" />
+        <path d="M17 13h1a3 3 0 010 6h-1" />
+        <path d="M8 5c0-1 .5-2 1.5-2S11 4 11 5" />
+        <path d="M12 5c0-1 .5-2 1.5-2S15 4 15 5" />
+      </svg>
+    ),
+    flower: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <circle cx="12" cy="12" r="2" />
+        <path d="M12 10c-1-3 0-6 1-7s3 0 3 2-1 4-2 5" />
+        <path d="M14 12c3-1 6 0 7 1s0 3-2 3-4-1-5-2" />
+        <path d="M12 14c1 3 0 6-1 7s-3 0-3-2 1-4 2-5" />
+        <path d="M10 12c-3 1-6 0-7-1s0-3 2-3 4 1 5 2" />
+      </svg>
+    ),
+    leaf: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <path d="M6 21c3-6 6-10 12-14-2 6-6 10-12 14z" />
+        <path d="M6 21c2-4 5-7 9-10" />
+        <path d="M3 21h3" />
+      </svg>
+    ),
+  };
+  return <>{icons[name] || null}</>;
+}
+
 function RevealOnScroll({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
@@ -233,7 +278,7 @@ function MenuSection() {
                     : 'bg-laurel-white text-laurel-muted hover:text-laurel-green border border-laurel-light/50'
                 }`}
               >
-                <span className="mr-1.5">{cat.icon}</span>
+                <span className="mr-1.5 inline-flex w-4 h-4"><Icon name={cat.icon} className="w-4 h-4" /></span>
                 {cat.category}
               </button>
             ))}
@@ -688,7 +733,7 @@ function ReservationSection() {
                       animate={{ opacity: 1, y: 0 }}
                       className="text-center py-8"
                     >
-                      <div className="text-4xl mb-4">🌿</div>
+                      <div className="text-4xl mb-4"><Icon name="leaf" className="w-10 h-10 mx-auto text-laurel-green" /></div>
                       <h3 className="font-serif text-2xl text-laurel-text mb-2">Table reserved!</h3>
                       <p className="text-sm text-laurel-muted">We'll send a confirmation to {form.email || 'your email'}. See you in the greenhouse.</p>
                       <button onClick={() => setSubmitted(false)} className="mt-6 text-sm text-laurel-green hover:underline">Make another reservation</button>

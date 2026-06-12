@@ -1,6 +1,44 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// ─── Icon Component ──────────────────────────────────────────────────────────
+
+const iconPaths: Record<string, React.ReactNode> = {
+  thermometer: <path strokeLinecap="round" strokeLinejoin="round" d="M10 2a2 2 0 014 0v12.5a4 4 0 11-4 0V2zm2 14a2 2 0 100 4 2 2 0 000-4z" />,
+  snowflake: <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07M12 6l-2-2m2 2l2-2m-2 14l-2 2m2-2l2 2M6 12l-2-2m2 2l-2 2m14-2l2-2m-2 2l2 2" />,
+  flame: <path strokeLinecap="round" strokeLinejoin="round" d="M12 2c0 4-4 6-4 10a4 4 0 008 0c0-4-4-6-4-10zM9 16a3 3 0 006 0" />,
+  ice: <path strokeLinecap="round" strokeLinejoin="round" d="M4 4l16 16M4 20L20 4M12 2v20M2 12h20M7 7l10 10M17 7L7 17" />,
+  droplet: <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0L12 2.69z" />,
+  lightning: <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />,
+  phone: <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />,
+  clipboard: <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />,
+  van: <path strokeLinecap="round" strokeLinejoin="round" d="M8 17a2 2 0 100-4 2 2 0 000 4zM16 17a2 2 0 100-4 2 2 0 000 4zM3 7h11v8H3V7zm11 0h3l3 4v4h-2M8 17h6" />,
+  mapPin: <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z" />,
+  wrench: <path strokeLinecap="round" strokeLinejoin="round" d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />,
+  check: <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />,
+  door: <path strokeLinecap="round" strokeLinejoin="round" d="M10 4h4a2 2 0 012 2v14H8V6a2 2 0 012-2zm0 8h.01" />,
+  plug: <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v4M8 6h8M9 6v4a3 3 0 006 0V6M12 13v5M9 22h6" />,
+  smartphone: <path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />,
+  paw: <path strokeLinecap="round" strokeLinejoin="round" d="M12 21c-2-2-6-4-6-8a3 3 0 016 0 3 3 0 016 0c0 4-4 6-6 8zM7 9a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4zM4 13a2 2 0 100-4 2 2 0 000 4zm16 0a2 2 0 100-4 2 2 0 000 4z" />,
+  memo: <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />,
+  gear: <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />,
+  flask: <path strokeLinecap="round" strokeLinejoin="round" d="M9 3h6M10 3v6l-5 8a2 2 0 001.7 3h10.6a2 2 0 001.7-3l-5-8V3" />,
+  cyclone: <path strokeLinecap="round" strokeLinejoin="round" d="M12 3a9 9 0 100 18 9 9 0 000-18zm0 4a5 5 0 100 10 5 5 0 000-10zm0 4a1 1 0 100 2 1 1 0 000-2z" />,
+  chart: <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />,
+  bolt: <path strokeLinecap="round" strokeLinejoin="round" d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7l2-7z" />,
+  package: <path strokeLinecap="round" strokeLinejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />,
+  microscope: <path strokeLinecap="round" strokeLinejoin="round" d="M10 3v2m4-2v2M8 5h8M9 5v6a3 3 0 006 0V5M12 14v4m-4 4h8" />,
+  moon: <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />,
+};
+
+function Icon({ name, className = 'w-6 h-6' }: { name: string; className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      {iconPaths[name] || null}
+    </svg>
+  );
+}
+
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 interface Symptom {
@@ -16,7 +54,7 @@ interface Symptom {
 const symptoms: Symptom[] = [
   {
     id: 'no-cool',
-    icon: '🌡️',
+    icon: 'thermometer',
     title: 'No Cool Air',
     severity: 'high',
     description: 'System running but not producing cold air. Could be refrigerant leak, compressor failure, or frozen evaporator coil.',
@@ -25,7 +63,7 @@ const symptoms: Symptom[] = [
   },
   {
     id: 'no-heat',
-    icon: '❄️',
+    icon: 'snowflake',
     title: 'No Heat',
     severity: 'high',
     description: 'Furnace or heat pump not igniting. Could be pilot light, ignitor, gas valve, or thermostat failure.',
@@ -34,7 +72,7 @@ const symptoms: Symptom[] = [
   },
   {
     id: 'burning',
-    icon: '🔥',
+    icon: 'flame',
     title: 'Burning Smell',
     severity: 'critical',
     description: 'Electrical burning odor from vents or unit. Possible wiring short, motor overheating, or melting insulation.',
@@ -43,7 +81,7 @@ const symptoms: Symptom[] = [
   },
   {
     id: 'frozen',
-    icon: '🧊',
+    icon: 'ice',
     title: 'Frozen Coil',
     severity: 'medium',
     description: 'Ice buildup on evaporator coil or refrigerant lines. Restricted airflow or low refrigerant charge.',
@@ -52,7 +90,7 @@ const symptoms: Symptom[] = [
   },
   {
     id: 'leak',
-    icon: '💧',
+    icon: 'droplet',
     title: 'Water Leak',
     severity: 'high',
     description: 'Water pooling around indoor unit or ceiling. Clogged condensate line, frozen coil thawing, or cracked drain pan.',
@@ -61,7 +99,7 @@ const symptoms: Symptom[] = [
   },
   {
     id: 'breaker',
-    icon: '⚡',
+    icon: 'lightning',
     title: 'Breaker Trip',
     severity: 'critical',
     description: 'Circuit breaker tripping repeatedly. Electrical short, compressor drawing too many amps, or bad capacitor.',
@@ -71,32 +109,32 @@ const symptoms: Symptom[] = [
 ];
 
 const timelineSteps = [
-  { time: '00:00', label: 'Call Received', detail: 'Dispatcher logs your emergency', icon: '📞' },
-  { time: '02:00', label: 'Triage', detail: 'Symptoms assessed, severity rated', icon: '📋' },
-  { time: '04:00', label: 'Tech Assigned', detail: 'Nearest qualified tech dispatched', icon: '🚐' },
-  { time: '06:00', label: 'ETA Confirmed', detail: 'Real-time tracking activated', icon: '📍' },
-  { time: '35:00', label: 'On-Site Repair', detail: 'Diagnosis and fix in progress', icon: '🔧' },
-  { time: '55:00', label: 'Comfort Restored', detail: 'System tested, warranty documented', icon: '✅' },
+  { time: '00:00', label: 'Call Received', detail: 'Dispatcher logs your emergency', icon: 'phone' },
+  { time: '02:00', label: 'Triage', detail: 'Symptoms assessed, severity rated', icon: 'clipboard' },
+  { time: '04:00', label: 'Tech Assigned', detail: 'Nearest qualified tech dispatched', icon: 'van' },
+  { time: '06:00', label: 'ETA Confirmed', detail: 'Real-time tracking activated', icon: 'mapPin' },
+  { time: '35:00', label: 'On-Site Repair', detail: 'Diagnosis and fix in progress', icon: 'wrench' },
+  { time: '55:00', label: 'Comfort Restored', detail: 'System tested, warranty documented', icon: 'check' },
 ];
 
 const safetyChecklist = [
-  { icon: '⚡', text: 'Turn off system at thermostat AND breaker if electrical smell' },
-  { icon: '💧', text: 'Place towels/buckets under any active water leak' },
-  { icon: '🚪', text: 'Clear path to indoor unit and outdoor condenser' },
-  { icon: '🔌', text: 'Locate your electrical panel and identify HVAC breaker' },
-  { icon: '🌡️', text: 'Note current thermostat reading for the tech' },
-  { icon: '📱', text: 'Keep phone nearby — dispatch may call with updates' },
-  { icon: '🐾', text: 'Secure pets in a separate room for safety' },
-  { icon: '📝', text: 'Write down any error codes displayed on your unit' },
+  { icon: 'lightning', text: 'Turn off system at thermostat AND breaker if electrical smell' },
+  { icon: 'droplet', text: 'Place towels/buckets under any active water leak' },
+  { icon: 'door', text: 'Clear path to indoor unit and outdoor condenser' },
+  { icon: 'plug', text: 'Locate your electrical panel and identify HVAC breaker' },
+  { icon: 'thermometer', text: 'Note current thermostat reading for the tech' },
+  { icon: 'smartphone', text: 'Keep phone nearby — dispatch may call with updates' },
+  { icon: 'paw', text: 'Secure pets in a separate room for safety' },
+  { icon: 'memo', text: 'Write down any error codes displayed on your unit' },
 ];
 
 const truckInventory = [
-  { category: 'Compressors', items: ['Scroll 2-5 ton', 'Reciprocating 1.5-3 ton', 'Universal mount kit'], icon: '⚙️' },
-  { category: 'Electrical', items: ['Capacitors (all µF)', 'Contactors', 'Circuit boards (universal)', 'Wire & connectors'], icon: '⚡' },
-  { category: 'Refrigerant', items: ['R-410A (25lb tank)', 'R-22 (reclaim)', 'R-32', 'Manifold gauges'], icon: '🧪' },
-  { category: 'Motors & Fans', items: ['Condenser fan motors', 'Blower motors', 'Fan blades', 'Belts & pulleys'], icon: '🌀' },
-  { category: 'Diagnostics', items: ['Combustion analyzer', 'Leak detector (electronic)', 'Multimeter (Fluke)', 'Thermal camera'], icon: '📊' },
-  { category: 'Duct & Seal', items: ['Mastic sealant', 'Flex duct (assorted)', 'Filter (all sizes)', 'UV lamp kits'], icon: '🔩' },
+  { category: 'Compressors', items: ['Scroll 2-5 ton', 'Reciprocating 1.5-3 ton', 'Universal mount kit'], icon: 'gear' },
+  { category: 'Electrical', items: ['Capacitors (all µF)', 'Contactors', 'Circuit boards (universal)', 'Wire & connectors'], icon: 'lightning' },
+  { category: 'Refrigerant', items: ['R-410A (25lb tank)', 'R-22 (reclaim)', 'R-32', 'Manifold gauges'], icon: 'flask' },
+  { category: 'Motors & Fans', items: ['Condenser fan motors', 'Blower motors', 'Fan blades', 'Belts & pulleys'], icon: 'cyclone' },
+  { category: 'Diagnostics', items: ['Combustion analyzer', 'Leak detector (electronic)', 'Multimeter (Fluke)', 'Thermal camera'], icon: 'chart' },
+  { category: 'Duct & Seal', items: ['Mastic sealant', 'Flex duct (assorted)', 'Filter (all sizes)', 'UV lamp kits'], icon: 'bolt' },
 ];
 
 const pricingTiers = [
@@ -222,7 +260,7 @@ function HeroSection() {
               href="tel:+18005551234"
               className={`inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-amber-500 text-void font-bold text-lg transition-all hover:bg-amber-400 ${callPulse ? 'emergency-glow' : ''}`}
             >
-              <span className="text-2xl">📞</span>
+              <span className="text-2xl"><Icon name="phone" className="w-6 h-6" /></span>
               (800) 555-1234
             </a>
             <a
@@ -301,7 +339,7 @@ function HeroSection() {
           {/* Tech info */}
           <div className="mt-6 p-4 bg-void-3 rounded-xl border border-midnight-700/50">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-cool-500/20 flex items-center justify-center text-lg">🚐</div>
+              <div className="w-10 h-10 rounded-full bg-cool-500/20 flex items-center justify-center text-lg"><Icon name="van" className="w-5 h-5" /></div>
               <div>
                 <p className="text-white font-medium text-sm">Unit T-21 — Sarah M.</p>
                 <p className="text-midnight-400 text-xs">En route via I-85 N • 8.4 mi</p>
@@ -357,7 +395,7 @@ function SymptomsSection() {
                 className={`severity-card dispatch-panel rounded-xl p-5 ${isExpanded ? 'expanded' : ''}`}
               >
                 <div className="flex items-start justify-between mb-3">
-                  <span className="text-3xl">{symptom.icon}</span>
+                  <span className="text-3xl"><Icon name={symptom.icon} className="w-8 h-8" /></span>
                   <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${sev.bg} ${sev.text}`}>
                     {sev.badge}
                   </span>
@@ -449,7 +487,7 @@ function TimelineSection() {
                       ? 'border-amber-400 bg-amber-400/20'
                       : 'border-midnight-600 bg-void-3'
                   } ${isCurrent ? 'ring-2 ring-amber-400/30 ring-offset-2 ring-offset-void' : ''}`}>
-                    {isActive ? step.icon : <span className="w-2 h-2 rounded-full bg-midnight-600" />}
+                    {isActive ? <Icon name={step.icon} className="w-4 h-4" /> : <span className="w-2 h-2 rounded-full bg-midnight-600" />}
                   </div>
                 </div>
 
@@ -530,7 +568,7 @@ function SafetySection() {
                 }`}>
                   {checked.has(i) && <span className="text-emerald-400 text-xs">✓</span>}
                 </div>
-                <span className="text-xl flex-shrink-0">{item.icon}</span>
+                <span className="text-xl flex-shrink-0"><Icon name={item.icon} className="w-5 h-5" /></span>
                 <span className={`text-sm ${checked.has(i) ? 'text-midnight-400 line-through' : 'text-midnight-200'}`}>
                   {item.text}
                 </span>
@@ -572,7 +610,7 @@ function InventorySection() {
               className="dispatch-panel rounded-xl p-5"
             >
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-2xl">{cat.icon}</span>
+                <span className="text-2xl"><Icon name={cat.icon} className="w-6 h-6" /></span>
                 <h3 className="text-white font-semibold">{cat.category}</h3>
               </div>
               <ul className="space-y-2">
@@ -589,14 +627,14 @@ function InventorySection() {
 
         <div className="mt-8 dispatch-panel rounded-xl p-5 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="text-2xl">📦</span>
+            <span className="text-2xl"><Icon name="package" className="w-6 h-6" /></span>
             <div>
               <p className="text-white font-medium text-sm">Average parts on board: 247 SKUs</p>
               <p className="text-midnight-400 text-xs">First-visit fix rate: 94%</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-2xl">🔬</span>
+            <span className="text-2xl"><Icon name="microscope" className="w-6 h-6" /></span>
             <div>
               <p className="text-white font-medium text-sm">Full diagnostic suite</p>
               <p className="text-midnight-400 text-xs">Thermal imaging, combustion analysis, electronic leak detection</p>
@@ -851,7 +889,7 @@ function CTASection() {
               href="tel:+18005551234"
               className="emergency-glow inline-flex items-center gap-3 px-10 py-5 rounded-xl bg-amber-500 text-void font-bold text-xl transition-all hover:bg-amber-400 hover:scale-105"
             >
-              <span className="text-3xl">📞</span>
+              <span className="text-3xl"><Icon name="phone" className="w-7 h-7" /></span>
               (800) 555-1234
             </a>
             <a
@@ -901,7 +939,7 @@ function StickyCallButton() {
         href="tel:+18005551234"
         className="flex items-center justify-center gap-3 w-full py-3 rounded-xl bg-amber-500 text-void font-bold text-lg"
       >
-        <span className="text-xl">📞</span>
+        <span className="text-xl"><Icon name="phone" className="w-5 h-5" /></span>
         Call Dispatch Now — (800) 555-1234
       </a>
     </div>
@@ -925,7 +963,7 @@ function Header() {
     }`}>
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="text-xl">🌙</span>
+          <span className="text-xl"><Icon name="moon" className="w-5 h-5" /></span>
           <span className="text-white font-bold text-lg tracking-tight">NightShift</span>
           <span className="text-amber-400 font-mono text-xs hidden sm:inline">HVAC</span>
         </div>
@@ -963,7 +1001,7 @@ function App() {
       <footer className="py-8 px-6 border-t border-midnight-800/50">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-midnight-500">
           <div className="flex items-center gap-2">
-            <span>🌙</span>
+            <span><Icon name="moon" className="w-4 h-4 inline" /></span>
             <span>NightShift HVAC — 24/7 Emergency Comfort Response</span>
           </div>
           <div className="flex items-center gap-4">

@@ -1,6 +1,28 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 
+// ─── Icon Component ───────────────────────────────────────────────────────────
+const iconPaths: Record<string, React.ReactNode> = {
+  fire: <><path d="M12 2c0 4-4 6-4 10a4 4 0 0 0 8 0c0-4-4-6-4-10z" /><path d="M12 18a2 2 0 0 1-2-2c0-2 2-3 2-5 0 2 2 3 2 5a2 2 0 0 1-2 2z" /></>,
+  water: <path d="M12 2C12 2 5 10 5 14a7 7 0 0 0 14 0c0-4-7-12-7-12z" />,
+  sun: <><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></>,
+  lightbulb: <><path d="M9 18h6M10 22h4" /><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z" /></>,
+  cooking: <><path d="M5 3v6a3 3 0 0 0 3 3h1v8h6v-8h1a3 3 0 0 0 3-3V3" /><path d="M9 3v2M12 3v2M15 3v2" /></>,
+  chair: <><path d="M6 20v-4M18 20v-4" /><path d="M4 12h16v4H4z" /><path d="M6 12V8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4" /></>,
+  'arrow-down': <><path d="M12 5v14" /><path d="M19 12l-7 7-7-7" /></>,
+  grid: <><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /></>,
+  diamond: <><path d="M12 2l10 10-10 10L2 12z" /><path d="M12 8l4 4-4 4-4-4z" /></>,
+  sparkle: <><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z" /></>,
+};
+
+function Icon({ name, className = '' }: { name: string; className?: string }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      {iconPaths[name] || null}
+    </svg>
+  );
+}
+
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 const transformations = [
@@ -54,12 +76,12 @@ const materials = [
 ];
 
 const systems = [
-  { name: 'Fire', icon: '🔥', elements: ['Linear gas burners', 'Wood-burning pits', 'Fire tables', 'Fireplace surrounds'], color: '#c45a3c' },
-  { name: 'Water', icon: '💧', elements: ['Recirculating walls', 'Reflecting pools', 'Spa integration', 'Drainage engineering'], color: '#5a8bab' },
-  { name: 'Shade', icon: '☀️', elements: ['Cantilevered pergolas', 'Retractable canopies', 'Louvered roofs', 'Shade sails'], color: '#b8a040' },
-  { name: 'Light', icon: '💡', elements: ['Path & step LEDs', 'Uplighting', 'String lighting', 'Architectural wash'], color: '#f5e6c8' },
-  { name: 'Cooking', icon: '🍳', elements: ['Built-in grills', 'Pizza ovens', 'Prep counters', 'Refrigeration'], color: '#8b6b4a' },
-  { name: 'Seating', icon: '🪑', elements: ['Integral benches', 'Retaining ledges', 'Fire surrounds', 'Conversation pits'], color: '#7a8b6f' },
+  { name: 'Fire', icon: 'fire', elements: ['Linear gas burners', 'Wood-burning pits', 'Fire tables', 'Fireplace surrounds'], color: '#c45a3c' },
+  { name: 'Water', icon: 'water', elements: ['Recirculating walls', 'Reflecting pools', 'Spa integration', 'Drainage engineering'], color: '#5a8bab' },
+  { name: 'Shade', icon: 'sun', elements: ['Cantilevered pergolas', 'Retractable canopies', 'Louvered roofs', 'Shade sails'], color: '#b8a040' },
+  { name: 'Light', icon: 'lightbulb', elements: ['Path & step LEDs', 'Uplighting', 'String lighting', 'Architectural wash'], color: '#f5e6c8' },
+  { name: 'Cooking', icon: 'cooking', elements: ['Built-in grills', 'Pizza ovens', 'Prep counters', 'Refrigeration'], color: '#8b6b4a' },
+  { name: 'Seating', icon: 'chair', elements: ['Integral benches', 'Retaining ledges', 'Fire surrounds', 'Conversation pits'], color: '#7a8b6f' },
 ];
 
 const budgetTiers = [
@@ -384,7 +406,7 @@ function OutdoorSystems() {
               <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-copper/30 to-transparent" />
               
               <div className="flex items-start justify-between mb-6">
-                <span className="text-3xl">{system.icon}</span>
+                <Icon name={system.icon} className="w-8 h-8" />
                 <span className="text-xs tracking-[0.2em] uppercase text-concrete">Layer 0{i + 1}</span>
               </div>
 
@@ -571,10 +593,10 @@ function BuildProcess() {
 
 function WarrantyCraft() {
   const crafts = [
-    { title: 'Drainage Engineering', detail: 'Every project includes proper sub-base drainage. We install French drains, channel drains, and permeable bases to prevent hydrostatic pressure and heaving.', icon: '⬇' },
-    { title: 'Base Preparation', detail: 'Minimum 6" compacted aggregate base for pavers. 12"+ for vehicular applications. Laser-graded for consistent slope and load distribution.', icon: '▦' },
-    { title: 'Structural Quality', detail: 'All retaining walls over 4\' are engineered and stamped. Rebar reinforcement, proper weep holes, and geogrid integration where required.', icon: '◈' },
-    { title: 'Final Cleanup', detail: 'We leave your property cleaner than we found it. Power-washed surfaces, seeded disturbed soil, and all debris removed within 48 hours of completion.', icon: '✦' },
+    { title: 'Drainage Engineering', detail: 'Every project includes proper sub-base drainage. We install French drains, channel drains, and permeable bases to prevent hydrostatic pressure and heaving.', icon: 'arrow-down' },
+    { title: 'Base Preparation', detail: 'Minimum 6" compacted aggregate base for pavers. 12"+ for vehicular applications. Laser-graded for consistent slope and load distribution.', icon: 'grid' },
+    { title: 'Structural Quality', detail: 'All retaining walls over 4\' are engineered and stamped. Rebar reinforcement, proper weep holes, and geogrid integration where required.', icon: 'diamond' },
+    { title: 'Final Cleanup', detail: 'We leave your property cleaner than we found it. Power-washed surfaces, seeded disturbed soil, and all debris removed within 48 hours of completion.', icon: 'sparkle' },
   ];
 
   return (
@@ -604,7 +626,7 @@ function WarrantyCraft() {
               className="relative p-8 border border-charcoal-light group"
             >
               <div className="flex items-start gap-4">
-                <span className="text-2xl text-copper/60 mt-1">{craft.icon}</span>
+                <Icon name={craft.icon} className="w-6 h-6 text-copper/60 mt-1" />
                 <div>
                   <h3 className="font-display text-xl md:text-2xl text-limestone mb-3">{craft.title}</h3>
                   <p className="text-concrete text-sm leading-relaxed">{craft.detail}</p>

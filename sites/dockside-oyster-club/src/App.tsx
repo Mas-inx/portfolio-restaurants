@@ -10,6 +10,16 @@ import {
   navLinks,
 } from './data';
 
+function Icon({ name, className }: { name: string; className?: string }) {
+  const cls = className || 'w-6 h-6';
+  const icons: Record<string, React.ReactNode> = {
+    shellfish: <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C8 2 4 5 4 9c0 3 2 5 4 7l4 6 4-6c2-2 4-4 4-7 0-4-4-7-8-7z"/><path d="M12 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>,
+    champagne: <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M8 21h8M12 21v-7"/><path d="M6 3l2 7h8l2-7"/><path d="M8 10c0 2 1.8 3 4 3s4-1 4-3"/></svg>,
+    anchor: <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="5" r="3"/><line x1="12" y1="8" x2="12" y2="22"/><path d="M5 15H3v4h2M19 15h2v4h-2"/><path d="M5 17a7 7 0 0 0 14 0"/></svg>,
+  };
+  return <>{icons[name] || <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/></svg>}</>;
+}
+
 function TideProgress() {
   const [progress, setProgress] = useState(0);
 
@@ -564,10 +574,10 @@ function PrivateEvents() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
-  const iconMap: Record<string, string> = {
-    oyster: '🦪',
-    celebration: '🥂',
-    corporate: '⚓',
+  const iconMap: Record<string, React.ReactNode> = {
+    oyster: <Icon name="shellfish" />,
+    celebration: <Icon name="champagne" />,
+    corporate: <Icon name="anchor" />,
   };
 
   return (

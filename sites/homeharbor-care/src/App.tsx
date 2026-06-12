@@ -30,6 +30,19 @@ function Icon({ name, className = "w-6 h-6" }: { name: string; className?: strin
     star: <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor" />,
     menu: <><line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /><line x1="3" y1="12" x2="21" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /><line x1="3" y1="18" x2="21" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></>,
     close: <><line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /><line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></>,
+    droplet: <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />,
+    hospital: <><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" strokeWidth="2" /><path d="M12 8v8M8 12h8" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></>,
+    brain: <path d="M12 2a5 5 0 015 5c0 1.5-.5 2.5-1.5 3.5.5.5 1.5 1.5 1.5 3.5a5 5 0 01-5 5M12 2a5 5 0 00-5 5c0 1.5.5 2.5 1.5 3.5-.5.5-1.5 1.5-1.5 3.5a5 5 0 005 5M12 2v20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />,
+    utensils: <><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2M7 2v20M21 15V2a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3zm0 0v7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></>,
+    walking: <><circle cx="13" cy="4" r="2" fill="none" stroke="currentColor" strokeWidth="2" /><path d="M7 22l3-7 2.5-2.5-1.5-4.5a2 2 0 013-2l3 3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /><path d="M10 12l-2 5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></>,
+    house: <><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /><polyline points="9 22 9 12 15 12 15 22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></>,
+    bandage: <><rect x="2" y="6" width="20" height="12" rx="3" fill="none" stroke="currentColor" strokeWidth="2" /><line x1="12" y1="6" x2="12" y2="18" stroke="currentColor" strokeWidth="2" /><circle cx="8" cy="10" r="0.5" fill="currentColor" /><circle cx="16" cy="10" r="0.5" fill="currentColor" /><circle cx="8" cy="14" r="0.5" fill="currentColor" /><circle cx="16" cy="14" r="0.5" fill="currentColor" /></>,
+    clipboard: <><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /><rect x="8" y="2" width="8" height="4" rx="1" fill="none" stroke="currentColor" strokeWidth="2" /></>,
+    user: <><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /><circle cx="12" cy="7" r="4" fill="none" stroke="currentColor" strokeWidth="2" /></>,
+    refresh: <><polyline points="23 4 23 10 17 10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /><polyline points="1 20 1 14 7 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></>,
+    smartphone: <><rect x="5" y="2" width="14" height="20" rx="2" ry="2" fill="none" stroke="currentColor" strokeWidth="2" /><line x1="12" y1="18" x2="12.01" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></>,
+    document: <><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /><polyline points="14 2 14 8 20 8" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /><line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" strokeWidth="2" /><line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" strokeWidth="2" /></>,
+    smile: <><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="2" /><path d="M8 14s1.5 2 4 2 4-2 4-2" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /><line x1="9" y1="9" x2="9.01" y2="9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /><line x1="15" y1="9" x2="15.01" y2="9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></>,
   };
   return (
     <svg viewBox="0 0 24 24" className={className} fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -198,7 +211,7 @@ function Hero() {
             <div className="grid grid-cols-3 gap-3 mb-4">
               <div className="bg-sage-50 rounded-xl p-3 text-center">
                 <p className="text-xs text-slate-mid mb-0.5">Mood</p>
-                <p className="font-semibold text-sage-700 text-sm">😊 {heroUpdate.mood}</p>
+                <p className="font-semibold text-sage-700 text-sm flex items-center justify-center gap-1"><Icon name="smile" className="w-4 h-4" /> {heroUpdate.mood}</p>
               </div>
               <div className="bg-sage-50 rounded-xl p-3 text-center">
                 <p className="text-xs text-slate-mid mb-0.5">BP</p>
@@ -322,7 +335,7 @@ function CarePlanBuilder() {
                           : "border-sage-100 hover:border-sage-200"
                       }`}
                     >
-                      <span className="text-xl mb-1 block">{need.icon}</span>
+                      <span className="text-xl mb-1 block"><Icon name={need.icon} className="w-6 h-6" /></span>
                       <span className="text-xs font-medium text-slate-deep">{need.label}</span>
                     </motion.button>
                   ))}
@@ -419,8 +432,8 @@ function CarePlanBuilder() {
                           {selectedNeeds.length > 0 ? selectedNeeds.map((n) => {
                             const need = carePlanOptions.needs.find((x) => x.id === n);
                             return (
-                              <span key={n} className="bg-sage-100 text-sage-700 px-3 py-1 rounded-full text-xs font-medium">
-                                {need?.icon} {need?.label}
+                              <span key={n} className="bg-sage-100 text-sage-700 px-3 py-1 rounded-full text-xs font-medium inline-flex items-center gap-1">
+                                <Icon name={need?.icon || 'heart'} className="w-3.5 h-3.5" /> {need?.label}
                               </span>
                             );
                           }) : <span className="text-xs text-slate-mid italic">No services selected</span>}
@@ -653,7 +666,7 @@ function WhoWeHelp() {
                 whileHover={{ y: -4, scale: 1.02 }}
                 className="bg-white rounded-2xl p-6 border border-sage-100 text-center hover:shadow-lg hover:shadow-sage-500/5 transition-all h-full"
               >
-                <span className="text-3xl mb-3 block">{item.icon}</span>
+                <span className="text-3xl mb-3 block"><Icon name={item.icon} className="w-8 h-8 mx-auto" /></span>
                 <h3 className="font-serif text-lg font-semibold text-slate-deep mb-2">{item.title}</h3>
                 <p className="text-sm text-slate-mid leading-relaxed">{item.description}</p>
               </motion.div>
@@ -697,7 +710,7 @@ function Safety() {
                   whileHover={{ scale: 1.02 }}
                   className="bg-cream rounded-xl p-5 border border-sage-100 hover:border-sage-200 transition-all"
                 >
-                  <span className="text-2xl mb-2 block">{feature.icon}</span>
+                  <span className="text-2xl mb-2 block"><Icon name={feature.icon} className="w-7 h-7" /></span>
                   <h3 className="font-semibold text-slate-deep text-sm mb-1">{feature.title}</h3>
                   <p className="text-xs text-slate-mid leading-relaxed">{feature.description}</p>
                 </motion.div>

@@ -1,6 +1,21 @@
 import { useState, useEffect, useRef, type FormEvent } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 
+// ============ ICON COMPONENT ============
+function Icon({ name, className = 'w-6 h-6' }: { name: string; className?: string }) {
+  const icons: Record<string, React.ReactNode> = {
+    thermometer: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" /></svg>,
+    house: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>,
+    snowflake: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="2" x2="12" y2="22" /><line x1="2" y1="12" x2="22" y2="12" /><line x1="4.93" y1="4.93" x2="19.07" y2="19.07" /><line x1="19.07" y1="4.93" x2="4.93" y2="19.07" /></svg>,
+    map: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" /><line x1="8" y1="2" x2="8" y2="18" /><line x1="16" y1="6" x2="16" y2="22" /></svg>,
+    smartphone: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2" /><line x1="12" y1="18" x2="12.01" y2="18" /></svg>,
+    wrench: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></svg>,
+    flame: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" /></svg>,
+    sun: <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>,
+  };
+  return <>{icons[name] || null}</>;
+}
+
 // ============ NAVIGATION ============
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -123,11 +138,11 @@ function HeatPumpExplainer() {
         {/* Mode Toggle */}
         <div className="flex justify-center mb-12">
           <div className="bg-slate-100 rounded-full p-1 flex">
-            <button onClick={() => setMode('heating')} className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${mode === 'heating' ? 'bg-orange-500 text-white shadow' : 'text-slate-600'}`}>
-              🔥 Heating Mode
+            <button onClick={() => setMode('heating')} className={`px-6 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-1.5 ${mode === 'heating' ? 'bg-orange-500 text-white shadow' : 'text-slate-600'}`}>
+              <Icon name="flame" className="w-4 h-4" /> Heating Mode
             </button>
-            <button onClick={() => setMode('cooling')} className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${mode === 'cooling' ? 'bg-blue-500 text-white shadow' : 'text-slate-600'}`}>
-              ❄️ Cooling Mode
+            <button onClick={() => setMode('cooling')} className={`px-6 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-1.5 ${mode === 'cooling' ? 'bg-blue-500 text-white shadow' : 'text-slate-600'}`}>
+              <Icon name="snowflake" className="w-4 h-4" /> Cooling Mode
             </button>
           </div>
         </div>
@@ -186,10 +201,10 @@ function HeatPumpExplainer() {
 
               {/* Temperature indicators */}
               <text x="140" y="330" textAnchor="middle" fill={mode === 'heating' ? '#3b82f6' : '#f97316'} fontSize="12" fontWeight="600">
-                {mode === 'heating' ? '❄️ Cold outside' : '☀️ Hot outside'}
+                {mode === 'heating' ? 'Cold outside' : 'Hot outside'}
               </text>
               <text x="660" y="330" textAnchor="middle" fill={mode === 'heating' ? '#ef4444' : '#06b6d4'} fontSize="12" fontWeight="600">
-                {mode === 'heating' ? '🔥 Warm inside' : '❄️ Cool inside'}
+                {mode === 'heating' ? 'Warm inside' : 'Cool inside'}
               </text>
             </svg>
           </div>
@@ -309,12 +324,12 @@ function Services() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, margin: '-100px' });
   const services = [
-    { icon: '🌡️', title: 'Heat Pumps', desc: 'Air-source and ground-source heat pumps for year-round comfort with 300%+ efficiency.' },
-    { icon: '🏠', title: 'Ducted Systems', desc: 'Complete ducted HVAC installations with sealed, insulated ductwork for maximum efficiency.' },
-    { icon: '❄️', title: 'Mini-Splits', desc: 'Ductless mini-split systems perfect for additions, garages, and zone-specific comfort.' },
-    { icon: '🗺️', title: 'Smart Zoning', desc: 'Room-by-room temperature control with automated dampers and smart thermostats.' },
-    { icon: '📱', title: 'Smart Thermostats', desc: 'Wi-Fi thermostats with learning algorithms, geofencing, and energy dashboards.' },
-    { icon: '🔧', title: 'Maintenance', desc: 'Annual tune-ups, filter programs, and performance monitoring to keep systems peak.' },
+    { icon: 'thermometer', title: 'Heat Pumps', desc: 'Air-source and ground-source heat pumps for year-round comfort with 300%+ efficiency.' },
+    { icon: 'house', title: 'Ducted Systems', desc: 'Complete ducted HVAC installations with sealed, insulated ductwork for maximum efficiency.' },
+    { icon: 'snowflake', title: 'Mini-Splits', desc: 'Ductless mini-split systems perfect for additions, garages, and zone-specific comfort.' },
+    { icon: 'map', title: 'Smart Zoning', desc: 'Room-by-room temperature control with automated dampers and smart thermostats.' },
+    { icon: 'smartphone', title: 'Smart Thermostats', desc: 'Wi-Fi thermostats with learning algorithms, geofencing, and energy dashboards.' },
+    { icon: 'wrench', title: 'Maintenance', desc: 'Annual tune-ups, filter programs, and performance monitoring to keep systems peak.' },
   ];
 
   return (
@@ -328,7 +343,7 @@ function Services() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((s, i) => (
             <motion.div key={s.title} initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: i * 0.1 }} className="bg-gradient-to-br from-slate-50 to-teal-50/30 rounded-2xl p-6 border border-slate-100 hover:border-teal-200 hover:shadow-lg transition-all group">
-              <div className="text-3xl mb-4">{s.icon}</div>
+              <div className="text-3xl mb-4"><Icon name={s.icon} className="w-8 h-8" /></div>
               <h3 className="text-lg font-semibold text-slate-800 mb-2 group-hover:text-teal-700 transition-colors">{s.title}</h3>
               <p className="text-sm text-slate-600">{s.desc}</p>
             </motion.div>
