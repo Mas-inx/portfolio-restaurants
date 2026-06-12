@@ -1,0 +1,138 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-sand: #FAF7F2;
+  --color-sand-dark: #F0EBE1;
+  --color-sage: #7A8B6F;
+  --color-sage-light: #94A685;
+  --color-sage-dark: #5B6B50;
+  --color-clay: #C4956A;
+  --color-clay-dark: #A87B52;
+  --color-charcoal: #2D2D2D;
+  --color-charcoal-light: #4A4A4A;
+  --color-moss: #5B7A4A;
+  --color-earth: #8B7355;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-serif: 'DM Serif Display', Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-sand);
+  color: var(--color-charcoal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Topographic line pattern */
+.topo-bg {
+  background-image: url("data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='topo' x='0' y='0' width='400' height='400' patternUnits='userSpaceOnUse'%3E%3Cpath d='M0 200 Q100 180 200 200 T400 200' fill='none' stroke='%237A8B6F' stroke-width='0.5' opacity='0.15'/%3E%3Cpath d='M0 160 Q100 140 200 160 T400 160' fill='none' stroke='%237A8B6F' stroke-width='0.5' opacity='0.12'/%3E%3Cpath d='M0 120 Q100 100 200 120 T400 120' fill='none' stroke='%237A8B6F' stroke-width='0.5' opacity='0.1'/%3E%3Cpath d='M0 240 Q100 220 200 240 T400 240' fill='none' stroke='%237A8B6F' stroke-width='0.5' opacity='0.12'/%3E%3Cpath d='M0 280 Q100 260 200 280 T400 280' fill='none' stroke='%237A8B6F' stroke-width='0.5' opacity='0.1'/%3E%3Cpath d='M0 80 Q100 60 200 80 T400 80' fill='none' stroke='%237A8B6F' stroke-width='0.5' opacity='0.08'/%3E%3Cpath d='M0 320 Q100 300 200 320 T400 320' fill='none' stroke='%237A8B6F' stroke-width='0.5' opacity='0.08'/%3E%3Cpath d='M0 40 Q100 20 200 40 T400 40' fill='none' stroke='%237A8B6F' stroke-width='0.5' opacity='0.06'/%3E%3Cpath d='M0 360 Q100 340 200 360 T400 360' fill='none' stroke='%237A8B6F' stroke-width='0.5' opacity='0.06'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23topo)'/%3E%3C/svg%3E");
+}
+
+/* Animated topo lines */
+@keyframes topo-drift {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-20px) translateY(-5px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+
+.topo-animate {
+  animation: topo-drift 20s ease-in-out infinite;
+}
+
+/* Custom slider styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--color-sand-dark);
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-sage);
+  border: 3px solid var(--color-sand);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  background: var(--color-sage-dark);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-sage);
+  border: 3px solid var(--color-sand);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+
+/* Before/After slider */
+.ba-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  cursor: ew-resize;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.ba-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 4px;
+  height: 100%;
+  background: white;
+  cursor: ew-resize;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-sand);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-sage-light);
+  border-radius: 4px;
+}
+
+/* Botanical diagram style borders */
+.botanical-border {
+  border: 1px solid rgba(122, 139, 111, 0.2);
+  position: relative;
+}
+
+.botanical-border::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border: 1px solid rgba(122, 139, 111, 0.1);
+  pointer-events: none;
+}

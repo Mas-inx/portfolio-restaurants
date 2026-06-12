@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --color-navy-50: #f0f4f8;
+  --color-navy-100: #d9e2ec;
+  --color-navy-200: #bcccdc;
+  --color-navy-300: #9fb3c8;
+  --color-navy-400: #829ab1;
+  --color-navy-500: #627d98;
+  --color-navy-600: #486581;
+  --color-navy-700: #334e68;
+  --color-navy-800: #243b53;
+  --color-navy-900: #102a43;
+  --color-navy-950: #0a1929;
+  --color-ice-50: #f0f9ff;
+  --color-ice-100: #e0f2fe;
+  --color-ice-200: #bae6fd;
+  --color-ice-300: #7dd3fc;
+  --color-ice-400: #38bdf8;
+  --color-ice-500: #0ea5e9;
+  --color-ice-600: #0284c7;
+  --color-heat-50: #fff7ed;
+  --color-heat-100: #ffedd5;
+  --color-heat-200: #fed7aa;
+  --color-heat-300: #fdba74;
+  --color-heat-400: #fb923c;
+  --color-heat-500: #f97316;
+  --color-heat-600: #ea580c;
+  --color-heat-700: #c2410c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #ffffff;
+  color: #102a43;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  text-align: left;
+  border: none;
+  min-height: 100svh;
+}
+
+/* Thermostat dial styles */
+.thermostat-ring {
+  filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.3));
+}
+
+.thermostat-glow {
+  filter: blur(40px);
+  opacity: 0.4;
+}
+
+/* Temperature gradient backgrounds */
+.gradient-cool {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%);
+}
+
+.gradient-warm {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 50%, #fed7aa 100%);
+}
+
+.gradient-neutral {
+  background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+}
+
+/* Scroll-linked gradient */
+.temp-gradient-bg {
+  background: linear-gradient(
+    180deg,
+    var(--scroll-gradient-from, #f0f9ff) 0%,
+    var(--scroll-gradient-to, #e0f2fe) 100%
+  );
+}
+
+/* Diagnostic card pulse */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(14, 165, 233, 0); }
+}
+
+.pulse-indicator {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Sticky booking widget */
+.sticky-booking {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.9);
+  border-top: 1px solid #e0f2fe;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.sticky-booking.visible {
+  transform: translateY(0);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f0f4f8;
+}
+::-webkit-scrollbar-thumb {
+  background: #829ab1;
+  border-radius: 3px;
+}
+
+/* Service card hover */
+.service-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px rgba(16, 42, 67, 0.15);
+}
+.service-card.selected {
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2), 0 20px 40px -12px rgba(14, 165, 233, 0.15);
+}
+
+/* Booking step indicator */
+.step-dot {
+  transition: all 0.3s ease;
+}
+.step-dot.active {
+  background: #0ea5e9;
+  transform: scale(1.2);
+}
+.step-dot.completed {
+  background: #10b981;
+}

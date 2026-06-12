@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cyan-50: #ecfeff;
+  --color-cyan-100: #cffafe;
+  --color-cyan-200: #a5f3fc;
+  --color-cyan-300: #67e8f9;
+  --color-cyan-400: #22d3ee;
+  --color-cyan-500: #06b6d4;
+  --color-cyan-600: #0891b2;
+  --color-cyan-700: #0e7490;
+  --color-cyan-800: #155e75;
+  --color-cyan-900: #164e63;
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: #ffffff;
+  color: #334155;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Airflow particle animation */
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+  25% { transform: translateY(-20px) translateX(10px); opacity: 0.7; }
+  50% { transform: translateY(-10px) translateX(-5px); opacity: 0.5; }
+  75% { transform: translateY(-30px) translateX(15px); opacity: 0.6; }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 0.4; }
+  100% { transform: scale(0.8); opacity: 0.8; }
+}
+
+@keyframes score-fill {
+  from { stroke-dashoffset: 283; }
+}
+
+@keyframes wave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.particle {
+  animation: float-particle 6s ease-in-out infinite;
+}
+
+.particle:nth-child(2) { animation-delay: -1s; animation-duration: 7s; }
+.particle:nth-child(3) { animation-delay: -2s; animation-duration: 5s; }
+.particle:nth-child(4) { animation-delay: -3s; animation-duration: 8s; }
+.particle:nth-child(5) { animation-delay: -4s; animation-duration: 6.5s; }
+.particle:nth-child(6) { animation-delay: -0.5s; animation-duration: 7.5s; }
+
+.score-ring {
+  animation: score-fill 1.5s ease-out forwards;
+}
+
+.wave-anim {
+  animation: wave 3s ease-in-out infinite;
+}
+
+.wave-anim:nth-child(2) { animation-delay: -0.5s; }
+.wave-anim:nth-child(3) { animation-delay: -1s; }

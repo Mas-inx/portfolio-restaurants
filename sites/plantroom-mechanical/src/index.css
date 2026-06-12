@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@theme {
+  --color-graphite-950: #0a0d12;
+  --color-graphite-900: #111520;
+  --color-graphite-800: #1a1f2e;
+  --color-graphite-700: #252b3d;
+  --color-graphite-600: #363d52;
+  --color-graphite-500: #4a5268;
+  --color-graphite-400: #6b7280;
+  --color-graphite-300: #9ca3af;
+  --color-graphite-200: #d1d5db;
+  --color-graphite-100: #e5e7eb;
+  --color-graphite-50: #f3f4f6;
+
+  --color-industrial-900: #0c2d4a;
+  --color-industrial-800: #0f3d66;
+  --color-industrial-700: #135080;
+  --color-industrial-600: #1a6ba8;
+  --color-industrial-500: #2185d0;
+  --color-industrial-400: #4a9ee0;
+  --color-industrial-300: #7ab8eb;
+  --color-industrial-200: #a8d4f5;
+  --color-industrial-100: #d4ebfa;
+  --color-industrial-50: #eaf5fd;
+
+  --color-signal-900: #0a3d1a;
+  --color-signal-800: #0f5a27;
+  --color-signal-700: #147a35;
+  --color-signal-600: #1a9e45;
+  --color-signal-500: #22c55e;
+  --color-signal-400: #4ade80;
+  --color-signal-300: #86efac;
+  --color-signal-200: #bbf7d0;
+  --color-signal-100: #dcfce7;
+
+  --color-warning-500: #f59e0b;
+  --color-warning-400: #fbbf24;
+  --color-danger-500: #ef4444;
+  --color-danger-400: #f87171;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--color-graphite-950);
+  color: var(--color-graphite-200);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-graphite-900);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-graphite-600);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-industrial-500);
+}
+
+/* Horizontal scroll container */
+.scroll-container {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.scroll-item {
+  scroll-snap-align: start;
+}
+
+/* Grid background pattern */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(33, 133, 208, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(33, 133, 208, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Pulse animation for status indicators */
+@keyframes pulse-signal {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.pulse-signal {
+  animation: pulse-signal 2s ease-in-out infinite;
+}
+
+@keyframes pulse-danger {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  50% { opacity: 0.8; box-shadow: 0 0 0 4px rgba(239, 68, 68, 0); }
+}
+.pulse-danger {
+  animation: pulse-danger 1.5s ease-in-out infinite;
+}

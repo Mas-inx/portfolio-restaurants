@@ -1,0 +1,156 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-graphite: #1a1a1a;
+  --color-graphite-light: #222222;
+  --color-concrete: #3d3d3d;
+  --color-concrete-light: #6b6b6b;
+  --color-safety-orange: #ff6b00;
+  --color-safety-orange-dark: #e55d00;
+  --color-steel: #c0c0c0;
+  --color-paper: #f5f5f0;
+  --color-offwhite: #e8e8e4;
+  --font-heading: 'Barlow Condensed', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--color-graphite);
+  color: var(--color-offwhite);
+  overflow-x: hidden;
+}
+
+.heading-font {
+  font-family: var(--font-heading);
+}
+
+/* Blueprint grid background */
+.blueprint-grid {
+  position: relative;
+}
+
+.blueprint-grid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 107, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 107, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(rgba(255, 107, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 107, 0, 0.02) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blueprint-grid > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Animated blueprint grid that reacts to scroll */
+.blueprint-grid-animated::before {
+  animation: gridShift 20s linear infinite;
+}
+
+@keyframes gridShift {
+  0% { background-position: 0 0, 0 0, 0 0, 0 0; }
+  100% { background-position: 100px 100px, 100px 100px, 20px 20px, 20px 20px; }
+}
+
+/* Dashboard card styling */
+.dashboard-card {
+  background: rgba(30, 30, 30, 0.8);
+  border: 1px solid rgba(61, 61, 61, 0.5);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.dashboard-card:hover {
+  border-color: rgba(255, 107, 0, 0.4);
+  box-shadow: 0 0 20px rgba(255, 107, 0, 0.05);
+}
+
+/* Metric bar animation */
+.metric-bar {
+  height: 4px;
+  background: rgba(61, 61, 61, 0.5);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.metric-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-safety-orange), var(--color-safety-orange-dark));
+  border-radius: 2px;
+  transition: width 1s ease-out;
+}
+
+/* Timeline connector */
+.timeline-connector {
+  position: absolute;
+  left: 32px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--color-safety-orange) 0%, rgba(61, 61, 61, 0.3) 100%);
+}
+
+/* Pulse animation for status indicators */
+.status-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Form select styling */
+select option {
+  background: var(--color-graphite);
+  color: var(--color-offwhite);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-graphite);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-concrete);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-safety-orange);
+}
+
+/* Sticky timeline */
+.sticky-timeline {
+  position: sticky;
+  top: 120px;
+}
+
+/* Expand animation for project cards */
+.project-expand {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out;
+}
+
+.project-expand.expanded {
+  max-height: 500px;
+}

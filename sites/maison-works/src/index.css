@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ivory: #faf8f5;
+  --color-ivory-dark: #f0ece5;
+  --color-espresso: #2c1810;
+  --color-espresso-light: #4a3228;
+  --color-stone: #c4b5a0;
+  --color-stone-light: #d9cfc0;
+  --color-brass: #b8860b;
+  --color-brass-light: #d4a843;
+  --color-cream: #f5f0e8;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--color-ivory);
+  color: var(--color-espresso);
+}
+
+.serif {
+  font-family: var(--font-serif);
+}
+
+/* Hide scrollbar for horizontal scroll sections */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth image reveal */
+img {
+  image-rendering: auto;
+}
+
+/* Selection color */
+::selection {
+  background: #b8860b33;
+  color: #2c1810;
+}
+
+/* Custom focus styles */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+/* Smooth transitions for interactive elements */
+button,
+a {
+  transition: all 0.3s ease;
+}
+
+/* Before/After slider cursor */
+.cursor-col-resize {
+  cursor: col-resize;
+}
+
+/* Snap scroll for material board */
+.snap-x {
+  scroll-snap-type: x mandatory;
+}
+
+.snap-start {
+  scroll-snap-align: start;
+}

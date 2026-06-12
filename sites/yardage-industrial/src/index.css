@@ -1,0 +1,77 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-navy: #0a1628;
+  --color-navy-light: #152238;
+  --color-steel: #8896a7;
+  --color-steel-light: #c0cad6;
+  --color-signal-yellow: #ffd600;
+  --color-signal-yellow-dark: #e6c200;
+  --color-white: #ffffff;
+  --color-off-white: #f7f8fa;
+  --color-grid-line: rgba(136, 150, 167, 0.1);
+  --font-heading: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-heading);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--color-white);
+  color: var(--color-navy);
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.structural-grid {
+  background-image:
+    linear-gradient(var(--color-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.data-number {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth selection */
+::selection {
+  background: var(--color-signal-yellow);
+  color: var(--color-navy);
+}
+
+/* Custom focus styles */
+select:focus,
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-signal-yellow) !important;
+}
+
+/* Animation keyframes */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 214, 0, 0.4); }
+  50% { box-shadow: 0 0 20px 4px rgba(255, 214, 0, 0.2); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s infinite;
+}

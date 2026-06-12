@@ -1,0 +1,138 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-root-green: #00c853;
+  --color-root-green-dark: #00a844;
+  --color-root-green-light: #e8f9ef;
+  --color-digital-green: #00e676;
+  --color-dark: #0a0a0a;
+  --color-gray-50: #fafafa;
+  --color-gray-100: #f4f4f5;
+  --color-gray-200: #e4e4e7;
+  --color-gray-400: #a1a1aa;
+  --color-gray-600: #52525b;
+  --color-gray-800: #27272a;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: white;
+  color: var(--color-dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Dashboard card glow */
+.dashboard-card {
+  position: relative;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 12px;
+  background: white;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.dashboard-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 200, 83, 0.08);
+  border-color: var(--color-root-green);
+}
+
+/* Before/after slider */
+.ba-slider {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: ew-resize;
+}
+
+/* Price animation */
+@keyframes price-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+.price-animate {
+  animation: price-pop 0.3s ease;
+}
+
+/* Map dots animation */
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.5; }
+}
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* Route line animation - fallback for non-scroll contexts */
+@keyframes dash {
+  to { stroke-dashoffset: 0; }
+}
+.route-line {
+  stroke-dasharray: 8 4;
+  animation: dash 20s linear infinite;
+}
+
+/* Status indicator */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.status-optimal { background: var(--color-root-green); }
+.status-good { background: #22c55e; }
+.status-normal { background: #f59e0b; }
+
+/* Smooth number transitions */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Table styles */
+table {
+  border-collapse: collapse;
+}
+
+/* Select styling */
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2352525b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html { scroll-behavior: auto; }
+  .pulse-dot { animation: none; }
+  .route-line { animation: none; }
+  .price-animate { animation: none; }
+}

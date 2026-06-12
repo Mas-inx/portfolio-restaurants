@@ -1,0 +1,572 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-mono-white: #ffffff;
+  --color-mono-50: #fafafa;
+  --color-mono-100: #f5f5f5;
+  --color-mono-200: #e5e5e5;
+  --color-mono-300: #d4d4d4;
+  --color-mono-400: #a3a3a3;
+  --color-mono-500: #737373;
+  --color-mono-600: #525252;
+  --color-mono-700: #404040;
+  --color-mono-800: #262626;
+  --color-mono-900: #171717;
+  --color-mono-black: #000000;
+  --color-mono-red: #ff0000;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  --font-display: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ─── Base Reset ─── */
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: #000000;
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #000000;
+  color: #ffffff;
+}
+
+/* ─── Scroll Progress Line ─── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 1px;
+  background: #000000;
+  z-index: 9999;
+  transition: width 0.05s linear;
+}
+
+/* ─── Calibration Mark (tiny red) ─── */
+.calibration-mark {
+  width: 4px;
+  height: 4px;
+  background: #ff0000;
+  position: absolute;
+}
+
+/* ─── Swiss Grid System ─── */
+.swiss-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.swiss-grid-narrow {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ─── Brutalist Typography ─── */
+.type-display {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+  text-transform: uppercase;
+}
+
+.type-headline {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.type-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.type-mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+.type-body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* ─── Section Styling ─── */
+.section {
+  padding: 120px 0;
+  position: relative;
+  border-bottom: 1px solid #000000;
+}
+
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #737373;
+  margin-bottom: 2rem;
+}
+
+/* ─── Hero ─── */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 80px;
+  position: relative;
+  border-bottom: 1px solid #000000;
+}
+
+.hero-headline {
+  font-size: clamp(3.5rem, 10vw, 9rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.82;
+  text-transform: uppercase;
+}
+
+/* ─── Menu Grid ─── */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid #000000;
+  border-left: 1px solid #000000;
+}
+
+.menu-column {
+  border-right: 1px solid #000000;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.menu-column.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.menu-column-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #000000;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.menu-item {
+  padding: 20px;
+  border-bottom: 1px solid #e5e5e5;
+  transition: background 0.15s ease;
+  cursor: default;
+}
+
+.menu-item:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+.menu-item:hover .menu-price {
+  color: #ffffff;
+}
+
+.menu-item-name {
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+.menu-item-desc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  color: #737373;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.menu-item:hover .menu-item-desc {
+  color: #a3a3a3;
+}
+
+.menu-price {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #000000;
+  transition: color 0.15s ease;
+}
+
+/* ─── Roast Cards (Flip) ─── */
+.roast-card-container {
+  perspective: 1200px;
+  width: 100%;
+  aspect-ratio: 3/4;
+  cursor: pointer;
+}
+
+.roast-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.roast-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.roast-card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border: 1px solid #000000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  overflow: hidden;
+}
+
+.roast-card-back {
+  transform: rotateY(180deg);
+  background: #000000;
+  color: #ffffff;
+}
+
+.roast-card-back .roast-detail-label {
+  color: #737373;
+}
+
+.roast-card-back .roast-detail-value {
+  color: #ffffff;
+}
+
+.roast-intensity-bar {
+  display: flex;
+  gap: 3px;
+}
+
+.roast-intensity-pip {
+  width: 16px;
+  height: 3px;
+  background: #e5e5e5;
+}
+
+.roast-intensity-pip.active {
+  background: #000000;
+}
+
+.roast-card-back .roast-intensity-pip {
+  background: #404040;
+}
+
+.roast-card-back .roast-intensity-pip.active {
+  background: #ffffff;
+}
+
+/* ─── Floorplan ─── */
+.floorplan {
+  border: 1px solid #000000;
+  position: relative;
+  aspect-ratio: 16/9;
+  background: #fafafa;
+}
+
+.floorplan-zone {
+  position: absolute;
+  border: 1px solid #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.2s ease;
+}
+
+.floorplan-zone:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+/* ─── Rituals (Sticky) ─── */
+.rituals-container {
+  position: relative;
+}
+
+.ritual-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+}
+
+.ritual-scroll-space {
+  height: 300vh;
+  position: relative;
+}
+
+.ritual-panel {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* ─── Membership ─── */
+.membership-card {
+  border: 1px solid #000000;
+  padding: 40px 32px;
+  position: relative;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.membership-card:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+.membership-card.highlighted {
+  background: #000000;
+  color: #ffffff;
+}
+
+.membership-card.highlighted:hover {
+  background: #ffffff;
+  color: #000000;
+}
+
+.membership-price {
+  font-size: 3.5rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.membership-freq {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+}
+
+/* ─── Gallery Strip ─── */
+.gallery-strip {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.gallery-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-item {
+  flex: 0 0 auto;
+  width: 400px;
+  height: 500px;
+  border-right: 1px solid #000000;
+  scroll-snap-align: start;
+  position: relative;
+  background: #f5f5f5;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+  overflow: hidden;
+}
+
+.gallery-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.03) 100%);
+}
+
+/* ─── Visit CTA ─── */
+.visit-section {
+  background: #000000;
+  color: #ffffff;
+  padding: 120px 0;
+}
+
+.visit-btn {
+  display: inline-block;
+  border: 1px solid #ffffff;
+  padding: 16px 48px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.visit-btn:hover {
+  background: #ffffff;
+  color: #000000;
+}
+
+/* ─── Nav ─── */
+.nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  mix-blend-mode: difference;
+  color: #ffffff;
+}
+
+.nav-logo {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: 0.8125rem;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.nav-links a {
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.2s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .gallery-item {
+    width: 300px;
+    height: 380px;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hero-headline {
+    font-size: clamp(2.5rem, 12vw, 5rem);
+  }
+  .section {
+    padding: 80px 0;
+  }
+  .nav-links {
+    display: none;
+  }
+  .gallery-item {
+    width: 260px;
+    height: 340px;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Utility ─── */
+.border-mono {
+  border-color: #000000;
+}
+
+.bg-mono-black {
+  background: #000000;
+}
+
+.text-mono-white {
+  color: #ffffff;
+}
+
+/* ─── Animations ─── */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* ─── Grid Lines (decorative) ─── */
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  opacity: 0.04;
+}
+
+.grid-overlay > div {
+  border-left: 1px solid #000000;
+  border-right: 1px solid #000000;
+}

@@ -1,0 +1,160 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-graphite-950: #0a0a0f;
+  --color-graphite-900: #111118;
+  --color-graphite-800: #1a1a24;
+  --color-graphite-700: #2a2a36;
+  --color-graphite-600: #3a3a48;
+  --color-graphite-500: #5a5a6e;
+  --color-graphite-400: #7a7a90;
+  --color-graphite-300: #9a9ab0;
+  --color-graphite-200: #c0c0d0;
+  --color-graphite-100: #e8e8f0;
+  --color-ops-green: #10b981;
+  --color-ops-green-dim: #065f46;
+  --color-ops-green-glow: #34d399;
+  --color-alert-yellow: #f59e0b;
+  --color-alert-yellow-dim: #78350f;
+  --color-alert-red: #ef4444;
+  --color-surface: #ffffff;
+  --color-surface-dim: #f8f9fa;
+  --color-border: #e2e4e8;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--color-graphite-950);
+  color: var(--color-graphite-100);
+}
+
+/* Dashboard grid pattern background */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.grid-bg-dense {
+  background-image:
+    linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Animated route path */
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+.route-path {
+  animation: dash-flow 1s linear infinite;
+}
+
+/* Pulse for live indicators */
+@keyframes ops-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.ops-pulse {
+  animation: ops-pulse 2s ease-in-out infinite;
+}
+
+/* Count-up animation helper */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fade-up 0.6s ease-out forwards;
+}
+
+/* Stackable card effect */
+.card-stack {
+  perspective: 1000px;
+}
+
+.card-stack-item {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Weather banner states */
+@keyframes banner-slide {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+.banner-ticker {
+  animation: banner-slide 20s linear infinite;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-graphite-900);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-graphite-600);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-graphite-500);
+}
+
+/* Map container */
+.map-container {
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(16, 185, 129, 0.05) 0%, transparent 40%),
+    var(--color-graphite-900);
+}
+
+/* Status indicator dot */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-dot-active {
+  background: var(--color-ops-green);
+  box-shadow: 0 0 6px var(--color-ops-green);
+}
+
+.status-dot-alert {
+  background: var(--color-alert-yellow);
+  box-shadow: 0 0 6px var(--color-alert-yellow);
+}
+
+.status-dot-critical {
+  background: var(--color-alert-red);
+  box-shadow: 0 0 6px var(--color-alert-red);
+}

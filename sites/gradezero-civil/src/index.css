@@ -1,0 +1,182 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dirt: #8B6914;
+  --color-dirt-dark: #5C4510;
+  --color-dirt-light: #B8941F;
+  --color-asphalt: #1a1a1a;
+  --color-asphalt-light: #2d2d2d;
+  --color-survey: #FF6B2B;
+  --color-survey-dark: #CC5522;
+  --color-cream: #F5F0E8;
+  --color-cream-dark: #E8E0D0;
+  --color-topo-line: rgba(139, 105, 20, 0.15);
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-asphalt);
+  color: var(--color-cream);
+  overflow-x: hidden;
+}
+
+/* Topographic background pattern */
+.topo-bg {
+  position: relative;
+  background-color: var(--color-asphalt);
+}
+
+.topo-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-radial-gradient(ellipse at 20% 50%, transparent 0, transparent 40px, var(--color-topo-line) 40px, var(--color-topo-line) 41px, transparent 41px, transparent 80px),
+    repeating-radial-gradient(ellipse at 80% 30%, transparent 0, transparent 30px, var(--color-topo-line) 30px, var(--color-topo-line) 31px, transparent 31px, transparent 60px),
+    repeating-radial-gradient(ellipse at 50% 80%, transparent 0, transparent 50px, var(--color-topo-line) 50px, var(--color-topo-line) 51px, transparent 51px, transparent 100px),
+    repeating-radial-gradient(ellipse at 10% 90%, transparent 0, transparent 35px, var(--color-topo-line) 35px, var(--color-topo-line) 36px, transparent 36px, transparent 70px),
+    repeating-radial-gradient(ellipse at 90% 70%, transparent 0, transparent 45px, var(--color-topo-line) 45px, var(--color-topo-line) 46px, transparent 46px, transparent 90px);
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.topo-bg-alt {
+  position: relative;
+  background-color: var(--color-dirt-dark);
+}
+
+.topo-bg-alt::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-radial-gradient(ellipse at 30% 40%, transparent 0, transparent 35px, rgba(245, 240, 232, 0.08) 35px, rgba(245, 240, 232, 0.08) 36px, transparent 36px, transparent 70px),
+    repeating-radial-gradient(ellipse at 70% 60%, transparent 0, transparent 50px, rgba(245, 240, 232, 0.06) 50px, rgba(245, 240, 232, 0.06) 51px, transparent 51px, transparent 100px),
+    repeating-radial-gradient(ellipse at 50% 20%, transparent 0, transparent 25px, rgba(245, 240, 232, 0.07) 25px, rgba(245, 240, 232, 0.07) 26px, transparent 26px, transparent 50px);
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* Grid overlay for survey aesthetic */
+.survey-grid {
+  background-image:
+    linear-gradient(rgba(255, 107, 43, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 107, 43, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Horizontal scroll container */
+.sequence-scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-survey) var(--color-asphalt-light);
+}
+
+.sequence-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.sequence-scroll::-webkit-scrollbar-track {
+  background: var(--color-asphalt-light);
+}
+
+.sequence-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-survey);
+  border-radius: 2px;
+}
+
+.sequence-card {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+}
+
+/* Mechanical hover for equipment cards */
+.equipment-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 107, 43, 0.2);
+}
+
+.equipment-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-survey);
+  box-shadow: 0 8px 32px rgba(255, 107, 43, 0.15), inset 0 1px 0 rgba(255, 107, 43, 0.1);
+}
+
+.equipment-card:hover .equipment-icon {
+  transform: scale(1.1) rotate(-2deg);
+}
+
+.equipment-icon {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Survey value animation */
+@keyframes surveyPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.survey-value {
+  animation: surveyPulse 2s ease-in-out infinite;
+}
+
+/* Crosshair cursor for survey elements */
+.survey-crosshair {
+  position: relative;
+}
+
+.survey-crosshair::after {
+  content: '+';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  font-size: 10px;
+  color: var(--color-survey);
+  font-family: var(--font-mono);
+}
+
+/* Parallax topographic lines */
+@keyframes topoShift {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-20px); }
+}
+
+.topo-parallax {
+  animation: topoShift 20s ease-in-out infinite alternate;
+}
+
+/* Form input styling */
+.site-input {
+  background: rgba(26, 26, 26, 0.8);
+  border: 1px solid rgba(255, 107, 43, 0.3);
+  color: var(--color-cream);
+  font-family: var(--font-mono);
+  padding: 12px 16px;
+  border-radius: 4px;
+  transition: border-color 0.2s;
+}
+
+.site-input:focus {
+  outline: none;
+  border-color: var(--color-survey);
+  box-shadow: 0 0 0 2px rgba(255, 107, 43, 0.1);
+}
+
+.site-input::placeholder {
+  color: rgba(245, 240, 232, 0.4);
+}
