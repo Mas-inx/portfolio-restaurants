@@ -1,3 +1,7 @@
+export const heroImage = 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=1600&q=85';
+export const caregiverImage = 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&q=85';
+export const homeCareImage = 'https://images.unsplash.com/photo-1516303389659-d5e7c67255e7?w=800&q=85';
+
 export const siteConfig = {
   name: "HomeHarbor Care",
   tagline: "Home care families can actually follow.",

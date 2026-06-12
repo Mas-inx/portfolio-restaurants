@@ -1,3 +1,7 @@
+export const heroImage = "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1600&q=85";
+export const clinicInteriorImage = "https://images.unsplash.com/photo-1631217860246-5a6f1c2f0a7c?w=800&q=85";
+export const treatmentImage = "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=85";
+
 export interface VisitType {
   id: string;
   label: string;

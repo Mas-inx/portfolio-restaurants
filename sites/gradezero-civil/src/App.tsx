@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { heroImage, siteDevImage } from './data'
 
 // ─── Icon Component ──────────────────────────────────────────────────────────
 function Icon({ name, className = 'w-6 h-6' }: { name: string; className?: string }) {
@@ -39,12 +40,12 @@ const siteMetrics = [
 ]
 
 const equipment = [
-  { name: 'CAT 390F Excavator', weight: '198,000 lb', use: 'Mass excavation, deep trenching, rock handling', bucket: '7.5 yd³', icon: 'pickaxe' },
-  { name: 'CAT D8T Dozer', weight: '74,500 lb', use: 'Push work, spread, rough grading, ripping', blade: '13.5 ft SU', icon: 'diamond' },
-  { name: 'CAT 980M Loader', weight: '72,000 lb', use: 'Material handling, truck loading, stockpile management', bucket: '7.0 yd³', icon: 'square-filled' },
-  { name: 'CAT 14M Grader', weight: '55,000 lb', use: 'Fine grading, slope cutting, road crown shaping', blade: '16 ft', icon: 'rectangle' },
-  { name: 'CAT 745 Hauler', weight: '46,000 lb', use: 'Off-highway material transport, spoil removal', capacity: '36 tons', icon: 'arrow' },
-  { name: 'CAT CS78B Compactor', weight: '40,000 lb', use: 'Lift compaction, subgrade proof rolling', drum: '84 in', icon: 'target' },
+  { name: 'CAT 390F Excavator', weight: '198,000 lb', use: 'Mass excavation, deep trenching, rock handling', bucket: '7.5 yd³', icon: 'pickaxe', image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&q=85' },
+  { name: 'CAT D8T Dozer', weight: '74,500 lb', use: 'Push work, spread, rough grading, ripping', blade: '13.5 ft SU', icon: 'diamond', image: 'https://images.unsplash.com/photo-1504913273805-9257c39dfb2c?w=400&q=85' },
+  { name: 'CAT 980M Loader', weight: '72,000 lb', use: 'Material handling, truck loading, stockpile management', bucket: '7.0 yd³', icon: 'square-filled', image: 'https://images.unsplash.com/photo-1531834685032-286c3bd87319?w=400&q=85' },
+  { name: 'CAT 14M Grader', weight: '55,000 lb', use: 'Fine grading, slope cutting, road crown shaping', blade: '16 ft', icon: 'rectangle', image: 'https://images.unsplash.com/photo-1504913273805-9257c39dfb2c?w=400&q=85' },
+  { name: 'CAT 745 Hauler', weight: '46,000 lb', use: 'Off-highway material transport, spoil removal', capacity: '36 tons', icon: 'arrow', image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&q=85' },
+  { name: 'CAT CS78B Compactor', weight: '40,000 lb', use: 'Lift compaction, subgrade proof rolling', drum: '84 in', icon: 'target', image: 'https://images.unsplash.com/photo-1531834685032-286c3bd87319?w=400&q=85' },
 ]
 
 const sequence = [
@@ -126,6 +127,8 @@ function Hero() {
 
   return (
     <section ref={ref} className="relative min-h-screen flex items-center justify-center topo-bg overflow-hidden">
+      <div className="absolute inset-0 opacity-25" style={{ backgroundImage: `url(${heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+      <div className="absolute inset-0 bg-asphalt/60" />
       <motion.div style={{ y }} className="absolute inset-0 topo-parallax opacity-30" />
       <div className="absolute inset-0 survey-grid" />
       
@@ -188,7 +191,8 @@ function Scope() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="scope" ref={ref} className="relative py-32 px-6 topo-bg-alt">
+    <section id="scope" ref={ref} className="relative py-32 px-6 topo-bg-alt overflow-hidden">
+      <div className="absolute inset-0 opacity-15" style={{ backgroundImage: `url(${siteDevImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
       <div className="max-w-6xl mx-auto relative z-10">
         <SectionLabel num="02" text="Scope of Work" />
         <h2 className="text-4xl md:text-5xl font-black text-cream mb-4">What We Move</h2>
@@ -299,11 +303,18 @@ function EquipmentFleet() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="equipment-card p-6 bg-asphalt/80 rounded-lg"
+              className="equipment-card p-0 bg-asphalt/80 rounded-lg overflow-hidden"
             >
+              <div className="h-36 overflow-hidden relative">
+                <img src={machine.image} alt={machine.name} className="w-full h-full object-cover opacity-70" />
+                <div className="absolute inset-0 bg-gradient-to-t from-asphalt/90 to-transparent" />
+                <div className="absolute top-3 right-3">
+                  <span className="font-mono text-[10px] text-cream/60 uppercase bg-asphalt/60 px-2 py-1 rounded">Unit {String(i + 1).padStart(2, '0')}</span>
+                </div>
+              </div>
+              <div className="p-6">
               <div className="flex items-start justify-between mb-4">
                 <span className="equipment-icon text-3xl"><Icon name={machine.icon} /></span>
-                <span className="font-mono text-[10px] text-cream/30 uppercase">Unit {String(i + 1).padStart(2, '0')}</span>
               </div>
               <h3 className="font-bold text-cream text-lg mb-1">{machine.name}</h3>
               <div className="font-mono text-xs text-survey mb-3">{machine.weight}</div>
@@ -312,6 +323,7 @@ function EquipmentFleet() {
                 <span className="font-mono text-[10px] text-cream/40 uppercase">
                   {machine.bucket ? `Bucket: ${machine.bucket}` : machine.capacity ? `Capacity: ${machine.capacity}` : `Blade: ${machine.blade}`}
                 </span>
+              </div>
               </div>
             </motion.div>
           ))}

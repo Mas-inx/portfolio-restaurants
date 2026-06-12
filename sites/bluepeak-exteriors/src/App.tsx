@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { heroImage, inspectionImage, stormImage } from './data';
 
 // ============ ICON COMPONENT ============
 function Icon({ name, className = 'w-6 h-6' }: { name: string; className?: string }) {
@@ -63,12 +64,12 @@ const timelineSteps: TimelineStep[] = [
 ];
 
 const services = [
-  { name: 'Roofing', icon: 'house', desc: 'Full replacement, repair, and maintenance for all roof types', features: ['Asphalt shingles', 'Metal roofing', 'Flat roofs', 'Tile & slate'] },
-  { name: 'Siding', icon: 'brick', desc: 'Vinyl, fiber cement, and engineered wood siding systems', features: ['James Hardie', 'LP SmartSide', 'Vinyl siding', 'Insulated options'] },
-  { name: 'Gutters', icon: 'wave', desc: 'Seamless gutter installation and leaf protection systems', features: ['5" & 6" seamless', 'Gutter guards', 'Downspout routing', 'Copper accents'] },
-  { name: 'Storm Damage', icon: 'storm', desc: 'Emergency response and full storm restoration services', features: ['Hail damage', 'Wind damage', 'Fallen trees', 'Emergency tarping'] },
-  { name: 'Leak Repair', icon: 'droplet', desc: 'Diagnostic leak detection and permanent repair solutions', features: ['Thermal imaging', 'Flashing repair', 'Valley repair', 'Ice dam prevention'] },
-  { name: 'Ventilation', icon: 'swirl', desc: 'Attic ventilation systems for energy efficiency', features: ['Ridge vents', 'Soffit vents', 'Power vents', 'Insulation check'] },
+  { name: 'Roofing', icon: 'house', desc: 'Full replacement, repair, and maintenance for all roof types', features: ['Asphalt shingles', 'Metal roofing', 'Flat roofs', 'Tile & slate'], image: 'https://images.unsplash.com/photo-1632823471565-1ecdf5c6d7f3?w=400&q=85' },
+  { name: 'Siding', icon: 'brick', desc: 'Vinyl, fiber cement, and engineered wood siding systems', features: ['James Hardie', 'LP SmartSide', 'Vinyl siding', 'Insulated options'], image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&q=85' },
+  { name: 'Gutters', icon: 'wave', desc: 'Seamless gutter installation and leaf protection systems', features: ['5" & 6" seamless', 'Gutter guards', 'Downspout routing', 'Copper accents'], image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&q=85' },
+  { name: 'Storm Damage', icon: 'storm', desc: 'Emergency response and full storm restoration services', features: ['Hail damage', 'Wind damage', 'Fallen trees', 'Emergency tarping'], image: 'https://images.unsplash.com/photo-1605727216801-e27ce1d0cc28?w=400&q=85' },
+  { name: 'Leak Repair', icon: 'droplet', desc: 'Diagnostic leak detection and permanent repair solutions', features: ['Thermal imaging', 'Flashing repair', 'Valley repair', 'Ice dam prevention'], image: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=85' },
+  { name: 'Ventilation', icon: 'swirl', desc: 'Attic ventilation systems for energy efficiency', features: ['Ridge vents', 'Soffit vents', 'Power vents', 'Insulation check'], image: 'https://images.unsplash.com/photo-1631838578643-aabf4c3b0d3b?w=400&q=85' },
 ];
 
 const weatherStates = ['CLEAR', 'WATCH', 'WARNING', 'SEVERE'];
@@ -172,6 +173,8 @@ function InspectionReport() {
             </div>
             {/* Roof visualization */}
             <div className="relative h-80 bg-gradient-to-br from-storm-700 via-storm-600 to-storm-800 overflow-hidden">
+              {/* Background roof image */}
+              <div className="absolute inset-0 opacity-40" style={{ backgroundImage: `url(${inspectionImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
               {/* Roof texture lines */}
               {Array.from({ length: 12 }).map((_, i) => (
                 <div key={i} className="absolute left-0 right-0 h-px bg-storm-500/20" style={{ top: `${(i + 1) * 8}%` }} />
@@ -273,7 +276,7 @@ function InspectionReport() {
   );
 }
 
-function BeforeAfterSlider({ beforeColor, afterColor, label }: { beforeColor: string; afterColor: string; label: string }) {
+function BeforeAfterSlider({ beforeColor, afterColor, beforeImage, afterImage, label }: { beforeColor: string; afterColor: string; beforeImage?: string; afterImage?: string; label: string }) {
   const [position, setPosition] = useState(50);
   const sliderRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
@@ -312,8 +315,9 @@ function BeforeAfterSlider({ beforeColor, afterColor, label }: { beforeColor: st
         onTouchStart={handleMouseDown}
       >
         {/* After (full background) */}
-        <div className="absolute inset-0 rounded-xl" style={{ background: afterColor }}>
-          <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0 rounded-xl overflow-hidden" style={{ background: afterColor }}>
+          {afterImage && <div className="absolute inset-0" style={{ backgroundImage: `url(${afterImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />}
+          <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
             <div className="text-center">
               <div className="text-4xl mb-2"><Icon name="check" className="w-10 h-10" /></div>
               <p className="text-white font-bold text-sm">AFTER</p>
@@ -321,8 +325,9 @@ function BeforeAfterSlider({ beforeColor, afterColor, label }: { beforeColor: st
           </div>
         </div>
         {/* Before (clipped) */}
-        <div className="ba-before rounded-xl" style={{ width: `${position}%`, background: beforeColor }}>
-          <div className="absolute inset-0 flex items-center justify-center">
+        <div className="ba-before rounded-xl overflow-hidden" style={{ width: `${position}%`, background: beforeColor }}>
+          {beforeImage && <div className="absolute inset-0" style={{ backgroundImage: `url(${beforeImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />}
+          <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
             <div className="text-center">
               <div className="text-4xl mb-2"><Icon name="close" className="w-10 h-10" /></div>
               <p className="text-white font-bold text-sm">BEFORE</p>
@@ -351,23 +356,28 @@ function ServicesSection() {
           {services.map((service, idx) => (
             <motion.div
               key={service.name}
-              className="bg-white border border-storm-200 rounded-xl p-6 hover:border-storm-400 hover:shadow-lg transition-all duration-300 group"
+              className="bg-white border border-storm-200 rounded-xl overflow-hidden hover:border-storm-400 hover:shadow-lg transition-all duration-300 group"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
             >
-              <div className="text-3xl mb-3"><Icon name={service.icon} /></div>
-              <h3 className="font-bold text-lg text-storm-900 mb-1 group-hover:text-storm-700">{service.name}</h3>
-              <p className="text-sm text-storm-600 mb-4">{service.desc}</p>
-              <ul className="space-y-1.5">
-                {service.features.map((f) => (
-                  <li key={f} className="text-xs text-storm-500 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-storm-400" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
+              <div className="h-32 overflow-hidden">
+                <img src={service.image} alt={service.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
+              <div className="p-6">
+                <div className="text-3xl mb-3"><Icon name={service.icon} /></div>
+                <h3 className="font-bold text-lg text-storm-900 mb-1 group-hover:text-storm-700">{service.name}</h3>
+                <p className="text-sm text-storm-600 mb-4">{service.desc}</p>
+                <ul className="space-y-1.5">
+                  {service.features.map((f) => (
+                    <li key={f} className="text-xs text-storm-500 flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-storm-400" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -385,8 +395,9 @@ function InsuranceSection() {
   ];
 
   return (
-    <section id="insurance" className="py-20 px-6 bg-storm-900 text-white">
-      <div className="max-w-6xl mx-auto">
+    <section id="insurance" className="py-20 px-6 bg-storm-900 text-white relative overflow-hidden">
+      <div className="absolute inset-0 opacity-15" style={{ backgroundImage: `url(${stormImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+      <div className="max-w-6xl mx-auto relative z-10">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <p className="text-sm font-bold text-storm-400 tracking-wider uppercase mb-2">Claims Support</p>
           <h2 className="text-3xl md:text-4xl font-extrabold mb-3">Insurance Documentation</h2>
@@ -510,6 +521,8 @@ function BeforeAfterSection() {
             <BeforeAfterSlider
               beforeColor="linear-gradient(135deg, #4a3728, #6b4c35, #3d2e22)"
               afterColor="linear-gradient(135deg, #1a365d, #2d4a7a, #1e3a5f)"
+              beforeImage="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=85"
+              afterImage="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=85"
               label="Full Roof Replacement — Architectural Shingles"
             />
           </motion.div>
@@ -517,6 +530,8 @@ function BeforeAfterSection() {
             <BeforeAfterSlider
               beforeColor="linear-gradient(135deg, #5c4033, #8b6f47, #4a3520)"
               afterColor="linear-gradient(135deg, #e8e0d4, #d4c8b8, #f0ebe4)"
+              beforeImage="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=85"
+              afterImage="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=85"
               label="Siding Replacement — James Hardie Plank"
             />
           </motion.div>
@@ -524,6 +539,8 @@ function BeforeAfterSection() {
             <BeforeAfterSlider
               beforeColor="linear-gradient(135deg, #3d3d3d, #555, #2a2a2a)"
               afterColor="linear-gradient(135deg, #4a5568, #2d3748, #1a202c)"
+              beforeImage="https://images.unsplash.com/photo-1631838578643-aabf4c3b0d3b?w=800&q=85"
+              afterImage="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=85"
               label="Metal Roof Upgrade — Standing Seam"
             />
           </motion.div>
@@ -531,6 +548,8 @@ function BeforeAfterSection() {
             <BeforeAfterSlider
               beforeColor="linear-gradient(135deg, #5a4a3a, #7a6a52, #4d3e2e)"
               afterColor="linear-gradient(135deg, #2d3748, #4a5568, #1a202c)"
+              beforeImage="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=85"
+              afterImage="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=85"
               label="Gutter & Downspout System"
             />
           </motion.div>
@@ -753,6 +772,8 @@ export default function App() {
       <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-storm-50 via-white to-storm-100" />
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: `url(${heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/70 to-transparent" />
         <div className="absolute top-0 right-0 w-1/2 h-full opacity-5">
           <svg viewBox="0 0 400 400" className="w-full h-full">
             {Array.from({ length: 20 }).map((_, i) => (

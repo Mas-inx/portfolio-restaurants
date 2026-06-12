@@ -50,8 +50,13 @@ function Nav() {
 
 // ============ HERO ============
 function Hero() {
+  const heroImage = "https://images.unsplash.com/photo-1631545806607-f4acbf48f12f?w=1600&q=85";
   return (
-    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-teal-50 via-white to-green-50">
+    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Background image */}
+      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${heroImage})` }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-teal-50/90 via-white/85 to-green-50/90" />
+      </div>
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-teal-200/30 rounded-full blur-3xl animate-float" />
@@ -324,12 +329,12 @@ function Services() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, margin: '-100px' });
   const services = [
-    { icon: 'thermometer', title: 'Heat Pumps', desc: 'Air-source and ground-source heat pumps for year-round comfort with 300%+ efficiency.' },
-    { icon: 'house', title: 'Ducted Systems', desc: 'Complete ducted HVAC installations with sealed, insulated ductwork for maximum efficiency.' },
-    { icon: 'snowflake', title: 'Mini-Splits', desc: 'Ductless mini-split systems perfect for additions, garages, and zone-specific comfort.' },
-    { icon: 'map', title: 'Smart Zoning', desc: 'Room-by-room temperature control with automated dampers and smart thermostats.' },
-    { icon: 'smartphone', title: 'Smart Thermostats', desc: 'Wi-Fi thermostats with learning algorithms, geofencing, and energy dashboards.' },
-    { icon: 'wrench', title: 'Maintenance', desc: 'Annual tune-ups, filter programs, and performance monitoring to keep systems peak.' },
+    { icon: 'thermometer', title: 'Heat Pumps', desc: 'Air-source and ground-source heat pumps for year-round comfort with 300%+ efficiency.', image: 'https://images.unsplash.com/photo-1631545806607-f4acbf48f12f?w=400&q=80' },
+    { icon: 'house', title: 'Ducted Systems', desc: 'Complete ducted HVAC installations with sealed, insulated ductwork for maximum efficiency.', image: 'https://images.unsplash.com/photo-1631679704245-3c1d74d0bcc1?w=400&q=80' },
+    { icon: 'snowflake', title: 'Mini-Splits', desc: 'Ductless mini-split systems perfect for additions, garages, and zone-specific comfort.', image: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400&q=80' },
+    { icon: 'map', title: 'Smart Zoning', desc: 'Room-by-room temperature control with automated dampers and smart thermostats.', image: 'https://images.unsplash.com/photo-1558002038-1055907df827?w=400&q=80' },
+    { icon: 'smartphone', title: 'Smart Thermostats', desc: 'Wi-Fi thermostats with learning algorithms, geofencing, and energy dashboards.', image: 'https://images.unsplash.com/photo-1567113463300-102a7eb3cb26?w=400&q=80' },
+    { icon: 'wrench', title: 'Maintenance', desc: 'Annual tune-ups, filter programs, and performance monitoring to keep systems peak.', image: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400&q=80' },
   ];
 
   return (
@@ -342,10 +347,15 @@ function Services() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((s, i) => (
-            <motion.div key={s.title} initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: i * 0.1 }} className="bg-gradient-to-br from-slate-50 to-teal-50/30 rounded-2xl p-6 border border-slate-100 hover:border-teal-200 hover:shadow-lg transition-all group">
-              <div className="text-3xl mb-4"><Icon name={s.icon} className="w-8 h-8" /></div>
-              <h3 className="text-lg font-semibold text-slate-800 mb-2 group-hover:text-teal-700 transition-colors">{s.title}</h3>
-              <p className="text-sm text-slate-600">{s.desc}</p>
+            <motion.div key={s.title} initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: i * 0.1 }} className="bg-gradient-to-br from-slate-50 to-teal-50/30 rounded-2xl border border-slate-100 hover:border-teal-200 hover:shadow-lg transition-all group overflow-hidden">
+              <div className="h-40 overflow-hidden">
+                <img src={s.image} alt={s.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              </div>
+              <div className="p-6">
+                <div className="text-3xl mb-4"><Icon name={s.icon} className="w-8 h-8" /></div>
+                <h3 className="text-lg font-semibold text-slate-800 mb-2 group-hover:text-teal-700 transition-colors">{s.title}</h3>
+                <p className="text-sm text-slate-600">{s.desc}</p>
+              </div>
             </motion.div>
           ))}
         </div>

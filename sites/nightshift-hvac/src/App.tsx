@@ -1,6 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// ─── Images ──────────────────────────────────────────────────────────────────
+
+const heroImage = 'https://images.unsplash.com/photo-1631952112745-5b80a7bbfed1?w=1600&q=85';
+const technicianImage = 'https://images.unsplash.com/photo-1631545806607-f4acbf48f12f?w=800&q=85';
+const truckImage = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&q=85';
+
 // ─── Icon Component ──────────────────────────────────────────────────────────
 
 const iconPaths: Record<string, React.ReactNode> = {
@@ -232,6 +238,10 @@ function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center grid-bg overflow-hidden">
+      {/* Hero background image */}
+      <div className="absolute inset-0 z-0">
+        <img src={heroImage} alt="Night HVAC emergency" className="w-full h-full object-cover" style={{ opacity: 0.15, filter: 'brightness(0.4)' }} />
+      </div>
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-void via-void-2 to-void-3" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-amber-500/5 blur-[120px]" />
@@ -598,6 +608,11 @@ function InventorySection() {
           <p className="text-midnight-300 mt-3 max-w-xl">
             Every NightShift truck carries 200+ parts and full diagnostics. Most repairs completed in one visit.
           </p>
+        </div>
+
+        {/* Truck image */}
+        <div className="mb-8 rounded-xl overflow-hidden border border-graphite-700">
+          <img src={truckImage} alt="NightShift HVAC service truck" className="w-full h-48 object-cover" style={{ filter: 'brightness(0.7)' }} />
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">

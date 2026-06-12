@@ -136,8 +136,12 @@ function Nav() {
 
 // ─── Hero Section ──────────────────────────────────────────────────────────
 function Hero() {
+  const heroImage = "https://images.unsplash.com/photo-1631679704245-3c1d74d0bcc1?w=1600&q=85";
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-cyan-50/50 to-white pt-20">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${heroImage})` }}>
+        <div className="absolute inset-0 bg-gradient-to-b from-cyan-50/80 via-white/85 to-white/95" />
+      </div>
       <AirParticles />
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
         <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }}>
@@ -205,13 +209,13 @@ function Hero() {
 // ─── Symptoms Section ──────────────────────────────────────────────────────
 function Symptoms() {
   const symptoms = [
-    { icon: 'fog', title: 'Excess Dust', desc: 'Visible dust on surfaces within hours of cleaning' },
-    { icon: 'nose', title: 'Persistent Odors', desc: 'Lingering smells that ventilation doesn\'t resolve' },
-    { icon: 'allergy', title: 'Allergies & Sneezing', desc: 'Seasonal or year-round allergy symptoms indoors' },
-    { icon: 'droplet', title: 'Humidity Issues', desc: 'Condensation, dry skin, or musty feeling rooms' },
-    { icon: 'wind', title: 'Poor Airflow', desc: 'Stuffy rooms, weak vents, uneven temperatures' },
-    { icon: 'paw', title: 'Pet Dander', desc: 'Animal hair and dander circulating through ducts' },
-    { icon: 'mold', title: 'Mold Concerns', desc: 'Visible mold or musty smells indicating moisture issues' },
+    { icon: 'fog', title: 'Excess Dust', desc: 'Visible dust on surfaces within hours of cleaning', image: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=300&q=80' },
+    { icon: 'nose', title: 'Persistent Odors', desc: 'Lingering smells that ventilation doesn\'t resolve', image: 'https://images.unsplash.com/photo-1631679704245-3c1d74d0bcc1?w=300&q=80' },
+    { icon: 'allergy', title: 'Allergies & Sneezing', desc: 'Seasonal or year-round allergy symptoms indoors', image: 'https://images.unsplash.com/photo-1586613540895-6e1e1a3c1a3c?w=300&q=80' },
+    { icon: 'droplet', title: 'Humidity Issues', desc: 'Condensation, dry skin, or musty feeling rooms', image: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=300&q=80' },
+    { icon: 'wind', title: 'Poor Airflow', desc: 'Stuffy rooms, weak vents, uneven temperatures', image: 'https://images.unsplash.com/photo-1631545806607-f4acbf48f12f?w=300&q=80' },
+    { icon: 'paw', title: 'Pet Dander', desc: 'Animal hair and dander circulating through ducts', image: 'https://images.unsplash.com/photo-1583337130417-13104dec14a3?w=300&q=80' },
+    { icon: 'mold', title: 'Mold Concerns', desc: 'Visible mold or musty smells indicating moisture issues', image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=300&q=80' },
   ];
 
   return (
@@ -228,11 +232,16 @@ function Symptoms() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.08 }}
-            className="bg-white rounded-2xl p-6 border border-slate-100 hover:border-cyan-200 hover:shadow-lg hover:shadow-cyan-50 transition-all group"
+            className="bg-white rounded-2xl border border-slate-100 hover:border-cyan-200 hover:shadow-lg hover:shadow-cyan-50 transition-all group overflow-hidden"
           >
-            <div className="text-3xl mb-3 group-hover:scale-110 transition-transform"><Icon name={s.icon} className="w-8 h-8" /></div>
-            <h3 className="font-semibold text-slate-800 mb-1">{s.title}</h3>
-            <p className="text-sm text-slate-400">{s.desc}</p>
+            <div className="h-32 overflow-hidden">
+              <img src={s.image} alt={s.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div className="p-6">
+              <div className="text-3xl mb-3 group-hover:scale-110 transition-transform"><Icon name={s.icon} className="w-8 h-8" /></div>
+              <h3 className="font-semibold text-slate-800 mb-1">{s.title}</h3>
+              <p className="text-sm text-slate-400">{s.desc}</p>
+            </div>
           </motion.div>
         ))}
       </div>

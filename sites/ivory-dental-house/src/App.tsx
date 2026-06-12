@@ -2,6 +2,10 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import {
   studio,
+  heroImage,
+  treatmentRoomImage,
+  smileImage,
+  dentalToolsImage,
   journeySteps,
   treatments,
   comfortFeatures,
@@ -267,6 +271,10 @@ function App() {
 
       {/* ─── 1. Hero ─── */}
       <section className="relative min-h-screen flex items-center justify-center px-6 pt-16 overflow-hidden" style={{ background: 'linear-gradient(180deg, #faf8f4 0%, #f5f0e8 50%, #efe8dc 100%)' }}>
+        {/* Hero background image */}
+        <div className="absolute inset-0 z-0">
+          <img src={heroImage} alt="Dental clinic" className="w-full h-full object-cover" style={{ opacity: 0.12 }} />
+        </div>
         {/* Decorative elements */}
         <div className="absolute top-20 right-10 w-72 h-72 rounded-full opacity-30" style={{ background: 'radial-gradient(circle, #d4c5a0 0%, transparent 70%)' }} />
         <div className="absolute bottom-20 left-10 w-96 h-96 rounded-full opacity-20" style={{ background: 'radial-gradient(circle, #c9b896 0%, transparent 70%)' }} />
@@ -493,19 +501,29 @@ function App() {
                 ← Drag the slider to reveal your transformation →
               </p>
             </div>
+            <div className="mt-6 rounded-2xl overflow-hidden" style={{ border: '1px solid rgba(180, 160, 120, 0.12)' }}>
+              <img src={treatmentRoomImage} alt="Treatment room" className="w-full h-48 object-cover" />
+            </div>
           </div>
         </div>
       </Section>
 
       {/* ─── 5. Comfort Layer ─── */}
       <Section className="max-w-7xl mx-auto" id="comfort">
-        <div className="text-center mb-16">
-          <SectionLabel>Your Experience</SectionLabel>
-          <SectionTitle>Designed Around Your Comfort</SectionTitle>
-          <p className="max-w-xl mx-auto" style={{ color: '#6b5e52' }}>
-            Every detail considered — from the moment you arrive to the care you receive long after treatment.
-          </p>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+          <div className="lg:col-span-1">
+            <div className="rounded-2xl overflow-hidden sticky top-24" style={{ border: '1px solid rgba(180, 160, 120, 0.12)' }}>
+              <img src={dentalToolsImage} alt="Modern dental equipment" className="w-full h-64 object-cover" />
+            </div>
+          </div>
+          <div className="lg:col-span-2">
+            <div className="text-center lg:text-left mb-12">
+              <SectionLabel>Your Experience</SectionLabel>
+              <SectionTitle>Designed Around Your Comfort</SectionTitle>
+              <p className="max-w-xl" style={{ color: '#6b5e52' }}>
+                Every detail considered — from the moment you arrive to the care you receive long after treatment.
+              </p>
+            </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {comfortFeatures.map((feature, i) => {
@@ -535,6 +553,8 @@ function App() {
             );
           })}
         </div>
+          </div>
+        </div>
       </Section>
 
       {/* ─── 6. Before/After ─── */}
@@ -545,6 +565,11 @@ function App() {
           <p className="max-w-xl mx-auto" style={{ color: '#6b5e52' }}>
             Real results from our studio. Each case uniquely planned and precisely executed.
           </p>
+        </div>
+
+        {/* Gallery image */}
+        <div className="max-w-2xl mx-auto mb-10 rounded-2xl overflow-hidden" style={{ border: '1px solid rgba(180, 160, 120, 0.12)' }}>
+          <img src={smileImage} alt="Beautiful smile result" className="w-full h-56 object-cover" />
         </div>
 
         {/* Case selector */}

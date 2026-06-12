@@ -29,6 +29,8 @@ function Icon({ name, className = '' }: { name: string; className?: string }) {
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
+const heroImage = "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1600&q=85";
+
 const portfolioTypes = [
   { type: 'HOAs', count: 47, icon: 'house', desc: 'Residential communities with shared common areas' },
   { type: 'Retail Centers', count: 23, icon: 'grid', desc: 'Shopping plazas, strip malls, big-box perimeters' },
@@ -330,7 +332,11 @@ export default function App() {
 
       {/* ── Section 1: Hero ───────────────────────────────────────────────── */}
       <section className="relative grid-bg overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 py-20 lg:py-28">
+        {/* Hero background image */}
+        <div className="absolute inset-0 opacity-10">
+          <img src={heroImage} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        </div>
+        <div className="max-w-7xl mx-auto px-6 py-20 lg:py-28 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

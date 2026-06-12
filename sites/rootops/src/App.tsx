@@ -10,6 +10,7 @@ import {
   BEFORE_AFTERS,
   QUOTE_WIDGET,
   CTA,
+  heroImage,
 } from './data';
 
 // ─── Icon Component ───────────────────────────────────────────────────────────
@@ -173,8 +174,12 @@ function Hero() {
   );
 
   return (
-    <section className="pt-28 pb-20 md:pt-36 md:pb-28 bg-gradient-to-b from-root-green-light/40 to-white">
-      <div ref={ref} className="reveal max-w-7xl mx-auto px-6">
+    <section className="pt-28 pb-20 md:pt-36 md:pb-28 bg-gradient-to-b from-root-green-light/40 to-white relative overflow-hidden">
+      {/* Hero background image */}
+      <div className="absolute inset-0 opacity-10">
+        <img src={heroImage} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      </div>
+      <div ref={ref} className="reveal max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-root-green-light rounded-full mb-6">

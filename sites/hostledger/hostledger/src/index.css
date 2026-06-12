@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+@theme {
+  --color-warm-white: #FEFCF8;
+  --color-cream: #F5F0E8;
+  --color-ink: #1A1A1A;
+  --color-ink-light: #3D3D3D;
+  --color-terracotta: #C75B39;
+  --color-terracotta-light: #E8845F;
+  --color-terracotta-dark: #A14428;
+  --color-sage: #7A9B7E;
+  --color-sage-light: #A3C4A7;
+  --color-sage-dark: #5A7B5E;
+  --color-sand: #E8DFD0;
+  --color-charcoal: #2C2C2C;
+
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-warm-white);
+  color: var(--color-ink);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-sage);
+  border-radius: 4px;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(199, 91, 57, 0.3); }
+  50% { box-shadow: 0 0 20px 4px rgba(199, 91, 57, 0.15); }
+}
+
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.5s ease-out forwards;
+}
+
+/* Parallax effect */
+.parallax-slow {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+/* Range input styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: var(--color-sand);
+  border-radius: 3px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-terracotta);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(199, 91, 57, 0.3);
+  transition: transform 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-terracotta);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 6px rgba(199, 91, 57, 0.3);
+}
+
+/* Glass card effect */
+.glass-card {
+  background: rgba(254, 252, 248, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(232, 223, 208, 0.6);
+}
+
+/* Dashboard card hover */
+.dashboard-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(26, 26, 26, 0.08);
+}
+
+/* Form toggle */
+.form-toggle {
+  transition: all 0.3s ease;
+}
+
+/* Property card image parallax */
+.property-img-wrapper {
+  overflow: hidden;
+}
+.property-img-wrapper img {
+  transition: transform 0.6s ease;
+}
+.property-img-wrapper:hover img {
+  transform: scale(1.05);
+}

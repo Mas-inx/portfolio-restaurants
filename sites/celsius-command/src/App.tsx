@@ -44,6 +44,9 @@ interface BookingState {
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
+const heroImage = 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=1600&q=85';
+const technicianImage = 'https://images.unsplash.com/photo-1631545806607-f4acbf48f12f?w=800&q=85';
+
 const services: Service[] = [
   { id: 'ac', name: 'AC Repair', icon: 'snowflake', description: 'Fast cooling restoration', recommendation: 'Most AC issues resolved in a single visit. Average repair: $180–$420.', color: 'ice' },
   { id: 'heating', name: 'Heating', icon: 'flame', description: 'Furnace & heat pump service', recommendation: 'Heating systems checked for safety and efficiency. Annual tune-up saves 15% on bills.', color: 'heat' },
@@ -612,8 +615,12 @@ export default function App() {
       </nav>
 
       {/* ─── 1. Hero ─── */}
-      <section className="pt-24 pb-16 md:pt-32 md:pb-24 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto">
+      <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 px-4 md:px-8 overflow-hidden">
+        {/* Hero background image */}
+        <div className="absolute inset-0 z-0">
+          <img src={heroImage} alt="HVAC technician" className="w-full h-full object-cover" style={{ opacity: 0.06 }} />
+        </div>
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <motion.div
@@ -749,6 +756,13 @@ export default function App() {
           </div>
         </div>
       </section>
+
+      {/* ─── Technician Image ─── */}
+      <div className="px-4 md:px-8">
+        <div className="max-w-7xl mx-auto rounded-2xl overflow-hidden">
+          <img src={technicianImage} alt="HVAC technician at work" className="w-full h-56 object-cover" />
+        </div>
+      </div>
 
       {/* ─── 5. Maintenance Plans ─── */}
       <section id="plans" className="py-16 md:py-24 px-4 md:px-8 bg-white/50">

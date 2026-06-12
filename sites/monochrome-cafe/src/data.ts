@@ -200,13 +200,17 @@ export const membershipTiers: MembershipTier[] = [
   },
 ];
 
+export const heroImage = "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1600&q=85";
+
+export const barImage = "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600&q=85";
+
 export const galleryImages = [
-  { alt: 'Espresso extraction, close', label: '001' },
-  { alt: 'Bar surface, morning light', label: '002' },
-  { alt: 'Pour-over in progress', label: '003' },
-  { alt: 'Bean detail, macro', label: '004' },
-  { alt: 'Ceramic vessel, side', label: '005' },
-  { alt: 'Steam, backlit', label: '006' },
+  { alt: 'Espresso extraction, close', label: '001', src: 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=800&q=85' },
+  { alt: 'Bar surface, morning light', label: '002', src: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=85' },
+  { alt: 'Pour-over in progress', label: '003', src: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=85' },
+  { alt: 'Bean detail, macro', label: '004', src: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&q=85' },
+  { alt: 'Ceramic vessel, side', label: '005', src: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&q=85' },
+  { alt: 'Steam, backlit', label: '006', src: 'https://images.unsplash.com/photo-1497935586351-b67a49e01cd8?w=800&q=85' },
 ];
 
 export const hours = [

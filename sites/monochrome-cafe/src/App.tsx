@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { menuItems, roasts, rituals, membershipTiers, galleryImages, hours } from './data';
+import { menuItems, roasts, rituals, membershipTiers, galleryImages, hours, heroImage, barImage } from './data';
 
 // ─── Scroll Progress ───
 function ScrollProgress() {
@@ -36,7 +36,18 @@ function Nav() {
 // ─── Hero Section ───
 function Hero() {
   return (
-    <section className="hero-section" style={{ padding: '0 32px' }}>
+    <section className="hero-section" style={{ padding: '0 32px', position: 'relative', overflow: 'hidden' }}>
+      {/* Hero background image */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        backgroundImage: `url(${heroImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        opacity: 0.08,
+        filter: 'grayscale(100%)',
+      }} />
+
       {/* Calibration marks */}
       <div className="calibration-mark" style={{ top: '40px', right: '32px' }} />
       <div className="calibration-mark" style={{ bottom: '40px', left: '32px' }} />
@@ -331,7 +342,17 @@ function BarLayout() {
           </h2>
         </div>
 
-        <div className="floorplan">
+        <div className="floorplan" style={{ position: 'relative', overflow: 'hidden' }}>
+          {/* Background image of the bar */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: `url(${barImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: 0.06,
+            filter: 'grayscale(100%)',
+          }} />
           {/* Standing Bar */}
           <div className="floorplan-zone" style={{ top: '10%', left: '5%', width: '35%', height: '25%' }}>
             Standing Bar
@@ -616,24 +637,22 @@ function GalleryStrip() {
       <div className="gallery-strip" style={{ paddingLeft: '32px' }}>
         {galleryImages.map((img, i) => (
           <div key={i} className="gallery-item">
-            {/* Abstract monochrome image placeholder */}
+            {/* Real Unsplash images */}
             <div style={{
               position: 'absolute',
               inset: 0,
-              background: `linear-gradient(${135 + i * 30}deg, #f5f5f5 0%, #e5e5e5 40%, #d4d4d4 100%)`,
-            }} />
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              overflow: 'hidden',
             }}>
-              <svg viewBox="0 0 100 100" style={{ width: '40%', opacity: 0.15 }}>
-                {i % 3 === 0 && <circle cx="50" cy="50" r="30" fill="none" stroke="#000" strokeWidth="0.5" />}
-                {i % 3 === 1 && <rect x="25" y="25" width="50" height="50" fill="none" stroke="#000" strokeWidth="0.5" />}
-                {i % 3 === 2 && <polygon points="50,20 80,80 20,80" fill="none" stroke="#000" strokeWidth="0.5" />}
-              </svg>
+              <img
+                src={img.src}
+                alt={img.alt}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  filter: 'grayscale(80%)',
+                }}
+              />
             </div>
             <div style={{ position: 'relative', zIndex: 1, width: '100%', display: 'flex', justifyContent: 'space-between' }}>
               <span className="type-mono" style={{ fontSize: '0.625rem', color: '#737373' }}>{img.alt}</span>

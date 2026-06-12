@@ -1,6 +1,8 @@
 export const heroData = {
   headline: "Recover with data. Return with confidence.",
   subheadline: "High-performance physical therapy for athletes and active adults. Clinical precision meets performance science.",
+  heroImage: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1600&q=85",
+  therapyImage: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=85",
   stats: [
     { label: "Return to Sport Rate", value: "94%", detail: "ACL reconstruction" },
     { label: "Avg Recovery Time", value: "-23%", detail: "vs. national average" },
@@ -183,6 +185,7 @@ export const therapists = [
     specialties: ["ACL Rehabilitation", "Return to Sport", "Running Biomechanics"],
     certifications: ["DPT, OCS", "CSCS", "FMS Level 2"],
     experience: "12 years",
+    image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=85",
   },
   {
     name: "Marcus Williams",
@@ -190,6 +193,7 @@ export const therapists = [
     specialties: ["Post-Surgical Rehab", "Shoulder Rehabilitation", "Joint Replacement"],
     certifications: ["DPT, SCS", "OCS", "MDT Certified"],
     experience: "15 years",
+    image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=85",
   },
   {
     name: "Dr. Elena Rodriguez",
@@ -197,6 +201,7 @@ export const therapists = [
     specialties: ["Mobility Restoration", "Pain Science", "Movement Assessment"],
     certifications: ["DPT, PhD", "COMT", "Pain Science Fellow"],
     experience: "10 years",
+    image: "https://images.unsplash.com/photo-1594824476967-48c8b964ac31?w=400&q=85",
   },
   {
     name: "James Park",
@@ -204,6 +209,7 @@ export const therapists = [
     specialties: ["Strength Rebuilding", "Athletic Performance", "Return to Play"],
     certifications: ["DPT, CSCS", "USAW Level 2", "DNS A/B"],
     experience: "8 years",
+    image: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&q=85",
   },
 ];
 

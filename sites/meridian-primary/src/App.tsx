@@ -124,7 +124,9 @@ function Hero() {
   }, []);
 
   return (
-    <section className="hero">
+    <section className="hero" style={{ position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${heroData.heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.08, zIndex: 0 }} />
+      <div style={{ position: 'relative', zIndex: 1, display: 'contents' }}>
       <div className="hero-content">
         <motion.div
           className="hero-badge"
@@ -198,6 +200,7 @@ function Hero() {
           </motion.div>
         </AnimatePresence>
       </motion.div>
+      </div>
     </section>
   );
 }
@@ -372,8 +375,8 @@ function Team() {
             viewport={{ once: true }}
             transition={{ delay: i * 0.15, duration: 0.5 }}
           >
-            <div className="provider-avatar">
-              {provider.name.split(' ').map(n => n[0]).join('')}
+            <div className="provider-avatar" style={{ overflow: 'hidden', padding: 0 }}>
+              <img src={provider.image} alt={provider.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <h3>{provider.name}</h3>
             <div className="provider-role">{provider.role}</div>

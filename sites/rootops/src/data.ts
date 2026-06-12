@@ -28,6 +28,11 @@ export const SITE = {
   supportEmail: "support@rootops.io",
 };
 
+export const heroImage = "https://images.unsplash.com/photo-1589923188900-85f5d5b4e5c1?w=1600&q=85";
+
+export const lawnBeforeImage = "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=800&q=85";
+export const lawnAfterImage = "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85";
+
 export const HERO = {
   headline: "Lawn care with receipts.",
   subheadline:

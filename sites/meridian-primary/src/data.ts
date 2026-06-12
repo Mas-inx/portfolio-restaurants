@@ -1,6 +1,7 @@
 export const heroData = {
   headline: "Primary care with enough time to actually listen.",
   subheadline: "Membership-based family medicine focused on prevention, chronic care, and real relationships.",
+  heroImage: "https://images.unsplash.com/photo-1551074689-3244be8e5ec4?w=1600&q=85",
   availability: {
     nextSlot: "Tomorrow, 2:30 PM",
     visitTypes: ["New Patient", "Follow-up", "Wellness", "Urgent"]
@@ -112,19 +113,22 @@ export const teamData = {
       name: "Dr. Sarah Chen",
       role: "Family Medicine",
       philosophy: "I believe in listening first. Most answers are in the story.",
-      specialties: ["Preventive care", "Chronic disease", "Women's health"]
+      specialties: ["Preventive care", "Chronic disease", "Women's health"],
+      image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=85"
     },
     {
       name: "Dr. Marcus Johnson",
       role: "Pediatrics",
       philosophy: "Kids aren't just small adults. They deserve care designed for them.",
-      specialties: ["Well-child care", "Development", "Adolescent health"]
+      specialties: ["Well-child care", "Development", "Adolescent health"],
+      image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=85"
     },
     {
       name: "Dr. Elena Rodriguez",
       role: "Internal Medicine",
       philosophy: "Complex problems need time and partnership. That's what we offer.",
-      specialties: ["Diabetes", "Hypertension", "Geriatric care"]
+      specialties: ["Diabetes", "Hypertension", "Geriatric care"],
+      image: "https://images.unsplash.com/photo-1594824476967-48c8b964ac31?w=400&q=85"
     }
   ]
 };

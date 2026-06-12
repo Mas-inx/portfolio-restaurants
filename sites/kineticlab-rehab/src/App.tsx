@@ -114,6 +114,7 @@ function Navigation() {
 function HeroSection() {
   return (
     <section className="hero-section" id="hero">
+      <div className="absolute inset-0 opacity-15" style={{ backgroundImage: `url(${heroData.heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
       <GridBackground />
       <div className="hero-content">
         <motion.div
@@ -194,6 +195,7 @@ function ConditionsSection() {
 
   return (
     <section className="conditions-section" id="conditions" ref={ref}>
+      <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: `url(${heroData.therapyImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
       <div className="section-container">
         <SectionLabel>CONDITIONS WE TREAT</SectionLabel>
         <motion.h2
@@ -288,6 +290,7 @@ function ProgramsSection() {
 
   return (
     <section className="programs-section" id="programs" ref={ref}>
+      <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: `url(${heroData.therapyImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
       <div className="section-container">
         <SectionLabel>REHABILITATION PROGRAMS</SectionLabel>
         <motion.h2
@@ -512,8 +515,8 @@ function TherapistsSection() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <div className="therapist-avatar">
-                <span>{therapist.name.split(' ').map(n => n[0]).join('')}</span>
+              <div className="therapist-avatar" style={{ overflow: 'hidden', padding: 0 }}>
+                <img src={therapist.image} alt={therapist.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <h3 className="therapist-name">{therapist.name}</h3>
               <p className="therapist-role">{therapist.role}</p>

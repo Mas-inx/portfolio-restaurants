@@ -25,6 +25,8 @@ function Icon({ name, className = '' }: { name: string; className?: string }) {
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
+const heroImage = "https://images.unsplash.com/photo-1600573472591-ee6b68b0c2e6?w=1600&q=85";
+
 const transformations = [
   {
     id: 1,
@@ -34,6 +36,8 @@ const transformations = [
     result: 'A formal outdoor room that functions as an extension of the interior living space.',
     budget: '$87,000',
     duration: '9 weeks',
+    beforeImage: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&q=85',
+    afterImage: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=85',
   },
   {
     id: 2,
@@ -43,6 +47,8 @@ const transformations = [
     result: 'Year-round entertaining space protected by cantilevered cedar pergola.',
     budget: '$124,000',
     duration: '12 weeks',
+    beforeImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=85',
+    afterImage: 'https://images.unsplash.com/photo-1600573472591-ee6b68b0c2e6?w=800&q=85',
   },
   {
     id: 3,
@@ -52,6 +58,8 @@ const transformations = [
     result: 'Three distinct outdoor rooms — dining terrace, fire lounge, and lawn play area.',
     budget: '$156,000',
     duration: '14 weeks',
+    beforeImage: 'https://images.unsplash.com/photo-1592578629301-5b0b6e3d58b2?w=800&q=85',
+    afterImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=85',
   },
   {
     id: 4,
@@ -61,6 +69,8 @@ const transformations = [
     result: 'A dramatic arrival experience that sets the tone for the entire property.',
     budget: '$43,000',
     duration: '5 weeks',
+    beforeImage: 'https://images.unsplash.com/photo-1558904541-efa843a96f01?w=800&q=85',
+    afterImage: 'https://images.unsplash.com/photo-1560743641-3914f2c45636?w=800&q=85',
   },
 ];
 
@@ -132,6 +142,10 @@ function AnimatedSection({ children, className = '', delay = 0 }: { children: Re
 function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <img src={heroImage} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.15 }} />
+      </div>
       {/* Background texture */}
       <div className="absolute inset-0 bg-charcoal-dark texture-overlay" />
       <div className="absolute inset-0 grain-overlay" />
@@ -243,17 +257,20 @@ function TransformationReel() {
             <div className="bg-charcoal border border-charcoal-light overflow-hidden group">
               {/* Visual area */}
               <div className="relative h-64 md:h-80 overflow-hidden">
-                <div className="absolute inset-0" style={{
-                  background: `linear-gradient(135deg, ${i % 2 === 0 ? '#3d3d3d' : '#2a2a2a'} 0%, ${i % 2 === 0 ? '#2a2a2a' : '#1a1a1a'} 100%)`,
-                }} />
-                {/* Before/After split visual */}
+                {/* Before/After split visual with real images */}
                 <div className="absolute inset-0 flex">
-                  <div className="w-1/2 bg-charcoal-light/30 flex items-center justify-center border-r border-charcoal-light">
-                    <span className="text-xs tracking-[0.2em] uppercase text-concrete">Before</span>
+                  <div className="w-1/2 overflow-hidden border-r border-charcoal-light relative">
+                    <img src={project.beforeImage} alt="Before" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.6)' }} />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-xs tracking-[0.2em] uppercase text-concrete bg-charcoal-dark/60 px-2 py-1">Before</span>
+                    </div>
                   </div>
-                  <div className="w-1/2 flex items-center justify-center relative">
+                  <div className="w-1/2 overflow-hidden relative">
+                    <img src={project.afterImage} alt="After" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     <div className="absolute inset-0 bg-gradient-to-br from-copper/10 to-transparent" />
-                    <span className="text-xs tracking-[0.2em] uppercase text-copper-light relative z-10">After</span>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-xs tracking-[0.2em] uppercase text-copper-light relative z-10 bg-charcoal-dark/60 px-2 py-1">After</span>
+                    </div>
                   </div>
                 </div>
                 {/* Project number */}

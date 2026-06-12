@@ -1,3 +1,8 @@
+export const heroImage = 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1600&q=85';
+export const treatmentRoomImage = 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=85';
+export const smileImage = 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&q=85';
+export const dentalToolsImage = 'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=800&q=85';
+
 export const studio = {
   name: 'Ivory Dental House',
   tagline: 'A calmer way to redesign your smile.',

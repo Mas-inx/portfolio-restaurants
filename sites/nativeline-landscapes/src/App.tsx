@@ -32,6 +32,25 @@ function Icon({ name, className = '' }: { name: string; className?: string }) {
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
+const heroImage = "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=1600&q=85";
+const beforeEcologyImage = "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=800&q=85";
+const afterEcologyImage = "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&q=85";
+
+const plantImages: Record<string, string> = {
+  'Purple Coneflower': 'https://images.unsplash.com/photo-1592578629301-5b0b6e3d58b2?w=400&q=85',
+  'Blue Grama Grass': 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=85',
+  'California Poppy': 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&q=85',
+  'Wild Bergamot': 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&q=85',
+  'Yarrow': 'https://images.unsplash.com/photo-1592578629301-5b0b6e3d58b2?w=400&q=85',
+  'Columbine': 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&q=85',
+  'Sage': 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=400&q=85',
+  'Fern (Western)': 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=400&q=85',
+  'Penstemon': 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&q=85',
+  'Sedum': 'https://images.unsplash.com/photo-1592578629301-5b0b6e3d58b2?w=400&q=85',
+  'Manzanita': 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=85',
+  'Heuchera': 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&q=85',
+};
+
 const nativeSystems = [
   {
     id: 'meadow',
@@ -191,6 +210,10 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 function Hero() {
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden topo-bg">
+      {/* Hero background image */}
+      <div className="absolute inset-0 opacity-15">
+        <img src={heroImage} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      </div>
       <div className="absolute inset-0 topo-animate">
         <TopoLines />
       </div>
@@ -502,29 +525,27 @@ function BeforeAfter() {
 
       {/* Visual comparison */}
       <div className="relative rounded-2xl overflow-hidden h-64 md:h-80 mb-12 botanical-border">
-        {/* Before side */}
-        <div className="absolute inset-0 bg-gradient-to-br from-green-200 via-green-300 to-green-200">
+        {/* Before side - real image */}
+        <div className="absolute inset-0">
+          <img src={beforeEcologyImage} alt="Before: conventional lawn" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <div className="absolute inset-0 bg-green-900/20" />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              <div className="text-6xl mb-2 opacity-60"><Icon name="green-square" className="w-16 h-16" /></div>
-              <div className="text-sm font-medium text-green-800/70">Conventional Turf</div>
+              <div className="text-sm font-medium text-white bg-black/40 px-3 py-1 rounded-full">Conventional Turf</div>
             </div>
           </div>
-          {/* Grid pattern for lawn */}
-          <div className="absolute inset-0 opacity-20" style={{
-            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(0,80,0,0.1) 20px, rgba(0,80,0,0.1) 21px), repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(0,80,0,0.1) 20px, rgba(0,80,0,0.1) 21px)'
-          }} />
         </div>
 
-        {/* After side (clipped) */}
+        {/* After side (clipped) - real image */}
         <div
-          className="absolute inset-0 bg-gradient-to-br from-sage/30 via-sand to-clay/20"
+          className="absolute inset-0"
           style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
         >
+          <img src={afterEcologyImage} alt="After: native ecosystem" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <div className="absolute inset-0 bg-sage/10" />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              <div className="text-5xl mb-2 flex gap-2 justify-center"><Icon name="grain" className="w-10 h-10" /><Icon name="butterfly" className="w-10 h-10" /><Icon name="flower" className="w-10 h-10" /><Icon name="cactus" className="w-10 h-10" /><Icon name="leaf" className="w-10 h-10" /></div>
-              <div className="text-sm font-medium text-sage-dark">Native Ecosystem</div>
+              <div className="text-sm font-medium text-white bg-sage/70 px-3 py-1 rounded-full">Native Ecosystem</div>
             </div>
           </div>
         </div>
@@ -666,6 +687,12 @@ function PlantIntelligence() {
               transition={{ duration: 0.2 }}
               className="botanical-border rounded-xl p-5 bg-sand hover:shadow-lg hover:shadow-sage/5 transition-shadow"
             >
+              {/* Plant image */}
+              {plantImages[plant.name] && (
+                <div className="w-full h-32 rounded-lg overflow-hidden mb-3">
+                  <img src={plantImages[plant.name]} alt={plant.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+              )}
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <h4 className="font-semibold text-charcoal">{plant.name}</h4>

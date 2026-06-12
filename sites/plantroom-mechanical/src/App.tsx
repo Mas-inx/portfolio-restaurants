@@ -168,8 +168,11 @@ function App() {
       </nav>
 
       {/* HERO SECTION */}
-      <section className="pt-24 pb-16 px-6">
-        <div className="max-w-7xl mx-auto">
+      <section className="relative pt-24 pb-16 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1600&q=85)' }}>
+          <div className="absolute inset-0 bg-graphite-950/85" />
+        </div>
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <SectionLabel>Commercial HVAC Operations</SectionLabel>
@@ -233,8 +236,9 @@ function App() {
       </section>
 
       {/* EQUIPMENT WE MAINTAIN */}
-      <section id="equipment" className="py-20 px-6 border-t border-graphite-800">
-        <div className="max-w-7xl mx-auto">
+      <section id="equipment" className="py-20 px-6 border-t border-graphite-800 relative">
+        <div className="absolute inset-0 bg-cover bg-center opacity-10" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=80)' }} />
+        <div className="max-w-7xl mx-auto relative z-10">
           <SectionLabel>Equipment Coverage</SectionLabel>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Equipment We Maintain</h2>
           <p className="text-graphite-300 mb-12 max-w-2xl">Full-spectrum mechanical systems coverage. Every unit tracked, every component monitored, every failure anticipated.</p>

@@ -4,6 +4,9 @@ import {
   siteConfig,
   navLinks,
   heroUpdate,
+  heroImage,
+  caregiverImage,
+  homeCareImage,
   services,
   carePlanOptions,
   portalData,
@@ -135,6 +138,10 @@ function Nav() {
 function Hero() {
   return (
     <section className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
+      {/* Hero background image */}
+      <div className="absolute inset-0 z-0">
+        <img src={heroImage} alt="Senior care" className="w-full h-full object-cover" style={{ opacity: 0.08 }} />
+      </div>
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-sage-100 rounded-full opacity-40 blur-3xl" />
@@ -279,6 +286,10 @@ function Services() {
               </motion.div>
             </FadeIn>
           ))}
+        </div>
+        {/* Caregiver image */}
+        <div className="mt-12 rounded-2xl overflow-hidden border border-sage-100">
+          <img src={caregiverImage} alt="Professional caregiver with client" className="w-full h-64 object-cover" />
         </div>
       </div>
     </section>
@@ -672,6 +683,10 @@ function WhoWeHelp() {
               </motion.div>
             </FadeIn>
           ))}
+        </div>
+        {/* Home care image */}
+        <div className="mt-12 rounded-2xl overflow-hidden border border-sage-100 max-w-3xl mx-auto">
+          <img src={homeCareImage} alt="Home care companion" className="w-full h-56 object-cover" />
         </div>
       </div>
     </section>
