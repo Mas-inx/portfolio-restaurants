@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --color-graphite-50: #f8f9fa;
+  --color-graphite-100: #e9eaec;
+  --color-graphite-200: #d1d3d7;
+  --color-graphite-300: #adafb7;
+  --color-graphite-400: #858892;
+  --color-graphite-500: #6b6e7a;
+  --color-graphite-600: #555865;
+  --color-graphite-700: #434650;
+  --color-graphite-800: #3b3b45;
+  --color-graphite-900: #2d2d34;
+  --color-ind-blue-50: #eef2f7;
+  --color-ind-blue-100: #d9e0ed;
+  --color-ind-blue-200: #b1c1d9;
+  --color-ind-blue-300: #8aa2c6;
+  --color-ind-blue-400: #6283b2;
+  --color-ind-blue-500: #4a6a9a;
+  --color-ind-blue-600: #2d4f7a;
+  --color-ind-blue-700: #1a3a5c;
+  --color-ind-blue-800: #122a45;
+  --color-ind-blue-900: #0c1d30;
+  --color-accent: #f59e0b;
+  --color-accent-dark: #d97706;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; color: #374151; background: #f8f9fa; }
+
+.section-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1a3a5c;
+  text-align: center;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+.section-subtitle {
+  font-size: 1.05rem;
+  color: #6b7280;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 3rem auto;
+  line-height: 1.6;
+}

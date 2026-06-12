@@ -1,0 +1,70 @@
+export interface EfficiencyService {
+  id: number;
+  title: string;
+  desc: string;
+  icon: string;
+}
+
+export interface UpgradeStep {
+  step: number;
+  title: string;
+  desc: string;
+}
+
+export interface SmartFeature {
+  title: string;
+  desc: string;
+  icon: string;
+}
+
+export interface Rebate {
+  name: string;
+  amount: string;
+  desc: string;
+}
+
+export interface CaseExample {
+  name: string;
+  location: string;
+  savings: string;
+  yearBuilt: number;
+  summary: string;
+}
+
+export const efficiencyServices: EfficiencyService[] = [
+  { id: 1, title: 'High-Efficiency AC Units', desc: 'SEER2 16-26 systems that cut cooling costs by 30-50% compared to older units.', icon: 'snowflake' },
+  { id: 2, title: 'Heat Pump Systems', desc: 'All-electric heat pumps for year-round efficiency; heating and cooling in one system.', icon: 'refresh' },
+  { id: 3, title: 'Smart Thermostats', desc: 'AI-powered thermostats that learn your schedule and optimize energy use automatically.', icon: 'smartphone' },
+  { id: 4, title: 'Duct Sealing & Optimization', desc: 'Seal leaky ducts that waste up to 30% of conditioned air. Pressure testing included.', icon: 'wind' },
+  { id: 5, title: 'Air Sealing & Insulation', desc: 'Reduce thermal load with strategic air sealing and attic insulation upgrades.', icon: 'home' },
+  { id: 6, title: 'Eco Maintenance Plans', desc: 'Quarterly tune-ups optimized for peak efficiency: clean coils, proper charge, airflow check.', icon: 'clipboard' },
+];
+
+export const upgradeSteps: UpgradeStep[] = [
+  { step: 1, title: 'Energy Audit', desc: 'We perform a complete home energy assessment with blower door testing and thermal imaging.' },
+  { step: 2, title: 'Custom Recommendations', desc: 'Based on your home, climate, and budget, we design an efficiency upgrade package with clear ROI.' },
+  { step: 3, title: 'Professional Installation', desc: 'Certified installers follow manufacturer best practices for maximum rated efficiency.' },
+  { step: 4, title: 'Performance Optimization', desc: 'We verify airflow, refrigerant charge, and duct static pressure to ensure peak operation.' },
+];
+
+export const smartFeatures: SmartFeature[] = [
+  { title: 'Remote Monitoring', desc: 'View your system status, temperature, and energy use from anywhere via our app.', icon: 'monitor' },
+  { title: 'Zoned Comfort', desc: 'Separate temperature zones for different areas of your home; no more fighting over the thermostat.', icon: 'layout' },
+  { title: 'Adaptive Learning', desc: 'Your system learns your habits and adjusts automatically to save energy while you sleep or away.', icon: 'brain' },
+  { title: 'Energy Reports', desc: 'Monthly breakdown of your HVAC energy usage with personalized savings recommendations.', icon: 'chart' },
+];
+
+export const rebates: Rebate[] = [
+  { name: 'Federal Tax Credit', amount: 'Up to $2,000', desc: '25C tax credit for qualifying high-efficiency heat pumps and AC systems.' },
+  { name: 'State Rebate Program', amount: 'Up to $1,500', desc: 'Colorado Energy Office rebates for qualifying efficiency upgrades.' },
+  { name: 'Utility Rebates', amount: 'Up to $800', desc: 'Xcel Energy and local utility rebates for smart thermostats and efficient equipment.' },
+  { name: 'EcoBreeze Bonus', amount: '$300', desc: 'Additional discount when you bundle a system upgrade with duct sealing.' },
+];
+
+export const caseExamples: CaseExample[] = [
+  { name: 'The Miller Home', location: 'Denver, CO', savings: '42%', yearBuilt: 1998, summary: 'Replaced 14 SEER AC with 20 SEER2 heat pump + smart thermostat. Annual savings: $680.' },
+  { name: 'The Patel Home', location: 'Boulder, CO', savings: '35%', yearBuilt: 2005, summary: 'Duct sealing + attic insulation + programmable thermostat. Annual savings: $520.' },
+  { name: 'The Chen Home', location: 'Littleton, CO', savings: '48%', yearBuilt: 1987, summary: 'Full system replacement with 22 SEER2 AC, zoning, and solar-ready heat pump. Annual savings: $940.' },
+];
+
+export const heroImage = 'https://images.unsplash.com/photo-1616627561950-9f7467d8d9dd?w=1600&q=85';
