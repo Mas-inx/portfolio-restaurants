@@ -2,19 +2,68 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { siteInfo, problems, solutions, assessmentSteps, systemLayers, products, faq, navLinks } from './data';
 
+/* ─── Unsplash image library ─── */
+const IMG = {
+  hero: siteInfo.heroImage,
+  dust: 'https://images.unsplash.com/photo-1617791107382-8fda52b25f52?w=900&q=80',
+  dustClean: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=80',
+  pollen: 'https://images.unsplash.com/photo-1464699908537-0954e50791ee?w=900&q=80',
+  filter: 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=900&q=80',
+  humidity: 'https://images.unsplash.com/photo-1501999635878-71cb76b4e9eb?w=900&q=80',
+  home: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80',
+  mold: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=900&q=80',
+  clean: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&q=80',
+  odor: 'https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?w=900&q=80',
+  uv: 'https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=900&q=80',
+  stuffy: 'https://images.unsplash.com/photo-1560448204-603b3fc33ddc?w=900&q=80',
+  fresh: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=80',
+  lab: 'https://images.unsplash.com/photo-1581093458791-9d42e3c2fd45?w=900&q=80',
+  microscope: 'https://images.unsplash.com/photo-1530026186582-28e1e11acc57?w=900&q=80',
+  clipboard: 'https://images.unsplash.com/photo-1551698618-5d0c3e16b8b5?w=900&q=80',
+  report: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900&q=80',
+  purifier: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=900&q=80',
+  cabinet: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=900&q=80',
+  steam: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=900&q=80',
+  uvlight: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=900&q=80',
+  cta: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1600&q=80',
+  nature: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=900&q=80',
+};
+
+const problemImages = [IMG.dust, IMG.pollen, IMG.humidity, IMG.mold, IMG.odor, IMG.stuffy];
+const solutionImages = [IMG.dustClean, IMG.filter, IMG.home, IMG.clean, IMG.uv, IMG.fresh];
+const assessmentImages = [IMG.lab, IMG.microscope, IMG.clipboard, IMG.report];
+const productImages = [IMG.purifier, IMG.cabinet, IMG.steam, IMG.uvlight];
+
+/* ─── Animation presets ─── */
 const fadeUp = {
-  initial: { opacity: 0, y: 24 },
+  initial: { opacity: 0, y: 40 },
   whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-80px' },
+  transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const },
+} as const;
+
+const scaleIn = {
+  initial: { opacity: 0, scale: 0.9 },
+  whileInView: { opacity: 1, scale: 1 },
   viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
-};
+  transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const },
+} as const;
 
-const stagger = {
-  initial: {},
-  whileInView: { transition: { staggerChildren: 0.08 } },
-  viewport: { once: true },
-};
+const slideLeft = {
+  initial: { opacity: 0, x: -60 },
+  whileInView: { opacity: 1, x: 0 },
+  viewport: { once: true, margin: '-80px' },
+  transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const },
+} as const;
 
+const slideRight = {
+  initial: { opacity: 0, x: 60 },
+  whileInView: { opacity: 1, x: 0 },
+  viewport: { once: true, margin: '-80px' },
+  transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const },
+} as const;
+
+/* ─── SVG Icons ─── */
 function Icon({ name, className }: { name: string; className?: string }) {
   const cls = className || 'w-6 h-6';
   const icons: Record<string, React.ReactNode> = {
@@ -33,327 +82,369 @@ function Icon({ name, className }: { name: string; className?: string }) {
     menu: <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>,
     close: <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>,
     phone: <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8 9a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" /></svg>,
-    clipboard: <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>,
     arrowDown: <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>,
-    badge: <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>,
-    chart: <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>,
     shield: <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>,
     pulse: <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>,
     microscope: <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18h8M3 22h18M14 2v6a4 4 0 01-8 0V2M10 12v4m-4 4h8" /></svg>,
+    beaker: <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 3v6l-4 8a3 3 0 003 3h8a3 3 0 003-3l-4-8V3M9 3h6M9 9h6" /></svg>,
   };
   return <>{icons[name] || <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}><circle cx="12" cy="12" r="10" /></svg>}</>;
 }
 
-// Severity indicator for problems
-function SeverityBar({ level }: { level: number }) {
-  return (
-    <div className="flex gap-0.5">
-      {[1, 2, 3, 4, 5].map(i => (
-        <div key={i} className={`w-1 h-3 rounded-full ${i <= level ? 'bg-teal-500' : 'bg-slate-200'}`} />
-      ))}
-    </div>
-  );
-}
+/* ─── Problem/Solution pair images ─── */
+const problemQuestions = [
+  'Dust never stops settling?',
+  'Allergies keep you indoors?',
+  'Air feels too dry or too damp?',
+  'Something growing in the dark?',
+  'Odors that never leave?',
+  'Air feels stale and heavy?',
+];
 
-// Efficacy badge for solutions
-function EfficacyBadge({ value }: { value: string }) {
-  return (
-    <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-teal-700 bg-teal-50 border border-teal-100 px-2 py-0.5 rounded-full">
-      <span className="w-1 h-1 rounded-full bg-teal-500" />
-      {value}
-    </span>
-  );
-}
-
-const problemSeverity = [4, 3, 4, 5, 3, 4];
-const solutionEfficacy = ['99.97%', 'MERV 13', '±2% RH', 'N/A', '99.9%', '100% balanced'];
+const solutionAnswers = [
+  '99.97% particle capture.',
+  'HEPA-grade allergen removal.',
+  'Precision humidity at 40-60%.',
+  'UV-C sterilization, 24/7.',
+  'Activated carbon eliminates VOCs.',
+  'Balanced fresh-air ventilation.',
+];
 
 export default function App() {
   const [navOpen, setNavOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen bg-white text-slate-600 antialiased overflow-x-hidden font-sans">
-      {/* Header — Minimal, clinical */}
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-100">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
-          <motion.a href="#" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center">
+    <div className="min-h-screen bg-white text-slate-700 antialiased overflow-x-hidden">
+      {/* ─── HEADER ─── */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-100/60">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+          <a href="#" className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center shadow-sm">
               <Icon name="wind" className="w-4 h-4 text-white" />
             </div>
             <div className="flex flex-col leading-none">
               <span className="font-semibold text-[15px] text-slate-800 tracking-tight">PureAir</span>
-              <span className="text-[9px] text-slate-400 uppercase tracking-widest font-medium">Indoor Comfort</span>
+              <span className="text-[9px] text-teal-600 uppercase tracking-[0.2em] font-medium">Science of Air</span>
             </div>
-          </motion.a>
-          <nav className="hidden md:flex items-center gap-6 text-[13px] font-medium text-slate-500">
+          </a>
+          <nav className="hidden md:flex items-center gap-7 text-[13px] font-medium text-slate-500">
             {navLinks.filter(l => l.label !== 'Contact').map(link => (
               <a key={link.label} href={link.href} className="hover:text-teal-600 transition-colors duration-200">{link.label}</a>
             ))}
-            <a href="#contact" className="bg-teal-600 text-white px-4 py-2 rounded-md text-[13px] font-semibold hover:bg-teal-700 transition-colors duration-200">
+            <a href="#contact" className="bg-teal-600 text-white px-5 py-2 rounded-full text-[13px] font-semibold hover:bg-teal-700 transition-colors shadow-sm">
               Book Assessment
             </a>
           </nav>
-          <button onClick={() => setNavOpen(!navOpen)} className="md:hidden p-2 text-slate-400">
+          <button onClick={() => setNavOpen(!navOpen)} className="md:hidden p-2 text-slate-500">
             <Icon name={navOpen ? 'close' : 'menu'} className="w-5 h-5" />
           </button>
         </div>
         {navOpen && (
           <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="md:hidden bg-white border-b border-slate-100 px-5 pb-4 space-y-3">
             {navLinks.map(link => (
-              <a key={link.label} href={link.href} className="block text-slate-500 text-sm font-medium" onClick={() => setNavOpen(false)}>{link.label}</a>
+              <a key={link.label} href={link.href} className="block text-slate-600 text-sm font-medium" onClick={() => setNavOpen(false)}>{link.label}</a>
             ))}
           </motion.div>
         )}
       </header>
 
-      {/* Hero — Clean, precise, clinical */}
-      <section className="relative bg-white overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#E8F0FE]/60 via-white to-white" />
-        <div className="absolute top-0 right-0 w-[50%] h-full opacity-[0.04]" style={{ backgroundImage: `url(${siteInfo.heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
-        {/* Subtle grid pattern */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(to right, #475569 1px, transparent 1px), linear-gradient(to bottom, #475569 1px, transparent 1px)', backgroundSize: '48px 48px' }} />
+      {/* ─── HERO ─── */}
+      <section className="relative h-screen min-h-[700px] flex items-end overflow-hidden">
+        {/* Background image with parallax */}
+        <motion.div
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 2, ease: 'easeOut' as const }}
+          className="absolute inset-0"
+        >
+          <img src={IMG.hero} alt="Clean air" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/40 to-transparent" />
+        </motion.div>
 
-        <div className="relative max-w-6xl mx-auto px-5 sm:px-8 py-20 sm:py-28 lg:py-36">
-          <div className="max-w-2xl">
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}
-              className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-teal-700 bg-teal-50 border border-teal-100 px-3 py-1.5 rounded-full mb-8">
-              <span className="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse" />
-              Certified Air Quality Specialists
-            </motion.div>
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 pb-20 sm:pb-28 w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' as const }}
+            className="max-w-xl"
+          >
+            <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-teal-300 mb-6">
+              <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+              Indoor Air Quality Science
+            </div>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] text-white tracking-tight">
+              The science of<br />
+              <span className="text-teal-400">cleaner air.</span>
+            </h1>
+            <p className="mt-5 text-base sm:text-lg text-slate-300 max-w-md leading-relaxed">
+              Clinical-grade air quality assessment and purification for your home.
+            </p>
+          </motion.div>
 
-            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold leading-[1.1] tracking-tight text-slate-800">
-              Breathe{' '}
-              <span className="text-teal-600">cleaner air</span>
-              <br />at home.
-            </motion.h1>
-
-            <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.35 }}
-              className="mt-6 text-base sm:text-lg text-slate-500 max-w-lg leading-relaxed">
-              Whole-home air purification, humidity control, and ventilation solutions. We test, diagnose, and fix indoor air quality issues for Chicago homes.
-            </motion.p>
-
-            <motion.div className="mt-8 flex flex-wrap gap-3" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-              <a href="#contact" className="inline-flex items-center gap-2 bg-teal-600 text-white font-semibold px-6 py-3 rounded-md hover:bg-teal-700 transition-colors text-sm">
-                Book an Assessment <Icon name="arrow" className="w-4 h-4" />
-              </a>
-              <a href="#problems" className="inline-flex items-center gap-2 border border-slate-200 text-slate-600 font-medium px-6 py-3 rounded-md hover:border-teal-200 hover:text-teal-700 transition-all text-sm">
-                View Common Problems
-              </a>
-            </motion.div>
-          </div>
-
-          {/* Stats strip — clinical, data-driven */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.6 }}
-            className="mt-16 sm:mt-20 flex flex-wrap gap-8 sm:gap-14 pt-8 border-t border-slate-100">
+          {/* Floating stats card */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7, ease: 'easeOut' as const }}
+            className="mt-10 inline-flex flex-col sm:flex-row gap-0 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl overflow-hidden"
+          >
             {[
-              { value: siteInfo.homesServiced.toLocaleString() + '+', label: 'Homes Serviced' },
-              { value: siteInfo.satisfaction, label: 'Satisfaction Rate' },
-              { value: siteInfo.certifiedTechnicians, label: 'Certified Technicians' },
-            ].map(s => (
-              <div key={s.label} className="flex flex-col">
-                <span className="text-2xl sm:text-3xl font-bold text-slate-800 tabular-nums">{s.value}</span>
-                <span className="text-[11px] text-slate-400 uppercase tracking-wider font-medium mt-1">{s.label}</span>
+              { value: siteInfo.homesServiced.toLocaleString() + '+', label: 'Homes Analyzed' },
+              { value: siteInfo.satisfaction, label: 'Satisfaction' },
+              { value: siteInfo.certifiedTechnicians, label: 'Certified Techs' },
+            ].map((s, i) => (
+              <div key={s.label} className={`flex flex-col items-center px-8 py-5 ${i > 0 ? 'sm:border-l border-white/10' : ''}`}>
+                <span className="text-2xl sm:text-3xl font-bold text-white tabular-nums">{s.value}</span>
+                <span className="text-[11px] text-slate-300 uppercase tracking-wider font-medium mt-1">{s.label}</span>
               </div>
             ))}
           </motion.div>
         </div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' as const }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50"
+        >
+          <Icon name="arrowDown" className="w-5 h-5" />
+        </motion.div>
       </section>
 
-      {/* Problems — Clinical diagnostic cards */}
-      <section id="problems" className="py-20 sm:py-28 bg-white">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <motion.div {...fadeUp} className="max-w-lg">
-            <span className="text-[11px] font-semibold uppercase tracking-widest text-teal-600">Diagnostic</span>
-            <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-slate-800 tracking-tight">Common Air Quality Issues</h2>
-            <p className="mt-3 text-sm text-slate-500 leading-relaxed">Six conditions we diagnose most frequently. Each has a proven, measurable solution.</p>
-          </motion.div>
-
-          <motion.div {...stagger} className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-100 border border-slate-100 rounded-xl overflow-hidden">
-            {problems.map((p, i) => (
-              <motion.div key={i} {...fadeUp}
-                className="bg-white p-6 hover:bg-[#E8F0FE]/30 transition-colors duration-300 group">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 group-hover:text-teal-600 group-hover:border-teal-100 group-hover:bg-teal-50/50 transition-all duration-300">
-                    <Icon name={p.icon} className="w-5 h-5" />
-                  </div>
-                  <SeverityBar level={problemSeverity[i]} />
-                </div>
-                <h3 className="font-semibold text-slate-800 text-sm">{p.title}</h3>
-                <p className="mt-2 text-xs text-slate-500 leading-relaxed">{p.description}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Solutions — Treatment options with efficacy */}
-      <section id="solutions" className="py-20 sm:py-28 bg-[#E8F0FE]/40">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <motion.div {...fadeUp} className="max-w-lg">
-            <span className="text-[11px] font-semibold uppercase tracking-widest text-teal-600">Treatment</span>
-            <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-slate-800 tracking-tight">Proven Solutions</h2>
-            <p className="mt-3 text-sm text-slate-500 leading-relaxed">Professional-grade systems engineered for measurable air quality improvement.</p>
-          </motion.div>
-
-          <motion.div {...stagger} className="mt-12 space-y-3">
-            {solutions.map((s, i) => (
-              <motion.div key={i} {...fadeUp}
-                className="bg-white border border-slate-100 rounded-lg p-5 sm:p-6 hover:border-teal-100 hover:shadow-sm transition-all duration-300 group">
-                <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                  <div className="flex items-center gap-4 flex-1 min-w-0">
-                    <div className="w-11 h-11 rounded-lg bg-teal-50 border border-teal-100 flex items-center justify-center text-teal-600 shrink-0 group-hover:bg-teal-100 transition-colors">
-                      <Icon name={s.icon} className="w-5 h-5" />
+      {/* ─── PROBLEM × SOLUTION — Split-screen alternating ─── */}
+      <section id="problems" className="py-4">
+        {problems.map((problem, i) => (
+          <div key={i} className={`relative min-h-[80vh] flex items-center overflow-hidden ${i % 2 === 0 ? '' : 'flex-row-reverse'}`}>
+            <div className={`w-full lg:flex ${i % 2 === 0 ? '' : 'flex-row-reverse'}`}>
+              {/* Problem side (dark/moody) */}
+              <motion.div {...(i % 2 === 0 ? slideLeft : slideRight)} className="lg:w-1/2 relative h-[50vh] lg:h-auto min-h-[400px] group">
+                <img src={problemImages[i]} alt={problem.title} className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-slate-900/60" />
+                <div className="relative z-10 h-full flex flex-col justify-end p-8 sm:p-12">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-8 h-8 rounded-full bg-red-500/20 border border-red-400/30 flex items-center justify-center">
+                      <Icon name={problem.icon} className="w-4 h-4 text-red-300" />
                     </div>
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-3 flex-wrap">
-                        <h3 className="font-semibold text-slate-800 text-sm">{s.title}</h3>
-                        <EfficacyBadge value={solutionEfficacy[i]} />
-                      </div>
-                      <p className="mt-1 text-xs text-slate-500 leading-relaxed">{s.description}</p>
-                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-red-300">Problem</span>
                   </div>
+                  <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
+                    {problemQuestions[i]}
+                  </h3>
+                  <p className="mt-3 text-sm text-slate-300 max-w-sm leading-relaxed">{problem.description}</p>
                 </div>
               </motion.div>
-            ))}
-          </motion.div>
-        </div>
+
+              {/* Solution side (bright/clean) */}
+              <motion.div {...(i % 2 === 0 ? slideRight : slideLeft)} className="lg:w-1/2 relative h-[50vh] lg:h-auto min-h-[400px]">
+                <img src={solutionImages[i]} alt={solutions[i].title} className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-br from-teal-900/40 to-teal-800/20" />
+                <div className="relative z-10 h-full flex flex-col justify-end p-8 sm:p-12">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-8 h-8 rounded-full bg-teal-500/20 border border-teal-400/30 flex items-center justify-center">
+                      <Icon name={solutions[i].icon} className="w-4 h-4 text-teal-300" />
+                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-teal-300">Solution</span>
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
+                    {solutionAnswers[i]}
+                  </h3>
+                  <p className="mt-3 text-sm text-slate-200 max-w-sm leading-relaxed">{solutions[i].description}</p>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        ))}
       </section>
 
-      {/* Assessment Process — Clean 4-step clinical workflow */}
-      <section id="assessment" className="py-20 sm:py-28 bg-white">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <motion.div {...fadeUp} className="text-center max-w-lg mx-auto">
-            <span className="text-[11px] font-semibold uppercase tracking-widest text-teal-600">Protocol</span>
-            <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-slate-800 tracking-tight">Assessment Process</h2>
-            <p className="mt-3 text-sm text-slate-500 leading-relaxed">A thorough, data-driven evaluation of your home's indoor air quality.</p>
+      {/* ─── ASSESSMENT PROCESS — Journey visualization ─── */}
+      <section id="assessment" className="py-24 sm:py-32 bg-white relative overflow-hidden">
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #0D9488 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+
+        <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
+          <motion.div {...fadeUp} className="text-center max-w-lg mx-auto mb-16">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-teal-600">Protocol</span>
+            <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-slate-800 tracking-tight">Assessment Journey</h2>
+            <p className="mt-3 text-sm text-slate-500 leading-relaxed">From first measurement to verified results.</p>
           </motion.div>
 
-          <div className="mt-14 relative">
-            {/* Connecting line */}
-            <div className="hidden lg:block absolute top-[52px] left-[calc(12.5%+20px)] right-[calc(12.5%+20px)] h-px bg-gradient-to-r from-teal-200 via-teal-300 to-teal-200" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {assessmentSteps.map((step, i) => (
+              <motion.div key={i} {...scaleIn} className="relative group">
+                {/* Image card */}
+                <div className="relative h-52 rounded-2xl overflow-hidden mb-5">
+                  <img src={assessmentImages[i]} alt={step.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 to-transparent" />
+                  <div className="absolute bottom-4 left-4">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-teal-300">Step {step.step}</span>
+                  </div>
+                  {/* Step number overlay */}
+                  <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                    <span className="text-xs font-bold text-white">{step.step}</span>
+                  </div>
+                </div>
+                <h3 className="font-semibold text-slate-800 text-base">{step.title}</h3>
+                <p className="mt-2 text-xs text-slate-500 leading-relaxed">{step.description}</p>
+                <div className="mt-3 inline-flex items-center gap-1.5 text-[11px] text-teal-600 font-medium bg-teal-50 rounded-full px-3 py-1">
+                  <Icon name="beaker" className="w-3 h-3" />
+                  {step.details.slice(0, 50)}...
+                </div>
+              </motion.div>
+            ))}
+          </div>
 
-            <motion.div {...stagger} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {assessmentSteps.map((step, i) => (
-                <motion.div key={i} {...fadeUp} className="relative text-center lg:text-left">
-                  {/* Step number circle */}
-                  <div className="relative inline-flex items-center justify-center w-[52px] h-[52px] rounded-full bg-white border-2 border-teal-200 text-teal-600 font-bold text-sm mx-auto lg:mx-0 mb-4 z-10">
-                    {step.step}
-                    <div className="absolute inset-0 rounded-full bg-teal-50 scale-0 group-hover:scale-100 transition-transform duration-300" />
-                  </div>
-                  <h3 className="font-semibold text-slate-800 text-sm">{step.title}</h3>
-                  <p className="mt-2 text-xs text-slate-500 leading-relaxed">{step.description}</p>
-                  <div className="mt-3 text-[11px] text-teal-600/80 font-medium bg-teal-50/60 rounded px-2 py-1 inline-block">
-                    {step.details}
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
+          {/* Connecting line for desktop */}
+          <div className="hidden lg:block absolute top-[calc(50%-40px)] left-[12%] right-[12%] h-px">
+            <div className="w-full h-full bg-gradient-to-r from-transparent via-teal-200 to-transparent opacity-40" />
           </div>
         </div>
       </section>
 
-      {/* System Layers — Tiered protection model */}
-      <section className="py-20 sm:py-28 bg-[#E8F0FE]/40">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <motion.div {...fadeUp} className="text-center max-w-lg mx-auto">
-            <span className="text-[11px] font-semibold uppercase tracking-widest text-teal-600">Architecture</span>
+      {/* ─── SYSTEM ARCHITECTURE — Vertical tower ─── */}
+      <section className="py-24 sm:py-32 bg-[#E0F2FE]/30 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <motion.div {...fadeUp} className="text-center max-w-lg mx-auto mb-16">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-teal-600">Architecture</span>
             <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-slate-800 tracking-tight">The Healthy Home System</h2>
-            <p className="mt-3 text-sm text-slate-500 leading-relaxed">Four layers of protection, working together for truly clean indoor air.</p>
+            <p className="mt-3 text-sm text-slate-500 leading-relaxed">Four layers of protection, working in concert.</p>
           </motion.div>
 
-          <motion.div {...stagger} className="mt-14 grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-            {systemLayers.map((layer, i) => (
-              <motion.div key={i} {...fadeUp}
-                className="bg-white border border-slate-100 rounded-xl p-6 hover:border-teal-100 transition-colors duration-300 relative overflow-hidden">
-                {/* Layer number watermark */}
-                <div className="absolute top-3 right-4 text-5xl font-bold text-slate-50 leading-none select-none">{String(i + 1).padStart(2, '0')}</div>
-                <div className="relative">
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className="w-2 h-2 rounded-full bg-teal-500" />
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-teal-600">Layer {i + 1}</span>
-                  </div>
-                  <h3 className="font-semibold text-slate-800 text-base">{layer.name}</h3>
-                  <p className="text-xs text-slate-400 mt-1">{layer.description}</p>
-                  <ul className="mt-4 space-y-2">
-                    {layer.items.map((item, j) => (
-                      <li key={j} className="flex items-start gap-2 text-xs text-slate-600 leading-relaxed">
-                        <Icon name="check" className="w-3.5 h-3.5 text-teal-500 mt-0.5 shrink-0" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+          {/* Vertical stack */}
+          <div className="max-w-4xl mx-auto space-y-4">
+            {systemLayers.map((layer, i) => {
+              const gradients = [
+                'from-slate-800 to-slate-700',
+                'from-teal-700 to-teal-600',
+                'from-teal-600 to-cyan-500',
+                'from-cyan-500 to-sky-400',
+              ];
+              return (
+                <motion.div key={i} {...fadeUp} className="relative group">
+                  <div className={`relative rounded-2xl overflow-hidden bg-gradient-to-r ${gradients[i]} p-6 sm:p-8`}>
+                    {/* Background pattern */}
+                    <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
 
-      {/* Products — Spec cards, clinical precision */}
-      <section id="products" className="py-20 sm:py-28 bg-white">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <motion.div {...fadeUp} className="max-w-lg">
-            <span className="text-[11px] font-semibold uppercase tracking-widest text-teal-600">Equipment</span>
-            <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-slate-800 tracking-tight">Our Products</h2>
-            <p className="mt-3 text-sm text-slate-500 leading-relaxed">Professional-grade equipment selected for performance, reliability, and longevity.</p>
-          </motion.div>
+                    <div className="relative flex flex-col lg:flex-row lg:items-center gap-6">
+                      {/* Layer label */}
+                      <div className="lg:w-48 shrink-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                            <span className="text-[10px] font-bold text-white">{i + 1}</span>
+                          </div>
+                          <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/70">Layer {i + 1}</span>
+                        </div>
+                        <h3 className="font-bold text-white text-lg">{layer.name}</h3>
+                        <p className="text-xs text-white/60 mt-1">{layer.description}</p>
+                      </div>
 
-          <motion.div {...stagger} className="mt-12 grid md:grid-cols-2 gap-4">
-            {products.map((p, i) => (
-              <motion.div key={i} {...fadeUp}
-                className="border border-slate-100 rounded-xl p-6 hover:border-teal-100 hover:shadow-sm transition-all duration-300 bg-white group">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-teal-600">{p.category}</span>
-                    <h3 className="font-semibold text-slate-800 text-[15px] mt-1">{p.name}</h3>
-                  </div>
-                  <div className="flex items-center gap-1 text-[11px] font-medium text-slate-500 bg-slate-50 border border-slate-100 px-2.5 py-1 rounded-md whitespace-nowrap">
-                    <Icon name="home" className="w-3 h-3" />
-                    {p.coverage}
-                  </div>
-                </div>
-                <p className="text-xs text-slate-500 leading-relaxed mb-4">{p.description}</p>
-                <div className="border-t border-slate-50 pt-4 space-y-2">
-                  {p.features.map((f, j) => (
-                    <div key={j} className="flex items-start gap-2 text-xs text-slate-600">
-                      <div className="w-1 h-1 rounded-full bg-teal-500 mt-1.5 shrink-0" />
-                      {f}
+                      {/* Items */}
+                      <div className="flex-1 grid sm:grid-cols-2 gap-2">
+                        {layer.items.map((item, j) => (
+                          <div key={j} className="flex items-start gap-2 text-xs text-white/80 leading-relaxed">
+                            <Icon name="check" className="w-3.5 h-3.5 text-white/60 mt-0.5 shrink-0" />
+                            {item}
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+                  </div>
+
+                  {/* Connector arrow */}
+                  {i < systemLayers.length - 1 && (
+                    <div className="flex justify-center py-1">
+                      <div className="w-px h-6 bg-gradient-to-b from-teal-300 to-transparent" />
+                    </div>
+                  )}
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* FAQ — Clean accordion */}
-      <section id="faq" className="py-20 sm:py-28 bg-[#E8F0FE]/40">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <motion.div {...fadeUp} className="text-center max-w-lg mx-auto">
-            <span className="text-[11px] font-semibold uppercase tracking-widest text-teal-600">Reference</span>
-            <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-slate-800 tracking-tight">Frequently Asked Questions</h2>
+      {/* ─── PRODUCT SHOWCASE — Apple-style cards ─── */}
+      <section id="products" className="py-24 sm:py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <motion.div {...fadeUp} className="text-center max-w-lg mx-auto mb-16">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-teal-600">Equipment</span>
+            <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-slate-800 tracking-tight">Precision Instruments</h2>
+            <p className="mt-3 text-sm text-slate-500 leading-relaxed">Engineered for measurable air quality improvement.</p>
           </motion.div>
 
-          <div className="mt-12 max-w-2xl mx-auto space-y-2">
+          <div className="grid md:grid-cols-2 gap-6">
+            {products.map((p, i) => (
+              <motion.div key={i} {...scaleIn} className="group relative rounded-3xl overflow-hidden bg-slate-50 border border-slate-100 hover:border-teal-100 transition-all duration-500 hover:shadow-xl hover:shadow-teal-50">
+                {/* Product image */}
+                <div className="relative h-56 sm:h-64 overflow-hidden">
+                  <img src={productImages[i]} alt={p.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-50 via-transparent to-transparent" />
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-teal-700">{p.category}</span>
+                  </div>
+                </div>
+
+                {/* Product info */}
+                <div className="p-6 sm:p-8">
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="font-bold text-slate-800 text-lg leading-tight">{p.name}</h3>
+                    <div className="shrink-0 ml-4 flex items-center gap-1 text-[11px] font-medium text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full">
+                      <Icon name="home" className="w-3 h-3" />
+                      {p.coverage}
+                    </div>
+                  </div>
+                  <p className="text-sm text-slate-500 leading-relaxed mb-5">{p.description}</p>
+
+                  {/* Features */}
+                  <div className="space-y-2.5">
+                    {p.features.map((f, j) => (
+                      <div key={j} className="flex items-center gap-3 text-sm text-slate-600">
+                        <div className="w-5 h-5 rounded-full bg-teal-50 flex items-center justify-center shrink-0">
+                          <Icon name="check" className="w-3 h-3 text-teal-600" />
+                        </div>
+                        {f}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── FAQ — Minimal accordion ─── */}
+      <section id="faq" className="py-24 sm:py-32 bg-[#E0F2FE]/20">
+        <div className="max-w-3xl mx-auto px-5 sm:px-8">
+          <motion.div {...fadeUp} className="text-center mb-14">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-teal-600">Reference</span>
+            <h2 className="mt-3 text-3xl sm:text-4xl font-bold text-slate-800 tracking-tight">Questions & Answers</h2>
+          </motion.div>
+
+          <div className="space-y-3">
             {faq.map((item, i) => (
               <motion.div key={i} {...fadeUp}
-                className="bg-white border border-slate-100 rounded-lg overflow-hidden hover:border-teal-100 transition-colors">
+                className="bg-white rounded-xl border border-slate-100 overflow-hidden hover:border-teal-100 transition-colors duration-300">
                 <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between p-5 text-left cursor-pointer group">
-                  <span className="font-medium text-slate-800 text-sm pr-4 group-hover:text-teal-700 transition-colors">{item.question}</span>
-                  <motion.div animate={{ rotate: openFaq === i ? 180 : 0 }} transition={{ duration: 0.2 }}
+                  className="w-full flex items-center justify-between p-5 sm:p-6 text-left cursor-pointer group">
+                  <span className="font-medium text-slate-800 text-sm sm:text-[15px] pr-4 group-hover:text-teal-700 transition-colors">{item.question}</span>
+                  <motion.div animate={{ rotate: openFaq === i ? 180 : 0 }} transition={{ duration: 0.3, ease: 'easeOut' as const }}
                     className="shrink-0 text-slate-300 group-hover:text-teal-500 transition-colors">
                     <Icon name="arrowDown" className="w-4 h-4" />
                   </motion.div>
                 </button>
                 <AnimatePresence>
                   {openFaq === i && (
-                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] as const }}
-                      className="overflow-hidden">
-                      <p className="px-5 pb-5 text-sm text-slate-500 leading-relaxed border-t border-slate-50 pt-4">{item.answer}</p>
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: 'easeOut' as const }}
+                      className="overflow-hidden"
+                    >
+                      <p className="px-5 sm:px-6 pb-5 sm:pb-6 text-sm text-slate-500 leading-relaxed border-t border-slate-50 pt-4">{item.answer}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -363,112 +454,60 @@ export default function App() {
         </div>
       </section>
 
-      {/* CTA / Contact — Clean form */}
-      <section id="contact" className="py-20 sm:py-28 bg-white">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="max-w-4xl mx-auto grid lg:grid-cols-5 gap-10 lg:gap-14 items-start">
-            <motion.div {...fadeUp} className="lg:col-span-2">
-              <span className="text-[11px] font-semibold uppercase tracking-widest text-teal-600">Schedule</span>
-              <h2 className="mt-3 text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight">Book Your Assessment</h2>
-              <p className="mt-3 text-sm text-slate-500 leading-relaxed">Our comprehensive assessment identifies every IAQ issue in your home with a clear action plan.</p>
+      {/* ─── CTA — Full-width image background ─── */}
+      <section id="contact" className="relative py-32 sm:py-40 overflow-hidden">
+        <img src={IMG.cta} alt="Nature" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-slate-900/70" />
 
-              <div className="mt-6 space-y-2.5">
-                {['60-90 minute in-home visit', 'Real-time air quality readings', 'Written report within 48 hours', 'Personalized recommendations', 'Follow-up testing included'].map((item, i) => (
-                  <div key={i} className="flex items-center gap-2 text-sm text-slate-600">
-                    <Icon name="check" className="w-3.5 h-3.5 text-teal-500 shrink-0" />
-                    {item}
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-8 p-4 bg-[#E8F0FE]/60 rounded-lg border border-teal-50">
-                <p className="text-[11px] text-slate-400 uppercase tracking-wider font-medium">Or call directly</p>
-                <a href="tel:+177****0941" className="text-lg font-bold text-teal-700 hover:text-teal-800 transition-colors">{siteInfo.phone}</a>
-              </div>
-            </motion.div>
-
-            <motion.div {...fadeUp} className="lg:col-span-3 bg-white border border-slate-100 rounded-xl p-6 sm:p-8 shadow-sm">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">First Name</label>
-                  <input type="text" placeholder="Jane"
-                    className="w-full px-3.5 py-2.5 border border-slate-200 rounded-md text-sm focus:outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-50 transition-all bg-white" />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Last Name</label>
-                  <input type="text" placeholder="Doe"
-                    className="w-full px-3.5 py-2.5 border border-slate-200 rounded-md text-sm focus:outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-50 transition-all bg-white" />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Email</label>
-                  <input type="email" placeholder="jane@example.com"
-                    className="w-full px-3.5 py-2.5 border border-slate-200 rounded-md text-sm focus:outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-50 transition-all bg-white" />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Phone</label>
-                  <input type="tel" placeholder="(773) 555-0941"
-                    className="w-full px-3.5 py-2.5 border border-slate-200 rounded-md text-sm focus:outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-50 transition-all bg-white" />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Primary Concern</label>
-                  <select className="w-full px-3.5 py-2.5 border border-slate-200 rounded-md text-sm focus:outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-50 transition-all bg-white text-slate-600">
-                    {['Excess Dust', 'Seasonal Allergies', 'Humidity Issues', 'Mold / Mildew', 'Persistent Odors', 'Poor Ventilation', 'General Assessment'].map(o => <option key={o}>{o}</option>)}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Home Sq. Footage</label>
-                  <input type="text" placeholder="e.g. 2,500 sq ft"
-                    className="w-full px-3.5 py-2.5 border border-slate-200 rounded-md text-sm focus:outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-50 transition-all bg-white" />
-                </div>
-              </div>
-              <motion.button whileHover={{ scale: 1.005 }} whileTap={{ scale: 0.995 }}
-                className="mt-5 w-full inline-flex items-center justify-center gap-2 bg-teal-600 text-white font-semibold px-6 py-3 rounded-md hover:bg-teal-700 transition-colors text-sm cursor-pointer">
-                Book Assessment <Icon name="arrow" className="w-4 h-4" />
-              </motion.button>
-              <p className="text-[11px] text-slate-400 text-center mt-3">Free assessment includes written report and recommendations.</p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Bottom CTA Banner */}
-      <section className="py-16 bg-slate-800 text-white">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 text-center">
+        <div className="relative z-10 max-w-3xl mx-auto px-5 sm:px-8 text-center">
           <motion.div {...fadeUp}>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Start breathing cleaner air today.</h2>
-            <p className="mt-3 text-sm text-slate-300">Book your assessment and take the first step toward a healthier home.</p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <a href="#contact" className="inline-flex items-center gap-2 bg-teal-600 text-white font-semibold px-6 py-3 rounded-md hover:bg-teal-700 transition-colors text-sm">
-                <Icon name="clipboard" className="w-4 h-4" /> Book Assessment
-              </a>
-              <a href="tel:+177****0941" className="inline-flex items-center gap-2 border border-slate-600 text-slate-300 font-medium px-6 py-3 rounded-md hover:bg-white/5 hover:border-slate-500 transition-all text-sm">
+            <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-teal-300 mb-6">
+              <Icon name="shield" className="w-4 h-4" />
+              Begin Your Assessment
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
+              Start breathing<br />cleaner air today.
+            </h2>
+            <p className="mt-5 text-base text-slate-300 max-w-md mx-auto leading-relaxed">
+              Our comprehensive assessment identifies every air quality issue in your home with a clear, data-driven action plan.
+            </p>
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a href="tel:+17735550941" className="inline-flex items-center gap-2 bg-teal-600 text-white font-semibold px-8 py-4 rounded-full hover:bg-teal-700 transition-colors text-sm shadow-lg shadow-teal-900/30">
                 <Icon name="phone" className="w-4 h-4" /> {siteInfo.phone}
               </a>
+              <a href={`mailto:${siteInfo.email}`} className="inline-flex items-center gap-2 border border-white/30 text-white font-medium px-8 py-4 rounded-full hover:bg-white/10 transition-all text-sm">
+                <Icon name="arrow" className="w-4 h-4" /> Email Us
+              </a>
+            </div>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400">
+              <span className="flex items-center gap-1.5"><Icon name="check" className="w-3 h-3 text-teal-400" /> Free assessment</span>
+              <span className="flex items-center gap-1.5"><Icon name="check" className="w-3 h-3 text-teal-400" /> Written report in 48hrs</span>
+              <span className="flex items-center gap-1.5"><Icon name="check" className="w-3 h-3 text-teal-400" /> Follow-up testing</span>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 py-10">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6">
+      {/* ─── FOOTER ─── */}
+      <footer className="bg-slate-900 py-12">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-8">
             <div>
               <div className="flex items-center gap-2.5">
-                <div className="w-7 h-7 rounded-full bg-teal-600 flex items-center justify-center">
-                  <Icon name="wind" className="w-3.5 h-3.5 text-white" />
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center">
+                  <Icon name="wind" className="w-4 h-4 text-white" />
                 </div>
-                <span className="font-semibold text-[15px] text-white tracking-tight">PureAir Indoor Comfort</span>
+                <span className="font-semibold text-[15px] text-white tracking-tight">PureAir</span>
               </div>
               <p className="text-xs text-slate-500 mt-2">{siteInfo.shortTagline}</p>
             </div>
-            <div className="text-right space-y-1">
+            <div className="text-right space-y-1.5">
               <p className="text-xs text-slate-500">{siteInfo.address}</p>
               <p className="text-xs text-slate-500">Mon-Fri 7am-6pm | Sat 8am-2pm</p>
               <p className="text-sm font-semibold text-teal-400">{siteInfo.phone}</p>
             </div>
           </div>
-          <div className="mt-8 pt-6 border-t border-slate-800 text-center text-[11px] text-slate-600">
+          <div className="mt-10 pt-6 border-t border-slate-800 text-center text-[11px] text-slate-600">
             &copy; {new Date().getFullYear()} PureAir Indoor Comfort. All rights reserved.
           </div>
         </div>
