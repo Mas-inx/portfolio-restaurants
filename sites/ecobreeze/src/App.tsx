@@ -7,7 +7,7 @@ const fadeUp = {
   initial: { opacity: 0, y: 40 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
 };
 const stagger = {
   whileInView: { transition: { staggerChildren: 0.1 } },
@@ -17,7 +17,7 @@ const scaleIn = {
   initial: { opacity: 0, scale: 0.9 },
   whileInView: { opacity: 1, scale: 1 },
   viewport: { once: true },
-  transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
 };
 
 /* ─── Inline SVG Icons ─── */
@@ -222,7 +222,7 @@ export default function App() {
         <div className="relative max-w-7xl mx-auto px-5 sm:px-8 w-full py-16 sm:py-20">
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-16 items-center">
             {/* Left: Content */}
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }}>
               {/* Efficiency badge */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}

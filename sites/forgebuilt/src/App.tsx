@@ -95,7 +95,6 @@ function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: str
 
   useEffect(() => {
     if (!inView) return
-    let start = 0
     const duration = 2000
     const startTime = Date.now()
     const tick = () => {
@@ -133,7 +132,7 @@ function Navigation() {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
             ? 'bg-[#1A1A2E]/95 backdrop-blur-md border-b border-[#C47A2E]/20'
@@ -482,7 +481,7 @@ function FeaturedProjects() {
                   animate={{
                     scale: activeProject === i ? 1.08 : 1,
                   }}
-                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
                 />
 
                 {/* Overlay */}

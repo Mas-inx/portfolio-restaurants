@@ -6,7 +6,7 @@ const fadeUp = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
 };
 
 const stagger = {
@@ -351,7 +351,7 @@ export default function App() {
                 </button>
                 <AnimatePresence>
                   {openFaq === i && (
-                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] as const }}
                       className="overflow-hidden">
                       <p className="px-5 pb-5 text-sm text-slate-500 leading-relaxed border-t border-slate-50 pt-4">{item.answer}</p>
                     </motion.div>

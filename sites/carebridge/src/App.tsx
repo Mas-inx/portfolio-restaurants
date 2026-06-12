@@ -3,7 +3,7 @@ import { careServices, whoWeHelp, careMatchingSteps, trustBadges, familyUpdates,
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const } },
 };
 
 const staggerContainer = {
@@ -12,7 +12,7 @@ const staggerContainer = {
 };
 
 // Inline SVG Icons
-const icons: Record<string, JSX.Element> = {
+const icons: Record<string, React.ReactNode> = {
   nursing: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
       <path d="M4.8 2.3A.3.3 0 105 2H4a2 2 0 00-2 2v5a6 6 0 006 6 6 6 0 006-6V4a2 2 0 00-2-2h-1a.2.2 0 10.3.3" />

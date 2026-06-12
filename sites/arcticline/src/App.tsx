@@ -88,7 +88,7 @@ const icons = {
   ),
 };
 
-const iconMap: Record<string, JSX.Element> = {
+const iconMap: Record<string, React.ReactNode> = {
   snowflake: icons.snowflake,
   wind: icons.wind,
   thermometer: icons.thermometer,
@@ -158,7 +158,7 @@ function App() {
               variants={staggerContainer}
               className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-16"
             >
-              {services.slice(0, 3).map((service, index) => (
+              {services.slice(0, 3).map((service, _index) => (
                 <motion.div
                   key={service.id}
                   variants={fadeInUp}

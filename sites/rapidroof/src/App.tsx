@@ -61,12 +61,6 @@ const WrenchIcon = () => (
   </svg>
 )
 
-const DropletIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.25c-1.5 3-6 7.5-6 11.25a6 6 0 1012 0c0-3.75-4.5-8.25-6-11.25z" />
-  </svg>
-)
-
 const BoltIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7">
     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
@@ -108,12 +102,6 @@ const HomeIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7">
     <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l9.75-8.25 9.75 8.25M4.5 10.5v9.75a.75.75 0 00.75.75h2.25" />
     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5v9.75a.75.75 0 01-.75.75h-2.25M9 20.25V14.25a.75.75 0 01.75-.75h4.5a.75.75 0 01.75.75v6" />
-  </svg>
-)
-
-const LayersIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
   </svg>
 )
 

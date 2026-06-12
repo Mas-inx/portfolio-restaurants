@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence, useInView, useMotionValue, useTransform, animate } from 'framer-motion'
+import { motion, AnimatePresence, useInView, animate } from 'framer-motion'
 import {
   conditions,
   recoveryStages,
@@ -66,7 +66,7 @@ function Counter({ target, duration = 2 }: { target: number; duration?: number }
     if (!inView) return
     const controls = animate(0, target, {
       duration,
-      ease: [0.25, 0.1, 0.25, 1],
+      ease: [0.25, 0.1, 0.25, 1] as const,
       onUpdate: (v) => setVal(Math.round(v)),
     })
     return () => controls.stop()
@@ -222,7 +222,7 @@ function Hero() {
           <div className="lg:col-span-7">
             <motion.div
               initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }}
             >
               <div className="inline-flex items-center gap-2 mb-6">
                 <motion.div animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 2, repeat: Infinity }}
@@ -364,7 +364,7 @@ function Conditions() {
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
-                transition={{ delay: i * 0.08, duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+                transition={{ delay: i * 0.08, duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const }}
                 whileHover={{ y: -8, transition: { duration: 0.2 } }}
                 className="group relative rounded-2xl bg-[#F5F3F0] p-6 cursor-pointer overflow-hidden"
               >
@@ -521,7 +521,7 @@ function RecoveryPlan() {
           <div className="w-full h-2 rounded-full bg-[#F5F3F0] overflow-hidden">
             <motion.div
               animate={{ width: `${progress}%` }}
-              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const }}
               className="h-full rounded-full bg-gradient-to-r from-[#1E88E5] to-[#0D9488]"
             />
           </div>
@@ -671,7 +671,7 @@ function ProgressDashboard() {
                     initial={{ width: 0 }}
                     whileInView={{ width: `${barWidth}%` }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1.2, delay: 0.3 + i * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+                    transition={{ duration: 1.2, delay: 0.3 + i * 0.1, ease: [0.25, 0.1, 0.25, 1] as const }}
                     className={`h-full rounded-full ${
                       m.label === 'Pain Level'
                         ? 'bg-gradient-to-r from-[#0D9488] to-[#1E88E5]'
