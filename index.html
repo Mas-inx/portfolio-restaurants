@@ -3,240 +3,132 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AsyncTech — Portfolio Directory</title>
+  <title>AsyncTech Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: #0a0a0b;
-      color: #f0eee9;
-      line-height: 1.5;
-      min-height: 100vh;
-    }
-    .bg-noise {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      opacity: 0.035;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-
-    header {
-      text-align: center;
-      padding: 60px 24px 40px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    header h1 {
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-    header h1 span { color: #6c5ce7; }
-    header p {
-      margin-top: 10px;
-      color: rgba(240,238,233,0.5);
-      font-size: 15px;
-      font-weight: 400;
-    }
-    .count-badge {
-      display: inline-block;
-      margin-top: 14px;
-      padding: 5px 14px;
-      border-radius: 100px;
-      background: rgba(108,92,231,0.12);
-      border: 1px solid rgba(108,92,231,0.25);
-      color: #a29bfe;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .container { max-width: 1200px; margin: 0 auto; padding: 32px 20px 80px; }
-
-    .niche { margin-bottom: 44px; }
-    .niche-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    .niche-header .emoji { font-size: 22px; }
-    .niche-header h2 {
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: -0.3px;
-    }
-    .niche-header .count {
-      font-size: 12px;
-      color: rgba(240,238,233,0.3);
-      font-weight: 500;
-      margin-left: 4px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-      gap: 10px;
-    }
-
-    .card {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      padding: 16px 18px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.2s ease;
-      overflow: hidden;
-    }
-    .card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 10px;
-      opacity: 0;
-      transition: opacity 0.25s ease;
-      background: linear-gradient(135deg, rgba(108,92,231,0.08) 0%, transparent 60%);
-    }
-    .card:hover {
-      border-color: rgba(108,92,231,0.25);
-      transform: translateY(-2px);
-    }
-    .card:hover::before { opacity: 1; }
-    .card-name {
-      font-size: 14px;
-      font-weight: 600;
-      position: relative;
-      z-index: 1;
-    }
-    .card-tagline {
-      font-size: 12px;
-      color: rgba(240,238,233,0.4);
-      margin-top: 3px;
-      position: relative;
-      z-index: 1;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .card-path {
-      font-size: 11px;
-      color: rgba(108,92,231,0.45);
-      margin-top: 8px;
-      font-family: 'SF Mono', 'Fira Code', monospace;
-      position: relative;
-      z-index: 1;
-    }
-
-    @media (max-width: 640px) {
-      header { padding: 40px 16px 28px; }
-      header h1 { font-size: 22px; }
-      .container { padding: 20px 14px 60px; }
-      .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; }
-      .card { padding: 13px 14px; }
-    }
+    body { font-family: 'Inter', sans-serif; background: #080808; color: #fff; min-height: 100vh; padding: 3rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
+    .subtitle { color: #666; font-size: 1.1rem; margin-bottom: 3rem; }
+    .niche { margin-bottom: 2.5rem; }
+    h2 { font-size: 1.25rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }
+    .site-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.75rem; }
+    .site-link { display: block; padding: 1rem 1.25rem; background: #121212; border: 1px solid #1e1e1e; border-radius: 10px; color: #eee; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: all 0.2s ease; }
+    .site-link:hover { background: #1a1a1a; border-color: #333; transform: translateY(-2px); }
   </style>
 </head>
 <body>
-<div class="bg-noise"></div>
+  <div class="container">
+    <h1>AsyncTech Portfolio</h1>
+    <p class="subtitle">60 one-page websites across 9 categories — built with React + Vite + TypeScript</p>
+        <div class="niche">
+          <h2>Batch 1 Originals (15)</h2>
+          <div class="site-grid">
+            <a href="/restaurant-1/" class="site-link">Restaurant 1</a>
+            <a href="/fireline-burgers/" class="site-link">Fireline Burgers</a>
+            <a href="/olive-grain/" class="site-link">Olive Grain</a>
+            <a href="/kairo-sushi/" class="site-link">Kairo Sushi</a>
+            <a href="/harvest-room/" class="site-link">Harvest Room</a>
+            <a href="/verdant-studio/" class="site-link">Verdant Studio</a>
+            <a href="/yardcrew/" class="site-link">Yardcrew</a>
+            <a href="/stone-bloom/" class="site-link">Stone Bloom</a>
+            <a href="/desertline/" class="site-link">Desertline</a>
+            <a href="/greenline-commercial/" class="site-link">Greenline Commercial</a>
+            <a href="/forgebuilt/" class="site-link">Forgebuilt</a>
+            <a href="/haven-renovations/" class="site-link">Haven Renovations</a>
+            <a href="/steelspan/" class="site-link">Steelspan</a>
+            <a href="/rapidroof/" class="site-link">Rapidroof</a>
+            <a href="/terraform-civil/" class="site-link">Terraform Civil</a>
+          </div>
+        </div>
+        <div class="niche">
+          <h2>Batch 1 — Healthcare & HVAC (10)</h2>
+          <div class="site-grid">
+            <a href="/lumina-clinic/" class="site-link">Lumina Clinic</a>
+            <a href="/pulsepoint/" class="site-link">Pulsepoint</a>
+            <a href="/align-motion/" class="site-link">Align Motion</a>
+            <a href="/serenity-dental/" class="site-link">Serenity Dental</a>
+            <a href="/carebridge/" class="site-link">Carebridge</a>
+            <a href="/arcticline/" class="site-link">Arcticline</a>
+            <a href="/heatwave-emergency/" class="site-link">Heatwave Emergency</a>
+            <a href="/ecobreeze/" class="site-link">Ecobreeze</a>
+            <a href="/ductpro/" class="site-link">Ductpro</a>
+            <a href="/pureair/" class="site-link">Pureair</a>
+          </div>
+        </div>
+        <div class="niche">
+          <h2>Batch 1 — Real Estate & More (5)</h2>
+          <div class="site-grid">
+            <a href="/atelier-estates/" class="site-link">Atelier Estates</a>
+            <a href="/nestfirst/" class="site-link">Nestfirst</a>
+            <a href="/urbangrid/" class="site-link">Urbangrid</a>
+            <a href="/keystone-property/" class="site-link">Keystone Property</a>
+            <a href="/stayvista/" class="site-link">Stayvista</a>
+          </div>
+        </div>
+        <div class="niche">
+          <h2>Batch 2 — Restaurants (5)</h2>
+          <div class="site-grid">
+            <a href="/ember-archive/" class="site-link">Ember Archive</a>
+            <a href="/neon-noodle-supply/" class="site-link">Neon Noodle Supply</a>
+            <a href="/laurel-house/" class="site-link">Laurel House</a>
+            <a href="/dockside-oyster-club/" class="site-link">Dockside Oyster Club</a>
+            <a href="/monochrome-cafe/" class="site-link">Monochrome Cafe</a>
+          </div>
+        </div>
+        <div class="niche">
+          <h2>Batch 2 — Landscaping (5)</h2>
+          <div class="site-grid">
+            <a href="/canopy-atelier/" class="site-link">Canopy Atelier</a>
+            <a href="/rootops/" class="site-link">Rootops</a>
+            <a href="/terraforma-outdoor-works/" class="site-link">Terraforma Outdoor Works</a>
+            <a href="/nativeline-landscapes/" class="site-link">Nativeline Landscapes</a>
+            <a href="/grounds-command/" class="site-link">Grounds Command</a>
+          </div>
+        </div>
+        <div class="niche">
+          <h2>Batch 2 — Construction (5)</h2>
+          <div class="site-grid">
+            <a href="/ironline-builders/" class="site-link">Ironline Builders</a>
+            <a href="/maison-works/" class="site-link">Maison Works</a>
+            <a href="/yardage-industrial/" class="site-link">Yardage Industrial</a>
+            <a href="/bluepeak-exteriors/" class="site-link">Bluepeak Exteriors</a>
+            <a href="/gradezero-civil/" class="site-link">Gradezero Civil</a>
+          </div>
+        </div>
+        <div class="niche">
+          <h2>Batch 2 — Healthcare (5)</h2>
+          <div class="site-grid">
+            <a href="/meridian-primary/" class="site-link">Meridian Primary</a>
+            <a href="/rapidwell-clinic/" class="site-link">Rapidwell Clinic</a>
+            <a href="/kineticlab-rehab/" class="site-link">Kineticlab Rehab</a>
+            <a href="/ivory-dental-house/" class="site-link">Ivory Dental House</a>
+            <a href="/homeharbor-care/" class="site-link">Homeharbor Care</a>
+          </div>
+        </div>
+        <div class="niche">
+          <h2>Batch 2 — HVAC (5)</h2>
+          <div class="site-grid">
+            <a href="/celsius-command/" class="site-link">Celsius Command</a>
+            <a href="/nightshift-hvac/" class="site-link">Nightshift Hvac</a>
+            <a href="/verdant-air-systems/" class="site-link">Verdant Air Systems</a>
+            <a href="/plantroom-mechanical/" class="site-link">Plantroom Mechanical</a>
+            <a href="/clearflow-air/" class="site-link">Clearflow Air</a>
+          </div>
+        </div>
+        <div class="niche">
+          <h2>Batch 2 — Real Estate (5)</h2>
+          <div class="site-grid">
+            <a href="/blackstone-residences/" class="site-link">Blackstone Residences</a>
+            <a href="/homemap-studio/" class="site-link">Homemap Studio</a>
+            <a href="/gridhaus/" class="site-link">Gridhaus</a>
+            <a href="/axis-commercial/" class="site-link">Axis Commercial</a>
+            <a href="/hostledger/" class="site-link">Hostledger</a>
+          </div>
+        </div>
 
-<header>
-  <h1>AsyncTech <span>Portfolio</span></h1>
-  <p>30 premium single-page websites — built with React, Vite, Tailwind & Framer Motion</p>
-  <div class="count-badge">30 sites · 6 industries</div>
-</header>
-
-<div class="container" id="app"></div>
-
-<script>
-const niches = [
-  {
-    emoji: '🌿', name: 'Restaurants',
-    sites: [
-      { name: 'Nocturne Table', tagline: 'A quieter kind of dining', path: '/restaurant-1/' },
-      { name: 'Fireline Burgers', tagline: 'Built Hot. Served Loud.', path: '/fireline-burgers/' },
-      { name: 'Olive & Grain', tagline: 'Mediterranean Café', path: '/olive-grain/' },
-      { name: 'Kairo Sushi Bar', tagline: 'Minimal Japanese Dining', path: '/kairo-sushi/' },
-      { name: 'Harvest Room', tagline: 'Farm-to-Table Restaurant', path: '/harvest-room/' },
-    ]
-  },
-  {
-    emoji: '🌳', name: 'Landscaping',
-    sites: [
-      { name: 'Verdant Studio', tagline: 'Luxury Landscape Design', path: '/verdant-studio/' },
-      { name: 'YardCrew', tagline: 'Fast Local Lawn Care', path: '/yardcrew/' },
-      { name: 'Stone & Bloom', tagline: 'Hardscaping & Outdoor Living', path: '/stone-bloom/' },
-      { name: 'DesertLine', tagline: 'Drought-Resistant Landscaping', path: '/desertline/' },
-      { name: 'Greenline Commercial', tagline: 'Commercial Grounds', path: '/greenline-commercial/' },
-    ]
-  },
-  {
-    emoji: '🏗️', name: 'Construction',
-    sites: [
-      { name: 'ForgeBuilt', tagline: 'Modern General Contractor', path: '/forgebuilt/' },
-      { name: 'Haven Renovations', tagline: 'Premium Home Remodeling', path: '/haven-renovations/' },
-      { name: 'SteelSpan', tagline: 'Commercial Builders', path: '/steelspan/' },
-      { name: 'RapidRoof', tagline: 'Roofing & Exterior Repairs', path: '/rapidroof/' },
-      { name: 'TerraForm Civil', tagline: 'Sitework & Land Dev', path: '/terraform-civil/' },
-    ]
-  },
-  {
-    emoji: '🏥', name: 'Healthcare',
-    sites: [
-      { name: 'Lumina Family Clinic', tagline: 'Modern Primary Care', path: '/lumina-clinic/' },
-      { name: 'PulsePoint Urgent Care', tagline: 'Fast Walk-In Clinic', path: '/pulsepoint/' },
-      { name: 'Align & Motion PT', tagline: 'Physical Therapy', path: '/align-motion/' },
-      { name: 'Serenity Dental Studio', tagline: 'Premium Dental Clinic', path: '/serenity-dental/' },
-      { name: 'CareBridge Home Health', tagline: 'Home Healthcare', path: '/carebridge/' },
-    ]
-  },
-  {
-    emoji: '❄️', name: 'HVAC',
-    sites: [
-      { name: 'ArcticLine HVAC', tagline: 'Premium Residential HVAC', path: '/arcticline/' },
-      { name: 'Heatwave Emergency', tagline: '24/7 Urgent Repair', path: '/heatwave-emergency/' },
-      { name: 'EcoBreeze', tagline: 'Energy-Efficient HVAC', path: '/ecobreeze/' },
-      { name: 'DuctPro', tagline: 'Commercial HVAC', path: '/ductpro/' },
-      { name: 'PureAir', tagline: 'Indoor Air Quality', path: '/pureair/' },
-    ]
-  },
-  {
-    emoji: '🏡', name: 'Real Estate',
-    sites: [
-      { name: 'Atelier Estates', tagline: 'Luxury Real Estate', path: '/atelier-estates/' },
-      { name: 'NestFirst Realty', tagline: 'Family Home Agency', path: '/nestfirst/' },
-      { name: 'UrbanGrid', tagline: 'Apartment Leasing', path: '/urbangrid/' },
-      { name: 'Keystone Property', tagline: 'Commercial RE', path: '/keystone-property/' },
-      { name: 'StayVista Homes', tagline: 'Short-Term Rentals', path: '/stayvista/' },
-    ]
-  },
-];
-
-const app = document.getElementById('app');
-let html = '';
-for (const niche of niches) {
-  html += `<div class="niche">
-    <div class="niche-header">
-      <span class="emoji">${niche.emoji}</span>
-      <h2>${niche.name}</h2>
-      <span class="count">${niche.sites.length}</span>
-    </div>
-    <div class="grid">`;
-  for (const site of niche.sites) {
-    html += `<a href="${site.path}" class="card">
-      <div class="card-name">${site.name}</div>
-      <div class="card-tagline">${site.tagline}</div>
-      <div class="card-path">${site.path}</div>
-    </a>`;
-  }
-  html += `</div></div>`;
-}
-app.innerHTML = html;
-</script>
+  </div>
 </body>
 </html>
